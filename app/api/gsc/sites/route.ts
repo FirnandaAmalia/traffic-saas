@@ -4,28 +4,50 @@ import { getSearchConsoleSites } from "@/lib/gsc-client";
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
 
-    console.log("SESSION =", JSON.stringify(session, null, 2));
+    const session =
+      await getServerSession(
+        authOptions
+      );
 
-    if (!session?.accessToken) {
+    if (!session?.refreshToken) {
+
       return Response.json(
-        { error: "Not authenticated" },
-        { status: 401 }
+        {
+          error:
+            "Not authenticated",
+        },
+        {
+          status: 401,
+        }
       );
     }
 
-    const sites = await getSearchConsoleSites(
-      session.accessToken as string
+    const sites =
+      await getSearchConsoleSites(
+        session.refreshToken as string
+      );
+
+    return Response.json({
+      success: true,
+      sites,
+    });
+
+  } catch (error) {
+
+    console.error(
+      "GSC ERROR =",
+      error
     );
 
-    return Response.json(sites);
-  } catch (error) {
-    console.error("GSC ERROR =", error);
-
     return Response.json(
-      { error: String(error) },
-      { status: 500 }
+      {
+        success: false,
+        error: String(error),
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
