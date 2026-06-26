@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { prisma } from "@/lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 
 import {
@@ -16,7 +17,13 @@ import {
 import TrafficChart from "@/components/charts/TrafficChart";
 
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    projectId?: string;
+  }>;
+}) {
 
   const session =
     await getServerSession(
@@ -39,9 +46,38 @@ export default async function Dashboard() {
 
   }
 
+const { projectId } =
+  await searchParams;
 
-  const refreshToken =
-    session.refreshToken as string;
+if (!projectId) {
+  return (
+    <main className="p-10">
+      <h1>
+        Project tidak ditemukan
+      </h1>
+    </main>
+  );
+}
+
+const project =
+  await prisma.project.findUnique({
+    where: {
+      id: projectId,
+    },
+  });
+
+if (!project) {
+  return (
+    <main className="p-10">
+      <h1>
+        Project tidak ditemukan
+      </h1>
+    </main>
+  );
+}
+
+const refreshToken =
+  session.refreshToken as string;
 
 
 
@@ -94,32 +130,32 @@ export default async function Dashboard() {
 
     getSearchConsoleSummary(
       refreshToken,
-      "sc-domain:yaplegal.id"
+      project.gscSiteUrl
     ),
 
     getTopQueries(
       refreshToken,
-      "sc-domain:yaplegal.id"
+      project.gscSiteUrl
     ),
 
     getTopPages(
       refreshToken,
-      "sc-domain:yaplegal.id"
+      project.gscSiteUrl
     ),
 
     getGA4Summary(
       refreshToken,
-      "530690262"
+      project.ga4PropertyId
     ),
 
     getSearchConsoleHistory(
       refreshToken,
-      "sc-domain:yaplegal.id"
+      project.gscSiteUrl
     ),
 
     getGA4History(
       refreshToken,
-      "530690262"
+      project.ga4PropertyId
     ),
 
   ]);
@@ -243,8 +279,13 @@ export default async function Dashboard() {
   return (
     <main className="p-10">
       <h1 className="mb-8 text-3xl font-bold">
-        YAPLegal SEO Dashboard 🚀
+        {project.projectName} Dashboard 
       </h1>
+      <p className="mb-8 text-gray-500">
+  GSC: {project.gscSiteUrl}
+  <br />
+  GA4: {project.ga4PropertyId}
+</p>
 
       <div className="grid grid-cols-3 gap-6">
         <div className="rounded-lg border p-6">
