@@ -1,21 +1,31 @@
 import { getServerSession } from "next-auth";
-import { prisma } from "@/lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 
-import {
-  getSearchConsoleSummary,
-  getTopQueries,
-  getTopPages,
-  getSearchConsoleHistory,
-} from "@/lib/gsc-client";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
+import MetricGrid from "@/components/dashboard/metric-grid";
+import GA4Section from "@/components/dashboard/ga4-section";
+import DataTable from "@/components/dashboard/data-table";
+import ChartSection from "@/components/dashboard/chart-section";
 
 import {
-  getGA4Summary,
-  getGA4History,
-} from "@/lib/ga4-client";
+  getProject,
+} from "@/lib/project-service";
 
-import TrafficChart from "@/components/charts/TrafficChart";
+import {
+  getDashboardData,
+} from "@/lib/dashboard-service";
 
+import {
+  formatGSCHistory,
+} from "@/lib/formatters/gsc";
+
+import {
+  formatGA4History,
+} from "@/lib/formatters/ga4";
+
+import {
+  calculateCTR,
+} from "@/lib/utils";
 
 export default async function Dashboard({
   searchParams,
@@ -24,242 +34,71 @@ export default async function Dashboard({
     projectId?: string;
   }>;
 }) {
-
   const session =
     await getServerSession(
       authOptions
     );
 
   if (!session?.refreshToken) {
-
     return (
-
       <main className="p-10">
-
         <h1>
           Silakan login terlebih dahulu
         </h1>
-
       </main>
-
     );
-
   }
 
-const { projectId } =
-  await searchParams;
+  const { projectId } =
+    await searchParams;
 
-if (!projectId) {
-  return (
-    <main className="p-10">
-      <h1>
-        Project tidak ditemukan
-      </h1>
-    </main>
-  );
-}
+  if (!projectId) {
+    return (
+      <main className="p-10">
+        <h1>
+          Project tidak ditemukan
+        </h1>
+      </main>
+    );
+  }
 
-const project =
-  await prisma.project.findUnique({
-    where: {
-      id: projectId,
-    },
-  });
+  const project =
+    await getProject(projectId);
 
-if (!project) {
-  return (
-    <main className="p-10">
-      <h1>
-        Project tidak ditemukan
-      </h1>
-    </main>
-  );
-}
+  if (!project) {
+    return (
+      <main className="p-10">
+        <h1>
+          Project tidak ditemukan
+        </h1>
+      </main>
+    );
+  }
 
-const refreshToken =
-  session.refreshToken as string;
+  const refreshToken =
+    session.refreshToken as string;
 
-
-
-  let data = {
-
-    clicks: 0,
-
-    impressions: 0,
-
-  };
-
-
-  let queries: any[] = [];
-
-
-  let pages: any[] = [];
-
-
-  let ga4 = {
-
-    users: 0,
-
-    sessions: 0,
-
-    pageViews: 0,
-
-    engagementRate: 0,
-
-  };
-
-
-  let gscHistory: any[] = [];
-
-
-  let ga4History: any[] = [];
-
-
-
-  try {
-    
-  [
+  const {
     data,
     queries,
     pages,
     ga4,
     gscHistory,
     ga4History,
-
-  ] = await Promise.all([
-
-    getSearchConsoleSummary(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-
-    getTopQueries(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-
-    getTopPages(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-
-    getGA4Summary(
-      refreshToken,
-      project.ga4PropertyId
-    ),
-
-    getSearchConsoleHistory(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-
-    getGA4History(
-      refreshToken,
-      project.ga4PropertyId
-    ),
-
-  ]);
-
-} catch (error) {
-
-  console.error(
-    "DASHBOARD ERROR:",
-    error
+  } = await getDashboardData(
+    refreshToken,
+    project
   );
 
-}
+  const clicksHistory =
+    formatGSCHistory(
+      gscHistory
+    );
 
-  const clicksHistory = gscHistory.map(
-  (item: any) => {
-    const raw =
-      item.keys?.[0] || "";
-
-    const parts =
-      raw.split("-");
-
-    const month =
-      parts[1];
-
-    const day =
-      parts[2];
-
-    const monthMap: Record<
-      string,
-      string
-    > = {
-      "01": "Jan",
-      "02": "Feb",
-      "03": "Mar",
-      "04": "Apr",
-      "05": "Mei",
-      "06": "Jun",
-      "07": "Jul",
-      "08": "Agu",
-      "09": "Sep",
-      "10": "Okt",
-      "11": "Nov",
-      "12": "Des",
-    };
-
-    return {
-      date: `${day} ${monthMap[month]}`,
-
-      clicks: Number(
-        item.clicks || 0
-      ),
-
-      impressions: Number(
-        item.impressions || 0
-      ),
-    };
-  }
-);
-
-  const usersHistory = ga4History
-  .map((item: any) => {
-    const raw =
-      item.dimensionValues?.[0]?.value || "";
-
-    const month = raw.slice(4, 6);
-    const day = raw.slice(6, 8);
-
-    const monthMap: Record<
-      string,
-      string
-    > = {
-      "01": "Jan",
-      "02": "Feb",
-      "03": "Mar",
-      "04": "Apr",
-      "05": "Mei",
-      "06": "Jun",
-      "07": "Jul",
-      "08": "Agu",
-      "09": "Sep",
-      "10": "Okt",
-      "11": "Nov",
-      "12": "Des",
-    };
-
-    return {
-      rawDate: raw,
-
-      date: `${day} ${monthMap[month]}`,
-
-      users: Number(
-        item.metricValues?.[0]?.value || 0
-      ),
-
-      sessions: Number(
-        item.metricValues?.[1]?.value || 0
-      ),
-    };
-  })
-  .sort(
-    (a: any, b: any) =>
-      Number(a.rawDate) -
-      Number(b.rawDate)
-  );
+  const usersHistory =
+    formatGA4History(
+      ga4History
+    );
 
   const clicks =
     data.clicks ?? 0;
@@ -268,210 +107,93 @@ const refreshToken =
     data.impressions ?? 0;
 
   const ctr =
-    impressions > 0
-      ? (
-          (clicks /
-            impressions) *
-          100
-        ).toFixed(2)
-      : "0";
+    calculateCTR(
+      clicks,
+      impressions
+    );
 
   return (
-    <main className="p-10">
-      <h1 className="mb-8 text-3xl font-bold">
-        {project.projectName} Dashboard 
-      </h1>
-      <p className="mb-8 text-gray-500">
-  GSC: {project.gscSiteUrl}
-  <br />
-  GA4: {project.ga4PropertyId}
-</p>
+    <div className="space-y-8">
 
-      <div className="grid grid-cols-3 gap-6">
-        <div className="rounded-lg border p-6">
-          <h2 className="text-sm text-gray-500">
-            Clicks
-          </h2>
+      <DashboardHeader
+        projectName={
+          project.projectName
+        }
+        gscSiteUrl={
+          project.gscSiteUrl
+        }
+        ga4PropertyId={
+          project.ga4PropertyId
+        }
+      />
 
-          <p className="mt-2 text-3xl font-bold">
-            {clicks.toLocaleString()}
-          </p>
-        </div>
+      <MetricGrid
+        clicks={clicks}
+        impressions={impressions}
+        ctr={ctr}
+      />
 
-        <div className="rounded-lg border p-6">
-          <h2 className="text-sm text-gray-500">
-            Impressions
-          </h2>
+      <section>
+        <ChartSection
+  clicksHistory={clicksHistory}
+  usersHistory={usersHistory}
+  clicks={clicks}
+  impressions={impressions}
+  users={ga4.users}
+  sessions={ga4.sessions}
+/>
+      </section>
 
-          <p className="mt-2 text-3xl font-bold">
-            {impressions.toLocaleString()}
-          </p>
-        </div>
+      <div className="grid gap-6 xl:grid-cols-2">
 
-        <div className="rounded-lg border p-6">
-          <h2 className="text-sm text-gray-500">
-            CTR
-          </h2>
+        <DataTable
+  title="Top Pages 📄"
+  rows={pages}
+  renderLabel={(row) => {
+    const path =
+      row.keys?.[0]
+        ?.replace(
+          "https://yaplegal.id",
+          ""
+        ) ?? "";
 
-          <p className="mt-2 text-3xl font-bold">
-            {ctr}%
-          </p>
-        </div>
-      </div>
+    return (
+      <span
+        className="block max-w-[420px] truncate"
+        title={path}
+      >
+        {path}
+      </span>
+    );
+  }}
+/>
 
-      <div className="mt-10 grid grid-cols-2 gap-6">
-        <div className="rounded-lg border p-6">
-          <h2 className="mb-4 text-xl font-bold">
-            Top Keywords 🔥
-          </h2>
-
-          <table className="w-full">
-            <tbody>
-              {queries.map(
-                (query: any) => (
-                  <tr
-                    key={
-                      query.keys?.[0]
-                    }
-                    className="border-b"
-                  >
-                    <td className="py-2">
-                      {
-                        query.keys?.[0]
-                      }
-                    </td>
-
-                    <td className="py-2 text-right">
-                      {query.clicks.toLocaleString()}
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="rounded-lg border p-6">
-          <h2 className="mb-4 text-xl font-bold">
-            Top Pages 📄
-          </h2>
-
-          <table className="w-full">
-            <tbody>
-              {pages.map(
-                (page: any) => (
-                  <tr
-                    key={
-                      page.keys?.[0]
-                    }
-                    className="border-b"
-                  >
-                    <td className="py-2">
-                      {page.keys?.[0]
-                        ?.replace(
-                          "https://yaplegal.id",
-                          ""
-                        )
-                        .slice(
-                          0,
-                          50
-                        )}
-                    </td>
-
-                    <td className="py-2 text-right">
-                      {page.clicks.toLocaleString()}
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <h2 className="mb-4 text-2xl font-bold">
-          Google Analytics 4 📈
-        </h2>
-
-        <div className="grid grid-cols-4 gap-6">
-          <div className="rounded-lg border p-6">
-            <h3 className="text-sm text-gray-500">
-              Users
-            </h3>
-
-            <p className="mt-2 text-3xl font-bold">
-              {ga4.users.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="rounded-lg border p-6">
-            <h3 className="text-sm text-gray-500">
-              Sessions
-            </h3>
-
-            <p className="mt-2 text-3xl font-bold">
-              {ga4.sessions.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="rounded-lg border p-6">
-            <h3 className="text-sm text-gray-500">
-              Page Views
-            </h3>
-
-            <p className="mt-2 text-3xl font-bold">
-              {ga4.pageViews.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="rounded-lg border p-6">
-            <h3 className="text-sm text-gray-500">
-              Engagement Rate
-            </h3>
-
-            <p className="mt-2 text-3xl font-bold">
-              {(
-                ga4.engagementRate *
-                100
-              ).toFixed(2)}
-              %
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <TrafficChart
-          title="Clicks Trend"
-          data={clicksHistory}
-          dataKey="clicks"
+        <DataTable
+          title="Top Pages 📄"
+          rows={pages}
+          renderLabel={(row) =>
+            row.keys?.[0]
+              ?.replace(
+                "https://yaplegal.id",
+                ""
+              )
+              .slice(0, 50)
+          }
         />
+
       </div>
 
-      <div className="mt-10">
-        <TrafficChart
-          title="Impressions Trend"
-          data={clicksHistory}
-          dataKey="impressions"
-        />
-      </div>
+      <GA4Section
+        users={ga4.users}
+        sessions={ga4.sessions}
+        pageViews={
+          ga4.pageViews
+        }
+        engagementRate={
+          ga4.engagementRate
+        }
+      />
 
-      <div className="mt-10">
-        <TrafficChart
-          title="Users Trend"
-          data={usersHistory}
-          dataKey="users"
-        />
-      </div>
-
-      <div className="mt-10">
-        <TrafficChart
-          title="Sessions Trend"
-          data={usersHistory}
-          dataKey="sessions"
-        />
-      </div>
-    </main>
+    </div>
   );
 }

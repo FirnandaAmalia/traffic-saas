@@ -1,7 +1,16 @@
-import NextAuth from "next-auth";
+import NextAuth, {
+  type NextAuthOptions,
+} from "next-auth";
+
+import type {
+  JWT,
+} from "next-auth/jwt";
+
 import GoogleProvider from "next-auth/providers/google";
 
-async function refreshAccessToken(token: any) {
+async function refreshAccessToken(
+  token: JWT
+): Promise<JWT> {
   try {
     const response = await fetch(
       "https://oauth2.googleapis.com/token",
@@ -16,14 +25,16 @@ async function refreshAccessToken(token: any) {
             process.env.GOOGLE_CLIENT_ID!,
           client_secret:
             process.env.GOOGLE_CLIENT_SECRET!,
-          grant_type: "refresh_token",
+          grant_type:
+            "refresh_token",
           refresh_token:
-            token.refresh_token,
+            token.refresh_token as string,
         }),
       }
     );
 
-    const refreshed = await response.json();
+    const refreshed =
+      await response.json();
 
     if (!response.ok) {
       throw refreshed;
@@ -31,10 +42,14 @@ async function refreshAccessToken(token: any) {
 
     return {
       ...token,
-      access_token: refreshed.access_token,
+
+      access_token:
+        refreshed.access_token,
+
       expires_at:
         Math.floor(Date.now() / 1000) +
         refreshed.expires_in,
+
       refresh_token:
         refreshed.refresh_token ??
         token.refresh_token,
@@ -47,87 +62,112 @@ async function refreshAccessToken(token: any) {
 
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error:
+        "RefreshAccessTokenError",
     };
   }
 }
 
-export const authOptions = {
+export const authOptions:
+  NextAuthOptions = {
+
   providers: [
+
     GoogleProvider({
-  clientId:
-    process.env.GOOGLE_CLIENT_ID!,
 
-  clientSecret:
-    process.env.GOOGLE_CLIENT_SECRET!,
+      clientId:
+        process.env.GOOGLE_CLIENT_ID!,
 
-  authorization: {
-    params: {
-      prompt: "consent",
+      clientSecret:
+        process.env.GOOGLE_CLIENT_SECRET!,
 
-      access_type: "offline",
+      authorization: {
+        params: {
+          prompt:
+            "consent",
 
-      response_type: "code",
+          access_type:
+            "offline",
 
-      scope:
-        "openid email profile https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly",
-    },
-  },
-})  ],
+          response_type:
+            "code",
+
+          scope:
+            "openid email profile https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly",
+        },
+      },
+
+    }),
+
+  ],
 
   callbacks: {
-  async jwt({ token, account }: any) {
 
-  // Login pertama
-  if (account) {
+    async jwt({
+      token,
+      account,
+    }) {
 
-    token.access_token =
-      account.access_token;
+      if (account) {
 
-    token.refresh_token =
-      account.refresh_token;
+        token.access_token =
+          account.access_token;
 
-    token.expires_at =
-      account.expires_at;
+        token.refresh_token =
+          account.refresh_token;
 
-    return token;
-  }
+        token.expires_at =
+          account.expires_at;
 
-  // Access token masih valid
-  if (
-  token.expires_at &&
-  Date.now() < token.expires_at * 1000
-) {
-  return token;
-}
+        return token;
+      }
 
-  console.log("Refreshing Google Access Token...");
+      if (
+        token.expires_at &&
+        Date.now() <
+          (token.expires_at as number) *
+            1000
+      ) {
+        return token;
+      }
 
-  // Access token expired
-  return await refreshAccessToken(token);
-},
+      console.log(
+        "Refreshing Google Access Token..."
+      );
 
-  async session({ session, token }: any) {
+      return await refreshAccessToken(
+        token
+      );
+    },
 
-  session.accessToken =
-    token.access_token;
+    async session({
+      session,
+      token,
+    }) {
 
-  session.refreshToken =
-    token.refresh_token;
+      session.accessToken =
+        token.access_token;
 
-  session.expiresAt =
-    token.expires_at;
+      session.refreshToken =
+        token.refresh_token;
 
-  session.error =
-    token.error;
+      session.expiresAt =
+        token.expires_at;
 
-  return session;
-},
+      session.error =
+        token.error;
 
-},
+      return session;
+    },
+
+  },
+
 };
 
-const handler = NextAuth(authOptions);
+const handler =
+  NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
-
+export {
+  handler as GET,
+  handler as POST,
+};

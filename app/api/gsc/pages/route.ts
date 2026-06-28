@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { getTopPages } from "@/lib/gsc-client";
+import { getTopPages } from "@/lib/google/gsc";
 
 export async function GET() {
   const session = await getServerSession(authOptions);

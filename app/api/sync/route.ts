@@ -1,10 +1,7 @@
 import { getServerSession } from "next-auth";
-
 import { authOptions } from "../auth/[...nextauth]/route";
-
-import { fetchGSCRawData } from "@/lib/gsc-client";
-
-import { fetchGA4RawData } from "@/lib/ga4-client";
+import { fetchGA4RawData } from "@/lib/google/ga4";
+import { fetchGSCRawData } from "@/lib/google/gsc";
 
 import {
   writeGSCToBigQuery,

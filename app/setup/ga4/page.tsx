@@ -1,15 +1,20 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 import { getGA4Properties } from "@/lib/ga4-admin";
 
-export default async function SetupGA4() {
+import type {
+  GA4Account,
+  GA4Property,
+} from "@/lib/types/ga4";
 
+export default async function SetupGA4() {
   const session =
     await getServerSession(
       authOptions
     );
 
-    console.log(session);
+  console.log(session);
 
   if (!session?.accessToken) {
     return (
@@ -31,7 +36,7 @@ export default async function SetupGA4() {
       </h1>
 
       {data.map(
-        (account: any) => (
+        (account: GA4Account) => (
           <div
             key={account.account}
             className="mb-6"
@@ -41,7 +46,7 @@ export default async function SetupGA4() {
             </h2>
 
             {account.propertySummaries?.map(
-              (property: any) => (
+              (property: GA4Property) => (
                 <div
                   key={property.property}
                   className="mt-2 rounded border p-4"

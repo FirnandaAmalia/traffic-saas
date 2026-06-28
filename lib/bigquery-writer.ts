@@ -1,4 +1,8 @@
 import { BigQuery } from "@google-cloud/bigquery";
+import type {
+  GSCBigQueryRow,
+  GA4BigQueryRow,
+} from "./types/bigquery";
 
 export const bigquery = new BigQuery({
   projectId: process.env.BIGQUERY_PROJECT_ID,
@@ -11,7 +15,7 @@ export const bigquery = new BigQuery({
 export async function writeGSCToBigQuery(
   tenantId: string,
   siteUrl: string,
-  rows: any[]
+  rows: GSCBigQueryRow[]
 ) {
   const table = bigquery
     .dataset("raw_data")
@@ -43,7 +47,7 @@ export async function writeGSCToBigQuery(
 
 export async function writeGA4ToBigQuery(
   tenantId: string,
-  rows: any[]
+  rows: GA4BigQueryRow[]
 ) {
   const table = bigquery
     .dataset("raw_data")

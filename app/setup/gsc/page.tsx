@@ -1,11 +1,12 @@
 import { getServerSession } from "next-auth";
+import type { GSCSite } from "@/lib/types/gsc";
 
 import { authOptions }
 from "@/app/api/auth/[...nextauth]/route";
 
 import {
   getSearchConsoleSites,
-} from "@/lib/gsc-client";
+} from "@/lib/google/gsc";
 
 export default async function SetupGSC() {
 
@@ -34,21 +35,21 @@ export default async function SetupGSC() {
       </h1>
 
       <div className="space-y-4">
-        {sites.map((site: any) => (
-          <div
-            key={site.siteUrl}
-            className="rounded-lg border p-4"
-          >
-            <div className="font-medium">
-              {site.siteUrl}
-            </div>
-
-            <div className="text-sm text-gray-500">
-              {site.permissionLevel}
-            </div>
-          </div>
-        ))}
+  {sites.map((site: GSCSite) => (
+    <div
+      key={site.siteUrl}
+      className="rounded-lg border p-4"
+    >
+      <div className="font-medium">
+        {site.siteUrl}
       </div>
+
+      <div className="text-sm text-gray-500">
+        {site.permissionLevel}
+      </div>
+    </div>
+  ))}
+</div>
     </main>
   );
 }

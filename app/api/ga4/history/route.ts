@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { getGA4History } from "@/lib/ga4-client";
+import { getGA4History } from "@/lib/google/ga4";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
