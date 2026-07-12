@@ -1,65 +1,200 @@
 import {
-  getSearchConsoleSummary,
-  getTopQueries,
-  getTopPages,
-  getSearchConsoleHistory,
+  createOAuthClient,
+  createSearchConsoleClient,
+  createGA4Client,
+} from "./google/client";
+
+import {
+  getSearchConsoleSummaryWithClient,
+  getTopQueriesWithClient,
+  getTopPagesWithClient,
+  getSearchConsoleHistoryWithClient,
 } from "./google/gsc";
 
 import {
-  getGA4Summary,
-  getGA4History,
+  getGA4SummaryWithClient,
+  getGA4HistoryWithClient,
+  getActiveUsersByCountryWithClient,
+  getTrafficAcquisitionWithClient,
+  getDeviceCategoryWithClient,
+  getLandingPagesWithClient,
+  getTopEventsWithClient,
+  getBrowserWithClient,
 } from "./google/ga4";
 
-import type { DashboardData } from "./types/dashboard";
+import type {
+  DashboardData,
+} from "./types/dashboard";
+
+import type {
+  DateRange,
+} from "@/lib/date-range";
 
 export async function getDashboardData(
   refreshToken: string,
   project: {
-    gscSiteUrl: string;
-    ga4PropertyId: string;
-  }
+    gscSiteUrl: string | null;
+    ga4PropertyId: string | null;
+  },
+  range: DateRange = "28d"
 ): Promise<DashboardData> {
-  
+
+  // ===================================================
+  // Validate Project
+  // ===================================================
+
+  if (!project.gscSiteUrl) {
+    throw new Error(
+      "Google Search Console belum terhubung."
+    );
+  }
+
+  if (!project.ga4PropertyId) {
+    throw new Error(
+      "Google Analytics belum terhubung."
+    );
+  }
+
+  // ===================================================
+  // Shared OAuth Client
+  // ===================================================
+
+  if (!refreshToken) {
+  throw new Error(
+    "Refresh token tidak ditemukan."
+  );
+}
+
+  const auth =
+    createOAuthClient(refreshToken);
+
+  // ===================================================
+  // Shared Google Clients
+  // ===================================================
+
+  const searchConsole =
+    createSearchConsoleClient(auth);
+
+  const analytics =
+    createGA4Client(auth);
+
+  // ===================================================
+  // Parallel Fetch
+  // ===================================================
+
   const [
-    data,
-    queries,
-    pages,
-    ga4,
-    gscHistory,
-    ga4History,
-  ] = await Promise.all([
-    getSearchConsoleSummary(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-    getTopQueries(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-    getTopPages(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-    getGA4Summary(
-      refreshToken,
-      project.ga4PropertyId
-    ),
-    getSearchConsoleHistory(
-      refreshToken,
-      project.gscSiteUrl
-    ),
-    getGA4History(
-      refreshToken,
-      project.ga4PropertyId
-    ),
-  ]);
+  gscSummary,
+  queries,
+  pages,
+  ga4Summary,
+  gscHistory,
+  ga4History,
+  country,
+  trafficAcquisition,
+  deviceCategory,
+  landingPages,
+  topEvents,
+  browser,
+] = await Promise.all([
+  getSearchConsoleSummaryWithClient(
+    searchConsole,
+    project.gscSiteUrl,
+    range
+  ),
+
+  getTopQueriesWithClient(
+    searchConsole,
+    project.gscSiteUrl,
+    range
+  ),
+
+  getTopPagesWithClient(
+    searchConsole,
+    project.gscSiteUrl,
+    range
+  ),
+
+  getGA4SummaryWithClient(
+    analytics,
+    project.ga4PropertyId,
+    range
+  ),
+
+  getSearchConsoleHistoryWithClient(
+    searchConsole,
+    project.gscSiteUrl,
+    range
+  ),
+
+  getGA4HistoryWithClient(
+    analytics,
+    project.ga4PropertyId,
+    range
+  ),
+
+  getActiveUsersByCountryWithClient(
+    analytics,
+    project.ga4PropertyId,
+    range
+  ),
+
+  getTrafficAcquisitionWithClient(
+  analytics,
+  project.ga4PropertyId,
+  range
+),
+
+  getDeviceCategoryWithClient(
+  analytics,
+  project.ga4PropertyId,
+  range
+),
+
+getLandingPagesWithClient(
+  analytics,
+  project.ga4PropertyId,
+  range
+),
+
+getTopEventsWithClient(
+  analytics,
+  project.ga4PropertyId,
+  range
+),
+
+  getBrowserWithClient(
+    analytics,
+    project.ga4PropertyId,
+    range
+  ),
+
+]);
 
   return {
-    data,
-    queries,
-    pages,
-    ga4,
-    gscHistory,
-    ga4History,
-  };
+  data: {
+    ...gscSummary,
+    ...ga4Summary,
+  },
+
+  queries,
+  pages,
+
+  gscHistory,
+  ga4History,
+
+  ga4: ga4Summary,
+
+  country,
+
+  trafficAcquisition,
+
+  deviceCategory,
+
+  landingPages,
+
+  topEvents,
+
+  browser,
+};
+
 }

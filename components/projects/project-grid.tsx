@@ -4,6 +4,10 @@ interface ProjectGridProps {
   projects: {
     id: string;
     projectName: string;
+    gscSiteUrl: string | null;
+    ga4PropertyId: string | null;
+    createdAt: Date;
+    lastSyncedAt: Date | null;
   }[];
 }
 

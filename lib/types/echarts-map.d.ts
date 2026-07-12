@@ -1,0 +1,1 @@
+declare module "echarts-map-collection/custom/world";

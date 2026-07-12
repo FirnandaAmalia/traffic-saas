@@ -8,10 +8,38 @@ datasource db {
 }
 
 model Project {
-  id            String   @id @default(cuid())
-  userEmail     String
-  projectName   String
-  gscSiteUrl    String
-  ga4PropertyId String
-  createdAt     DateTime @default(now())
+  id              String   @id @default(cuid())
+
+  userEmail       String
+
+  projectName     String
+
+  domain          String?
+
+  gscSiteUrl      String?
+
+  ga4PropertyId   String?
+
+  ga4PropertyName String?
+
+  lastSyncedAt    DateTime?
+
+  createdAt       DateTime @default(now())
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+model Subscription {
+  id         String   @id @default(cuid())
+
+  userEmail  String   @unique
+
+  plan       Plan     @default(FREE)
+
+  createdAt  DateTime @default(now())
+
+  updatedAt  DateTime @updatedAt
 }

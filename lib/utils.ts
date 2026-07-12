@@ -34,3 +34,32 @@ export function calculateCTR(
     (clicks / impressions) * 100
   ).toFixed(2);
 }
+
+export function calculateGrowth(
+  current: number,
+  previous: number
+) {
+  if (previous === 0) {
+    return {
+      value: 100,
+      direction: "up" as const,
+    };
+  }
+
+  const percent =
+    ((current - previous) / previous) * 100;
+
+  return {
+    value: Number(percent.toFixed(1)),
+    direction:
+      percent >= 0
+        ? ("up" as const)
+        : ("down" as const),
+  };
+}
+
+export function formatPercentage(
+  value: number
+) {
+  return `${Math.abs(value).toFixed(1)}%`;
+}

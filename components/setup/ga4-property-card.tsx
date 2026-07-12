@@ -1,46 +1,99 @@
-import {
-  CheckCircle2,
-  ChevronRight,
-} from "lucide-react";
+"use client";
+
+import { useRouter } from "next/navigation";
 
 import type {
+  GA4Account,
   GA4Property,
 } from "@/lib/types/ga4";
 
-type Props = {
-  property: GA4Property;
-};
+interface GA4SelectorProps {
+  projectId: string;
+  accounts: GA4Account[];
+}
 
-export default function GA4PropertyCard({
-  property,
-}: Props) {
+export default function GA4Selector({
+  projectId,
+  accounts,
+}: GA4SelectorProps) {
+  const router = useRouter();
+
+  async function connectProperty(
+    propertyId: string
+  ) {
+    const res = await fetch(
+      "/api/project/connect-ga4",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          projectId,
+          ga4PropertyId: propertyId,
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!data.success) {
+      alert(data.error);
+      return;
+    }
+
+    router.push(
+      `/dashboard?projectId=${projectId}`
+    );
+  }
+
   return (
-    <button className="group w-full rounded-2xl border border-slate-200 bg-white p-6 text-left transition-all duration-200 hover:border-blue-300 hover:shadow-lg">
+    <div className="space-y-8">
 
-      <div className="flex items-center justify-between">
+      {accounts.map((account) => (
+        <div
+          key={account.account}
+        >
+          <h2 className="mb-3 text-lg font-semibold">
+            {account.displayName}
+          </h2>
 
-        <div>
+          <div className="space-y-3">
 
-          <div className="flex items-center gap-2">
+            {account.propertySummaries?.map(
+              (property: GA4Property) => (
+                <button
+                  key={property.property}
+                  onClick={() =>
+                    connectProperty(
+                      property.property.replace(
+                        "properties/",
+                        ""
+                      )
+                    )
+                  }
+                  className="w-full rounded-xl border border-slate-200 bg-white p-5 text-left transition hover:border-blue-600 hover:shadow"
+                >
+                  <div className="font-medium">
+                    {property.displayName}
+                  </div>
 
-            <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                  <div className="mt-1 text-sm text-slate-500">
+                    {property.property}
+                  </div>
 
-            <h3 className="text-lg font-semibold text-slate-900">
-              {property.displayName}
-            </h3>
+                </button>
+              )
+            )}
 
           </div>
 
-          <p className="mt-2 text-sm text-slate-500">
-            {property.property}
-          </p>
-
         </div>
+      ))}
 
-        <ChevronRight className="h-5 w-5 text-slate-400 transition group-hover:translate-x-1" />
-
-      </div>
-
-    </button>
+    </div>
   );
 }

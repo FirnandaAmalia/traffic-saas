@@ -1,44 +1,64 @@
-import { BetaAnalyticsDataClient } from "@google-analytics/data";
-import { google } from "googleapis";
 import type {
-  GA4Account,
-  GA4Property,
-} from "../types/ga4";
+  CountryMetric,
+  TrafficSourceMetric,
+  DeviceCategoryMetric,
+  LandingPageMetric,
+  EventMetric,
+  BrowserMetric,
+  OperatingSystemMetric,
+} from "@/lib/types/ga4";
 
-function getAnalyticsClient(
+import type { BetaAnalyticsDataClient } from "@google-analytics/data";
+
+import {
+  createOAuthClient,
+  createGA4Client,
+} from "./client";
+
+import {
+  getDateRange,
+  getCompareDateRange,
+  type DateRange,
+} from "@/lib/date-range";
+
+function getAnalytics(
   refreshToken: string
-) {
-  const auth = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET
-  );
+): BetaAnalyticsDataClient {
+  const auth =
+    createOAuthClient(refreshToken);
 
-  auth.setCredentials({
-    refresh_token: refreshToken,
-  });
-
-  return new BetaAnalyticsDataClient({
-  authClient: auth,
-});
+  return createGA4Client(auth);
 }
 
-export async function getGA4Summary(
-  refreshToken: string,
-  propertyId: string
-) {
-  const analyticsData =
-    getAnalyticsClient(refreshToken);
+// ======================================================
+// SUMMARY
+// ======================================================
 
-  const [response] =
-    await analyticsData.runReport({
+export async function getGA4SummaryWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+) {
+  const {
+    currentStart,
+    currentEnd,
+    previousStart,
+    previousEnd,
+  } = getCompareDateRange(range);
+
+  const [
+    [current],
+    [previous],
+  ] = await Promise.all([
+    analytics.runReport({
       property: `properties/${propertyId}`,
 
       dateRanges: [
-  {
-    startDate: "28daysAgo",
-    endDate: "yesterday",
-  },
-],
+        {
+          startDate: currentStart,
+          endDate: currentEnd,
+        },
+      ],
 
       metrics: [
         { name: "activeUsers" },
@@ -46,37 +66,110 @@ export async function getGA4Summary(
         { name: "screenPageViews" },
         { name: "engagementRate" },
       ],
-    });
+    }),
+
+    analytics.runReport({
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate: previousStart,
+          endDate: previousEnd,
+        },
+      ],
+
+      metrics: [
+        { name: "activeUsers" },
+        { name: "sessions" },
+        { name: "screenPageViews" },
+        { name: "engagementRate" },
+      ],
+    }),
+  ]);
+
+  const currentRow =
+    current.rows?.[0];
+
+  const previousRow =
+    previous.rows?.[0];
 
   return {
     users: Number(
-      response.rows?.[0]?.metricValues?.[0]?.value || 0
+      currentRow?.metricValues?.[0]?.value ?? 0
     ),
 
     sessions: Number(
-      response.rows?.[0]?.metricValues?.[1]?.value || 0
+      currentRow?.metricValues?.[1]?.value ?? 0
     ),
 
     pageViews: Number(
-      response.rows?.[0]?.metricValues?.[2]?.value || 0
+      currentRow?.metricValues?.[2]?.value ?? 0
     ),
 
     engagementRate: Number(
-      response.rows?.[0]?.metricValues?.[3]?.value || 0
+      currentRow?.metricValues?.[3]?.value ?? 0
+    ),
+
+    previousUsers: Number(
+      previousRow?.metricValues?.[0]?.value ?? 0
+    ),
+
+    previousSessions: Number(
+      previousRow?.metricValues?.[1]?.value ?? 0
+    ),
+
+    previousPageViews: Number(
+      previousRow?.metricValues?.[2]?.value ?? 0
+    ),
+
+    previousEngagementRate: Number(
+      previousRow?.metricValues?.[3]?.value ?? 0
     ),
   };
 }
 
-export async function getGA4History(
+export async function getGA4Summary(
   refreshToken: string,
-  propertyId: string
+  propertyId: string,
+  range: DateRange = "28d"
 ) {
-  const analyticsData =
-    getAnalyticsClient(refreshToken);
+  return getGA4SummaryWithClient(
+    getAnalytics(refreshToken),
+    propertyId,
+    range
+  );
+}
 
-  const [response] =
-  await analyticsData.runReport({
+// ======================================================
+// HISTORY
+// ======================================================
+
+export async function getGA4HistoryWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+) {
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  console.log("REQUEST =", {
+    propertyId,
+    range,
+    startDate,
+    endDate,
+  });
+
+  const request = {
     property: `properties/${propertyId}`,
+
+    dateRanges: [
+      {
+        startDate,
+        endDate,
+      },
+    ],
 
     dimensions: [
       {
@@ -93,13 +186,6 @@ export async function getGA4History(
       },
     ],
 
-    dateRanges: [
-      {
-        startDate: "28daysAgo",
-        endDate: "yesterday",
-      },
-    ],
-
     orderBys: [
       {
         dimension: {
@@ -107,150 +193,629 @@ export async function getGA4History(
         },
       },
     ],
+
+    keepEmptyRows: true,
+
+    limit: 10000,
+  };
+
+  const [response] =
+  await analytics.runReport(request);
+
+console.log("========== GA4 REQUEST ==========");
+console.log({
+  range,
+  startDate,
+  endDate,
+});
+
+console.log("ROW COUNT =", response.rowCount);
+
+console.log("FIRST 15");
+
+console.table(
+  (response.rows ?? [])
+    .slice(0, 15)
+    .map((row) => ({
+      date:
+        row.dimensionValues?.[0]?.value,
+      users:
+        row.metricValues?.[0]?.value,
+      sessions:
+        row.metricValues?.[1]?.value,
+    }))
+);
+
+console.log("LAST 15");
+
+console.table(
+  (response.rows ?? [])
+    .slice(-15)
+    .map((row) => ({
+      date:
+        row.dimensionValues?.[0]?.value,
+      users:
+        row.metricValues?.[0]?.value,
+      sessions:
+        row.metricValues?.[1]?.value,
+    }))
+);
+
+  console.dir(response.metadata, {
+    depth: null,
   });
 
-  return response.rows || [];
+  return response.rows ?? [];
 }
+
+export async function getGA4History(
+  refreshToken: string,
+  propertyId: string,
+  range: DateRange = "28d"
+) {
+  return getGA4HistoryWithClient(
+    getAnalytics(refreshToken),
+    propertyId,
+    range
+  );
+}
+
+// ======================================================
+// RAW EXPORT
+// ======================================================
 
 export async function fetchGA4RawData(
   refreshToken: string,
-  propertyId: string
+  propertyId: string,
+  range: DateRange = "28d"
 ) {
+  const analytics =
+    getAnalytics(refreshToken);
 
-
-  const analyticsData =
-    getAnalyticsClient(
-      refreshToken
-    );
-
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
 
   const [response] =
-    await analyticsData.runReport(
-      {
+    await analytics.runReport({
+      property: `properties/${propertyId}`,
 
-        property:
-          `properties/${propertyId}`,
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
 
-        dateRanges: [
-          {
+      dimensions: [
+        {
+          name: "date",
+        },
+      ],
 
-            startDate:
-              "28daysAgo",
+      metrics: [
+        {
+          name: "sessions",
+        },
+      ],
 
-            endDate:
-              "yesterday",
+      keepEmptyRows: true,
 
+      limit: 10000,
+    });
+
+  return (
+    response.rows ?? []
+  ).map((row) => ({
+    date:
+      row.dimensionValues?.[0]?.value,
+
+    sessions: Number(
+      row.metricValues?.[0]?.value ?? 0
+    ),
+  }));
+}
+
+  // ======================================================
+// ACTIVE USERS BY COUNTRY
+// ======================================================
+
+export async function getActiveUsersByCountryWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<CountryMetric[]> { 
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "country",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "activeUsers",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "activeUsers",
           },
-        ],
+          desc: true,
+        },
+      ],
 
+      limit: 10,
+    });
 
-        dimensions: [
+  return (
+  response.rows ?? []
+).map(
+  (row): CountryMetric => ({
+    country:
+      row.dimensionValues?.[0]?.value ??
+      "Unknown",
 
-          {
-            name:
-              "date",
+    users: Number(
+      row.metricValues?.[0]?.value ?? 0
+    ),
+  })
+);
+}
+
+// ======================================================
+// TRAFFIC ACQUISITION
+// ======================================================
+
+export async function getTrafficAcquisitionWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<TrafficSourceMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "sessionDefaultChannelGroup",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "sessions",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "sessions",
           },
+          desc: true,
+        },
+      ],
 
-          {
-            name:
-              "pagePath",
-          },
+      limit: 10,
+    });
 
-          {
-            name:
-              "deviceCategory",
-          },
+  return (
+    response.rows ?? []
+  ).map(
+    (row): TrafficSourceMetric => ({
+      channel:
+        row.dimensionValues?.[0]?.value ??
+        "Unknown",
 
-        ],
-
-
-        metrics: [
-
-          {
-            name:
-              "sessions",
-          },
-
-          {
-            name:
-              "engagementRate",
-          },
-
-          {
-            name:
-              "screenPageViews",
-          },
-
-          {
-            name:
-              "bounceRate",
-          },
-
-        ],
-
-
-        limit:
-          10000,
-
-      }
-    );
-
-
-  const rows =
-    response.rows || [];
-
-
-  const formatted =
-    rows.map(
-      (row) => ({
-
-
-        date:
-          row.dimensionValues?.[0]?.value,
-
-
-        pagePath:
-          row.dimensionValues?.[1]?.value,
-
-
-        deviceCategory:
-          row.dimensionValues?.[2]?.value,
-
-
-        sessions:
-          Number(
-            row.metricValues?.[0]?.value || 0
-          ),
-
-
-        engagementRate:
-          Number(
-            row.metricValues?.[1]?.value || 0
-          ),
-
-
-        pageViews:
-          Number(
-            row.metricValues?.[2]?.value || 0
-          ),
-
-
-        bounceRate:
-          Number(
-            row.metricValues?.[3]?.value || 0
-          ),
-
-
-      })
-    );
-
-
-  console.log(
-    "RAW GA4 READY =",
-    formatted.length
+      sessions: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+    })
   );
+}
 
+export async function getTrafficAcquisition(
+  refreshToken: string,
+  propertyId: string,
+  range: DateRange = "28d"
+) {
+  return getTrafficAcquisitionWithClient(
+    getAnalytics(refreshToken),
+    propertyId,
+    range
+  );
+}
 
-  return formatted;
+// ======================================================
+// DEVICE CATEGORY
+// ======================================================
 
+export async function getDeviceCategoryWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<DeviceCategoryMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "deviceCategory",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "activeUsers",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "activeUsers",
+          },
+          desc: true,
+        },
+      ],
+
+      limit: 10,
+    });
+
+  return (
+    response.rows ?? []
+  ).map(
+    (row): DeviceCategoryMetric => ({
+      device:
+        row.dimensionValues?.[0]?.value ??
+        "Unknown",
+
+      users: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+    })
+  );
+}
+
+// ======================================================
+// TOP LANDING PAGES
+// ======================================================
+
+export async function getLandingPagesWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<LandingPageMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "landingPagePlusQueryString",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "sessions",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "sessions",
+          },
+          desc: true,
+        },
+      ],
+
+      limit: 10,
+    });
+
+  return (
+    response.rows ?? []
+  ).map(
+    (row): LandingPageMetric => ({
+      page:
+        row.dimensionValues?.[0]?.value ??
+        "/",
+
+      sessions: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+    })
+  );
+}
+
+// ======================================================
+// TOP EVENTS
+// ======================================================
+
+export async function getTopEventsWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<EventMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "eventName",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "eventCount",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "eventCount",
+          },
+          desc: true,
+        },
+      ],
+
+      limit: 10,
+    });
+
+  return (
+    response.rows ?? []
+  ).map(
+    (row): EventMetric => ({
+
+      event:
+        row.dimensionValues?.[0]?.value ??
+        "Unknown",
+
+      count: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+
+    })
+  );
+}
+
+export async function testNewVsReturning(
+  refreshToken: string,
+  propertyId: string
+) {
+  const analytics = getAnalytics(refreshToken);
+
+  const [response] = await analytics.runReport({
+    property: `properties/${propertyId}`,
+
+    dateRanges: [
+      {
+        startDate: "28daysAgo",
+        endDate: "today",
+      },
+    ],
+
+    metrics: [
+      {
+        name: "activeUsers",
+      },
+    ],
+  });
+
+  console.log(response.rows);
+}
+
+// ======================================================
+// BROWSER
+// ======================================================
+
+export async function getBrowserWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<BrowserMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "browser",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "activeUsers",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "activeUsers",
+          },
+          desc: true,
+        },
+      ],
+
+      limit: 10,
+
+    });
+
+  return (
+    response.rows ?? []
+  ).map(
+    (row): BrowserMetric => ({
+
+      browser:
+        row.dimensionValues?.[0]?.value ??
+        "Unknown",
+
+      users: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+
+    })
+  );
+}
+
+// ======================================================
+// OPERATING SYSTEM
+// ======================================================
+
+export async function getOperatingSystemWithClient(
+  analytics: BetaAnalyticsDataClient,
+  propertyId: string,
+  range: DateRange = "28d"
+): Promise<OperatingSystemMetric[]> {
+
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const [response] =
+    await analytics.runReport({
+
+      property: `properties/${propertyId}`,
+
+      dateRanges: [
+        {
+          startDate,
+          endDate,
+        },
+      ],
+
+      dimensions: [
+        {
+          name: "operatingSystem",
+        },
+      ],
+
+      metrics: [
+        {
+          name: "activeUsers",
+        },
+      ],
+
+      orderBys: [
+        {
+          metric: {
+            metricName: "activeUsers",
+          },
+          desc: true,
+        },
+      ],
+
+      limit: 10,
+
+    });
+
+  return (
+    response.rows ?? []
+  ).map(
+    (row): OperatingSystemMetric => ({
+
+      os:
+        row.dimensionValues?.[0]?.value ??
+        "Unknown",
+
+      users: Number(
+        row.metricValues?.[0]?.value ?? 0
+      ),
+
+    })
+  );
 }

@@ -1,14 +1,15 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+
+import { authOptions } from "@/lib/auth";
+
+import { prisma } from "@/lib/prisma";
+
 import { fetchGA4RawData } from "@/lib/google/ga4";
 import { fetchGSCRawData } from "@/lib/google/gsc";
 
-import {
-  writeGSCToBigQuery,
-  writeGA4ToBigQuery,
-} from "@/lib/bigquery-writer";
-
-export async function GET() {
+export async function POST(
+  request: Request
+) {
   try {
     const session =
       await getServerSession(
@@ -18,8 +19,8 @@ export async function GET() {
     if (!session?.refreshToken) {
       return Response.json(
         {
-          error:
-            "No refresh token",
+          success: false,
+          error: "Unauthorized",
         },
         {
           status: 401,
@@ -27,51 +28,108 @@ export async function GET() {
       );
     }
 
+    const {
+      projectId,
+    } = await request.json();
+
+    if (!projectId) {
+      return Response.json(
+        {
+          success: false,
+          error: "projectId is required",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    const project =
+      await prisma.project.findUnique({
+        where: {
+          id: projectId,
+        },
+      });
+
+    if (!project) {
+      return Response.json(
+        {
+          success: false,
+          error: "Project not found",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+
+    // ==================================
+    // Pastikan project sudah terhubung
+    // ==================================
+
+    if (!project.gscSiteUrl) {
+      return Response.json(
+        {
+          success: false,
+          error:
+            "Google Search Console belum terhubung.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    if (!project.ga4PropertyId) {
+      return Response.json(
+        {
+          success: false,
+          error:
+            "Google Analytics belum terhubung.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
     const refreshToken =
       session.refreshToken as string;
 
-    const tenantId =
-      "yaplegal";
+    // ==================================
+    // Validasi akses Google
+    // ==================================
 
-    const siteUrl =
-      "sc-domain:yaplegal.id";
+    await fetchGSCRawData(
+      refreshToken,
+      project.gscSiteUrl
+    );
 
-    const propertyId =
-      "530690262";
+    await fetchGA4RawData(
+      refreshToken,
+      project.ga4PropertyId
+    );
 
-    // GSC
-    const gscRows =
-      await fetchGSCRawData(
-        refreshToken,
-        siteUrl
-      );
+    // ==================================
+    // Update Last Sync
+    // ==================================
 
-    const gscInserted =
-      await writeGSCToBigQuery(
-        tenantId,
-        siteUrl,
-        gscRows
-      );
-
-    // GA4
-    const ga4Rows =
-      await fetchGA4RawData(
-        refreshToken,
-        propertyId
-      );
-
-    const ga4Inserted =
-      await writeGA4ToBigQuery(
-        tenantId,
-        ga4Rows
-      );
+    const updatedProject =
+      await prisma.project.update({
+        where: {
+          id: project.id,
+        },
+        data: {
+          lastSyncedAt:
+            new Date(),
+        },
+      });
 
     return Response.json({
       success: true,
-      gscRows:
-        gscInserted,
-      ga4Rows:
-        ga4Inserted,
+      projectId: updatedProject.id,
+      lastSyncedAt:
+        updatedProject.lastSyncedAt,
     });
 
   } catch (error) {
@@ -85,7 +143,9 @@ export async function GET() {
       {
         success: false,
         error:
-          String(error),
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
       },
       {
         status: 500,

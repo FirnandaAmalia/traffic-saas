@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Sidebar from "@/components/layout/sidebar";
-import Topbar from "@/components/layout/topbar";
+
+import { Toaster } from "@/components/ui/sonner";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,43 +16,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TrafficSaaS",
-  description: "SEO Analytics Platform",
+  title: {
+    default: "TrafficSaaS",
+    template: "%s | TrafficSaaS",
+  },
+  description:
+    "Connect Google Search Console and Google Analytics 4 in one AI-powered SEO intelligence platform.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="bg-slate-50 text-slate-900">
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        {children}
 
-  <div className="flex h-screen">
-
-    <Sidebar />
-
-    <div className="flex flex-1 flex-col">
-
-      <Topbar />
-
-      <main className="flex-1 overflow-y-auto">
-
-        <div className="mx-auto w-full max-w-[1600px] px-8 py-8">
-          {children}
-          </div>
-
-      </main>
-
-    </div>
-
-  </div>
-
-</body>
+        <Toaster richColors position="top-right" />
+      </body>
     </html>
   );
 }

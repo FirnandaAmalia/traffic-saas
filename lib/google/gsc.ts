@@ -1,109 +1,241 @@
-import { google } from "googleapis";
+import type { searchconsole_v1 } from "googleapis";
+
+import {
+  createOAuthClient,
+  createSearchConsoleClient,
+} from "./client";
 
 import type {
   GSCSite,
   GSCRow,
 } from "../types/gsc";
 
-function getSearchConsoleClient(
+import {
+  getDateRange,
+  getCompareDateRange,
+  type DateRange,
+} from "@/lib/date-range";
+
+function getSearchConsole(
   refreshToken: string
-) {
+): searchconsole_v1.Searchconsole {
   const auth =
-    new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET
-    );
+    createOAuthClient(refreshToken);
 
-  auth.setCredentials({
-    refresh_token: refreshToken,
-  });
-
-  return google.searchconsole({
-    version: "v1",
-    auth,
-  });
+  return createSearchConsoleClient(auth);
 }
 
-function formatDate(date: Date) {
-  const year = date.getFullYear();
-
-  const month = String(
-    date.getMonth() + 1
-  ).padStart(2, "0");
-
-  const day = String(
-    date.getDate()
-  ).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
-
-function getDateRange() {
-  const endDate = new Date();
-
-  endDate.setDate(
-    endDate.getDate() - 1
-  );
-
-  const startDate = new Date(
-    endDate
-  );
-
-  startDate.setDate(
-    startDate.getDate() - 27
-  );
-
-  return {
-    startDate:
-      formatDate(startDate),
-
-    endDate:
-      formatDate(endDate),
-  };
-}
+// ======================================================
+// Sites
+// ======================================================
 
 export async function getSearchConsoleSites(
   refreshToken: string
 ): Promise<GSCSite[]> {
-
   const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
-    );
+    getSearchConsole(refreshToken);
 
   const response =
     await searchconsole.sites.list();
 
-  return (
-    response.data.siteEntry ?? []
-  ).map(
+  return (response.data.siteEntry ?? []).map(
     (site): GSCSite => ({
-      siteUrl:
-        site.siteUrl ?? "",
-
+      siteUrl: site.siteUrl ?? "",
       permissionLevel:
         site.permissionLevel ?? "",
     })
   );
 }
 
-export async function getSearchConsoleSummary(
-  refreshToken: string,
-  siteUrl: string
-): Promise<{
-  clicks: number;
-  impressions: number;
-}> {
+// ======================================================
+// Summary
+// ======================================================
 
-  const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
+export async function getSearchConsoleSummaryWithClient(
+  searchconsole: searchconsole_v1.Searchconsole,
+  siteUrl: string,
+  range: DateRange = "28d"
+) {
+  const {
+    currentStart,
+    currentEnd,
+    previousStart,
+    previousEnd,
+  } = getCompareDateRange(range);
+
+  console.log(
+    "SITE URL =",
+    JSON.stringify(siteUrl)
+  );
+
+  const [currentResponse, previousResponse] =
+    await Promise.all([
+      searchconsole.searchanalytics.query({
+        siteUrl,
+        requestBody: {
+          startDate: currentStart,
+          endDate: currentEnd,
+          dimensions: ["date"],
+          rowLimit: 1000,
+        },
+      }),
+
+      searchconsole.searchanalytics.query({
+        siteUrl,
+        requestBody: {
+          startDate: previousStart,
+          endDate: previousEnd,
+          dimensions: ["date"],
+          rowLimit: 1000,
+        },
+      }),
+    ]);
+
+  const currentRows =
+    currentResponse.data.rows ?? [];
+
+  const previousRows =
+    previousResponse.data.rows ?? [];
+
+  const currentClicks =
+    currentRows.reduce(
+      (sum, row) =>
+        sum + (row.clicks ?? 0),
+      0
     );
 
+  const currentImpressions =
+    currentRows.reduce(
+      (sum, row) =>
+        sum + (row.impressions ?? 0),
+      0
+    );
+
+  const previousClicks =
+    previousRows.reduce(
+      (sum, row) =>
+        sum + (row.clicks ?? 0),
+      0
+    );
+
+  const previousImpressions =
+    previousRows.reduce(
+      (sum, row) =>
+        sum + (row.impressions ?? 0),
+      0
+    );
+
+  return {
+    clicks: currentClicks,
+    impressions: currentImpressions,
+    previousClicks,
+    previousImpressions,
+  };
+}
+
+export async function getSearchConsoleSummary(
+  refreshToken: string,
+  siteUrl: string,
+  range: DateRange = "28d"
+) {
+  return getSearchConsoleSummaryWithClient(
+    getSearchConsole(refreshToken),
+    siteUrl,
+    range
+  );
+}
+
+// ======================================================
+// Top Queries
+// ======================================================
+
+export async function getTopQueriesWithClient(
+  searchconsole: searchconsole_v1.Searchconsole,
+  siteUrl: string,
+  range: DateRange = "28d"
+): Promise<GSCRow[]> {
   const {
     startDate,
     endDate,
-  } = getDateRange();
+  } = getDateRange(range);
+
+  const response =
+    await searchconsole.searchanalytics.query({
+      siteUrl,
+      requestBody: {
+        startDate,
+        endDate,
+        dimensions: ["query"],
+        rowLimit: 10,
+      },
+    });
+
+  return (response.data.rows ?? []) as GSCRow[];
+}
+
+export async function getTopQueries(
+  refreshToken: string,
+  siteUrl: string,
+  range: DateRange = "28d"
+) {
+  return getTopQueriesWithClient(
+    getSearchConsole(refreshToken),
+    siteUrl,
+    range
+  );
+}
+
+// ======================================================
+// Top Pages
+// ======================================================
+
+export async function getTopPagesWithClient(
+  searchconsole: searchconsole_v1.Searchconsole,
+  siteUrl: string,
+  range: DateRange = "28d"
+): Promise<GSCRow[]> {
+  const {
+    startDate,
+    endDate,
+  } = getDateRange(range);
+
+  const response =
+    await searchconsole.searchanalytics.query({
+      siteUrl,
+      requestBody: {
+        startDate,
+        endDate,
+        dimensions: ["page"],
+        rowLimit: 20,
+      },
+    });
+
+  return (response.data.rows ?? []) as GSCRow[];
+}
+
+export async function getTopPages(
+  refreshToken: string,
+  siteUrl: string,
+  range: DateRange = "28d"
+) {
+  return getTopPagesWithClient(
+    getSearchConsole(refreshToken),
+    siteUrl,
+    range
+  );
+}
+
+// ======================================================
+// History
+// ======================================================
+
+export async function getSearchConsoleHistoryWithClient(
+  searchconsole: searchconsole_v1.Searchconsole,
+  siteUrl: string,
+  range: DateRange = "28d"
+): Promise<GSCRow[]> {
+  const { startDate, endDate } =
+    getDateRange(range);
 
   const response =
     await searchconsole.searchanalytics.query({
@@ -113,133 +245,66 @@ export async function getSearchConsoleSummary(
         endDate,
         dimensions: ["date"],
         rowLimit: 1000,
+        dataState: "all",
       },
     });
 
   const rows =
     response.data.rows ?? [];
 
-  let clicks = 0;
-  let impressions = 0;
+  console.log("========== GSC RAW ==========");
+  console.log("Start :", startDate);
+  console.log("End   :", endDate);
+  console.log("Length:", rows.length);
 
-  for (const row of rows) {
-    clicks += row.clicks ?? 0;
-    impressions +=
-      row.impressions ?? 0;
-  }
-
-  return {
-    clicks,
-    impressions,
-  };
-}
-
-export async function getTopQueries(
-  refreshToken: string,
-  siteUrl: string
-): Promise<GSCRow[]> {
-
-  const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
-    );
-
-  const {
-    startDate,
-    endDate,
-  } = getDateRange();
-
-  const response =
-    await searchconsole.searchanalytics.query({
-      siteUrl,
-      requestBody: {
-        startDate,
-        endDate,
-        dimensions: [
-          "query",
-        ],
-        rowLimit: 10,
-      },
+  rows.forEach((row, index) => {
+    console.log(index, {
+      keys: row.keys,
+      clicks: row.clicks,
+      impressions: row.impressions,
+      ctr: row.ctr,
+      position: row.position,
     });
+  });
 
-  return response.data.rows ?? [];
-}
+  console.log("=============================");
 
-export async function getTopPages(
-  refreshToken: string,
-  siteUrl: string
-): Promise<GSCRow[]> {
-
-  const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
-    );
-
-  const {
-    startDate,
-    endDate,
-  } = getDateRange();
-
-  const response =
-    await searchconsole.searchanalytics.query({
-      siteUrl,
-      requestBody: {
-        startDate,
-        endDate,
-        dimensions: [
-          "page",
-        ],
-        rowLimit: 20,
-      },
-    });
-
-  return response.data.rows ?? [];
+  return rows.filter(
+  (row) =>
+    row.keys?.[0] &&
+    row.clicks !== undefined &&
+    row.impressions !== undefined
+) as GSCRow[];
 }
 
 export async function getSearchConsoleHistory(
   refreshToken: string,
-  siteUrl: string
-): Promise<GSCRow[]> {
-
-  const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
-    );
-
-  const {
-    startDate,
-    endDate,
-  } = getDateRange();
-
-  const response =
-    await searchconsole.searchanalytics.query({
-      siteUrl,
-      requestBody: {
-        startDate,
-        endDate,
-        dimensions: [
-          "date",
-        ],
-      },
-    });
-
-  return response.data.rows ?? [];
+  siteUrl: string,
+  range: DateRange = "28d"
+) {
+  return getSearchConsoleHistoryWithClient(
+    getSearchConsole(refreshToken),
+    siteUrl,
+    range
+  );
 }
+
+// ======================================================
+// Raw Export
+// ======================================================
 
 export async function fetchGSCRawData(
   refreshToken: string,
-  siteUrl: string
+  siteUrl: string,
+  range: DateRange = "28d"
 ) {
-
   const searchconsole =
-    getSearchConsoleClient(
-      refreshToken
-    );
+    getSearchConsole(refreshToken);
 
   const {
     startDate,
     endDate,
-  } = getDateRange();
+  } = getDateRange(range);
 
   const response =
     await searchconsole.searchanalytics.query({
@@ -262,24 +327,14 @@ export async function fetchGSCRawData(
 
   const formatted =
     rows.map((row) => ({
-      date:
-        row.keys?.[0],
+      date: row.keys?.[0],
+      query: row.keys?.[1],
+      page: row.keys?.[2],
 
-      query:
-        row.keys?.[1],
-
-      page:
-        row.keys?.[2],
-
-      clicks:
-        row.clicks ?? 0,
-
+      clicks: row.clicks ?? 0,
       impressions:
         row.impressions ?? 0,
-
-      ctr:
-        row.ctr ?? 0,
-
+      ctr: row.ctr ?? 0,
       position:
         row.position ?? 0,
     }));
