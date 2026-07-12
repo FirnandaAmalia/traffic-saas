@@ -99,7 +99,7 @@ export default function Hero() {
 
                 <Sparkles className="h-4 w-4" />
 
-                AI Powered SEO Analytics
+                AI SEO Intelligence Platform
 
               </div>
 
@@ -107,32 +107,32 @@ export default function Hero() {
 
               <h1 className="mt-8 text-6xl font-black leading-tight tracking-tight text-slate-900 lg:text-7xl">
 
-                Monitor SEO
+  Turn Website Data
 
-                <br />
+  <br />
 
-                <span className="bg-gradient-to-r from-violet-600 to-sky-500 bg-clip-text text-transparent">
+  Into
 
-                  Smarter,
+  <br />
 
-                </span>
+  <span className="bg-gradient-to-r from-violet-600 to-sky-500 bg-clip-text text-transparent">
 
-                <br />
+    SEO Growth
 
-                Grow Faster
+  </span>
 
-              </h1>
+</h1>
 
               {/* Description */}
 
               <p className="mt-8 max-w-xl text-xl leading-9 text-slate-600">
 
-                Combine Google Search Console and
-                Google Analytics 4 into one beautiful
-                AI-powered dashboard with executive
-                summaries, actionable insights,
-                and smart recommendations for
-                modern SEO teams.
+                Connect Google Analytics 4 and Search Console,
+then let AI discover your biggest SEO opportunities.
+
+TrafficSaaS transforms complex website data
+into clear insights, recommendations,
+and actions that help you grow faster.
 
               </p>
 
@@ -172,33 +172,46 @@ export default function Hero() {
                 </Button>
 
                 <Button
-                  variant="outline"
-                  size="lg"
-                  className="
-                    rounded-full
+  asChild
+  variant="outline"
+  size="lg"
+  className="
+    rounded-full
+    border-white/70
+    bg-white/70
+    px-8
+    backdrop-blur-xl
+    transition-all
+    hover:bg-white
+    hover:shadow-lg
+  "
+>
+  <Link href="#dashboard-demo">
 
-                    border-white/70
+    <Play className="mr-2 h-4 w-4" />
 
-                    bg-white/70
+    View Dashboard
 
-                    px-8
-
-                    backdrop-blur-xl
-
-                    transition-all
-
-                    hover:bg-white
-                    hover:shadow-lg
-                  "
-                >
-
-                  <Play className="mr-2 h-4 w-4" />
-
-                  Live Demo
-
-                </Button>
+  </Link>
+</Button>
 
               </div>
+
+              <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-500">
+
+  <span className="rounded-full border bg-white px-4 py-2">
+    ✓ Google Analytics 4
+  </span>
+
+  <span className="rounded-full border bg-white px-4 py-2">
+    ✓ Search Console
+  </span>
+
+  <span className="rounded-full border bg-white px-4 py-2">
+    ✓ AI Recommendations
+  </span>
+
+</div>
 
               {/* Stats */}
 

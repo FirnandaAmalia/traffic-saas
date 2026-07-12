@@ -11,44 +11,70 @@ import PricingPreview from "@/components/landing/pricing-preview";
 import FAQ from "@/components/landing/faq";
 import CTA from "@/components/landing/cta";
 
+import Problem from "@/components/landing/problem";
+import Solution from "@/components/landing/solution";
+import IntegrationFlow from "@/components/landing/integration-flow";
+
+
 export default function HomePage() {
   return (
     <main className="overflow-x-clip bg-white text-slate-900">
+
       <Hero />
 
       <LogoMarquee />
 
       <SocialProof />
 
+
+      {/* Why TrafficSaaS */}
+      <Problem />
+
+      {/* Solution */}
+      <Solution />
+
+      {/* How it works */}
+      <IntegrationFlow />
+
+
       <div id="workflow" className="scroll-mt-24">
         <Workflow />
       </div>
+
 
       <div id="features" className="scroll-mt-24">
         <FeatureGrid />
       </div>
 
+
       <AIShowcase />
+
 
       <div id="dashboard-demo" className="scroll-mt-24">
         <DashboardShowcase />
       </div>
 
+
       <Metrics />
+
 
       <div id="testimonials" className="scroll-mt-24">
         <Testimonials />
       </div>
 
+
       <div id="pricing" className="scroll-mt-24">
         <PricingPreview />
       </div>
+
 
       <div id="faq" className="scroll-mt-24">
         <FAQ />
       </div>
 
+
       <CTA />
+
     </main>
   );
 }
