@@ -69,12 +69,12 @@ export default function DateRangePicker() {
       (item) => item.value === current
     )?.label ?? "Last 28 Days";
 
-  const plan = PLANS.FREE;
+  const plan = PLANS.PRO;
 
-  const canCompare = hasFeature(
-    plan,
-    FEATURES.COMPARE_DATE
-  );
+const canCompare = hasFeature(
+  plan,
+  FEATURES.COMPARE_DATE
+);
 
   function changeRange(
     value: string
@@ -140,35 +140,22 @@ export default function DateRangePicker() {
 
       {/* Compare */}
 
-      <Button
-        variant="outline"
-        onClick={() => {
-          if (!canCompare) {
-            goToBilling();
-            return;
-          }
-
-          // TODO:
-          // Open Compare Date dialog
-        }}
-        className={
-          !canCompare
-            ? "border-violet-200 text-violet-700 hover:bg-violet-50"
-            : ""
-        }
-      >
-        {canCompare ? (
-          <>
-            <GitCompare className="mr-2 h-4 w-4" />
-            Compare
-          </>
-        ) : (
-          <>
-            <Lock className="mr-2 h-4 w-4" />
-            Compare (Pro)
-          </>
-        )}
-      </Button>
+{!canCompare && (
+  <Button
+    variant="outline"
+    onClick={() => {
+      goToBilling();
+    }}
+    className="
+      border-violet-200
+      text-violet-700
+      hover:bg-violet-50
+    "
+  >
+    <Lock className="mr-2 h-4 w-4" />
+    Compare (Pro)
+  </Button>
+)}
 
     </div>
   );

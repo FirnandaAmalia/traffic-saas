@@ -2,295 +2,463 @@
 
 import Link from "next/link";
 
-import { Sparkles } from "lucide-react";
-
 import {
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-} from "react-icons/fa6";
+  Sparkles,
+  ShieldCheck,
+  Zap,
+  Globe,
+} from "lucide-react";
+
 
 const product = [
   {
-    label: "Features",
-    href: "#features",
+    label:"Features",
+    href:"#features",
   },
   {
-    label: "Pricing",
-    href: "#pricing",
+    label:"Pricing",
+    href:"#pricing",
   },
   {
-    label: "AI Insights",
-    href: "#ai",
+    label:"AI Insights",
+    href:"#ai",
   },
   {
-    label: "Dashboard",
-    href: "/dashboard",
+    label:"Dashboard",
+    href:"/dashboard",
   },
 ];
+
 
 const resources = [
   {
-    label: "Documentation",
-    href: "#",
+    label:"Documentation",
+    href:"/documentation",
   },
   {
-    label: "API",
-    href: "#",
-  },
-  {
-    label: "Blog",
-    href: "#",
-  },
-  {
-    label: "FAQ",
-    href: "#faq",
+    label:"FAQ",
+    href:"#faq",
   },
 ];
+
 
 const company = [
   {
-    label: "About",
-    href: "#",
+    label:"About",
+    href:"/about",
   },
   {
-    label: "Contact",
-    href: "#",
+    label:"Contact",
+    href:"/contact",
   },
   {
-    label: "Privacy",
-    href: "#",
+    label:"Privacy Policy",
+    href:"/privacy",
   },
   {
-    label: "Terms",
-    href: "#",
+    label:"Terms",
+    href:"/terms",
   },
 ];
 
-export default function Footer() {
-  return (
-    <footer className="relative mt-32 overflow-hidden border-t border-slate-800 bg-slate-950 text-white">
 
-      {/* Background Glow */}
 
-      <div className="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
+export default function Footer(){
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20">
+return (
 
-        <div className="grid gap-12 lg:grid-cols-5">
+<footer
+className="
+relative
+overflow-hidden
+border-t
+border-slate-800
+bg-slate-950
+text-white
+"
+>
 
-          {/* Brand */}
 
-          <div className="lg:col-span-2">
+{/* Glow */}
 
-            <div className="flex items-center gap-3">
+<div
+className="
+absolute
+left-1/2
+top-0
+h-72
+w-72
+-translate-x-1/2
+rounded-full
+bg-violet-600/20
+blur-[140px]
+"
+/>
 
-              <div
-                className="
-                  flex
-                  h-12
-                  w-12
-                  items-center
-                  justify-center
-                  rounded-2xl
-                  bg-gradient-to-br
-                  from-violet-600
-                  to-sky-500
-                  shadow-lg
-                "
-              >
-                <Sparkles className="h-6 w-6 text-white" />
-              </div>
 
-              <div>
 
-                <h2 className="text-2xl font-black">
-                  TrafficSaaS
-                </h2>
+<div
+className="
+relative
+mx-auto
+max-w-7xl
+px-6
+py-12
+"
+>
 
-                <p className="text-sm text-slate-400">
-                  AI SEO Intelligence Platform
-                </p>
 
-              </div>
+<div
+className="
+grid
+gap-10
+lg:grid-cols-5
+"
+>
 
-            </div>
 
-            <p className="mt-6 max-w-md leading-7 text-slate-400">
 
-              Monitor Google Search Console and Google Analytics 4
-              in one beautiful dashboard with AI-powered insights,
-              executive reports, and actionable recommendations.
+{/* BRAND */}
 
-            </p>
+<div
+className="
+lg:col-span-2
+"
+>
 
-            {/* Social */}
 
-            <div className="mt-8 flex items-center gap-3">
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
 
-              <Link
-                href="#"
-                className="
-                  rounded-xl
-                  border
-                  border-slate-800
-                  p-3
-                  text-slate-400
-                  transition
-                  hover:border-violet-500
-                  hover:bg-violet-500/10
-                  hover:text-white
-                "
-              >
-                <FaGithub className="h-5 w-5" />
-              </Link>
+<div
+className="
+flex
+h-11
+w-11
+items-center
+justify-center
+rounded-2xl
+bg-gradient-to-br
+from-violet-600
+to-sky-500
+shadow-lg
+"
+>
 
-              <Link
-                href="#"
-                className="
-                  rounded-xl
-                  border
-                  border-slate-800
-                  p-3
-                  text-slate-400
-                  transition
-                  hover:border-sky-500
-                  hover:bg-sky-500/10
-                  hover:text-white
-                "
-              >
-                <FaXTwitter className="h-5 w-5" />
-              </Link>
+<Sparkles
+className="
+h-5
+w-5
+text-white
+"
+/>
 
-              <Link
-                href="#"
-                className="
-                  rounded-xl
-                  border
-                  border-slate-800
-                  p-3
-                  text-slate-400
-                  transition
-                  hover:border-blue-500
-                  hover:bg-blue-500/10
-                  hover:text-white
-                "
-              >
-                <FaLinkedin className="h-5 w-5" />
-              </Link>
+</div>
 
-            </div>
 
-          </div>
 
-          {/* Product */}
+<div>
 
-          <div>
+<h2
+className="
+text-xl
+font-black
+"
+>
+TrafficSaaS
+</h2>
 
-            <h3 className="font-bold text-white">
-              Product
-            </h3>
 
-            <div className="mt-5 flex flex-col gap-4">
+<p
+className="
+text-xs
+text-slate-400
+"
+>
+AI SEO Intelligence Platform
+</p>
 
-              {product.map((item) => (
 
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="text-slate-400 transition hover:text-violet-400"
-                >
-                  {item.label}
-                </Link>
+</div>
 
-              ))}
 
-            </div>
+</div>
 
-          </div>
 
-          {/* Resources */}
 
-          <div>
+<p
+className="
+mt-5
+max-w-sm
+text-sm
+leading-7
+text-slate-400
+"
+>
 
-            <h3 className="font-bold text-white">
-              Resources
-            </h3>
+Platform AI untuk membantu bisnis memahami performa website,
+menemukan peluang SEO, dan membuat keputusan berdasarkan data.
 
-            <div className="mt-5 flex flex-col gap-4">
+</p>
 
-              {resources.map((item) => (
 
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="text-slate-400 transition hover:text-violet-400"
-                >
-                  {item.label}
-                </Link>
 
-              ))}
+{/* Trust */}
 
-            </div>
+<div
+className="
+mt-6
+flex
+flex-wrap
+gap-3
+"
+>
 
-          </div>
 
-          {/* Company */}
+<div
+className="
+flex
+items-center
+gap-2
+rounded-xl
+border
+border-slate-800
+bg-slate-900/60
+px-3
+py-2
+text-xs
+text-slate-300
+"
+>
 
-          <div>
+<ShieldCheck
+className="
+h-4
+w-4
+text-emerald-400
+"
+/>
 
-            <h3 className="font-bold text-white">
-              Company
-            </h3>
+Secure OAuth
 
-            <div className="mt-5 flex flex-col gap-4">
+</div>
 
-              {company.map((item) => (
 
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="text-slate-400 transition hover:text-violet-400"
-                >
-                  {item.label}
-                </Link>
 
-              ))}
+<div
+className="
+flex
+items-center
+gap-2
+rounded-xl
+border
+border-slate-800
+bg-slate-900/60
+px-3
+py-2
+text-xs
+text-slate-300
+"
+>
 
-            </div>
+<Zap
+className="
+h-4
+w-4
+text-yellow-400
+"
+/>
 
-          </div>
+AI Powered
 
-        </div>
+</div>
 
-        {/* Bottom */}
 
-        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 text-sm text-slate-500 lg:flex-row">
 
-          <p>
-            © {new Date().getFullYear()} TrafficSaaS. All rights reserved.
-          </p>
+<div
+className="
+flex
+items-center
+gap-2
+rounded-xl
+border
+border-slate-800
+bg-slate-900/60
+px-3
+py-2
+text-xs
+text-slate-300
+"
+>
 
-          <div className="flex items-center gap-2">
+<Globe
+className="
+h-4
+w-4
+text-sky-400
+"
+/>
 
-            <span>
-              Built with
-            </span>
+Global Analytics
 
-            <span className="text-red-500">
-              ❤
-            </span>
+</div>
 
-            <span>
-              using Next.js & Tailwind CSS
-            </span>
 
-          </div>
 
-        </div>
+</div>
 
-      </div>
 
-    </footer>
-  );
+</div>
+
+
+
+
+
+{/* PRODUCT */}
+
+<FooterColumn
+title="Product"
+items={product}
+/>
+
+
+
+{/* RESOURCES */}
+
+<FooterColumn
+title="Resources"
+items={resources}
+/>
+
+
+
+{/* COMPANY */}
+
+<FooterColumn
+title="Company"
+items={company}
+/>
+
+
+
+</div>
+
+
+
+
+
+{/* Bottom */}
+
+
+<div
+className="
+mt-10
+border-t
+border-slate-800
+pt-6
+flex
+flex-col
+gap-3
+text-xs
+text-slate-500
+md:flex-row
+md:justify-between
+"
+>
+
+
+<p>
+© {new Date().getFullYear()} TrafficSaaS. All rights reserved.
+</p>
+
+
+<p>
+Built with AI & modern web technology.
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</footer>
+
+);
+
+}
+
+
+
+
+
+function FooterColumn({
+title,
+items,
+}:{
+title:string;
+items:{
+label:string;
+href:string;
+}[];
+}){
+
+return (
+
+<div>
+
+<h3
+className="
+text-sm
+font-bold
+text-white
+"
+>
+{title}
+</h3>
+
+
+<div
+className="
+mt-4
+space-y-3
+"
+>
+
+{
+items.map(item=>(
+
+<Link
+key={item.label}
+href={item.href}
+className="
+block
+text-sm
+text-slate-400
+transition
+hover:text-violet-400
+"
+>
+
+{item.label}
+
+</Link>
+
+))
+}
+
+
+</div>
+
+
+</div>
+
+);
+
 }

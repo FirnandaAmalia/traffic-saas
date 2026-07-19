@@ -1,63 +1,86 @@
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/lib/auth";
-import { google } from "googleapis";
+
+import {
+  getGA4Properties,
+} from "@/lib/ga4-admin";
+
 
 export async function GET() {
   try {
-    const session =
-      await getServerSession(authOptions);
 
-    if (!session?.accessToken) {
-      return Response.json(
-        { error: "Not authenticated" },
-        { status: 401 }
+    const session =
+      await getServerSession(
+        authOptions
       );
+
+
+    if (!session?.accessToken &&
+        !session?.refreshToken) {
+
+      return Response.json(
+        {
+          success:false,
+          error:
+            "Not authenticated",
+        },
+        {
+          status:401,
+        }
+      );
+
     }
 
-    console.log(
-  "ACCESS TOKEN:",
-  session.accessToken
-);
 
-console.log(
-  "REFRESH TOKEN:",
-  session.refreshToken
-);
+    const data =
+      await getGA4Properties(
+        typeof session.accessToken === "string"
+          ? session.accessToken
+          : undefined,
 
-    const auth = new google.auth.OAuth2();
+        typeof session.refreshToken === "string"
+          ? session.refreshToken
+          : undefined
+      );
 
-auth.setCredentials({
-  access_token:
-    session.accessToken as string,
-}); 
-
-    const analyticsAdmin =
-  google.analyticsadmin({
-    version: "v1beta",
-    auth,
-  });
-
-    const response =
-      await analyticsAdmin.accountSummaries.list();
 
     return Response.json({
-      success: true,
-      data:
-        response.data.accountSummaries || [],
+
+      success:true,
+
+      data,
+
     });
-  } catch (error) {
+
+
+  } catch(error) {
+
+
     console.error(
       "GA4 PROPERTIES ERROR:",
-      error
+      error instanceof Error
+        ? error.message
+        : error
     );
+
 
     return Response.json(
+
       {
-        success: false,
-        error: String(error),
+        success:false,
+
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
       },
-      { status: 500 }
+
+      {
+        status:500,
+      }
+
     );
+
   }
 }
-

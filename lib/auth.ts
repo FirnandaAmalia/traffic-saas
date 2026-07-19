@@ -1,66 +1,160 @@
-import type { NextAuthOptions } from "next-auth";
 import type {
-  Account,
-  Session,
+  NextAuthOptions,
 } from "next-auth";
 
-import type { JWT } from "next-auth/jwt";
+import type {
+  JWT,
+} from "next-auth/jwt";
 
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-import { ensureSubscription } from "@/lib/subscription";
+import { prisma } from "@/lib/prisma";
+import {
+  ensureSubscription,
+} from "@/lib/subscription";
 
+/*
+|--------------------------------------------------------------------------
+| Google Refresh Response
+|--------------------------------------------------------------------------
+*/
 
-// ======================================================
-// Shared Refresh Promise
-// ======================================================
+interface GoogleRefreshResponse {
+  access_token?: string;
+  expires_in?: number;
+  refresh_token?: string;
+  token_type?: string;
+  scope?: string;
+  error?: string;
+  error_description?: string;
+}
 
-let refreshPromise: Promise<JWT> | null = null;
+/*
+|--------------------------------------------------------------------------
+| Per-User Refresh Locks
+|--------------------------------------------------------------------------
+|
+| Jangan menggunakan satu Promise global untuk semua user.
+| Setiap user memiliki refresh lock sendiri agar token
+| antar-user tidak tercampur saat request berjalan bersamaan.
+|
+*/
 
+const refreshPromises =
+  new Map<string, Promise<JWT>>();
 
-// ======================================================
-// Refresh Google Access Token
-// ======================================================
-
-async function refreshAccessToken(
+function getTokenUserId(
   token: JWT
-): Promise<JWT> {
+): string | null {
+  if (
+    typeof token.userId === "string" &&
+    token.userId.trim()
+  ) {
+    return token.userId;
+  }
 
-  if (!token.refresh_token) {
+  if (
+    typeof token.sub === "string" &&
+    token.sub.trim()
+  ) {
+    return token.sub;
+  }
+
+  return null;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Synchronize Google Account Token
+|--------------------------------------------------------------------------
+*/
+
+async function synchronizeGoogleAccount({
+  userId,
+  accessToken,
+  refreshToken,
+  expiresAt,
+}: {
+  userId: string;
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: number;
+}) {
+  try {
+    await prisma.account.updateMany({
+      where: {
+        userId,
+        provider: "google",
+      },
+
+      data: {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        expires_at: expiresAt,
+      },
+    });
+  } catch (error) {
+    /*
+     * Kegagalan sinkronisasi database tidak boleh
+     * membatalkan access token yang sudah berhasil
+     * diperbarui oleh Google.
+     */
 
     console.error(
-      "❌ Refresh Token not found."
+      "GOOGLE_ACCOUNT_TOKEN_SYNC_FAILED",
+      {
+        userId,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
+      }
     );
+  }
+}
 
+/*
+|--------------------------------------------------------------------------
+| Execute Google Token Refresh
+|--------------------------------------------------------------------------
+*/
+
+async function executeTokenRefresh(
+  token: JWT
+): Promise<JWT> {
+  const refreshToken =
+    typeof token.refresh_token === "string"
+      ? token.refresh_token
+      : "";
+
+  if (!refreshToken) {
     return {
       ...token,
       error: "NoRefreshToken",
     };
-
   }
 
+  const clientId =
+    process.env.GOOGLE_CLIENT_ID;
 
-  if (refreshPromise) {
+  const clientSecret =
+    process.env.GOOGLE_CLIENT_SECRET;
 
-    console.info(
-      "⏳ Waiting for ongoing token refresh..."
+  if (!clientId || !clientSecret) {
+    console.error(
+      "GOOGLE_OAUTH_CONFIGURATION_MISSING"
     );
 
-    return refreshPromise;
-
+    return {
+      ...token,
+      error: "OAuthConfigurationError",
+    };
   }
 
-
-  refreshPromise = (async () => {
-
-    try {
-
-      console.info(
-        "🔄 Refreshing Google Access Token..."
-      );
-
-
-      const response = await fetch(
+  try {
+    const response =
+      await fetch(
         "https://oauth2.googleapis.com/token",
         {
           method: "POST",
@@ -71,270 +165,421 @@ async function refreshAccessToken(
           },
 
           body: new URLSearchParams({
-
-            client_id:
-              process.env.GOOGLE_CLIENT_ID!,
-
-            client_secret:
-              process.env.GOOGLE_CLIENT_SECRET!,
-
-            grant_type:
-              "refresh_token",
-
-            refresh_token:
-              token.refresh_token as string,
-
+            client_id: clientId,
+            client_secret: clientSecret,
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
           }),
 
+          cache: "no-store",
         }
       );
 
+    const refreshed =
+      await response.json() as
+        GoogleRefreshResponse;
 
-      if (!response.ok) {
-
-        throw await response.text();
-
-      }
-
-
-      const refreshed =
-        await response.json();
-
-
-      console.info(
-        "✅ Google Access Token Refreshed"
-      );
-
-
-      return {
-
-        ...token,
-
-        access_token:
-          refreshed.access_token,
-
-
-        expires_at:
-          Math.floor(Date.now() / 1000) +
-          refreshed.expires_in,
-
-
-        refresh_token:
-          refreshed.refresh_token ??
-          token.refresh_token,
-
-
-        error: undefined,
-
-      };
-
-
-    } catch (error) {
-
-
+    if (
+      !response.ok ||
+      !refreshed.access_token ||
+      !refreshed.expires_in
+    ) {
       console.error(
-        "❌ Refresh Access Token Error:",
-        error
+        "GOOGLE_TOKEN_REFRESH_FAILED",
+        {
+          status: response.status,
+          code:
+            refreshed.error ??
+            "unknown_error",
+          description:
+            refreshed.error_description ??
+            "Google did not return a valid token.",
+        }
       );
 
-
       return {
-
         ...token,
-
-        refresh_token:
-          token.refresh_token,
-
-
-        error:
-          "RefreshAccessTokenError",
-
+        error: "RefreshAccessTokenError",
       };
-
-
-    } finally {
-
-      refreshPromise = null;
-
     }
 
+    const expiresAt =
+      Math.floor(
+        Date.now() / 1000
+      ) +
+      refreshed.expires_in;
 
-  })();
+    const nextRefreshToken =
+      refreshed.refresh_token ??
+      refreshToken;
 
+    const userId =
+      getTokenUserId(token);
 
-  return refreshPromise;
+    if (userId) {
+      await synchronizeGoogleAccount({
+        userId,
+        accessToken:
+          refreshed.access_token,
+        refreshToken:
+          nextRefreshToken,
+        expiresAt,
+      });
+    }
 
+    return {
+      ...token,
+
+      access_token:
+        refreshed.access_token,
+
+      expires_at:
+        expiresAt,
+
+      refresh_token:
+        nextRefreshToken,
+
+      error:
+        undefined,
+    };
+  } catch (error) {
+    console.error(
+      "GOOGLE_TOKEN_REFRESH_REQUEST_FAILED",
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
+      }
+    );
+
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
 }
 
+/*
+|--------------------------------------------------------------------------
+| Refresh Google Token
+|--------------------------------------------------------------------------
+*/
 
+async function refreshAccessToken(
+  token: JWT
+): Promise<JWT> {
+  const userId =
+    getTokenUserId(token);
 
-// ======================================================
-// NextAuth Configuration
-// ======================================================
+  /*
+   * Token tanpa user ID tetap dapat di-refresh,
+   * tetapi tidak menggunakan shared lock.
+   */
 
-export const authOptions: NextAuthOptions = {
+  if (!userId) {
+    return executeTokenRefresh(
+      token
+    );
+  }
 
+  const existingPromise =
+    refreshPromises.get(userId);
+
+  if (existingPromise) {
+    return existingPromise;
+  }
+
+  const refreshPromise =
+    executeTokenRefresh(token)
+      .finally(() => {
+        refreshPromises.delete(
+          userId
+        );
+      });
+
+  refreshPromises.set(
+    userId,
+    refreshPromise
+  );
+
+  return refreshPromise;
+}
+
+/*
+|--------------------------------------------------------------------------
+| NextAuth Configuration
+|--------------------------------------------------------------------------
+*/
+
+export const authOptions:
+  NextAuthOptions = {
+  adapter:
+    PrismaAdapter(prisma),
+
+  /*
+   * Wajib false.
+   * Debug NextAuth dapat mencetak detail OAuth
+   * yang sensitif ke terminal.
+   */
+
+  debug: false,
 
   providers: [
-
     GoogleProvider({
-
       clientId:
-        process.env.GOOGLE_CLIENT_ID!,
-
+        process.env
+          .GOOGLE_CLIENT_ID!,
 
       clientSecret:
-        process.env.GOOGLE_CLIENT_SECRET!,
-
+        process.env
+          .GOOGLE_CLIENT_SECRET!,
 
       authorization: {
-
         params: {
+          scope: [
+            "openid",
+            "email",
+            "profile",
 
-          prompt:
-            "consent",
+            "https://www.googleapis.com/auth/webmasters.readonly",
+
+            "https://www.googleapis.com/auth/analytics.readonly",
+          ].join(" "),
 
           access_type:
             "offline",
 
+          prompt:
+            "consent",
+
           response_type:
             "code",
-
-
-          scope:
-            "openid email profile https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly",
-
         },
-
       },
-
     }),
-
   ],
 
+  session: {
+    strategy: "jwt",
+  },
 
+  pages: {
+    signIn: "/login",
+  },
 
   callbacks: {
-
+    /*
+    |--------------------------------------------------------------------------
+    | JWT Callback
+    |--------------------------------------------------------------------------
+    */
 
     async jwt({
-  token,
-  account,
-}: {
-  token: JWT;
-  account: Account | null;
-}) {
+      token,
+      account,
+      user,
+    }) {
+      /*
+       * Login atau authorization Google baru.
+       */
 
+      if (account && user) {
+        token.userId =
+          user.id;
 
+        token.email =
+          user.email ??
+          undefined;
 
-      if (account) {
+        token.access_token =
+          account.access_token ??
+          token.access_token;
 
+        token.expires_at =
+          account.expires_at ??
+          token.expires_at;
 
-        console.info(
-          "✅ Google Login Success"
-        );
+        /*
+         * Google tidak selalu mengembalikan refresh
+         * token pada setiap authorization.
+         *
+         * Jika tidak tersedia pada response, gunakan
+         * token yang sudah tersimpan di Account.
+         */
 
-
-        if (token.email) {
-
-          await ensureSubscription(
-            token.email
+        let refreshToken =
+          account.refresh_token ??
+          (
+            typeof token.refresh_token ===
+            "string"
+              ? token.refresh_token
+              : undefined
           );
 
+        if (!refreshToken) {
+          const storedAccount =
+            await prisma.account.findUnique({
+              where: {
+                provider_providerAccountId: {
+                  provider:
+                    account.provider,
+
+                  providerAccountId:
+                    account.providerAccountId,
+                },
+              },
+
+              select: {
+                refresh_token: true,
+              },
+            });
+
+          refreshToken =
+            storedAccount
+              ?.refresh_token ??
+            undefined;
         }
 
+        if (refreshToken) {
+          token.refresh_token =
+            refreshToken;
+        }
 
-        return {
+        const dbUser =
+          await prisma.user.findUnique({
+            where: {
+              id: user.id,
+            },
 
-          ...token,
+            select: {
+              role: true,
+            },
+          });
 
+        token.role =
+          dbUser?.role ??
+          "USER";
 
-          access_token:
-            account.access_token,
-
-
-          expires_at:
-            account.expires_at,
-
-
-          refresh_token:
-            account.refresh_token ??
-            token.refresh_token,
-
-
-          error: undefined,
-
-        };
-
-      }
-
-
-
-
-      if (
-
-        token.expires_at &&
-
-        Date.now() <
-        token.expires_at * 1000
-
-      ) {
+        if (user.email) {
+          await ensureSubscription(
+            user.email,
+            user.name
+          );
+        }
 
         return token;
-
       }
 
+      /*
+       * JWT lama yang belum mempunyai custom
+       * userId tetap memakai token.sub.
+       */
 
+      if (
+        !token.userId &&
+        token.sub
+      ) {
+        token.userId =
+          token.sub;
+      }
 
-      console.info(
-        "🔄 Access Token Expired"
-      );
+      const expiresAt =
+        Number(
+          token.expires_at ??
+          0
+        );
 
+      /*
+       * Beri buffer 60 detik agar access token
+       * tidak kedaluwarsa ketika request Google
+       * sedang berjalan.
+       */
 
+      if (
+        expiresAt > 0 &&
+        Date.now() <
+          (
+            expiresAt - 60
+          ) *
+          1000
+      ) {
+        return token;
+      }
 
-      return await refreshAccessToken(
-        token
-      );
+      if (
+        typeof token.refresh_token ===
+          "string" &&
+        token.refresh_token
+      ) {
+        return refreshAccessToken(
+          token
+        );
+      }
 
-
+      return {
+        ...token,
+        error: "NoRefreshToken",
+      };
     },
 
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | Session Callback
+    |--------------------------------------------------------------------------
+    */
 
     async session({
-  session,
-  token,
-}: {
-  session: Session;
-  token: JWT;
-}) {
+      session,
+      token,
+    }) {
+      if (session.user) {
+        session.user.id =
+          getTokenUserId(token) ??
+          "";
 
+        session.user.role =
+          token.role === "ADMIN"
+            ? "ADMIN"
+            : "USER";
+      }
 
+      /*
+       * TEMPORARY COMPATIBILITY
+       *
+       * Dashboard, GSC setup, dan GA4 setup masih
+       * membaca token melalui getServerSession().
+       *
+       * Tahap berikutnya akan memindahkan credential
+       * Google ke server-only credential service.
+       * Setelah itu dua field token ini harus dihapus.
+       */
 
       session.accessToken =
         token.access_token;
 
-
       session.refreshToken =
         token.refresh_token;
-
 
       session.expiresAt =
         token.expires_at;
 
-
       session.error =
         token.error;
 
-
-
       return session;
-
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect Callback
+    |--------------------------------------------------------------------------
+    */
 
+    async redirect({
+      baseUrl,
+    }) {
+      return `${baseUrl}/dashboard`;
+    },
   },
-
-
 };

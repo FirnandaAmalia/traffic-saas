@@ -94,17 +94,16 @@ export default function DeleteProjectDialog({
           </AlertDialogTitle>
 
           <AlertDialogDescription>
-            Apakah Anda yakin ingin
-            menghapus workspace{" "}
-            <strong>
-              "{projectName}"
-            </strong>
-            ?
-            <br />
-            <br />
-            Tindakan ini tidak dapat
-            dibatalkan.
-          </AlertDialogDescription>
+  Apakah Anda yakin ingin
+  menghapus workspace{" "}
+  <strong>
+    &quot;{projectName}&quot;
+  </strong>
+  ?
+  <br />
+  <br />
+  Tindakan ini tidak dapat
+</AlertDialogDescription>
 
         </AlertDialogHeader>
 

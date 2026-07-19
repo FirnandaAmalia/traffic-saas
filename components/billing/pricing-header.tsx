@@ -31,7 +31,7 @@ export default function PricingHeader() {
 
         Connect Google Search Console and Google Analytics 4,
         monitor your SEO performance, and unlock AI-powered
-        recommendations when you're ready to grow.
+        recommendations when you&apos;re ready to grow.
 
       </p>
 

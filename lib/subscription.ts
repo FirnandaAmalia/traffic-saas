@@ -1,101 +1,266 @@
-import { prisma } from "./prisma";
+import { prisma } from "@/lib/prisma";
 
-import {
-  PLANS,
-  type Plan,
-} from "./plan";
+import type {
+  Plan,
+  User,
+  Subscription,
+} from "@prisma/client";
 
-/**
- * Ambil plan user berdasarkan email.
- * Jika belum punya subscription,
- * otomatis dianggap FREE.
- */
-export async function getCurrentPlan(
+/*
+|--------------------------------------------------------------------------
+| Project Limits
+|--------------------------------------------------------------------------
+|
+| null berarti unlimited.
+|
+*/
+
+export const FREE_PROJECT_LIMIT = 1;
+
+export type ProjectLimit =
+  number | null;
+
+export interface SubscriptionUsage {
+  plan: Plan;
+  projectCount: number;
+  projectLimit: ProjectLimit;
+  canCreateProject: boolean;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Normalize Email
+|--------------------------------------------------------------------------
+*/
+
+function normalizeEmail(
   email: string
-): Promise<Plan> {
-  const subscription =
-    await prisma.subscription.findUnique({
+): string {
+  const normalizedEmail =
+    email.trim();
+
+  if (!normalizedEmail) {
+    throw new Error(
+      "Email user wajib tersedia."
+    );
+  }
+
+  return normalizedEmail;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Get Project Limit
+|--------------------------------------------------------------------------
+|
+| FREE = maksimal 1 project
+| PRO  = unlimited
+|
+*/
+
+export function getProjectLimit(
+  plan: Plan
+): ProjectLimit {
+  if (plan === "PRO") {
+    return null;
+  }
+
+  return FREE_PROJECT_LIMIT;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Ensure User Subscription Exists
+|--------------------------------------------------------------------------
+*/
+
+export async function ensureSubscription(
+  email: string,
+  name?: string | null
+): Promise<{
+  user: User;
+  subscription: Subscription;
+}> {
+  const normalizedEmail =
+    normalizeEmail(email);
+
+  let user =
+    await prisma.user.findUnique({
       where: {
-        userEmail: email,
-      },
-      select: {
-        plan: true,
+        email:
+          normalizedEmail,
       },
     });
 
-  return subscription?.plan ?? PLANS.FREE;
+  /*
+   * Biasanya user sudah dibuat PrismaAdapter.
+   * Fallback ini dipertahankan agar fungsi tetap aman
+   * ketika dipanggil dari flow selain NextAuth.
+   */
+
+  if (!user) {
+    user =
+      await prisma.user.create({
+        data: {
+          email:
+            normalizedEmail,
+
+          name:
+            name?.trim() ||
+            null,
+
+          role:
+            "USER",
+        },
+      });
+  }
+
+  /*
+   * Upsert membuat proses ini idempotent:
+   * subscription dibuat bila belum ada dan dibiarkan
+   * tetap sama bila sudah tersedia.
+   */
+
+  const subscription =
+    await prisma.subscription.upsert({
+      where: {
+        userId:
+          user.id,
+      },
+
+      update: {},
+
+      create: {
+        userId:
+          user.id,
+
+        plan:
+          "FREE",
+      },
+    });
+
+  return {
+    user,
+    subscription,
+  };
 }
 
-/**
- * Pastikan user memiliki subscription.
- * Dipanggil setelah login pertama
- * atau saat membuat project pertama.
- */
-export async function ensureSubscription(
+/*
+|--------------------------------------------------------------------------
+| Get Current User Plan
+|--------------------------------------------------------------------------
+*/
+
+export async function getCurrentPlan(
   email: string
-) {
-  return prisma.subscription.upsert({
-    where: {
-      userEmail: email,
-    },
+): Promise<Plan> {
+  const normalizedEmail =
+    normalizeEmail(email);
 
-    update: {},
+  const user =
+    await prisma.user.findUnique({
+      where: {
+        email:
+          normalizedEmail,
+      },
 
-    create: {
-      userEmail: email,
-      plan: PLANS.FREE,
-    },
-  });
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+  return (
+    user
+      ?.subscription
+      ?.plan ??
+    "FREE"
+  );
 }
 
-/**
- * Upgrade user ke Pro.
- * Nanti dipanggil setelah pembayaran berhasil.
- */
-export async function upgradeToPro(
+/*
+|--------------------------------------------------------------------------
+| Get Subscription Usage
+|--------------------------------------------------------------------------
+|
+| Mengambil plan dan jumlah project dalam satu query.
+|
+*/
+
+export async function getSubscriptionUsage(
   email: string
-) {
-  return prisma.subscription.upsert({
-    where: {
-      userEmail: email,
-    },
+): Promise<SubscriptionUsage | null> {
+  const normalizedEmail =
+    normalizeEmail(email);
 
-    update: {
-      plan: PLANS.PRO,
-    },
+  const user =
+    await prisma.user.findUnique({
+      where: {
+        email:
+          normalizedEmail,
+      },
 
-    create: {
-      userEmail: email,
-      plan: PLANS.PRO,
-    },
-  });
-}
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
 
-/**
- * Downgrade ke Free.
- */
-export async function downgradeToFree(
-  email: string
-) {
-  return prisma.subscription.update({
-    where: {
-      userEmail: email,
-    },
+        _count: {
+          select: {
+            projects: true,
+          },
+        },
+      },
+    });
 
-    data: {
-      plan: PLANS.FREE,
-    },
-  });
-}
+  if (!user) {
+    return null;
+  }
 
-/**
- * Shortcut helper.
- */
-export async function isProUser(
-  email: string
-) {
   const plan =
-    await getCurrentPlan(email);
+    user.subscription?.plan ??
+    "FREE";
 
-  return plan === PLANS.PRO;
+  const projectCount =
+    user._count.projects;
+
+  const projectLimit =
+    getProjectLimit(plan);
+
+  const canCreateProject =
+    projectLimit === null ||
+    projectCount <
+      projectLimit;
+
+  return {
+    plan,
+    projectCount,
+    projectLimit,
+    canCreateProject,
+  };
+}
+
+/*
+|--------------------------------------------------------------------------
+| Check Project Creation Permission
+|--------------------------------------------------------------------------
+*/
+
+export async function canCreateProject(
+  email: string
+): Promise<boolean> {
+  const usage =
+    await getSubscriptionUsage(
+      email
+    );
+
+  return (
+    usage?.canCreateProject ??
+    false
+  );
 }

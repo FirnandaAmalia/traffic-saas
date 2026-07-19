@@ -121,10 +121,10 @@ export default function MaturityScoreCard({
 
           <p className="text-slate-500">
 
-            AI evaluates your organization's digital capability
-            across multiple dimensions.
+  AI evaluates your organization&apos;s digital capability
+  across multiple dimensions.
 
-          </p>
+</p>
 
         </div>
 

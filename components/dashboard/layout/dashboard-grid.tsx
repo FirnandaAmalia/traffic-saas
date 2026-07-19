@@ -9,10 +9,6 @@ import LandingPages from "../analytics/landing-pages";
 import TopEvents from "../analytics/top-events";
 
 import StatCard from "../metrics/stat-card";
-import {
-  PLANS,
-  type Plan,
-} from "@/lib/plan";
 
 import {
   Users,
@@ -20,6 +16,10 @@ import {
   FileText,
   Gauge,
 } from "lucide-react";
+
+import {
+  type Plan,
+} from "@/lib/plan";
 
 import type { GSCRow } from "@/lib/types/gsc";
 
@@ -32,11 +32,24 @@ import type {
   BrowserMetric,
 } from "@/lib/types/ga4";
 
+interface ClickHistoryPoint {
+  date: string;
+  clicks: number;
+  impressions: number;
+}
+
+interface UserHistoryPoint {
+  date: string;
+  users: number;
+  sessions: number;
+}
+
+
 interface DashboardGridProps {
   plan: Plan;
 
-  clicksHistory: any;
-  usersHistory: any;
+  clicksHistory: ClickHistoryPoint[];
+  usersHistory: UserHistoryPoint[];
 
   clicks: number;
   impressions: number;

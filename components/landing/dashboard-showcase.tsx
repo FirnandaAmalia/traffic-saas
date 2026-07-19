@@ -1,350 +1,617 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   ArrowRight,
   Brain,
-  Globe,
   Sparkles,
   TrendingUp,
+  BarChart3,
+  CheckCircle2,
 } from "lucide-react";
 
-import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
+
+import FadeUp from "@/components/motion/fade-up";
+
+import HeroDashboard from "@/components/landing/hero-dashboard";
+
+const features = [
+  "Google Analytics 4 Integration",
+  "Search Console Intelligence",
+  "AI SEO Recommendations",
+  "Automated Performance Reports",
+];
+
+
 
 export default function DashboardShowcase() {
   return (
     <section
       id="dashboard"
-      className="relative overflow-hidden py-32"
+      className="
+        relative
+        overflow-hidden
+        py-32
+      "
     >
-      {/* Background */}
 
-      <div className="absolute inset-0">
 
-        <div className="absolute left-0 top-20 h-[420px] w-[420px] rounded-full bg-violet-500/10 blur-[140px]" />
+      {/* Background Glow */}
 
-        <div className="absolute right-0 bottom-0 h-[460px] w-[460px] rounded-full bg-sky-500/10 blur-[140px]" />
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
 
-      </div>
+          h-[600px]
+          w-[900px]
 
-      <div className="relative mx-auto max-w-7xl px-6">
+          -translate-x-1/2
 
-        <div className="grid gap-20 lg:grid-cols-2 lg:items-center">
+          rounded-full
+
+          bg-violet-500/10
+
+          blur-[160px]
+        "
+      />
+
+
+
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
+
+
+
+        <div
+          className="
+            grid
+            gap-20
+            lg:grid-cols-2
+            lg:items-center
+          "
+        >
+
+
+
 
           {/* LEFT */}
 
-          <div>
+          <FadeUp>
 
-            <span
-              className="
-                inline-flex
-                items-center
-                gap-2
+            <div>
 
-                rounded-full
 
-                bg-violet-100
+              <div
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
 
-                px-4
-                py-2
+                  rounded-full
 
-                text-sm
-                font-semibold
-                text-violet-700
-              "
-            >
-              <Sparkles className="h-4 w-4" />
+                  border
+                  border-violet-200
 
-              Dashboard Showcase
+                  bg-violet-50
 
-            </span>
+                  px-4
+                  py-2
 
-            <h2 className="mt-8 text-5xl font-black tracking-tight text-slate-900">
+                  text-sm
 
-              One Workspace.
+                  font-bold
 
-              <br />
+                  text-violet-700
+                "
+              >
 
-              Every SEO Metric.
+                <Sparkles className="h-4 w-4"/>
 
-            </h2>
+                PRODUCT DASHBOARD
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+              </div>
 
-              Stop switching between Google Search Console,
-              Google Analytics 4 and spreadsheets.
 
-              TrafficSaaS combines everything into one
-              modern AI-powered dashboard.
 
-            </p>
 
-            <div className="mt-10 space-y-5">
+              <h2
+                className="
+                  mt-8
 
-              {[
-                "Google Search Console Integration",
-                "Google Analytics 4 Integration",
-                "Executive AI Summary",
-                "Realtime KPI Dashboard",
-                "PDF & Excel Export",
-                "Country & Device Analytics",
-              ].map((item) => (
+                  text-4xl
 
-                <div
-                  key={item}
-                  className="flex items-center gap-4"
+                  font-black
+
+                  tracking-tight
+
+                  text-slate-900
+
+                  lg:text-6xl
+                "
+              >
+
+                Semua data SEO.
+
+                <br />
+
+                Satu workspace.
+
+                <br />
+
+
+                <span
+                  className="
+                    bg-gradient-to-r
+                    from-violet-600
+                    to-sky-500
+
+                    bg-clip-text
+
+                    text-transparent
+                  "
                 >
+                  Lebih pintar dengan AI.
+                </span>
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100">
 
-                    <Sparkles className="h-5 w-5 text-violet-700" />
+              </h2>
+
+
+
+
+              <p
+                className="
+                  mt-6
+
+                  max-w-xl
+
+                  text-lg
+
+                  leading-8
+
+                  text-slate-600
+                "
+              >
+
+                TrafficSaaS menyatukan Google Analytics 4,
+                Google Search Console, dan AI intelligence
+                menjadi satu platform untuk memahami performa
+                website dan menemukan peluang pertumbuhan.
+
+
+              </p>
+
+
+
+
+              <div
+                className="
+                  mt-10
+                  space-y-5
+                "
+              >
+
+                {features.map((item)=>(
+
+                  <div
+                    key={item}
+                    className="
+                      flex
+                      items-center
+                      gap-4
+                    "
+                  >
+
+                    <div
+                      className="
+                        flex
+                        h-8
+                        w-8
+                        items-center
+                        justify-center
+
+                        rounded-full
+
+                        bg-emerald-100
+                      "
+                    >
+
+                      <CheckCircle2
+                        className="
+                          h-5
+                          w-5
+                          text-emerald-600
+                        "
+                      />
+
+                    </div>
+
+
+                    <span
+                      className="
+                        font-medium
+                        text-slate-700
+                      "
+                    >
+
+                      {item}
+
+                    </span>
+
 
                   </div>
 
-                  <span className="font-medium text-slate-700">
+                ))}
 
-                    {item}
 
-                  </span>
+              </div>
 
-                </div>
 
-              ))}
+
+
+              <Button
+                asChild
+                size="lg"
+                className="
+                  mt-10
+
+                  rounded-full
+
+                  bg-gradient-to-r
+
+                  from-violet-600
+
+                  to-sky-500
+
+                  px-8
+
+                  shadow-lg
+                "
+              >
+
+                <Link href="/api/auth/signin">
+
+                  Coba TrafficSaaS
+
+                  <ArrowRight className="ml-2 h-4 w-4"/>
+
+                </Link>
+
+
+              </Button>
+
 
             </div>
 
-            <Button
-              asChild
-              size="lg"
-              className="
-                mt-10
 
-                rounded-full
+          </FadeUp>
 
-                bg-gradient-to-r
 
-                from-violet-600
-                to-sky-500
 
-                px-8
-              "
-            >
 
-              <Link href="/api/auth/signin">
 
-                Start Free
-
-                <ArrowRight className="ml-2 h-4 w-4" />
-
-              </Link>
-
-            </Button>
-
-          </div>
 
           {/* RIGHT */}
 
-          <div className="relative">
+          <FadeUp delay={0.2}>
 
-            {/* Dashboard */}
 
             <div
               className="
-                overflow-hidden
-
-                rounded-[34px]
-
-                border
-                border-white/60
-
-                bg-white
-
-                shadow-[0_40px_120px_rgba(15,23,42,.18)]
+                relative
               "
             >
 
-              {/* Browser */}
 
-              <div className="flex h-12 items-center gap-2 border-b bg-slate-50 px-5">
 
-                <div className="h-3 w-3 rounded-full bg-red-400" />
+              {/* Dashboard */}
 
-                <div className="h-3 w-3 rounded-full bg-yellow-400" />
+              <div
+                className="
+                  relative
 
-                <div className="h-3 w-3 rounded-full bg-green-400" />
+                  rounded-[36px]
+
+                  border
+
+                  border-white/70
+
+                  bg-white/80
+
+                  p-3
+
+                  shadow-[0_40px_120px_rgba(15,23,42,.18)]
+
+                  backdrop-blur-xl
+                "
+              >
+
+
+
+                {/* Browser */}
+
+                <div
+                  className="
+                    flex
+                    h-12
+                    items-center
+                    gap-2
+
+                    rounded-t-3xl
+
+                    border-b
+
+                    bg-slate-50
+
+                    px-5
+                  "
+                >
+
+                  <span className="h-3 w-3 rounded-full bg-red-400"/>
+                  <span className="h-3 w-3 rounded-full bg-yellow-400"/>
+                  <span className="h-3 w-3 rounded-full bg-green-400"/>
+
+
+                  <div
+                    className="
+                      ml-5
+                      rounded-full
+                      bg-white
+                      px-5
+                      py-1
+                      text-xs
+                      text-slate-400
+                    "
+                  >
+
+                    app.trafficsaas.com/dashboard
+
+                  </div>
+
+
+                </div>
+
+
+
+
+
+                <div
+                  className="
+                    relative
+                    overflow-hidden
+                    rounded-b-3xl
+                  "
+                >
+
+
+                  <HeroDashboard />
+
+
+
+                  {/* AI Scanner */}
+
+                  <div
+                    className="
+                      absolute
+                      inset-x-0
+                      top-0
+
+                      h-1
+
+                      bg-gradient-to-r
+
+                      from-transparent
+
+                      via-violet-500
+
+                      to-transparent
+
+                      animate-scan
+                    "
+                  />
+
+
+                  <div
+                    className="
+                      absolute
+                      inset-0
+
+                      bg-gradient-to-t
+
+                      from-violet-500/10
+
+                      to-transparent
+                    "
+                  />
+
+
+                </div>
+
+
 
               </div>
 
-              <img
-                src="/dashboard-preview.png"
-                alt="TrafficSaaS Dashboard"
-                className="w-full"
-              />
 
-            </div>
 
-            {/* Floating Card */}
 
-            <div
-              className="
-                absolute
 
-                -left-10
 
-                top-10
+              {/* AI Card */}
 
-                hidden
+              <div
+                className="
+                  absolute
 
-                rounded-2xl
+                  -left-10
 
-                border
+                  top-20
 
-                bg-white/95
+                  hidden
 
-                p-5
+                  rounded-3xl
 
-                shadow-2xl
+                  border
 
-                backdrop-blur-xl
+                  bg-white/90
 
-                lg:block
-              "
-            >
+                  p-5
 
-              <div className="flex items-center gap-3">
+                  shadow-2xl
 
-                <TrendingUp className="h-10 w-10 rounded-xl bg-violet-100 p-2 text-violet-700" />
+                  backdrop-blur-xl
 
-                <div>
+                  lg:block
 
-                  <p className="text-xs text-slate-500">
+                  animate-float
+                "
+              >
 
-                    Organic Traffic
+                <div className="flex gap-3">
 
-                  </p>
 
-                  <h3 className="text-3xl font-bold">
+                  <Brain
+                    className="
+                      h-12
+                      w-12
 
-                    +42%
+                      rounded-2xl
 
-                  </h3>
+                      bg-violet-100
+
+                      p-3
+
+                      text-violet-700
+                    "
+                  />
+
+
+                  <div>
+
+                    <p className="text-xs text-slate-500">
+                      AI Analysis
+                    </p>
+
+
+                    <p className="font-black">
+                      12 Opportunities
+                    </p>
+
+
+                  </div>
+
 
                 </div>
 
               </div>
 
-            </div>
 
-            {/* Floating Card */}
 
-            <div
-              className="
-                absolute
 
-                -right-10
 
-                top-40
 
-                hidden
 
-                rounded-2xl
+              {/* Growth Card */}
 
-                border
+              <div
+                className="
+                  absolute
 
-                bg-white/95
+                  -right-8
 
-                p-5
+                  bottom-16
 
-                shadow-2xl
+                  hidden
 
-                backdrop-blur-xl
+                  rounded-3xl
 
-                lg:block
-              "
-            >
+                  border
 
-              <div className="flex items-center gap-3">
+                  bg-white/90
 
-                <Brain className="h-10 w-10 rounded-xl bg-sky-100 p-2 text-sky-700" />
+                  p-5
 
-                <div>
+                  shadow-2xl
 
-                  <p className="text-xs text-slate-500">
+                  backdrop-blur-xl
 
-                    AI Summary
+                  lg:block
 
-                  </p>
+                  animate-float
+                "
+              >
 
-                  <h3 className="font-semibold">
 
-                    Improve CTR
+                <div className="flex gap-3">
 
-                  </h3>
 
-                </div>
+                  <TrendingUp
+                    className="
+                      h-12
+                      w-12
 
-              </div>
+                      rounded-2xl
 
-            </div>
+                      bg-emerald-100
 
-            {/* Floating Card */}
+                      p-3
 
-            <div
-              className="
-                absolute
+                      text-emerald-700
+                    "
+                  />
 
-                bottom-10
 
-                left-14
 
-                hidden
+                  <div>
 
-                rounded-2xl
+                    <p className="text-xs text-slate-500">
+                      Organic Growth
+                    </p>
 
-                border
 
-                bg-white/95
+                    <p className="font-black">
+                      +42% Traffic
+                    </p>
 
-                p-5
 
-                shadow-2xl
+                  </div>
 
-                backdrop-blur-xl
-
-                lg:block
-              "
-            >
-
-              <div className="flex items-center gap-3">
-
-                <Globe className="h-10 w-10 rounded-xl bg-emerald-100 p-2 text-emerald-700" />
-
-                <div>
-
-                  <p className="text-xs text-slate-500">
-
-                    Active Countries
-
-                  </p>
-
-                  <h3 className="font-semibold">
-
-                    128 Countries
-
-                  </h3>
 
                 </div>
 
+
               </div>
+
+
+
+
+
+
 
             </div>
 
-          </div>
+
+          </FadeUp>
+
+
+
 
         </div>
 
+
       </div>
+
 
     </section>
   );

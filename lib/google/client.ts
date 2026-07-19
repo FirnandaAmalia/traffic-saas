@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import type { OAuth2Client } from "google-auth-library";
 
 export function createOAuthClient(
   refreshToken: string
@@ -18,7 +19,7 @@ export function createOAuthClient(
 }
 
 export function createSearchConsoleClient(
-  auth: any
+  auth: OAuth2Client
 ) {
   return google.searchconsole({
     version: "v1",
@@ -27,7 +28,7 @@ export function createSearchConsoleClient(
 }
 
 export function createGA4Client(
-  auth: any
+  auth: OAuth2Client
 ) {
   return new BetaAnalyticsDataClient({
     authClient: auth,

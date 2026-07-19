@@ -24,12 +24,21 @@ export function formatMetric(
 }
 
 export function formatChange(
-  value: number
-) {
-  const sign =
-    value >= 0 ? "+" : "";
+change:number | null
+)
+{
 
-  return `${sign}${value.toFixed(1)}%`;
+if(change === null){
+return "-";
+}
+
+
+return change > 0
+?
+`+${change}%`
+:
+`${change}%`;
+
 }
 
 export function isPositiveChange(

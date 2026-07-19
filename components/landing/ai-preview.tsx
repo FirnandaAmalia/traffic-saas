@@ -54,16 +54,16 @@ export default function AIPreview() {
 
           <p className="mt-8 max-w-xl text-lg leading-8 text-slate-500">
 
-            TrafficSaaS doesn't just visualize
-            your data.
+  TrafficSaaS doesn&apos;t just visualize
+  your data.
 
-            It analyzes trends,
-            detects opportunities,
-            prioritizes actions,
-            and explains exactly
-            what should be improved.
+  It analyzes trends,
+  detects opportunities,
+  prioritizes actions,
+  and explains exactly
+  what should be improved.
 
-          </p>
+</p>
 
           <div className="mt-10 space-y-6">
 

@@ -14,11 +14,15 @@ import type {
   DateRange,
 } from "@/lib/date-range";
 
+interface ExportProject {
+  projectName: string;
+  gscSiteUrl: string | null;
+  ga4PropertyId: string | null;
+}
+
 interface ExportOptions {
   refreshToken: string;
-
-  project: any;
-
+  project: ExportProject;
   range: DateRange;
 }
 
@@ -136,20 +140,20 @@ export async function buildExportReport({
   // ===============================
 
   const report =
-    buildReport({
-      projectName:
-        project.projectName,
+  buildReport({
+    projectName:
+      project.projectName,
 
-      website:
-        project.gscSiteUrl,
+    website:
+      project.gscSiteUrl ?? "",
 
-      period: range,
+    period: range,
 
-      dashboard,
+    dashboard,
 
-      summary:
-        executiveSummary,
-    });
+    summary:
+      executiveSummary,
+  });
 
   return {
     dashboard,

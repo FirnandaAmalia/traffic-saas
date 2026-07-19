@@ -3,238 +3,532 @@
 import {
   Quote,
   Star,
+  Sparkles,
 } from "lucide-react";
+
+import FadeUp from "@/components/motion/fade-up";
+
 
 const testimonials = [
   {
     name: "Daniel Kim",
-    role: "SEO Manager",
-    company: "Growth Studio",
+    role: "SEO Specialist",
+    company: "Digital Agency",
     initials: "DK",
     quote:
-      "TrafficSaaS helped us combine Google Search Console and GA4 into one beautiful dashboard. The AI recommendations immediately uncovered SEO opportunities we had been missing.",
+      "TrafficSaaS membantu kami memahami data Search Console dan Analytics tanpa harus membuat laporan manual setiap minggu. Insight AI membuat proses analisis jauh lebih cepat.",
   },
+
   {
     name: "Sarah Johnson",
-    role: "Founder",
-    company: "Bright Digital",
+    role: "Marketing Consultant",
+    company: "Growth Studio",
     initials: "SJ",
     quote:
-      "Finally an analytics platform that doesn't require opening ten browser tabs. Everything is fast, organized, and the interface is incredibly polished.",
+      "Biasanya kami harus membuka banyak tools untuk melihat performa website. TrafficSaaS membuat semua data lebih mudah dipahami dalam satu dashboard.",
   },
+
   {
     name: "Michael Chen",
-    role: "Digital Marketing Consultant",
-    company: "MC Consulting",
+    role: "SEO Consultant",
+    company: "Independent Consultant",
     initials: "MC",
     quote:
-      "Executive summaries save me hours every week. My clients love the reports, and the AI insights make every presentation much more valuable.",
+      "Fitur AI recommendation membantu menemukan peluang SEO yang sebelumnya terlewat. Laporan menjadi lebih mudah dipresentasikan kepada klien.",
   },
 ];
 
+
+
 export default function Testimonials() {
+
   return (
+
     <section
       id="testimonials"
-      className="relative overflow-hidden py-32"
+      className="
+        relative
+        overflow-hidden
+        py-32
+      "
     >
-      {/* Background */}
 
-      <div className="absolute inset-0 overflow-hidden">
 
-        <div className="absolute left-0 top-20 h-[420px] w-[420px] rounded-full bg-violet-500/10 blur-[140px]" />
+      {/* Background Glow */}
 
-        <div className="absolute right-0 bottom-0 h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-[140px]" />
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-20
 
-      </div>
+          h-[500px]
+          w-[900px]
 
-      <div className="relative mx-auto max-w-7xl px-6">
+          -translate-x-1/2
 
-        {/* Heading */}
+          rounded-full
 
-        <div className="mx-auto max-w-3xl text-center">
+          bg-violet-500/10
 
-          <span className="inline-flex rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700">
+          blur-[160px]
+        "
+      />
 
-            Testimonials
 
-          </span>
 
-          <h2 className="mt-6 text-5xl font-black tracking-tight text-slate-900">
 
-            Loved by
 
-            <br />
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
 
-            SEO Professionals
 
-          </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-500">
 
-            From freelancers to agencies,
-            TrafficSaaS helps teams monitor SEO,
-            discover opportunities, and make better
-            business decisions with AI.
+        {/* HEADER */}
 
-          </p>
+        <FadeUp>
 
-        </div>
+          <div
+            className="
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
 
-        {/* Cards */}
-
-        <div className="mt-20 grid gap-8 lg:grid-cols-3">
-
-          {testimonials.map((item) => (
 
             <div
-              key={item.name}
               className="
-                group
-                relative
-                overflow-hidden
+                inline-flex
+                items-center
+                gap-2
 
-                rounded-[32px]
+                rounded-full
 
                 border
-                border-white/60
+                border-violet-200
 
-                bg-white/70
+                bg-violet-50
 
-                p-8
+                px-4
+                py-2
 
-                shadow-xl
+                text-sm
 
-                backdrop-blur-xl
+                font-bold
 
-                transition-all
-                duration-500
-
-                hover:-translate-y-3
-                hover:shadow-2xl
+                text-violet-700
               "
             >
 
-              {/* Glow */}
+              <Sparkles
+                className="
+                  h-4
+                  w-4
+                "
+              />
+
+              USER EXPERIENCE
+
+
+            </div>
+
+
+
+
+            <h2
+              className="
+                mt-7
+
+                text-4xl
+
+                font-black
+
+                tracking-tight
+
+                text-slate-900
+
+                lg:text-6xl
+              "
+            >
+
+              Dibangun untuk tim
+
+              <br />
+
+              yang ingin tumbuh lebih cepat
+
+
+            </h2>
+
+
+
+
+            <p
+              className="
+                mt-6
+
+                text-lg
+
+                leading-8
+
+                text-slate-600
+              "
+            >
+
+              Dari SEO specialist hingga digital agency,
+              TrafficSaaS membantu memahami data,
+              menemukan peluang, dan mengambil keputusan
+              berdasarkan insight.
+
+
+            </p>
+
+
+          </div>
+
+
+        </FadeUp>
+
+
+
+
+
+
+
+        {/* CARDS */}
+
+        <div
+          className="
+            mt-20
+
+            grid
+
+            gap-8
+
+            lg:grid-cols-3
+          "
+        >
+
+
+
+          {testimonials.map((item,index)=>(
+
+
+            <FadeUp
+              key={item.name}
+              delay={index * 0.12}
+            >
+
 
               <div
                 className="
-                  absolute
-                  -right-10
-                  -top-10
+                  group
 
-                  h-40
-                  w-40
+                  relative
 
-                  rounded-full
+                  overflow-hidden
 
-                  bg-gradient-to-br
+                  rounded-[32px]
 
-                  from-violet-500/20
+                  border
 
-                  to-sky-400/20
+                  border-slate-200
 
-                  blur-3xl
+                  bg-white
+
+                  p-8
+
+                  shadow-sm
 
                   transition-all
 
                   duration-500
 
-                  group-hover:opacity-100
+                  hover:-translate-y-3
+
+                  hover:border-violet-200
+
+                  hover:shadow-2xl
                 "
-              />
+              >
 
-              {/* Quote */}
 
-              <Quote className="h-10 w-10 text-violet-500" />
 
-              {/* Rating */}
 
-              <div className="mt-6 flex gap-1">
 
-                {Array.from({ length: 5 }).map((_, index) => (
+                {/* Glow */}
 
-                  <Star
-                    key={index}
-                    className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                  />
+                <div
+                  className="
+                    absolute
 
-                ))}
+                    -right-16
 
-              </div>
+                    -top-16
 
-              {/* Quote */}
+                    h-48
 
-              <p className="mt-6 leading-8 text-slate-600">
+                    w-48
 
-                "{item.quote}"
+                    rounded-full
 
-              </p>
+                    bg-violet-500/10
 
-              {/* User */}
+                    blur-3xl
 
-              <div className="mt-8 flex items-center gap-4">
+                    opacity-0
+
+                    transition
+
+                    duration-500
+
+                    group-hover:opacity-100
+                  "
+                />
+
+
+
+
+
+
+                {/* Quote Icon */}
 
                 <div
                   className="
                     flex
 
-                    h-14
-                    w-14
+                    h-12
+
+                    w-12
 
                     items-center
+
                     justify-center
 
                     rounded-2xl
 
-                    bg-gradient-to-br
-
-                    from-violet-600
-
-                    to-sky-500
-
-                    font-bold
-
-                    text-white
+                    bg-violet-100
                   "
                 >
 
-                  {item.initials}
+                  <Quote
+                    className="
+                      h-6
+
+                      w-6
+
+                      text-violet-600
+                    "
+                  />
+
 
                 </div>
 
-                <div>
 
-                  <h4 className="font-bold text-slate-900">
 
-                    {item.name}
 
-                  </h4>
 
-                  <p className="text-sm text-slate-500">
 
-                    {item.role}
 
-                  </p>
+                {/* Stars */}
 
-                  <p className="text-xs text-slate-400">
+                <div
+                  className="
+                    mt-6
 
-                    {item.company}
+                    flex
 
-                  </p>
+                    gap-1
+                  "
+                >
+
+                  {Array.from({
+                    length:5
+                  }).map((_,i)=>(
+
+
+                    <Star
+                      key={i}
+                      className="
+                        h-4
+
+                        w-4
+
+                        fill-yellow-400
+
+                        text-yellow-400
+                      "
+                    />
+
+
+                  ))}
+
 
                 </div>
+
+
+
+
+
+
+
+                {/* Text */}
+
+                <p
+                  className="
+                    mt-6
+
+                    leading-8
+
+                    text-slate-600
+                  "
+                >
+
+                  "{item.quote}"
+
+
+                </p>
+
+
+
+
+
+
+
+                {/* User */}
+
+                <div
+                  className="
+                    mt-8
+
+                    flex
+
+                    items-center
+
+                    gap-4
+                  "
+                >
+
+
+
+                  <div
+                    className="
+                      flex
+
+                      h-14
+
+                      w-14
+
+                      items-center
+
+                      justify-center
+
+                      rounded-2xl
+
+                      bg-gradient-to-br
+
+                      from-violet-600
+
+                      to-sky-500
+
+                      text-lg
+
+                      font-black
+
+                      text-white
+
+                      shadow-lg
+                    "
+                  >
+
+                    {item.initials}
+
+
+                  </div>
+
+
+
+
+                  <div>
+
+                    <h4
+                      className="
+                        font-bold
+
+                        text-slate-900
+                      "
+                    >
+
+                      {item.name}
+
+                    </h4>
+
+
+
+                    <p
+                      className="
+                        text-sm
+
+                        text-slate-500
+                      "
+                    >
+
+                      {item.role}
+
+                    </p>
+
+
+                    <p
+                      className="
+                        text-xs
+
+                        text-slate-400
+                      "
+                    >
+
+                      {item.company}
+
+                    </p>
+
+
+                  </div>
+
+
+
+                </div>
+
+
+
 
               </div>
 
-            </div>
+
+
+            </FadeUp>
+
 
           ))}
 
+
         </div>
+
+
+
 
       </div>
 
+
+
     </section>
+
   );
 }

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 
 import {
-  getProject,
+  getProjectForUser,
 } from "@/lib/project-service";
 
 import {
@@ -65,10 +65,10 @@ export default async function AIPage({
 
   }
 
-  const project =
-    await getProject(
-      projectId
-    );
+  const project = await getProjectForUser(
+  projectId,
+  session.user.id
+);
 
   if (!project) {
 

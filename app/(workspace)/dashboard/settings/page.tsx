@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-import { getProject } from "@/lib/project-service";
-
+import { getProjectForUser } from "@/lib/project-service";
 import { Button } from "@/components/ui/button";
 
 import WorkspaceForm from "./workspace-form";
@@ -25,15 +26,33 @@ interface SettingsPageProps {
 export default async function SettingsPage({
   searchParams,
 }: SettingsPageProps) {
+
   const { projectId } =
     await searchParams;
+
 
   if (!projectId) {
     notFound();
   }
 
+
+  const session =
+    await getServerSession(authOptions);
+
+
+  if(
+    !session?.user?.id
+  ){
+    notFound();
+  }
+
+
   const project =
-    await getProject(projectId);
+    await getProjectForUser(
+      projectId,
+      session.user.id
+    );
+
 
   if (!project) {
     notFound();

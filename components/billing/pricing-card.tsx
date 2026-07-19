@@ -1,6 +1,9 @@
 "use client";
 
-import { Crown, Sparkles } from "lucide-react";
+import {
+  Crown,
+  Sparkles,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -11,304 +14,598 @@ import {
   type Plan,
 } from "@/lib/plan";
 
+import { useState } from "react";
+
 interface Props {
+
   plan: Plan;
+
   recommended?: boolean;
+
   yearly: boolean;
+
+  currentPlan: Plan;
+
 }
 
+
+
 export default function PricingCard({
+
   plan,
+
   recommended = false,
+
   yearly,
+
+  currentPlan,
+
 }: Props) {
+
+
+
   const isFree =
     plan === PLANS.FREE;
 
-  const monthlyPrice = 19;
 
-  const yearlyPrice = 15;
 
-  const price = isFree
-    ? 0
-    : yearly
-    ? yearlyPrice
-    : monthlyPrice;
+  const isCurrent =
+    currentPlan === plan;
 
-  const title = isFree
-    ? "Free"
-    : "Pro";
 
-  const subtitle = isFree
-    ? "Perfect for getting started"
-    : "Built for Agencies & Businesses";
+
+  const monthlyPrice = 299000;
+
+  const yearlyPrice = 249000;
+
+
+
+  const price =
+    isFree
+      ? 0
+      : yearly
+      ? yearlyPrice
+      : monthlyPrice;
+
+
+
+  const title =
+    isFree
+      ? "Free"
+      : "Pro";
+
+
+
+  const subtitle =
+    isFree
+      ? "Perfect for getting started"
+      : "Built for Agencies & Businesses";
+
+
+
+const [loading,setLoading] = useState(false);
+
+
+async function upgrade(){
+
+ setLoading(true);
+
+
+ await fetch(
+   "/api/user/plan",
+   {
+     method:"POST",
+
+     headers:{
+       "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+
+       plan:"PRO"
+
+     })
+
+   }
+ );
+
+
+ window.location.reload();
+
+}
 
   return (
-    <div
-      className={`
-        group
-        relative
-        overflow-hidden
 
-        rounded-3xl
+<div
+className={`
+group
+relative
+overflow-hidden
+rounded-3xl
+bg-white
+p-8
+transition-all
+duration-500
+hover:-translate-y-2
 
-        bg-white
+${
+recommended
+
+?
+
+`
+border-2
+border-violet-500
+shadow-2xl
+shadow-violet-200/70
+`
 
-        p-8
+:
 
-        transition-all
-        duration-500
+`
+border
+border-slate-200
+hover:shadow-xl
+`
 
-        hover:-translate-y-2
+}
 
-        ${
-          recommended
-            ? `
-              border-2
-              border-violet-500
-              shadow-2xl
-              shadow-violet-200/70
-            `
-            : `
-              border
-              border-slate-200
-              hover:shadow-xl
-            `
-        }
-      `}
-    >
-      {/* Glow */}
+`}
+>
 
-      {recommended && (
-        <>
-          <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-violet-400/20 blur-[110px]" />
 
-          <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-[110px]" />
-        </>
-      )}
 
-      {/* Content */}
+{/* Glow */}
 
-      <div className="relative z-10">
+{recommended && (
 
-        {/* Ribbon */}
+<>
 
-        {recommended && (
-          <div className="absolute right-0 top-0">
+<div
+className="
+absolute
+-left-24
+-top-24
+h-72
+w-72
+rounded-full
+bg-violet-400/20
+blur-[110px]
+"
+/>
 
-            <div className="rounded-bl-2xl bg-gradient-to-r from-violet-600 to-blue-600 px-5 py-2 text-xs font-bold tracking-wide text-white shadow-lg">
 
-              ⭐ MOST POPULAR
+<div
+className="
+absolute
+-bottom-24
+-right-24
+h-72
+w-72
+rounded-full
+bg-cyan-400/20
+blur-[110px]
+"
+/>
 
-            </div>
+</>
 
-          </div>
-        )}
+)}
 
-        {/* Header */}
 
-        <div className="flex items-center gap-4">
 
-          {!isFree && (
-            <div className="rounded-2xl bg-violet-100 p-3">
 
-              <Crown className="h-6 w-6 text-violet-700" />
+<div
+className="
+relative
+z-10
+"
+>
 
-            </div>
-          )}
 
-          <div>
 
-            <h2 className="text-3xl font-bold text-slate-900">
+{/* Popular */}
 
-              {title}
+{recommended && (
 
-            </h2>
+<div
+className="
+absolute
+right-0
+top-0
+"
+>
 
-            <p className="mt-1 text-slate-500">
+<div
+className="
+rounded-bl-2xl
+bg-gradient-to-r
+from-violet-600
+to-blue-600
+px-5
+py-2
+text-xs
+font-bold
+text-white
+shadow-lg
+"
+>
 
-              {subtitle}
+⭐ PALING POPULER
 
-            </p>
+</div>
 
-          </div>
+</div>
 
-        </div>
+)}
 
-        {/* Price */}
 
-        <div className="mt-10">
 
-          <div className="flex items-end gap-2">
 
-            <span className="text-6xl font-black">
 
-              ${price}
+{/* Header */}
 
-            </span>
+<div
+className="
+flex
+items-center
+gap-4
+"
+>
 
-            {!isFree && (
 
-              <span className="pb-2 text-lg text-slate-500">
+{!isFree && (
 
-                /month
+<div
+className="
+rounded-2xl
+bg-violet-100
+p-3
+"
+>
 
-              </span>
+<Crown
+className="
+h-6
+w-6
+text-violet-700
+"
+/>
 
-            )}
+</div>
 
-          </div>
+)}
 
-          {!isFree && yearly && (
 
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700">
 
-              <Sparkles className="h-4 w-4" />
+<div>
 
-              Save 20% with yearly billing
 
-            </div>
+<h2
+className="
+text-3xl
+font-bold
+text-slate-900
+"
+>
 
-          )}
+{title}
 
-        </div>
+</h2>
 
-        {/* CTA */}
 
-        <Button
-          className={
-            recommended
-              ? `
-                mt-8
-                w-full
+<p
+className="
+mt-1
+text-slate-500
+"
+>
 
-                bg-gradient-to-r
+{subtitle}
 
-                from-violet-600
-                via-blue-600
-                to-cyan-500
+</p>
 
-                text-white
 
-                shadow-lg
+</div>
 
-                transition-all
 
-                hover:scale-[1.03]
-              `
-              : "mt-8 w-full"
-          }
-          variant={
-            isFree
-              ? "outline"
-              : "default"
-          }
-        >
-          {isFree
-            ? "Current Plan"
-            : "Upgrade to Pro"}
-        </Button>
 
-        {/* Features */}
+</div>
 
-        <div className="mt-10 space-y-4">
 
-          <PricingFeature available>
-            Dashboard Overview
-          </PricingFeature>
 
-          <PricingFeature available>
-            KPI Cards
-          </PricingFeature>
 
-          <PricingFeature available>
-            Performance Trend
-          </PricingFeature>
 
-          <PricingFeature available>
-            Top Keywords
-          </PricingFeature>
+{/* Price */}
 
-          <PricingFeature available>
-            Top Pages
-          </PricingFeature>
+<div
+className="
+mt-10
+"
+>
 
-          <PricingFeature available>
-            Active Users by Country
-          </PricingFeature>
+<div
+className="
+flex
+flex-col
+"
+>
 
-          <PricingFeature available>
-            Traffic Acquisition
-          </PricingFeature>
+<span
+className="
+text-5xl
+font-black
+"
+>
+{
+  isFree
+    ? "Rp0"
+    : yearly
+    ? `Rp${(
+        monthlyPrice * 12
+      ).toLocaleString("id-ID")}`
+    : `Rp${monthlyPrice.toLocaleString("id-ID")}`
+}
+</span>
 
-          <PricingFeature available>
-            Device Category
-          </PricingFeature>
 
-          <PricingFeature available>
-            Browser
-          </PricingFeature>
+{!isFree && (
+<span
+className="
+mt-2
+text-lg
+text-slate-500
+"
+>
+{
+  yearly
+    ? "per tahun"
+    : "per bulan"
+}
+</span>
+)}
 
-          <PricingFeature available>
-            Landing Pages
-          </PricingFeature>
 
-          <PricingFeature available>
-            Top Events
-          </PricingFeature>
+{
+ !isFree && yearly && (
+   <span
+   className="
+   mt-1
+   text-sm
+   text-slate-500
+   "
+   >
+   ≈ Rp249.000/bulan
+   </span>
+ )
+}
 
-          <PricingFeature available>
-            Google Search Console
-          </PricingFeature>
+</div>
 
-          <PricingFeature available>
-            Google Analytics 4
-          </PricingFeature>
+{!isFree && yearly && (
 
-          <PricingFeature available>
-            CSV Export
-          </PricingFeature>
+<div
+className="
+mt-3
+inline-flex
+items-center
+gap-2
+rounded-full
+bg-emerald-50
+px-3
+py-1
+text-sm
+font-medium
+text-emerald-700
+"
+>
 
-          <PricingFeature available>
-            {isFree
-              ? "1 Workspace"
-              : "Unlimited Workspace"}
-          </PricingFeature>
+<Sparkles
+className="
+h-4
+w-4
+"
+/>
 
-          <PricingFeature available>
-            {isFree
-              ? "1 Project"
-              : "Unlimited Project"}
-          </PricingFeature>
+Hemat lebih banyak dengan pembayaran tahunan
 
-          <PricingFeature available={!isFree}>
-            AI Executive Dashboard
-          </PricingFeature>
+</div>
 
-          <PricingFeature available={!isFree}>
-            AI Insights
-          </PricingFeature>
+)}
 
-          <PricingFeature available={!isFree}>
-            AI Recommendation
-          </PricingFeature>
 
-          <PricingFeature available={!isFree}>
-            Compare Date Range
-          </PricingFeature>
+</div>
 
-          <PricingFeature available={!isFree}>
-            PDF Export
-          </PricingFeature>
 
-          <PricingFeature available={!isFree}>
-            Excel Export
-          </PricingFeature>
 
-        </div>
 
-      </div>
 
-    </div>
+
+{/* CTA */}
+
+<Button
+
+onClick={
+ !isFree
+ ?
+ upgrade
+ :
+ undefined
+}
+
+
+disabled={
+ loading
+}
+
+className={
+recommended
+?
+`
+mt-8
+w-full
+bg-gradient-to-r
+from-violet-600
+via-blue-600
+to-cyan-500
+text-white
+shadow-lg
+transition-all
+hover:scale-[1.03]
+`
+:
+"mt-8 w-full"
+}
+
+
+variant={
+isFree
+?
+"outline"
+:
+"default"
+}
+
+>
+
+
+{
+loading
+?
+"Processing..."
+:
+isFree
+?
+"Current Plan"
+:
+"Upgrade ke Pro"
+}
+
+
+</Button>
+
+
+
+
+
+{/* Features */}
+
+<div
+className="
+mt-10
+space-y-4
+"
+>
+
+
+<PricingFeature available>
+Dashboard Overview
+</PricingFeature>
+
+
+<PricingFeature available>
+KPI Cards
+</PricingFeature>
+
+
+<PricingFeature available>
+Performance Trend
+</PricingFeature>
+
+
+<PricingFeature available>
+Top Keywords
+</PricingFeature>
+
+
+<PricingFeature available>
+Top Pages
+</PricingFeature>
+
+
+<PricingFeature available>
+Google Search Console
+</PricingFeature>
+
+
+<PricingFeature available>
+Google Analytics 4
+</PricingFeature>
+
+
+<PricingFeature available>
+CSV Export
+</PricingFeature>
+
+
+
+<PricingFeature available>
+
+{
+isFree
+?
+"1 Workspace"
+:
+"Unlimited Workspaces"
+}
+
+</PricingFeature>
+
+
+
+<PricingFeature available>
+
+{
+isFree
+?
+"1 Project"
+:
+"Unlimited Projects"
+}
+
+</PricingFeature>
+
+
+
+
+
+<PricingFeature available={!isFree}>
+AI Executive Dashboard
+</PricingFeature>
+
+
+<PricingFeature available={!isFree}>
+AI Insights
+</PricingFeature>
+
+
+<PricingFeature available={!isFree}>
+AI Recommendation
+</PricingFeature>
+
+
+<PricingFeature available={!isFree}>
+PDF Export
+</PricingFeature>
+
+
+<PricingFeature available={!isFree}>
+Excel Export
+</PricingFeature>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
   );
+
 }

@@ -23,170 +23,402 @@ import {
 
 import { Button } from "@/components/ui/button";
 
+import type {
+  DateRange,
+} from "@/lib/date-range";
+
+
 type ExportFormat =
   | "pdf"
   | "excel"
   | "csv";
 
+
+
 interface ExportDialogProps {
+
   projectId: string;
+
   projectName: string;
+
+  range: DateRange;
+
 }
 
+
+
 export default function ExportDialog({
+
   projectId,
+
   projectName,
+
+  range,
+
 }: ExportDialogProps) {
-  const [format, setFormat] =
-    useState<ExportFormat>("pdf");
+
+
+  const [
+    format,
+    setFormat
+  ] =
+  useState<ExportFormat>("pdf");
+
+
+
 
   const handleExport = async () => {
-  try {
-    let endpoint = "";
 
-    switch (format) {
-      case "pdf":
-        endpoint = "/api/export/pdf";
-        break;
 
-      case "excel":
-        endpoint = "/api/export/excel";
-        break;
+    try {
 
-      case "csv":
-        endpoint = "/api/export/csv";
-        break;
+
+      let endpoint = "";
+
+
+
+      switch(format){
+
+
+        case "pdf":
+
+          endpoint =
+            "/api/export/pdf";
+
+          break;
+
+
+
+        case "excel":
+
+          endpoint =
+            "/api/export/excel";
+
+          break;
+
+
+
+        case "csv":
+
+          endpoint =
+            "/api/export/csv";
+
+          break;
+
+
+      }
+
+
+
+
+
+      const params =
+        new URLSearchParams({
+
+          projectId,
+
+          range,
+
+        });
+
+
+
+
+
+      const response =
+        await fetch(
+          `${endpoint}?${params.toString()}`
+        );
+
+
+
+
+
+      if(!response.ok){
+
+
+        const errorData =
+          await response.json()
+            .catch(
+              () => null
+            );
+
+
+        throw new Error(
+
+          errorData?.error ??
+          "Export failed"
+
+        );
+
+
+      }
+
+
+
+
+
+
+
+      const blob =
+        await response.blob();
+
+
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+
+
+      const extension =
+        format === "pdf"
+          ? "pdf"
+          : format === "excel"
+          ? "xlsx"
+          : "csv";
+
+
+
+
+
+      link.href = url;
+
+
+      link.download =
+        `${projectName}-SEO-Report.${extension}`;
+
+
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+
+      link.remove();
+
+
+
+      URL.revokeObjectURL(
+        url
+      );
+
+
+
+    } catch(error){
+
+
+
+      console.error(
+        "Export failed:",
+        error
+      );
+
+
+
+      alert(
+
+        error instanceof Error
+
+          ? error.message
+
+          : "Failed to export report."
+
+      );
+
+
     }
 
-    const response = await fetch(
-      `${endpoint}?projectId=${projectId}`
-    );
 
-    if (!response.ok) {
-      throw new Error("Export failed");
-    }
+  };
 
-    const blob = await response.blob();
 
-    const url = URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
 
-    const extension =
-      format === "pdf"
-        ? "pdf"
-        : format === "excel"
-        ? "xlsx"
-        : "csv";
 
-    a.href = url;
-    a.download = `${projectName}-SEO-Report.${extension}`;
 
-    document.body.appendChild(a);
+  return (
 
-    a.click();
+    <Dialog>
 
-    a.remove();
 
-    URL.revokeObjectURL(url);
+      <DialogTrigger asChild>
 
-    } catch (error) {
-
-    console.error(
-      "Export failed:",
-      error
-    );
-
-    alert(
-      "Failed to export report."
-    );
-
-  }
-};
-
-return (
-  <Dialog>
-
-    <DialogTrigger asChild>
-
-      <Button variant="outline">
-        <Download className="mr-2 h-4 w-4" />
-        Export
-      </Button>
-
-    </DialogTrigger>
-
-    <DialogContent className="max-w-2xl">
-
-      <DialogHeader>
-
-        <DialogTitle>
-          Export Report
-        </DialogTitle>
-
-        <DialogDescription>
-          Download your SEO performance report in your preferred format.
-        </DialogDescription>
-
-      </DialogHeader>
-
-      <div className="space-y-4">
-
-        <ExportFormatCard
-          title="PDF Report"
-          description="Professional report with AI Executive Summary, KPI overview, and recommendations."
-          icon={
-            <FileText className="h-6 w-6 text-red-500" />
-          }
-          selected={format === "pdf"}
-          recommended
-          onClick={() =>
-            setFormat("pdf")
-          }
-        />
-
-        <ExportFormatCard
-          title="Excel Workbook"
-          description="Detailed SEO metrics for advanced analysis and reporting."
-          icon={
-            <FileSpreadsheet className="h-6 w-6 text-emerald-600" />
-          }
-          selected={format === "excel"}
-          onClick={() =>
-            setFormat("excel")
-          }
-        />
-
-        <ExportFormatCard
-          title="CSV Export"
-          description="Raw SEO & Analytics data for external tools and custom processing."
-          icon={
-            <Database className="h-6 w-6 text-blue-600" />
-          }
-          selected={format === "csv"}
-          onClick={() =>
-            setFormat("csv")
-          }
-        />
-
-      </div>
-
-      <DialogFooter className="mt-6">
 
         <Button variant="outline">
-          Cancel
+
+          <Download className="mr-2 h-4 w-4"/>
+
+          Export
+
+
         </Button>
 
-        <Button onClick={handleExport}>
-          <Download className="mr-2 h-4 w-4" />
-          Generate Report
-        </Button>
 
-      </DialogFooter>
+      </DialogTrigger>
 
-    </DialogContent>
 
-  </Dialog>
-);
+
+
+
+      <DialogContent className="max-w-2xl">
+
+
+        <DialogHeader>
+
+
+          <DialogTitle>
+
+            Export Report
+
+          </DialogTitle>
+
+
+          <DialogDescription>
+
+            Download your SEO performance report in your preferred format.
+
+          </DialogDescription>
+
+
+        </DialogHeader>
+
+
+
+
+
+        <div className="space-y-4">
+
+
+
+          <ExportFormatCard
+
+            title="PDF Report"
+
+            description="Professional report with AI Executive Summary, KPI overview, and recommendations."
+
+            icon={
+              <FileText className="h-6 w-6 text-red-500"/>
+            }
+
+            selected={
+              format === "pdf"
+            }
+
+            recommended
+
+            onClick={() =>
+              setFormat("pdf")
+            }
+
+          />
+
+
+
+
+          <ExportFormatCard
+
+            title="Excel Workbook"
+
+            description="Detailed SEO metrics for advanced analysis and reporting."
+
+            icon={
+              <FileSpreadsheet className="h-6 w-6 text-emerald-600"/>
+            }
+
+            selected={
+              format === "excel"
+            }
+
+            onClick={() =>
+              setFormat("excel")
+            }
+
+          />
+
+
+
+
+          <ExportFormatCard
+
+            title="CSV Export"
+
+            description="Raw SEO & Analytics data for external tools and custom processing."
+
+            icon={
+              <Database className="h-6 w-6 text-blue-600"/>
+            }
+
+            selected={
+              format === "csv"
+            }
+
+            onClick={() =>
+              setFormat("csv")
+            }
+
+          />
+
+
+        </div>
+
+
+
+
+
+        <DialogFooter className="mt-6">
+
+
+          <Button
+            variant="outline"
+          >
+
+            Cancel
+
+          </Button>
+
+
+
+
+          <Button
+            onClick={handleExport}
+          >
+
+            <Download className="mr-2 h-4 w-4"/>
+
+            Generate Report
+
+
+          </Button>
+
+
+
+        </DialogFooter>
+
+
+
+      </DialogContent>
+
+
+
+    </Dialog>
+
+  );
+
 
 }

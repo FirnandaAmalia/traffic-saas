@@ -14,6 +14,8 @@ import {
 
 import type {
   Payload,
+  ValueType,
+  NameType,
 } from "recharts/types/component/DefaultTooltipContent";
 
 type ChartData = {
@@ -70,12 +72,15 @@ export default function TrafficChart({
   rangeLabel,
 }: TrafficChartProps) {
 
-  const [mounted, setMounted] =
-    useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = requestAnimationFrame(() => {
     setMounted(true);
-  }, []);
+  });
+
+  return () => cancelAnimationFrame(timer);
+}, []);
 
   const latest = Number(
     data.at(-1)?.[dataKey] ?? 0
@@ -208,36 +213,36 @@ export default function TrafficChart({
   }
 
   function formatTooltipLabel(
-    _: unknown,
-    payload?: readonly Payload<any, any>[]
-  ) {
+  _: unknown,
+  payload?: readonly Payload<ValueType, NameType>[]
+) {
 
-    const raw =
-      payload?.[0]?.payload?.date;
+  const raw =
+    payload?.[0]?.payload?.date;
 
-    if (!raw) {
-      return "";
-    }
+  if (!raw) {
+    return "";
+  }
 
-    const date =
-      parseDate(
-        String(raw)
-      );
-
-    if (!date) {
-      return String(raw);
-    }
-
-    return date.toLocaleDateString(
-      "en-GB",
-      {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }
+  const date =
+    parseDate(
+      String(raw)
     );
 
+  if (!date) {
+    return String(raw);
   }
+
+  return date.toLocaleDateString(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }
+  );
+
+}
 
   return (
   <div className="flex flex-col">

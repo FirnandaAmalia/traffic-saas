@@ -25,7 +25,7 @@ export default function AnimatedCounter({
 
     started.current = true;
 
-    let start = 0;
+    const start = 0;
     let frame = 0;
 
     const totalFrames = Math.round(duration / 16);

@@ -3,7 +3,8 @@ import ProjectCard from "./project-card";
 interface ProjectGridProps {
   projects: {
     id: string;
-    projectName: string;
+    projectName:string;
+    domain:string | null;
     gscSiteUrl: string | null;
     ga4PropertyId: string | null;
     createdAt: Date;

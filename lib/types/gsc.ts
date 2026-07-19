@@ -17,3 +17,21 @@ export interface GSCSummary {
   previousClicks: number;
   previousImpressions: number;
 }
+
+export interface GSCRawData {
+
+  date:string;
+
+  query:string;
+
+  page:string;
+
+  clicks:number;
+
+  impressions:number;
+
+  ctr:number;
+
+  position:number;
+
+}

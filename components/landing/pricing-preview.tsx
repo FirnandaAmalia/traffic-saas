@@ -8,349 +8,771 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import FadeUp from "@/components/motion/fade-up";
+
 import { Button } from "@/components/ui/button";
 
+
 const freeFeatures = [
-  "1 Project",
-  "Google Search Console",
-  "Google Analytics 4",
-  "Dashboard Overview",
+  "1 Website Project",
+  "Google Search Console Integration",
+  "Google Analytics 4 Integration",
+  "Basic SEO Dashboard",
+  "Traffic Overview",
+  "Basic Keyword Monitoring",
+  "Traffic Performance Overview",
+  "CSV Export",
+  "Weekly SEO Summary",
 ];
 
+
 const proFeatures = [
-  "Unlimited Projects",
   "Unlimited Workspaces",
+  "Unlimited Projects",
   "AI Executive Dashboard",
-  "AI Recommendations",
-  "Compare Date Range",
-  "PDF Export",
+  "AI SEO Insights",
+  "AI Recommendation",
+  "Keyword & Page Analysis",
+  "PDF Report Export",
   "Excel Export",
   "Priority Support",
 ];
 
+
+
 export default function PricingPreview() {
+
+
   return (
+
     <section
       id="pricing"
-      className="relative overflow-hidden py-32"
+      className="
+        relative
+        overflow-hidden
+        py-32
+      "
     >
+
+
       {/* Background */}
 
-      <div className="absolute inset-0 overflow-hidden">
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+        "
+      >
 
-        <div className="absolute left-0 top-0 h-[420px] w-[420px] rounded-full bg-violet-500/15 blur-[140px]" />
+        <div
+          className="
+            absolute
+            left-0
+            top-0
 
-        <div className="absolute right-0 bottom-0 h-[420px] w-[420px] rounded-full bg-sky-500/15 blur-[140px]" />
+            h-[450px]
+            w-[450px]
 
-        <div className="absolute left-1/2 top-40 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[120px]" />
+            rounded-full
+
+            bg-violet-500/10
+
+            blur-[140px]
+          "
+        />
+
+
+        <div
+          className="
+            absolute
+            right-0
+            bottom-0
+
+            h-[450px]
+            w-[450px]
+
+            rounded-full
+
+            bg-sky-500/10
+
+            blur-[140px]
+          "
+        />
+
 
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
 
-        {/* Heading */}
 
-        <div className="mx-auto max-w-3xl text-center">
 
-          <span className="inline-flex items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700">
 
-            <Sparkles className="h-4 w-4" />
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
 
-            Pricing
 
-          </span>
 
-          <h2 className="mt-6 text-5xl font-black tracking-tight text-slate-900">
 
-            Start Free.
 
-            <br />
+        {/* HEADER */}
 
-            Upgrade Anytime.
-
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-500">
-
-            Begin with everything you need to monitor SEO.
-            Upgrade whenever you're ready to unlock AI,
-            unlimited projects and advanced reporting.
-
-          </p>
-
-        </div>
-
-        {/* Toggle */}
-
-        <div className="mt-12 flex justify-center">
-
-          <div className="inline-flex rounded-full bg-white p-1 shadow-xl">
-
-            <button className="rounded-full bg-violet-600 px-6 py-2 font-semibold text-white">
-
-              Monthly
-
-            </button>
-
-            <button className="rounded-full px-6 py-2 font-medium text-slate-600">
-
-              Yearly
-
-              <span className="ml-2 rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">
-
-                Save 20%
-
-              </span>
-
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* Cards */}
-
-        <div className="mt-20 grid gap-8 lg:grid-cols-2">
-
-          {/* FREE */}
+        <FadeUp>
 
           <div
             className="
-              rounded-[36px]
-              border
-              border-white/70
-              bg-white/70
-              p-10
-              shadow-xl
-              backdrop-blur-xl
-
-              transition-all
-              duration-500
-
-              hover:-translate-y-2
-              hover:shadow-2xl
+              mx-auto
+              max-w-3xl
+              text-center
             "
           >
 
-            <span className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold">
 
-              FREE
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-2
 
-            </span>
+                rounded-full
 
-            <div className="mt-8 flex items-end gap-2">
+                border
+                border-violet-200
 
-              <h2 className="text-6xl font-black">
+                bg-violet-50
 
-                $0
+                px-4
+                py-2
 
-              </h2>
+                text-sm
+                font-bold
 
-              <span className="mb-2 text-slate-500">
+                text-violet-700
+              "
+            >
 
-                /forever
+              <Sparkles
+                className="
+                  h-4
+                  w-4
+                "
+              />
 
-              </span>
+              SIMPLE PRICING
 
             </div>
 
-            <p className="mt-3 text-slate-500">
 
-              Perfect for personal websites and learning SEO.
+
+
+            <h2
+              className="
+                mt-7
+
+                text-4xl
+
+                font-black
+
+                tracking-tight
+
+                text-slate-900
+
+                lg:text-6xl
+              "
+            >
+
+              Mulai gratis.
+
+              <br />
+
+              Upgrade saat berkembang.
+
+
+            </h2>
+
+
+
+
+            <p
+              className="
+                mt-6
+
+                text-lg
+
+                leading-8
+
+                text-slate-600
+              "
+            >
+
+              Gunakan fitur dasar untuk memahami performa website.
+              Tingkatkan ke versi Pro untuk mendapatkan AI insight
+              dan analisis SEO yang lebih mendalam.
+
 
             </p>
 
-            <div className="my-8 h-px bg-slate-200" />
 
-            <div className="space-y-5">
-
-              {freeFeatures.map((item) => (
-
-                <div
-                  key={item}
-                  className="flex items-center gap-4"
-                >
-
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100">
-
-                    <Check className="h-4 w-4 text-emerald-600" />
-
-                  </div>
-
-                  <span className="font-medium">
-
-                    {item}
-
-                  </span>
-
-                </div>
-
-              ))}
-
-            </div>
-
-            <Button
-              asChild
-              variant="outline"
-              className="mt-10 h-14 w-full rounded-2xl"
-            >
-
-              <Link href="/api/auth/signin">
-
-                Start Free
-
-              </Link>
-
-            </Button>
 
           </div>
 
-          {/* PRO */}
 
-          <div
-            className="
-              relative
+        </FadeUp>
 
-              overflow-hidden
 
-              rounded-[36px]
 
-              bg-gradient-to-br
 
-              from-violet-600
 
-              via-indigo-600
 
-              to-sky-500
 
-              p-[1px]
+        {/* PRICING */}
 
-              shadow-[0_40px_120px_rgba(124,58,237,.45)]
+        <div
+          className="
+            mt-20
 
-              transition-all
-              duration-500
+            grid
 
-              hover:scale-[1.02]
-            "
-          >
+            gap-8
 
-            {/* Glow */}
+            lg:grid-cols-2
+          "
+        >
 
-            <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-violet-400/40 blur-[130px]" />
 
-            <div className="relative rounded-[35px] bg-slate-950 p-10 text-white">
 
-              <div className="absolute right-8 top-8">
 
-                <div className="rounded-full bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-xl">
+          {/* FREE */}
 
-                  🔥 Best Value
+          <FadeUp>
 
-                </div>
 
-              </div>
+<div
+  className="
+    flex
+    min-h-[720px]
+    flex-col
 
-              <span className="text-sm font-semibold uppercase tracking-widest text-violet-300">
+    rounded-[36px]
 
-                PRO
+    border
+    border-slate-200
 
-              </span>
+    bg-white
 
-              <div className="mt-6 flex items-end gap-2">
+    p-10
 
-                <h2 className="text-7xl font-black">
+    shadow-sm
 
-                  $19
+    transition-all
+    duration-500
 
-                </h2>
+    hover:-translate-y-2
+    hover:shadow-xl
+  "
+>
 
-                <span className="mb-3 text-xl text-slate-400">
 
-                  /month
 
-                </span>
-
-              </div>
-
-              <p className="mt-3 text-slate-300">
-
-                Built for agencies, startups and growing businesses.
-
-              </p>
-
-              <div className="my-8 h-px bg-white/10" />
-
-              <div className="space-y-5">
-
-                {proFeatures.map((item) => (
-
-                  <div
-                    key={item}
-                    className="flex items-center gap-4"
-                  >
-
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10">
-
-                      <Check className="h-4 w-4 text-emerald-400" />
-
-                    </div>
-
-                    <span>
-
-                      {item}
-
-                    </span>
-
-                  </div>
-
-                ))}
-
-              </div>
-
-              <Button
-                asChild
+              <span
                 className="
-                  mt-10
+                  rounded-full
 
-                  h-14
-                  w-full
+                  bg-slate-100
 
-                  rounded-2xl
+                  px-4
 
-                  bg-white
+                  py-2
 
-                  text-violet-700
+                  text-sm
 
-                  font-semibold
+                  font-bold
 
-                  hover:bg-slate-100
+                  text-slate-700
                 "
               >
 
-                <Link href="/billing">
+                FREE PLAN
 
-                  Upgrade to Pro
+              </span>
 
-                  <ArrowRight className="ml-2 h-4 w-4" />
 
-                </Link>
 
-              </Button>
 
-              <p className="mt-6 text-center text-sm text-slate-400">
+              <div
+                className="
+                  mt-8
+                  flex
+                  items-end
+                  gap-2
+                "
+              >
 
-                Trusted by freelancers, agencies and growing startups.
+<h3
+  className="
+    text-6xl
+    font-black
+    text-slate-900
+  "
+>
+  Rp0
+</h3>
+
+                <span
+                  className="
+                    mb-3
+
+                    text-slate-500
+                  "
+                >
+
+                  selamanya
+
+                </span>
+
+
+              </div>
+
+
+
+
+              <p
+                className="
+                  mt-4
+
+                  text-slate-600
+                "
+              >
+
+                Cocok untuk mencoba analisis SEO
+                dan memahami performa website.
+
 
               </p>
 
+
+
+
+
+              <div
+className="
+my-8
+h-px
+bg-slate-200
+"
+/>
+
+              <div
+  className="
+    flex-1
+    space-y-5
+  "
+
+              >
+
+                {freeFeatures.map((item)=>(
+
+                  <Feature
+                    key={item}
+                    text={item}
+                  />
+
+                ))}
+
+
+              </div>
+
+
+
+
+
+              <div
+className="
+mt-auto
+pt-10
+"
+>
+
+  <Button
+    asChild
+    variant="outline"
+    className="
+      h-14
+      w-full
+      rounded-2xl
+      font-semibold
+    "
+  >
+
+    <Link href="/api/auth/signin">
+
+      Mulai Gratis
+
+    </Link>
+
+  </Button>
+
+</div>
+
+
             </div>
 
-          </div>
+
+
+          </FadeUp>
+
+
+
+
+
+
+
+
+          {/* PRO */}
+
+          <FadeUp delay={0.15}>
+
+
+            <div
+  className="
+    relative
+    flex
+    min-h-[720px]
+    flex-col
+
+    rounded-[36px]
+
+    bg-gradient-to-br
+
+                from-violet-600
+
+                via-indigo-600
+
+                to-sky-500
+
+                p-[1px]
+
+                shadow-[0_40px_120px_rgba(124,58,237,.35)]
+              "
+            >
+
+
+              <div
+ className="
+   relative
+   flex
+   flex-1
+   flex-col
+
+   rounded-[35px]
+
+   bg-slate-950
+
+   p-10
+
+   text-white
+ "
+>
+
+
+
+                <div
+                  className="
+                    absolute
+
+                    right-8
+
+                    top-8
+
+                    rounded-full
+
+                    bg-white/10
+
+                    px-4
+
+                    py-2
+
+                    text-xs
+
+                    font-bold
+
+                    backdrop-blur
+                  "
+                >
+
+                  ⭐ POPULAR
+
+                </div>
+
+
+
+
+
+                <span
+                  className="
+                    text-sm
+
+                    font-bold
+
+                    tracking-widest
+
+                    text-violet-300
+                  "
+                >
+
+                  PRO PLAN
+
+                </span>
+
+
+
+
+
+                <div
+                  className="
+                    mt-6
+
+                    flex
+
+                    items-end
+
+                    gap-2
+                  "
+                >
+
+                  <h3
+  className="
+    text-6xl
+    font-black
+  "
+>
+  Rp299.000
+</h3>
+
+
+<span
+  className="
+    mb-4
+    text-slate-400
+  "
+>
+  /bulan
+</span>
+
+                </div>
+                <div
+ className="
+ mt-3
+ text-sm
+ text-emerald-400
+ "
+>
+ Hemat dengan pembayaran tahunan:
+ <br />
+ Rp2.988.000/tahun
+ ≈ Rp249.000/bulan
+</div>
+
+                <p
+                  className="
+                    mt-4
+
+                    text-slate-300
+                  "
+                >
+Untuk freelancer SEO, agency,
+dan bisnis yang membutuhkan insight
+berbasis data.
+                </p>
+
+
+
+
+
+                <div
+                  className="
+                    my-8
+
+                    h-px
+
+                    bg-white/10
+                  "
+                />
+
+
+
+
+
+                <div
+                  className="
+                    space-y-5
+                  "
+                >
+
+                  {proFeatures.map((item)=>(
+
+                    <Feature
+                      key={item}
+                      text={item}
+                      dark
+                    />
+
+                  ))}
+
+
+                </div>
+
+
+
+
+
+                <div className="mt-auto pt-10">
+                  <Button
+                  asChild
+                  className="
+
+                    h-14
+
+                    w-full
+
+                    rounded-2xl
+
+                    bg-white
+
+                    font-bold
+
+                    text-violet-700
+
+                    hover:bg-slate-100
+                  "
+                >
+
+                  <Link href="/billing">
+
+                    Upgrade ke Pro
+
+                    <ArrowRight
+                      className="
+                        ml-2
+
+                        h-4
+
+                        w-4
+                      "
+                    />
+
+                  </Link>
+
+
+                </Button>
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+
+
+          </FadeUp>
+
 
         </div>
 
+
+
       </div>
 
+
+
     </section>
+
   );
+}
+
+
+
+
+
+
+function Feature({
+  text,
+  dark=false,
+}:{
+  text:string;
+  dark?:boolean;
+}){
+
+
+  return (
+
+    <div
+      className="
+        flex
+        items-center
+        gap-4
+      "
+    >
+
+      <div
+        className={`
+          flex
+          h-7
+          w-7
+          items-center
+          justify-center
+          rounded-full
+
+          ${
+            dark
+            ? "bg-white/10"
+            : "bg-emerald-100"
+          }
+        `}
+      >
+
+        <Check
+          className={`
+            h-4
+            w-4
+
+            ${
+              dark
+              ? "text-emerald-400"
+              : "text-emerald-600"
+            }
+          `}
+        />
+
+
+      </div>
+
+
+      <span
+        className={`
+          font-medium
+
+          ${
+            dark
+            ? "text-slate-200"
+            : "text-slate-700"
+          }
+        `}
+      >
+
+        {text}
+
+      </span>
+
+
+    </div>
+
+  );
+
 }

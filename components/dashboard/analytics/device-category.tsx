@@ -41,23 +41,31 @@ export default function DeviceCategory({
     0
   );
 
-  let current = 0;
-
   const gradient = data
-    .slice(0, 4)
-    .map((item, index) => {
+  .reduce(
+    (acc, item, index) => {
       const percent =
         total === 0
           ? 0
           : (item.users / total) * 100;
 
-      const start = current;
+      const start = acc.current;
+      const end = start + percent;
 
-      current += percent;
+      acc.current = end;
 
-      return `${COLORS[index]} ${start}% ${current}%`;
-    })
-    .join(",");
+      acc.parts.push(
+        `${COLORS[index % COLORS.length]} ${start}% ${end}%`
+      );
+
+      return acc;
+    },
+    {
+      current: 0,
+      parts: [] as string[],
+    }
+  )
+  .parts.join(", ");
 
   return (
     <Widget

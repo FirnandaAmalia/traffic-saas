@@ -1,186 +1,491 @@
 "use client";
 
 import { useState } from "react";
+
 import {
   ChevronDown,
   Sparkles,
 } from "lucide-react";
 
+import FadeUp from "@/components/motion/fade-up";
+
+
 const faqs = [
+
   {
-    question: "Is TrafficSaaS free to use?",
+    question:
+      "Apakah TrafficSaaS bisa digunakan secara gratis?",
     answer:
-      "Yes. You can start with the Free plan which includes one project, Google Search Console integration, Google Analytics 4 integration, and the essential SEO dashboard.",
+      "Ya. TrafficSaaS menyediakan paket Free yang dapat digunakan untuk mencoba dashboard SEO, menghubungkan Google Search Console dan Google Analytics 4, serta melihat insight dasar website.",
   },
+
+
   {
-    question: "What do I get with the Pro plan?",
+    question:
+      "Apa perbedaan paket Free dan Pro?",
     answer:
-      "The Pro plan unlocks unlimited projects, AI executive summaries, AI recommendations, compare date ranges, PDF & Excel exports, and priority support.",
+      "Paket Pro menyediakan fitur tambahan seperti AI Executive Summary, rekomendasi SEO otomatis, analisis lebih mendalam, export laporan PDF dan Excel, serta dukungan untuk banyak project.",
   },
+
+
   {
-    question: "Does TrafficSaaS connect directly to Google?",
+    question:
+      "Bagaimana TrafficSaaS mengambil data website?",
     answer:
-      "Yes. TrafficSaaS securely connects to Google Search Console and Google Analytics 4 using Google's official OAuth authentication.",
+      "TrafficSaaS menggunakan koneksi resmi Google API melalui autentikasi OAuth sehingga pengguna dapat menghubungkan Google Search Console dan Google Analytics 4 dengan aman.",
   },
+
+
   {
-    question: "Can I manage multiple websites?",
+    question:
+      "Apakah saya bisa mengelola banyak website?",
     answer:
-      "Absolutely. The Pro plan allows unlimited projects and workspaces, making it ideal for agencies, consultants, and growing businesses.",
+      "Bisa. Paket Pro dirancang untuk freelancer, agency, dan bisnis yang memiliki beberapa website atau project SEO dalam satu akun.",
   },
+
+
   {
-    question: "Is my Google data secure?",
+    question:
+      "Apakah data Google saya aman?",
     answer:
-      "Yes. Your data is accessed securely through Google's APIs. We never ask for your Google password and only request the permissions needed to display your analytics.",
+      "Aman. TrafficSaaS tidak menyimpan password Google pengguna. Akses hanya menggunakan izin yang diperlukan untuk membaca data analytics dan SEO.",
   },
+
+
   {
-    question: "Can I upgrade later?",
+    question:
+      "Apakah bisa upgrade setelah menggunakan Free?",
     answer:
-      "Yes. You can start for free and upgrade to Pro at any time without losing your existing projects or historical data.",
+      "Bisa. Anda dapat mulai dari paket Free terlebih dahulu dan melakukan upgrade kapan saja ketika membutuhkan fitur AI dan analisis lanjutan.",
   },
+
 ];
 
+
+
+
+
 export default function FAQ() {
-  const [openIndex, setOpenIndex] =
+
+
+  const [openIndex,setOpenIndex] =
     useState<number | null>(0);
 
+
+
+
   return (
+
     <section
       id="faq"
-      className="relative overflow-hidden py-32"
+      className="
+        relative
+        overflow-hidden
+        py-32
+      "
     >
-      {/* Glow */}
 
-      <div className="absolute inset-0 overflow-hidden">
 
-        <div className="absolute left-1/2 top-24 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[150px]" />
 
-      </div>
+      {/* Background */}
 
-      <div className="relative mx-auto max-w-4xl px-6">
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-20
 
-        <div className="text-center">
+          h-[500px]
+          w-[900px]
 
-          <span className="inline-flex items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700">
+          -translate-x-1/2
 
-            <Sparkles className="h-4 w-4" />
+          rounded-full
 
-            FAQ
+          bg-violet-500/10
 
-          </span>
+          blur-[160px]
+        "
+      />
 
-          <h2 className="mt-6 text-5xl font-black tracking-tight text-slate-900">
 
-            Frequently Asked Questions
 
-          </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-500">
 
-            Everything you need to know before
-            connecting your Google Search Console
-            and Google Analytics 4.
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-4xl
+          px-6
+        "
+      >
 
-          </p>
 
-        </div>
 
-        <div className="mt-16 space-y-5">
 
-          {faqs.map((faq, index) => {
 
-            const open = openIndex === index;
+
+        {/* HEADER */}
+
+        <FadeUp>
+
+
+          <div
+            className="
+              text-center
+            "
+          >
+
+
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-2
+
+                rounded-full
+
+                border
+                border-violet-200
+
+                bg-violet-50
+
+                px-4
+                py-2
+
+                text-sm
+
+                font-bold
+
+                text-violet-700
+              "
+            >
+
+              <Sparkles
+                className="
+                  h-4
+                  w-4
+                "
+              />
+
+              FAQ
+
+
+            </div>
+
+
+
+
+
+            <h2
+              className="
+                mt-7
+
+                text-4xl
+
+                font-black
+
+                tracking-tight
+
+                text-slate-900
+
+                lg:text-6xl
+              "
+            >
+
+              Pertanyaan yang sering
+
+              <br />
+
+              ditanyakan
+
+
+            </h2>
+
+
+
+
+
+            <p
+              className="
+                mx-auto
+
+                mt-6
+
+                max-w-2xl
+
+                text-lg
+
+                leading-8
+
+                text-slate-600
+              "
+            >
+
+              Semua informasi yang perlu diketahui
+              sebelum menghubungkan website Anda
+              dengan TrafficSaaS.
+
+
+            </p>
+
+
+
+          </div>
+
+
+        </FadeUp>
+
+
+
+
+
+
+
+        {/* FAQ LIST */}
+
+        <div
+          className="
+            mt-16
+
+            space-y-5
+          "
+        >
+
+
+
+          {faqs.map((faq,index)=>{
+
+
+            const open =
+              openIndex === index;
+
+
 
             return (
 
-              <div
+              <FadeUp
                 key={faq.question}
-                className="
-                  overflow-hidden
-
-                  rounded-3xl
-
-                  border
-                  border-white/60
-
-                  bg-white/70
-
-                  shadow-lg
-
-                  backdrop-blur-xl
-                "
+                delay={index * 0.05}
               >
 
-                <button
-                  onClick={() =>
-                    setOpenIndex(
-                      open ? null : index
-                    )
-                  }
-                  className="
-                    flex
-                    w-full
-                    items-center
-                    justify-between
-
-                    px-8
-                    py-6
-
-                    text-left
-                  "
-                >
-
-                  <span className="text-lg font-semibold text-slate-900">
-
-                    {faq.question}
-
-                  </span>
-
-                  <ChevronDown
-                    className={`h-5 w-5 text-slate-500 transition-transform duration-300 ${
-                      open
-                        ? "rotate-180"
-                        : ""
-                    }`}
-                  />
-
-                </button>
 
                 <div
                   className={`
-                    grid
+                    overflow-hidden
+
+                    rounded-3xl
+
+                    border
+
+                    bg-white
+
                     transition-all
-                    duration-300
+
+                    duration-500
 
                     ${
                       open
-                        ? "grid-rows-[1fr]"
-                        : "grid-rows-[0fr]"
+                      ? "border-violet-200 shadow-xl"
+                      : "border-slate-200 shadow-sm"
                     }
                   `}
                 >
 
-                  <div className="overflow-hidden">
 
-                    <p className="px-8 pb-6 leading-8 text-slate-600">
 
-                      {faq.answer}
 
-                    </p>
+
+                  {/* QUESTION */}
+
+                  <button
+                    onClick={() =>
+                      setOpenIndex(
+                        open
+                        ? null
+                        : index
+                      )
+                    }
+
+                    className="
+                      flex
+
+                      w-full
+
+                      items-center
+
+                      justify-between
+
+                      gap-6
+
+                      px-8
+
+                      py-7
+
+                      text-left
+                    "
+                  >
+
+
+
+                    <span
+                      className="
+                        text-lg
+
+                        font-bold
+
+                        text-slate-900
+                      "
+                    >
+
+                      {faq.question}
+
+
+                    </span>
+
+
+
+
+
+                    <div
+                      className={`
+                        flex
+
+                        h-10
+
+                        w-10
+
+                        shrink-0
+
+                        items-center
+
+                        justify-center
+
+                        rounded-full
+
+                        transition-all
+
+                        duration-300
+
+                        ${
+                          open
+                          ? "bg-violet-100"
+                          : "bg-slate-100"
+                        }
+                      `}
+                    >
+
+                      <ChevronDown
+                        className={`
+                          h-5
+
+                          w-5
+
+                          text-slate-600
+
+                          transition-transform
+
+                          duration-300
+
+                          ${
+                            open
+                            ? "rotate-180 text-violet-600"
+                            : ""
+                          }
+                        `}
+                      />
+
+
+                    </div>
+
+
+
+
+                  </button>
+
+
+
+
+
+
+
+
+
+                  {/* ANSWER */}
+
+                  <div
+                    className={`
+                      grid
+
+                      transition-all
+
+                      duration-500
+
+                      ${
+                        open
+                        ? "grid-rows-[1fr]"
+                        : "grid-rows-[0fr]"
+                      }
+                    `}
+                  >
+
+                    <div
+                      className="
+                        overflow-hidden
+                      "
+                    >
+
+                      <p
+                        className="
+                          px-8
+
+                          pb-7
+
+                          leading-8
+
+                          text-slate-600
+                        "
+                      >
+
+                        {faq.answer}
+
+
+                      </p>
+
+
+                    </div>
+
 
                   </div>
 
+
+
+
                 </div>
 
-              </div>
+
+
+              </FadeUp>
+
 
             );
 
+
           })}
+
+
 
         </div>
 
+
+
       </div>
 
+
+
     </section>
+
   );
 }

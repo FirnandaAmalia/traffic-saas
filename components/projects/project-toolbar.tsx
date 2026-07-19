@@ -1,11 +1,8 @@
 import {
-  ArrowUpDown,
   FolderKanban,
   Search,
-  SlidersHorizontal,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface ProjectToolbarProps {
@@ -45,28 +42,6 @@ export default function ProjectToolbar({
             </span>
 
           </div>
-
-        </div>
-
-        {/* Right */}
-
-        <div className="flex flex-wrap items-center gap-3">
-
-          <Button
-            variant="outline"
-            className="h-11 rounded-xl gap-2"
-          >
-            <ArrowUpDown className="h-4 w-4" />
-            Sort
-          </Button>
-
-          <Button
-            variant="outline"
-            className="h-11 rounded-xl gap-2"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filter
-          </Button>
 
         </div>
 

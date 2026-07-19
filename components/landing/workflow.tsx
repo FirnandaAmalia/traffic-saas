@@ -5,163 +5,430 @@ import {
   DatabaseZap,
   BrainCircuit,
   TrendingUp,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
+
+import FadeUp from "@/components/motion/fade-up";
+
 
 const steps = [
   {
     icon: Link2,
-    title: "Connect",
+    title: "Hubungkan Data",
     description:
-      "Connect your Google Search Console and Google Analytics 4 account securely with one click.",
-    color: "from-violet-500 to-fuchsia-500",
+      "Hubungkan Google Search Console dan Google Analytics 4 secara aman untuk mengambil data performa website.",
+    color:
+      "from-violet-600 to-fuchsia-500",
   },
   {
     icon: DatabaseZap,
-    title: "Sync",
+    title: "Sinkronisasi Otomatis",
     description:
-      "TrafficSaaS automatically syncs your SEO and analytics data into a unified workspace.",
-    color: "from-sky-500 to-cyan-500",
+      "TrafficSaaS menggabungkan data SEO dan analytics menjadi satu workspace yang mudah dipahami.",
+    color:
+      "from-sky-500 to-cyan-500",
   },
   {
     icon: BrainCircuit,
-    title: "Analyze",
+    title: "AI Insight",
     description:
-      "AI analyzes performance, detects opportunities, prioritizes issues, and generates executive summaries.",
-    color: "from-emerald-500 to-teal-500",
+      "AI membaca data traffic, keyword, dan halaman untuk menemukan peluang SEO yang paling berdampak.",
+    color:
+      "from-emerald-500 to-teal-500",
   },
   {
     icon: TrendingUp,
-    title: "Grow",
+    title: "Tingkatkan Growth",
     description:
-      "Implement recommendations, monitor improvements, and continuously increase organic traffic.",
-    color: "from-orange-500 to-amber-500",
+      "Terapkan rekomendasi, pantau perubahan, dan tingkatkan traffic organik secara berkelanjutan.",
+    color:
+      "from-orange-500 to-amber-500",
   },
 ];
 
+
 export default function Workflow() {
+
   return (
-    <section className="relative py-32 overflow-hidden">
 
-      <div className="absolute inset-0">
+    <section
+      id="workflow"
+      className="
+        relative
+        overflow-hidden
+        py-32
+      "
+    >
 
-        <div className="absolute left-0 top-0 h-[420px] w-[420px] rounded-full bg-violet-500/10 blur-[120px]" />
+      {/* Background */}
 
-        <div className="absolute right-0 bottom-0 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute inset-0">
+
+        <div
+          className="
+            absolute
+            left-0
+            top-20
+            h-[450px]
+            w-[450px]
+            rounded-full
+            bg-violet-500/10
+            blur-[140px]
+          "
+        />
+
+        <div
+          className="
+            absolute
+            right-0
+            bottom-0
+            h-[450px]
+            w-[450px]
+            rounded-full
+            bg-sky-500/10
+            blur-[140px]
+          "
+        />
 
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
 
-        <div className="mx-auto max-w-3xl text-center">
 
-          <span className="rounded-full bg-violet-100 px-4 py-2 text-sm font-semibold text-violet-700">
 
-            Simple Workflow
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
 
-          </span>
 
-          <h2 className="mt-6 text-5xl font-black tracking-tight">
+        {/* HEADER */}
 
-            From Raw Data
+        <FadeUp>
 
-            <br />
+          <div
+            className="
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
 
-            to Business Decisions
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-violet-200
+                bg-violet-50
+                px-4
+                py-2
+                text-sm
+                font-bold
+                text-violet-700
+              "
+            >
 
-          </h2>
+              <Sparkles className="h-4 w-4"/>
 
-          <p className="mt-6 text-lg leading-8 text-slate-500">
+              HOW IT WORKS
 
-            Setup only takes a few minutes.
-            Connect your Google accounts and let AI
-            transform raw analytics into actionable insights.
+            </div>
 
-          </p>
 
-        </div>
+            <h2
+              className="
+                mt-7
+                text-4xl
+                font-black
+                tracking-tight
+                text-slate-900
+                lg:text-6xl
+              "
+            >
 
-        <div className="relative mt-20">
+              Dari data mentah
 
-          {/* connector */}
+              <br />
 
-          <div className="absolute left-0 right-0 top-10 hidden h-[2px] bg-gradient-to-r from-violet-300 via-sky-300 to-emerald-300 lg:block" />
+              menjadi strategi SEO
 
-          <div className="grid gap-8 lg:grid-cols-4">
+              <br />
 
-            {steps.map((step, index) => {
+              <span
+                className="
+                  bg-gradient-to-r
+                  from-violet-600
+                  to-sky-500
+                  bg-clip-text
+                  text-transparent
+                "
+              >
+                yang lebih cerdas
+              </span>
+
+            </h2>
+
+
+            <p
+              className="
+                mt-6
+                text-lg
+                leading-8
+                text-slate-600
+              "
+            >
+              TrafficSaaS mengubah data website yang kompleks
+              menjadi insight dan rekomendasi yang bisa langsung
+              digunakan untuk meningkatkan performa SEO.
+            </p>
+
+
+          </div>
+
+        </FadeUp>
+
+
+
+
+
+
+        {/* STEPS */}
+
+        <div
+          className="
+            relative
+            mt-20
+          "
+        >
+
+
+          {/* LINE */}
+
+          <div
+            className="
+              absolute
+              left-[12%]
+              right-[12%]
+              top-12
+              hidden
+              h-[3px]
+              bg-gradient-to-r
+              from-violet-400
+              via-sky-400
+              to-emerald-400
+              lg:block
+            "
+          />
+
+
+
+
+          <div
+            className="
+              grid
+              gap-8
+              lg:grid-cols-4
+            "
+          >
+
+
+            {steps.map((step,index)=>{
+
+
               const Icon = step.icon;
 
+
               return (
-                <div
+
+                <FadeUp
                   key={step.title}
-                  className="relative"
+                  delay={index * 0.12}
                 >
 
                   <div
                     className="
+                      group
                       relative
-                      rounded-3xl
-                      border
-                      border-white/60
-                      bg-white/80
-                      p-8
-                      shadow-xl
-                      backdrop-blur-xl
-                      transition
-                      duration-500
-                      hover:-translate-y-2
-                      hover:shadow-2xl
+                      h-[340px]
                     "
                   >
 
-                    <div className="absolute right-6 top-6 text-sm font-bold text-slate-300">
-
-                      0{index + 1}
-
-                    </div>
 
                     <div
-                      className={`
+                      className="
+                        relative
                         flex
-                        h-16
-                        w-16
-                        items-center
-                        justify-center
-                        rounded-2xl
-                        bg-gradient-to-br
-                        ${step.color}
-                        shadow-lg
-                      `}
+                        h-full
+                        flex-col
+
+                        rounded-[32px]
+
+                        border
+                        border-slate-200
+
+                        bg-white/90
+
+                        p-8
+
+                        shadow-sm
+
+                        backdrop-blur-xl
+
+                        transition-all
+                        duration-500
+
+                        hover:-translate-y-3
+
+                        hover:border-violet-200
+
+                        hover:shadow-2xl
+                      "
                     >
 
-                      <Icon className="h-8 w-8 text-white" />
+
+
+                      {/* NUMBER */}
+
+                      <div
+                        className="
+                          absolute
+                          right-5
+                          top-5
+                          text-5xl
+                          font-black
+                          text-slate-100
+                        "
+                      >
+
+                        0{index + 1}
+
+                      </div>
+
+
+
+
+                      {/* ICON */}
+
+                      <div
+                        className={`
+                          flex
+                          h-16
+                          w-16
+                          items-center
+                          justify-center
+                          rounded-2xl
+                          bg-gradient-to-br
+                          ${step.color}
+                          shadow-lg
+                          transition-transform
+                          duration-300
+                          group-hover:scale-110
+                        `}
+                      >
+
+                        <Icon
+                          className="
+                            h-8
+                            w-8
+                            text-white
+                          "
+                        />
+
+                      </div>
+
+
+
+
+                      {/* TITLE */}
+
+                      <h3
+                        className="
+                          mt-8
+                          text-xl
+                          font-black
+                          text-slate-900
+                        "
+                      >
+
+                        {step.title}
+
+                      </h3>
+
+
+
+
+                      {/* DESCRIPTION */}
+
+                      <p
+                        className="
+                          mt-4
+                          flex-1
+                          text-sm
+                          leading-7
+                          text-slate-600
+                        "
+                      >
+
+                        {step.description}
+
+                      </p>
+
+
+
+
+                      {/* STEP */}
+
+                      <div
+                        className="
+                          mt-auto
+                          flex
+                          items-center
+                          gap-2
+                          pt-5
+                          text-sm
+                          font-semibold
+                          text-violet-600
+                        "
+                      >
+
+                        Step {index + 1}
+
+                        <ArrowRight className="h-4 w-4"/>
+
+                      </div>
+
 
                     </div>
 
-                    <h3 className="mt-8 text-2xl font-bold">
-
-                      {step.title}
-
-                    </h3>
-
-                    <p className="mt-4 leading-7 text-slate-500">
-
-                      {step.description}
-
-                    </p>
 
                   </div>
 
-                </div>
+
+                </FadeUp>
+
               );
+
             })}
+
 
           </div>
 
+
         </div>
+
 
       </div>
 
+
     </section>
+
   );
+
 }

@@ -34,10 +34,33 @@ export default function AiCard() {
         shadow-[0_20px_60px_rgba(124,58,237,.35)]
       "
     >
-      {/* Glow */}
+
+      {/* AI SCAN EFFECT */}
 
       <div
         className="
+          pointer-events-none
+          absolute
+          left-0
+          right-0
+          top-0
+          h-32
+
+          bg-gradient-to-b
+          from-white/30
+          via-white/10
+          to-transparent
+
+          animate-[aiScan_3s_ease-in-out_infinite]
+        "
+      />
+
+
+      {/* Moving Glow */}
+
+      <div
+        className="
+          pointer-events-none
           absolute
           -right-20
           -top-20
@@ -50,8 +73,11 @@ export default function AiCard() {
           bg-white/10
 
           blur-3xl
+
+          animate-pulse
         "
       />
+
 
       {/* Header */}
 
@@ -61,6 +87,8 @@ export default function AiCard() {
 
           <div
             className="
+              relative
+
               flex
               h-14
               w-14
@@ -73,10 +101,34 @@ export default function AiCard() {
               bg-white/15
 
               backdrop-blur
+
+              shadow-lg
+
+              animate-pulse
             "
           >
+
             <Brain className="h-7 w-7" />
+
+            <span
+              className="
+                absolute
+                -right-1
+                -top-1
+
+                h-3
+                w-3
+
+                rounded-full
+
+                bg-emerald-300
+
+                shadow-[0_0_15px_rgba(110,231,183,1)]
+              "
+            />
+
           </div>
+
 
           <div>
 
@@ -96,6 +148,8 @@ export default function AiCard() {
 
         </div>
 
+
+
         <div
           className="
             rounded-full
@@ -109,12 +163,19 @@ export default function AiCard() {
             font-bold
 
             text-emerald-100
+
+            animate-pulse
           "
         >
+
           98% Confidence
+
         </div>
 
+
       </div>
+
+
 
       {/* Score */}
 
@@ -128,13 +189,23 @@ export default function AiCard() {
 
           </p>
 
-          <h2 className="text-6xl font-black">
+
+          <h2
+            className="
+              text-6xl
+              font-black
+
+              drop-shadow-lg
+            "
+          >
 
             92
 
           </h2>
 
+
         </div>
+
 
         <div className="pb-2">
 
@@ -162,85 +233,47 @@ export default function AiCard() {
 
           </div>
 
+
         </div>
+
 
       </div>
 
-      {/* Divider */}
+
 
       <div className="relative z-10 my-7 h-px bg-white/15" />
+
+
 
       {/* Insights */}
 
       <div className="relative z-10 space-y-4">
 
-        <div className="flex items-start gap-3">
 
-          <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-300" />
+        <Insight
+          icon={<CheckCircle2 />}
+          title="CTR increased by 18%"
+          desc="Meta title improvements are performing well."
+        />
 
-          <div>
 
-            <p className="font-semibold">
+        <Insight
+          icon={<Sparkles />}
+          title="12 keywords entered Top 10"
+          desc="Strong growth for informational pages."
+        />
 
-              CTR increased by 18%
 
-            </p>
+        <Insight
+          icon={<TriangleAlert />}
+          title="3 landing pages lost clicks"
+          desc="Refresh outdated content to recover rankings."
+        />
 
-            <p className="text-sm text-violet-100">
-
-              Meta title improvements are performing well.
-
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="flex items-start gap-3">
-
-          <Sparkles className="mt-0.5 h-5 w-5 text-yellow-300" />
-
-          <div>
-
-            <p className="font-semibold">
-
-              12 keywords entered Top 10
-
-            </p>
-
-            <p className="text-sm text-violet-100">
-
-              Strong growth for informational pages.
-
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="flex items-start gap-3">
-
-          <TriangleAlert className="mt-0.5 h-5 w-5 text-orange-300" />
-
-          <div>
-
-            <p className="font-semibold">
-
-              3 landing pages lost clicks
-
-            </p>
-
-            <p className="text-sm text-violet-100">
-
-              Refresh outdated content to recover rankings.
-
-            </p>
-
-          </div>
-
-        </div>
 
       </div>
+
+
 
       {/* Footer */}
 
@@ -251,6 +284,7 @@ export default function AiCard() {
           Generated just now
 
         </div>
+
 
         <button
           className="
@@ -270,7 +304,6 @@ export default function AiCard() {
             text-violet-700
 
             transition-all
-            duration-300
 
             hover:scale-105
           "
@@ -282,7 +315,63 @@ export default function AiCard() {
 
         </button>
 
+
       </div>
+
+
     </div>
   );
+}
+
+
+
+function Insight({
+  icon,
+  title,
+  desc,
+}:{
+  icon:React.ReactNode;
+  title:string;
+  desc:string;
+}){
+
+  return (
+
+    <div className="flex items-start gap-3">
+
+      <div
+        className="
+          mt-0.5
+          text-emerald-300
+        "
+      >
+
+        {icon}
+
+      </div>
+
+
+      <div>
+
+        <p className="font-semibold">
+
+          {title}
+
+        </p>
+
+
+        <p className="text-sm text-violet-100">
+
+          {desc}
+
+        </p>
+
+
+      </div>
+
+
+    </div>
+
+  );
+
 }

@@ -303,17 +303,13 @@ export default function Topbar() {
 
           <div className="hidden xl:block">
 
-            <p className="font-semibold text-slate-900">
+            <p className="text-sm font-semibold">
+  Workspace Owner
+</p>
 
-              Firnanda
-
-            </p>
-
-            <p className="text-xs text-slate-500">
-
-              Administrator
-
-            </p>
+<p className="text-xs text-slate-500">
+  SEO Specialist
+</p>
 
           </div>
 

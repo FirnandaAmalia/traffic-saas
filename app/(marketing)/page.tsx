@@ -1,3 +1,5 @@
+import Navbar from "@/components/landing/navbar";
+import Footer from "@/components/landing/footer";
 import Hero from "@/components/landing/hero";
 import LogoMarquee from "@/components/landing/logo-marquee";
 import SocialProof from "@/components/landing/social-proof";
@@ -20,60 +22,49 @@ export default function HomePage() {
   return (
     <main className="overflow-x-clip bg-white text-slate-900">
 
+      <Navbar />
+
       <Hero />
 
       <LogoMarquee />
 
-      <SocialProof />
-
-
-      {/* Why TrafficSaaS */}
       <Problem />
 
-      {/* Solution */}
-      <Solution />
+<Solution />
 
-      {/* How it works */}
-      <IntegrationFlow />
+<IntegrationFlow />
 
+<div id="dashboard-demo" className="scroll-mt-24">
+  <DashboardShowcase />
+</div>
 
-      <div id="workflow" className="scroll-mt-24">
-        <Workflow />
-      </div>
+<AIShowcase />
 
+<div id="features" className="scroll-mt-24">
+  <FeatureGrid />
+</div>
 
-      <div id="features" className="scroll-mt-24">
-        <FeatureGrid />
-      </div>
+<div id="workflow" className="scroll-mt-24">
+  <Workflow />
+</div>
 
-
-      <AIShowcase />
-
-
-      <div id="dashboard-demo" className="scroll-mt-24">
-        <DashboardShowcase />
-      </div>
-
-
-      <Metrics />
-
+<Metrics />
 
       <div id="testimonials" className="scroll-mt-24">
         <Testimonials />
       </div>
 
-
       <div id="pricing" className="scroll-mt-24">
         <PricingPreview />
       </div>
-
 
       <div id="faq" className="scroll-mt-24">
         <FAQ />
       </div>
 
-
       <CTA />
+
+      <Footer />
 
     </main>
   );

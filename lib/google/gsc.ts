@@ -13,6 +13,7 @@ import type {
 import {
   getDateRange,
   getCompareDateRange,
+  DEFAULT_DATE_RANGE,
   type DateRange,
 } from "@/lib/date-range";
 
@@ -154,23 +155,128 @@ export async function getTopQueriesWithClient(
   siteUrl: string,
   range: DateRange = "28d"
 ): Promise<GSCRow[]> {
+
   const {
     startDate,
     endDate,
   } = getDateRange(range);
 
+
   const response =
     await searchconsole.searchanalytics.query({
+
       siteUrl,
+
       requestBody: {
+
         startDate,
+
         endDate,
-        dimensions: ["query"],
-        rowLimit: 10,
+
+        dimensions:[
+          "query",
+          "page"
+        ],
+
+        rowLimit:100,
+
+        dataState:"all",
+
       },
+
     });
 
-  return (response.data.rows ?? []) as GSCRow[];
+
+
+console.log(
+  "========== GSC QUERY =========="
+);
+
+
+console.log({
+
+  siteUrl,
+
+  startDate,
+
+  endDate,
+
+  rowCount:
+    response.data.rows?.length ?? 0,
+
+});
+
+
+
+console.table(
+
+  (response.data.rows ?? [])
+
+  .slice(0,10)
+
+  .map(row => ({
+
+    query:
+      row.keys?.[0],
+
+    clicks:
+      row.clicks,
+
+    impressions:
+      row.impressions,
+
+    ctr:
+      row.ctr,
+
+    position:
+      row.position,
+
+  }))
+
+);
+
+
+
+console.log(
+  "==============================="
+);
+
+
+
+return (
+
+(response.data.rows ?? [])
+
+.map(
+
+(row):GSCRow => ({
+
+keys:
+row.keys ?? [],
+
+
+clicks:
+row.clicks ?? 0,
+
+
+impressions:
+row.impressions ?? 0,
+
+
+ctr:
+row.ctr ?? 0,
+
+
+position:
+row.position ?? 0,
+
+
+})
+
+)
+
+);
+
 }
 
 export async function getTopQueries(
@@ -293,56 +399,122 @@ export async function getSearchConsoleHistory(
 // Raw Export
 // ======================================================
 
-export async function fetchGSCRawData(
-  refreshToken: string,
+export async function fetchGSCRawDataWithClient(
+  searchconsole: searchconsole_v1.Searchconsole,
   siteUrl: string,
   range: DateRange = "28d"
 ) {
-  const searchconsole =
-    getSearchConsole(refreshToken);
 
   const {
     startDate,
     endDate,
   } = getDateRange(range);
 
+
   const response =
     await searchconsole.searchanalytics.query({
+
       siteUrl,
+
       requestBody: {
+
         startDate,
+
         endDate,
-        dimensions: [
+
+        dimensions:[
           "date",
           "query",
-          "page",
+          "page"
         ],
-        rowLimit: 25000,
-        dataState: "all",
+
+        rowLimit:25000,
+
+        dataState:"all",
+
       },
+
     });
+
+
 
   const rows =
     response.data.rows ?? [];
 
-  const formatted =
-    rows.map((row) => ({
-      date: row.keys?.[0],
-      query: row.keys?.[1],
-      page: row.keys?.[2],
 
-      clicks: row.clicks ?? 0,
+
+  return rows.map(
+    (row)=>({
+
+      date:
+        row.keys?.[0] ?? "",
+
+
+      query:
+        row.keys?.[1] ?? "",
+
+
+      page:
+        row.keys?.[2] ?? "",
+
+
+      clicks:
+        row.clicks ?? 0,
+
+
       impressions:
         row.impressions ?? 0,
-      ctr: row.ctr ?? 0,
-      position:
-        row.position ?? 0,
-    }));
 
-  console.log(
-    "RAW GSC READY =",
-    formatted.length
+
+      ctr:
+        Number(
+          (
+            (row.ctr ?? 0) * 100
+          )
+          .toFixed(2)
+        ),
+
+
+      position:
+        Number(
+          (row.position ?? 0)
+          .toFixed(2)
+        ),
+
+
+    })
   );
 
-  return formatted;
+}
+
+// ======================================================
+// Legacy Wrapper
+// ======================================================
+
+export async function fetchGSCRawData(
+  refreshToken:string,
+  siteUrl:string,
+  range:DateRange = DEFAULT_DATE_RANGE
+){
+
+
+  const auth =
+    createOAuthClient(
+      refreshToken
+    );
+
+
+  const searchconsole =
+    createSearchConsoleClient(
+      auth
+    );
+
+
+  return fetchGSCRawDataWithClient(
+    searchconsole,
+    siteUrl,
+    range
+  );
+
+
 }

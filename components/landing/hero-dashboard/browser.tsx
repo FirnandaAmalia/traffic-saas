@@ -16,6 +16,9 @@ export default function Browser({
 
         flex
 
+        h-[520px]
+        w-full
+
         overflow-hidden
 
         rounded-[34px]
@@ -35,12 +38,13 @@ export default function Browser({
         hover:shadow-[0_40px_140px_rgba(124,58,237,.18)]
       "
     >
+
+
       {/* Background Grid */}
 
       <div
         className="
           pointer-events-none
-
           absolute
           inset-0
 
@@ -51,6 +55,7 @@ export default function Browser({
           opacity-40
         "
       />
+
 
       {/* Noise */}
 
@@ -64,9 +69,11 @@ export default function Browser({
           opacity-[0.035]
 
           [background-image:radial-gradient(#000_1px,transparent_1px)]
+
           [background-size:18px_18px]
         "
       />
+
 
       {/* Moving Shine */}
 
@@ -75,10 +82,13 @@ export default function Browser({
           pointer-events-none
 
           absolute
+
           -left-1/3
+
           top-0
 
           h-full
+
           w-40
 
           -skew-x-12
@@ -86,14 +96,32 @@ export default function Browser({
           bg-gradient-to-r
 
           from-transparent
+
           via-white/35
+
           to-transparent
 
           animate-shimmer
         "
       />
 
-      {children}
+
+      <div
+        className="
+          relative
+          z-10
+          flex
+          h-full
+          w-full
+          overflow-hidden
+        "
+      >
+
+        {children}
+
+      </div>
+
+
     </div>
   );
 }

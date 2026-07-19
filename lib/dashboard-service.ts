@@ -9,6 +9,7 @@ import {
   getTopQueriesWithClient,
   getTopPagesWithClient,
   getSearchConsoleHistoryWithClient,
+  fetchGSCRawDataWithClient,
 } from "./google/gsc";
 
 import {
@@ -26,8 +27,9 @@ import type {
   DashboardData,
 } from "./types/dashboard";
 
-import type {
-  DateRange,
+import {
+  DEFAULT_DATE_RANGE,
+  type DateRange,
 } from "@/lib/date-range";
 
 export async function getDashboardData(
@@ -36,7 +38,7 @@ export async function getDashboardData(
     gscSiteUrl: string | null;
     ga4PropertyId: string | null;
   },
-  range: DateRange = "28d"
+  range: DateRange = DEFAULT_DATE_RANGE
 ): Promise<DashboardData> {
 
   // ===================================================
@@ -82,12 +84,13 @@ export async function getDashboardData(
   // Parallel Fetch
   // ===================================================
 
-  const [
+const [
   gscSummary,
   queries,
   pages,
   ga4Summary,
   gscHistory,
+  gscRawData,
   ga4History,
   country,
   trafficAcquisition,
@@ -121,16 +124,24 @@ export async function getDashboardData(
   ),
 
   getSearchConsoleHistoryWithClient(
-    searchConsole,
-    project.gscSiteUrl,
-    range
-  ),
+  searchConsole,
+  project.gscSiteUrl,
+  range
+),
 
-  getGA4HistoryWithClient(
-    analytics,
-    project.ga4PropertyId,
-    range
-  ),
+
+fetchGSCRawDataWithClient(
+  searchConsole,
+  project.gscSiteUrl,
+  range
+),
+
+
+getGA4HistoryWithClient(
+  analytics,
+  project.ga4PropertyId,
+  range
+),
 
   getActiveUsersByCountryWithClient(
     analytics,
@@ -170,31 +181,37 @@ getTopEventsWithClient(
 
 ]);
 
-  return {
-  data: {
-    ...gscSummary,
-    ...ga4Summary,
-  },
+ return {
 
-  queries,
-  pages,
+data:{
+  ...gscSummary,
+  ...ga4Summary,
+},
 
-  gscHistory,
-  ga4History,
+queries,
 
-  ga4: ga4Summary,
+pages,
 
-  country,
+gscHistory,
 
-  trafficAcquisition,
+gscRawData,
 
-  deviceCategory,
+ga4History,
 
-  landingPages,
+ga4: ga4Summary,
 
-  topEvents,
+country,
 
-  browser,
+trafficAcquisition,
+
+deviceCategory,
+
+landingPages,
+
+topEvents,
+
+browser,
+
 };
 
 }

@@ -4,186 +4,451 @@ import {
   Brain,
   Sparkles,
   CheckCircle2,
+  TrendingUp,
+  AlertTriangle,
+  Lightbulb,
+  ArrowRight,
 } from "lucide-react";
+
+import FadeUp from "@/components/motion/fade-up";
+
+
+const insights = [
+  {
+    icon: TrendingUp,
+    title: "Organic Traffic Growth",
+    value: "+42%",
+    description:
+      "Traffic organik meningkat dibanding periode sebelumnya.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "CTR Opportunity",
+    value: "12 Pages",
+    description:
+      "Halaman dengan impression tinggi tetapi klik rendah.",
+  },
+  {
+    icon: Lightbulb,
+    title: "AI Recommendation",
+    value: "+18%",
+    description:
+      "Estimasi peningkatan traffic setelah optimasi.",
+  },
+];
+
+
+const features = [
+  "Executive SEO Summary",
+  "CTR Opportunity Detection",
+  "Content Decay Analysis",
+  "Business Impact Prediction",
+  "Prioritized Recommendations",
+];
+
 
 export default function AIShowcase() {
   return (
     <section
       id="ai"
-      className="relative overflow-hidden py-32"
+      className="
+        relative
+        overflow-hidden
+        bg-slate-50/60
+        py-32
+      "
     >
+
+
       {/* Background */}
 
-      <div className="absolute inset-0">
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
 
-        <div className="absolute left-1/2 top-20 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-violet-500/15 blur-[140px]" />
+          h-[600px]
+          w-[800px]
 
-      </div>
+          -translate-x-1/2
 
-      <div className="relative mx-auto max-w-7xl px-6">
+          rounded-full
 
-        <div className="grid gap-20 lg:grid-cols-2 lg:items-center">
+          bg-violet-500/10
+
+          blur-[160px]
+        "
+      />
+
+
+
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
+
+
+        <div
+          className="
+            grid
+            gap-20
+            lg:grid-cols-2
+            lg:items-center
+          "
+        >
+
 
           {/* LEFT */}
 
-          <div>
+          <FadeUp>
 
-            <span
-              className="
-                inline-flex
-                items-center
-                gap-2
+            <div>
 
-                rounded-full
 
-                bg-violet-100
+              <div
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
 
-                px-4
-                py-2
+                  rounded-full
 
-                text-sm
-                font-semibold
-                text-violet-700
-              "
-            >
-              <Sparkles className="h-4 w-4" />
+                  border
+                  border-violet-200
 
-              AI Powered Analytics
+                  bg-violet-50
 
-            </span>
+                  px-4
+                  py-2
 
-            <h2 className="mt-8 text-5xl font-black tracking-tight text-slate-900">
+                  text-xs
 
-              Your Personal
+                  font-bold
 
-              <br />
+                  tracking-wide
 
-              SEO Consultant
+                  text-violet-700
+                "
+              >
 
-            </h2>
+                <Sparkles className="h-4 w-4"/>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+                AI SEO INTELLIGENCE ENGINE
 
-              TrafficSaaS doesn't just display data.
+              </div>
 
-              It understands your Google Search Console
-              and Google Analytics reports, then generates
-              executive summaries, SEO opportunities and
-              business recommendations automatically.
 
-            </p>
 
-            <div className="mt-10 space-y-5">
 
-              {[
-                "Executive Summary",
-                "CTR Opportunity Detection",
-                "Content Decay Analysis",
-                "Business Impact Estimation",
-                "Prioritized SEO Recommendations",
-              ].map((item) => (
+              <h2
+                className="
+                  mt-8
 
-                <div
-                  key={item}
-                  className="flex items-center gap-4"
+                  text-4xl
+
+                  font-black
+
+                  tracking-tight
+
+                  text-slate-900
+
+                  lg:text-6xl
+                "
+              >
+
+                Bukan Sekadar
+
+                <br />
+
+                Dashboard Analytics.
+
+                <br />
+
+
+                <span
+                  className="
+                    bg-gradient-to-r
+                    from-violet-600
+                    to-sky-500
+
+                    bg-clip-text
+
+                    text-transparent
+                  "
                 >
+                  AI SEO Consultant.
+                </span>
 
-                  <CheckCircle2 className="h-6 w-6 text-emerald-500" />
 
-                  <span className="font-medium text-slate-700">
+              </h2>
 
-                    {item}
 
-                  </span>
 
-                </div>
 
-              ))}
+              <p
+                className="
+                  mt-6
+
+                  max-w-xl
+
+                  text-lg
+
+                  leading-8
+
+                  text-slate-600
+                "
+              >
+
+                TrafficSaaS memahami data Google Search Console
+                dan Google Analytics untuk menemukan masalah,
+                peluang, dan strategi SEO secara otomatis.
+
+
+              </p>
+
+
+
+
+
+              {/* Feature List */}
+
+              <div
+                className="
+                  mt-10
+
+                  space-y-5
+                "
+              >
+
+                {features.map((item)=>(
+                  <div
+                    key={item}
+                    className="
+                      flex
+                      items-center
+                      gap-4
+                    "
+                  >
+
+                    <div
+                      className="
+                        flex
+                        h-8
+                        w-8
+                        items-center
+                        justify-center
+
+                        rounded-full
+
+                        bg-emerald-100
+                      "
+                    >
+
+                      <CheckCircle2
+                        className="
+                          h-5
+                          w-5
+                          text-emerald-600
+                        "
+                      />
+
+                    </div>
+
+
+                    <span
+                      className="
+                        font-medium
+                        text-slate-700
+                      "
+                    >
+
+                      {item}
+
+                    </span>
+
+
+                  </div>
+                ))}
+
+
+              </div>
+
+
+
 
             </div>
 
-          </div>
 
-          {/* RIGHT */}
+          </FadeUp>
 
-          <div
-            className="
-              rounded-[34px]
 
-              border
 
-              border-white/60
 
-              bg-white/80
 
-              p-8
 
-              shadow-[0_40px_120px_rgba(15,23,42,.15)]
+          {/* RIGHT AI PANEL */}
 
-              backdrop-blur-xl
-            "
-          >
 
-            {/* Header */}
+          <FadeUp delay={0.2}>
 
-            <div className="flex items-center gap-3">
+
+            <div
+              className="
+                relative
+
+                rounded-[36px]
+
+                border
+
+                border-white/70
+
+                bg-white/80
+
+                p-8
+
+                shadow-[0_40px_120px_rgba(15,23,42,.15)]
+
+                backdrop-blur-xl
+              "
+            >
+
+
+
+              {/* Header */}
+
 
               <div
                 className="
                   flex
-                  h-12
-                  w-12
                   items-center
-                  justify-center
-
-                  rounded-2xl
-
-                  bg-gradient-to-br
-
-                  from-violet-600
-                  to-sky-500
+                  justify-between
                 "
               >
 
-                <Brain className="h-6 w-6 text-white" />
+                <div
+                  className="
+                    flex
+                    items-center
+                    gap-4
+                  "
+                >
+
+                  <div
+                    className="
+                      flex
+                      h-14
+                      w-14
+                      items-center
+                      justify-center
+
+                      rounded-2xl
+
+                      bg-gradient-to-br
+
+                      from-violet-600
+
+                      to-sky-500
+
+                      shadow-lg
+                    "
+                  >
+
+                    <Brain
+                      className="
+                        h-7
+                        w-7
+                        text-white
+                      "
+                    />
+
+                  </div>
+
+
+                  <div>
+
+                    <p
+                      className="
+                        text-xs
+                        font-bold
+                        tracking-widest
+                        text-violet-600
+                      "
+                    >
+
+                      AI ENGINE
+
+                    </p>
+
+
+                    <h3
+                      className="
+                        text-xl
+                        font-black
+                        text-slate-900
+                      "
+                    >
+
+                      SEO Intelligence
+
+                    </h3>
+
+
+                  </div>
+
+
+                </div>
+
+
+
+                <span
+                  className="
+                    rounded-full
+
+                    bg-emerald-100
+
+                    px-4
+                    py-2
+
+                    text-xs
+
+                    font-bold
+
+                    text-emerald-700
+                  "
+                >
+
+                  LIVE
+
+                </span>
+
 
               </div>
 
-              <div>
 
-                <h3 className="font-bold">
 
-                  TrafficSaaS AI
 
-                </h3>
 
-                <p className="text-sm text-slate-500">
 
-                  Executive Insight
 
-                </p>
+              {/* Score */}
 
-              </div>
-
-            </div>
-
-            {/* Chat */}
-
-            <div className="mt-8 space-y-4">
-
-              <div className="rounded-2xl bg-slate-100 p-4 text-sm leading-7">
-
-                Analyze my SEO performance.
-
-              </div>
 
               <div
                 className="
-                  rounded-2xl
+                  mt-8
+
+                  rounded-3xl
 
                   bg-gradient-to-br
 
                   from-violet-600
+
                   to-sky-500
 
                   p-6
@@ -192,55 +457,270 @@ export default function AIShowcase() {
                 "
               >
 
-                <p className="font-semibold">
+                <p
+                  className="
+                    text-sm
+                    text-violet-100
+                  "
+                >
 
-                  Analysis Complete
+                  SEO Performance Score
 
                 </p>
 
-                <div className="mt-5 space-y-4 text-sm leading-7">
 
-                  <p>
+                <div
+                  className="
+                    mt-2
 
-                    ✅ Organic clicks increased by
-                    <strong> 42%</strong> compared
-                    to the previous period.
+                    flex
+
+                    items-end
+
+                    justify-between
+                  "
+                >
+
+                  <h2
+                    className="
+                      text-6xl
+                      font-black
+                    "
+                  >
+
+                    92
+
+                  </h2>
+
+
+                  <div
+                    className="
+                      rounded-full
+
+                      bg-white/20
+
+                      px-4
+                      py-2
+
+                      text-sm
+
+                      font-bold
+                    "
+                  >
+
+                    +18%
+
+                  </div>
+
+
+                </div>
+
+
+              </div>
+
+
+
+
+
+
+
+              {/* Insight Cards */}
+
+
+              <div
+                className="
+                  mt-6
+
+                  space-y-4
+                "
+              >
+
+                {insights.map((item)=>{
+
+                  const Icon=item.icon;
+
+
+                  return (
+
+                    <div
+                      key={item.title}
+                      className="
+                        flex
+                        items-center
+                        gap-4
+
+                        rounded-2xl
+
+                        border
+
+                        bg-white
+
+                        p-4
+
+                        transition
+
+                        hover:shadow-lg
+                      "
+                    >
+
+                      <div
+                        className="
+                          flex
+                          h-11
+                          w-11
+                          items-center
+                          justify-center
+
+                          rounded-xl
+
+                          bg-violet-100
+                        "
+                      >
+
+                        <Icon
+                          className="
+                            h-5
+                            w-5
+                            text-violet-700
+                          "
+                        />
+
+                      </div>
+
+
+                      <div
+                        className="
+                          flex-1
+                        "
+                      >
+
+                        <p
+                          className="
+                            text-sm
+                            font-bold
+                            text-slate-900
+                          "
+                        >
+
+                          {item.title}
+
+                        </p>
+
+
+                        <p
+                          className="
+                            text-xs
+                            text-slate-500
+                          "
+                        >
+
+                          {item.description}
+
+                        </p>
+
+
+                      </div>
+
+
+                      <span
+                        className="
+                          font-black
+                          text-violet-600
+                        "
+                      >
+
+                        {item.value}
+
+                      </span>
+
+
+                    </div>
+
+                  )
+
+                })}
+
+
+              </div>
+
+
+
+
+
+
+              {/* Footer */}
+
+              <div
+                className="
+                  mt-8
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  bg-slate-900
+
+                  p-5
+
+                  text-white
+                "
+              >
+
+                <div>
+
+                  <p
+                    className="
+                      text-xs
+                      text-slate-400
+                    "
+                  >
+
+                    AI Recommendation
 
                   </p>
 
-                  <p>
 
-                    ⚠️ Several pages have high
-                    impressions but low CTR.
+                  <p
+                    className="
+                      mt-1
+                      font-semibold
+                    "
+                  >
 
-                  </p>
-
-                  <p>
-
-                    💡 Updating titles and meta
-                    descriptions could significantly
-                    increase organic traffic.
-
-                  </p>
-
-                  <p>
-
-                    🚀 Estimated traffic growth:
-                    <strong> +18%</strong>
+                    Improve 12 meta titles
 
                   </p>
 
                 </div>
 
+
+
+                <ArrowRight
+                  className="
+                    h-5
+                    w-5
+                  "
+                />
+
+
               </div>
+
+
+
 
             </div>
 
-          </div>
+
+          </FadeUp>
+
 
         </div>
 
+
       </div>
+
 
     </section>
   );

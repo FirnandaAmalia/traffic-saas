@@ -5,6 +5,8 @@ export type DateRange =
   | "6m"
   | "12m";
 
+export const DEFAULT_DATE_RANGE:DateRange = "28d";
+
 interface DateRangeResult {
   startDate: string;
   endDate: string;
@@ -34,7 +36,7 @@ function firstDayOfMonth(date: Date) {
 // ======================================================
 
 export function getDateRange(
-  range: DateRange = "28d"
+  range: DateRange = DEFAULT_DATE_RANGE
 ): DateRangeResult {
 
   const endDate = new Date();
@@ -158,7 +160,7 @@ export function getRangeLabel(
 // ======================================================
 
 export function getCompareDateRange(
-  range: DateRange = "28d"
+  range: DateRange = DEFAULT_DATE_RANGE
 ): CompareDateRangeResult {
 
   const {

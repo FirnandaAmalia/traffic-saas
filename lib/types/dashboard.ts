@@ -1,4 +1,7 @@
-import type { GSCRow } from "./gsc";
+import type {
+  GSCRow,
+  GSCRawData,
+} from "./gsc";
 
 import type {
   GA4History,
@@ -11,48 +14,108 @@ import type {
   BrowserMetric,
 } from "./ga4";
 
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Summary
+|--------------------------------------------------------------------------
+*/
+
 export interface DashboardSummary {
-  clicks: number;
-  previousClicks: number;
 
-  impressions: number;
-  previousImpressions: number;
+  clicks:number;
 
-  users: number;
-  previousUsers: number;
+  previousClicks:number;
 
-  sessions: number;
-  previousSessions: number;
 
-  pageViews: number;
-  previousPageViews: number;
+  impressions:number;
 
-  engagementRate: number;
-  previousEngagementRate: number;
+  previousImpressions:number;
+
+
+  users:number;
+
+  previousUsers:number;
+
+
+  sessions:number;
+
+  previousSessions:number;
+
+
+  pageViews:number;
+
+  previousPageViews:number;
+
+
+  engagementRate:number;
+
+  previousEngagementRate:number;
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Data
+|--------------------------------------------------------------------------
+*/
+
 export interface DashboardData {
-  data: DashboardSummary;
 
-  queries: GSCRow[];
 
-  pages: GSCRow[];
+  /*
+  |--------------------------------------------------------------------------
+  | KPI Summary
+  |--------------------------------------------------------------------------
+  */
 
-  gscHistory: GSCRow[];
+  data:DashboardSummary;
 
-  ga4History: GA4History[];
 
-  ga4: GA4Summary;
 
-  country: CountryMetric[];
+  /*
+  |--------------------------------------------------------------------------
+  | Google Search Console
+  |--------------------------------------------------------------------------
+  */
 
-  trafficAcquisition: TrafficSourceMetric[];
 
-  deviceCategory: DeviceCategoryMetric[];
+  queries:GSCRow[];
 
-  landingPages: LandingPageMetric[];
 
-  topEvents: EventMetric[];
+  pages:GSCRow[];
 
-  browser: BrowserMetric[];
+
+  gscHistory:GSCRow[];
+
+
+  /*
+  | Raw data export untuk Excel / Analyst
+  */
+ 
+gscRawData:GSCRawData[];
+  /*
+  |--------------------------------------------------------------------------
+  | Google Analytics 4
+  |--------------------------------------------------------------------------
+  */
+
+  ga4History:GA4History[];
+
+  ga4:GA4Summary;
+
+  country:CountryMetric[];
+
+  trafficAcquisition:TrafficSourceMetric[];
+
+  deviceCategory:DeviceCategoryMetric[];
+
+  landingPages:LandingPageMetric[];
+
+  topEvents:EventMetric[];
+
+  browser:BrowserMetric[];
+
 }

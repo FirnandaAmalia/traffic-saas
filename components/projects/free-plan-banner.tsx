@@ -19,10 +19,12 @@ export default function FreePlanBanner({
   maxProjects,
 }: Props) {
   const percent =
-    Math.min(
-      (usedProjects / maxProjects) * 100,
-      100
-    );
+  maxProjects > 0
+    ? Math.min(
+        (usedProjects / maxProjects) * 100,
+        100
+      )
+    : 0;
 
   return (
     <div
@@ -65,7 +67,7 @@ export default function FreePlanBanner({
 
           <h2 className="mt-5 text-3xl font-bold text-slate-900">
 
-            You're using
+            You&apos;re using
 
             {" "}
 
