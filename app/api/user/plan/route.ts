@@ -146,5 +146,96 @@ export async function POST(
 
 
   }
+}
 
+export async function GET(){
+
+  try{
+
+    const session =
+      await getServerSession(
+        authOptions
+      );
+
+
+    if(!session?.user?.email){
+
+      return NextResponse.json(
+        {
+          success:false,
+          error:"Unauthorized"
+        },
+        {
+          status:401
+        }
+      );
+
+    }
+
+
+
+    const user =
+      await prisma.user.findUnique({
+
+        where:{
+          email:
+          session.user.email
+        },
+
+        include:{
+          subscription:true
+        }
+
+      });
+
+
+
+    if(!user){
+
+      return NextResponse.json(
+        {
+          success:false,
+          error:"User not found"
+        },
+        {
+          status:404
+        }
+      );
+
+    }
+
+
+
+    return NextResponse.json({
+
+      success:true,
+
+      plan:
+      user.subscription?.plan ?? "FREE"
+
+    });
+
+
+
+  }catch(error){
+
+
+    console.error(
+      "GET USER PLAN ERROR:",
+      error
+    );
+
+
+    return NextResponse.json(
+      {
+        success:false,
+        error:"Server error"
+      },
+      {
+        status:500
+      }
+    );
+
+
+  }
 }

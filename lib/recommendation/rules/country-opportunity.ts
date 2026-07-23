@@ -3,94 +3,309 @@ import type {
   RecommendationInput,
 } from "../recommendation-engine";
 
+
+
 export function countryOpportunityRule(
   data: RecommendationInput
 ): Recommendation[] {
 
-  if (!data.country.length) {
+
+
+  if(!data.country.length){
+
     return [];
+
   }
+
+
+
+
+
+
+  const countries =
+
+  [...data.country]
+
+  .sort(
+
+    (a,b)=>
+
+      b.users -
+      a.users
+
+  );
+
+
+
+
+
+
 
   const totalUsers =
-    data.country.reduce(
-      (sum, item) => sum + item.users,
-      0
-    );
 
-  const topCountry =
-    [...data.country]
-      .sort(
-        (a, b) =>
-          b.users - a.users
-      )[0];
+  countries.reduce(
 
-  if (!topCountry) {
+    (sum,item)=>
+
+      sum +
+      (item.users ?? 0),
+
+    0
+
+  );
+
+
+
+
+
+  if(totalUsers === 0){
+
     return [];
+
   }
 
-  const percent =
-    (topCountry.users /
-      totalUsers) *
-    100;
+
+
+
+
+
+
+  const mainCountry =
+    countries[0];
+
+
+
+
+
+  const secondaryCountries =
+
+  countries
+
+  .slice(1,4)
+
+  .filter(
+
+    item =>
+
+    (
+
+      item.users /
+      totalUsers
+
+    ) * 100 >= 5
+
+  );
+
+
+
+
+
+
+
+  const mainPercent =
+
+  (
+
+    mainCountry.users /
+    totalUsers
+
+  ) * 100;
+
+
+
+
+
+
 
   let score = 60;
 
-  if (percent >= 40)
+
+
+
+
+  if(secondaryCountries.length){
+
+    score += 15;
+
+  }
+
+
+
+  if(mainPercent >= 90){
+
+    score += 15;
+
+  }
+
+
+
+  if(totalUsers >= 100000){
+
     score += 10;
 
-  if (percent >= 60)
-    score += 10;
+  }
 
-  if (percent >= 80)
-    score += 10;
 
-  score = Math.min(score, 100);
 
-  const localizedCountries = [
-    "Indonesia",
-    "Malaysia",
-    "Singapore",
-    "Australia",
-    "United States",
-    "India",
-  ];
+  score =
+  Math.min(
+    score,
+    100
+  );
 
-  const recommendation =
-    localizedCountries.includes(
-      topCountry.country
-    )
-      ? `Pertimbangkan membuat landing page, artikel, atau kampanye digital yang disesuaikan dengan audiens di ${topCountry.country}. Lokalisasi konten dapat meningkatkan relevansi pencarian dan engagement pengguna.`
-      : "Evaluasi peluang pasar internasional melalui lokalisasi bahasa, strategi SEO regional, dan kampanye digital sesuai karakteristik pengguna.";
+
+
+
+
+
+
+  const opportunityCountries =
+
+  secondaryCountries
+
+  .map(
+
+    item =>
+
+    `${item.country} (${(
+
+      item.users /
+      totalUsers *
+
+      100
+
+    ).toFixed(1)}%)`
+
+  )
+
+  .join(", ");
+
+
+
+
+
+
+
+
+
+  const priority:
+
+  "low" |
+  "medium" =
+
+
+  secondaryCountries.length
+
+  ?
+
+  "medium"
+
+  :
+
+  "low";
+
+
+
+
+
+
+
 
   return [
 
+
     {
 
-      id: "country-opportunity",
 
-      priority: "low",
+      id:
+
+      "country-opportunity",
+
+
+
+
+
+      priority,
+
+
+
+
 
       score,
 
+
+
+
+
       title:
-        "Regional Growth Opportunity",
+
+      "Regional Growth Opportunity",
+
+
+
+
 
       description:
-        `${percent.toFixed(
-          1
-        )}% pengguna berasal dari ${topCountry.country}. Negara ini merupakan pasar digital terbesar berdasarkan data pengunjung saat ini.`,
 
-      recommendation,
+      `${mainCountry.country} menjadi sumber pengguna terbesar dengan kontribusi ${mainPercent.toFixed(1)}%. AI menemukan peluang tambahan dari wilayah lain yang mulai menunjukkan trafik.`,
+
+
+
+
+
+
+      recommendation:
+
+      secondaryCountries.length
+
+      ?
+
+      `Pertimbangkan strategi SEO regional untuk ${opportunityCountries}. Gunakan landing page multibahasa, konten lokal, dan keyword khusus wilayah untuk meningkatkan relevansi.`
+
+      :
+
+      "Bangun strategi internasional secara bertahap melalui konten multibahasa, hreflang, dan kampanye digital regional.",
+
+
+
+
+
 
       impact:
-        "Strategi lokalisasi konten dan pemasaran berpotensi meningkatkan jangkauan organik, brand awareness, dan peluang konversi pada wilayah dengan permintaan tinggi.",
 
-      category: "Marketing",
+      secondaryCountries.length
 
-      icon: "🌍",
+      ?
+
+      `Wilayah potensial ditemukan: ${opportunityCountries}. Perluasan market dapat meningkatkan organic reach dan peluang konversi.`
+
+      :
+
+      "Optimasi geografis dapat membantu menemukan sumber trafik baru di luar market utama.",
+
+
+
+
+
+
+      category:
+
+      "Marketing",
+
+
+
+
+
+      icon:
+
+      "🌍",
+
+
 
     },
 
+
   ];
+
 
 }

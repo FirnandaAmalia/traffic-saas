@@ -1,386 +1,728 @@
 "use client";
 
+
 import {
-  ArrowUpRight,
+  ArrowRight,
   CalendarDays,
   CircleDollarSign,
   Sparkles,
+  Target,
+  Zap,
 } from "lucide-react";
+
 
 import type {
   PrioritizedRecommendation,
 } from "@/lib/recommendation/prioritizer";
 
+
+
 interface Props {
-  recommendation: PrioritizedRecommendation;
+
+  recommendation:
+  PrioritizedRecommendation;
+
 }
 
-function priorityColor(priority: string) {
-  switch (priority) {
-    case "critical":
-      return "bg-red-100 text-red-700";
 
-    case "high":
-      return "bg-orange-100 text-orange-700";
 
-    case "medium":
-      return "bg-yellow-100 text-yellow-700";
 
-    default:
-      return "bg-emerald-100 text-emerald-700";
-  }
+
+
+
+function priorityColor(
+priority:string
+){
+
+switch(priority){
+
+case "critical":
+
+return "bg-red-100 text-red-700";
+
+
+case "high":
+
+return "bg-orange-100 text-orange-700";
+
+
+case "medium":
+
+return "bg-yellow-100 text-yellow-700";
+
+
+default:
+
+return "bg-emerald-100 text-emerald-700";
+
 }
 
-function scoreColor(score: number) {
-  if (score >= 90)
-    return "text-emerald-600";
-
-  if (score >= 80)
-    return "text-sky-600";
-
-  if (score >= 70)
-    return "text-yellow-600";
-
-  return "text-red-600";
 }
+
+
+
+
+
+
+
+
+function scoreColor(
+score:number
+){
+
+if(score>=90)
+return "text-emerald-600";
+
+
+if(score>=80)
+return "text-blue-600";
+
+
+if(score>=70)
+return "text-yellow-600";
+
+
+return "text-red-600";
+
+}
+
+
+
+
+
+
+
+function roiText(
+roi:number
+){
+
+if(roi>=5)
+return "Excellent";
+
+
+if(roi>=4)
+return "High";
+
+
+if(roi>=2)
+return "Medium";
+
+
+return "Low";
+
+}
+
+
+
+
 
 export default function RecommendationCard({
-  recommendation,
-}: Props) {
 
-  return (
+recommendation,
 
-    <div
-      className="
-        rounded-3xl
+}:Props){
 
-        border
-        border-slate-200
 
-        bg-white
 
-        p-6
+return (
 
-        shadow-sm
 
-        transition-all
-        duration-300
+<div
 
-        hover:-translate-y-1
-        hover:shadow-lg
-      "
-    >
+className="
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-6
+shadow-sm
+transition
+hover:-translate-y-1
+hover:shadow-xl
+"
 
-      {/* HEADER */}
+>
 
-      <div className="flex items-start justify-between">
 
-        <div className="flex gap-4">
 
-          <div
-            className="
-              flex
-              h-14
-              w-14
-              items-center
-              justify-center
 
-              rounded-2xl
 
-              bg-gradient-to-br
-              from-sky-100
-              to-indigo-100
+{/* HEADER */}
 
-              text-2xl
-            "
-          >
-            {recommendation.icon}
-          </div>
 
-          <div>
+<div
 
-            <h3 className="text-xl font-bold">
+className="
+flex
+items-start
+justify-between
+gap-5
+"
 
-              {recommendation.title}
+>
 
-            </h3>
 
-            <p className="mt-1 text-sm text-slate-500">
+<div
 
-              {recommendation.description}
+className="
+flex
+gap-4
+"
 
-            </p>
+>
 
-          </div>
 
-        </div>
+<div
 
-        <div
-          className={`
-            rounded-full
-            px-3
-            py-1
+className="
+flex
+h-14
+w-14
+items-center
+justify-center
+rounded-2xl
+bg-gradient-to-br
+from-indigo-100
+to-blue-100
+text-2xl
+"
 
-            text-xs
-            font-bold
+>
 
-            ${priorityColor(
-              recommendation.priority
-            )}
-          `}
-        >
+{recommendation.icon}
 
-          {recommendation.priority.toUpperCase()}
+</div>
 
-        </div>
 
-      </div>
 
-      {/* SCORE */}
+<div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-4">
 
-        <div
-          className="
-            rounded-2xl
-            bg-slate-50
-            p-4
-          "
-        >
+<h3
 
-          <div className="text-xs text-slate-500">
+className="
+text-xl
+font-bold
+"
 
-            AI Score
+>
 
-          </div>
+{recommendation.title}
 
-          <div
-            className={`
-              mt-2
+</h3>
 
-              text-3xl
-              font-black
 
-              ${scoreColor(
-                recommendation.score
-              )}
-            `}
-          >
 
-            {recommendation.score}
+<p
 
-          </div>
+className="
+mt-2
+text-sm
+leading-6
+text-slate-500
+"
 
-        </div>
+>
 
-        <div
-          className="
-            rounded-2xl
-            bg-slate-50
-            p-4
-          "
-        >
+{recommendation.description}
 
-          <div className="flex items-center gap-2">
+</p>
 
-            <CircleDollarSign
-              size={16}
-            />
 
-            <span className="text-xs text-slate-500">
 
-              ROI
+</div>
 
-            </span>
 
-          </div>
+</div>
 
-          <div className="mt-2 text-2xl">
 
-            {"★".repeat(
-              recommendation.roi
-            )}
 
-          </div>
 
-        </div>
 
-        <div
-          className="
-            rounded-2xl
-            bg-slate-50
-            p-4
-          "
-        >
+<div
 
-          <div className="flex items-center gap-2">
+className={`
 
-            <Sparkles
-              size={16}
-            />
+rounded-full
 
-            <span className="text-xs text-slate-500">
+px-3
 
-              Difficulty
+py-1
 
-            </span>
+text-xs
 
-          </div>
+font-bold
 
-          <div className="mt-2 font-bold">
+${priorityColor(
+recommendation.priority
+)}
 
-            {recommendation.difficulty}
+`}
 
-          </div>
+>
 
-        </div>
+{recommendation.priority.toUpperCase()}
 
-        <div
-          className="
-            rounded-2xl
-            bg-slate-50
-            p-4
-          "
-        >
 
-          <div className="flex items-center gap-2">
+</div>
 
-            <CalendarDays
-              size={16}
-            />
 
-            <span className="text-xs text-slate-500">
 
-              Estimated
+</div>
 
-            </span>
 
-          </div>
 
-          <div className="mt-2 font-bold">
 
-            {recommendation.estimatedDays} Days
 
-          </div>
 
-        </div>
 
-      </div>
 
-      {/* RECOMMENDATION */}
 
-      <div
-        className="
-          mt-8
+{/* AI SCORE GRID */}
 
-          rounded-2xl
 
-          bg-blue-50
 
-          p-5
-        "
-      >
+<div
 
-        <div className="font-semibold">
+className="
+mt-8
+grid
+gap-4
+md:grid-cols-4
+"
 
-          Recommended Action
+>
 
-        </div>
 
-        <p className="mt-2 text-sm leading-7 text-slate-700">
+<div
 
-          {recommendation.recommendation}
+className="
+rounded-2xl
+bg-slate-50
+p-4
+"
 
-        </p>
+>
 
-      </div>
+<p className="text-xs text-slate-500">
 
-      {/* IMPACT */}
+AI Confidence Score
 
-      <div
-        className="
-          mt-5
+</p>
 
-          rounded-2xl
 
-          bg-emerald-50
+<p
 
-          p-5
-        "
-      >
+className={`
 
-        <div className="font-semibold">
+mt-2
+text-3xl
+font-black
 
-          Expected Impact
+${scoreColor(
+recommendation.score
+)}
 
-        </div>
+`}
 
-        <p className="mt-2 text-sm leading-7 text-slate-700">
+>
 
-          {recommendation.impact}
+{recommendation.score}
 
-        </p>
+</p>
 
-      </div>
 
-      {/* FOOTER */}
+</div>
 
-      <div className="mt-6 flex items-center justify-between">
 
-        <div
-          className="
-            rounded-full
 
-            bg-slate-100
 
-            px-3
-            py-1
 
-            text-xs
-            font-semibold
-          "
-        >
 
-          {recommendation.category}
 
-        </div>
+<div
 
-        <button
-          className="
-            flex
-            items-center
-            gap-2
+className="
+rounded-2xl
+bg-slate-50
+p-4
+"
 
-            rounded-xl
+>
 
-            bg-slate-900
 
-            px-4
-            py-2
+<div className="flex gap-2 items-center">
 
-            text-sm
-            font-semibold
 
-            text-white
+<CircleDollarSign size={16}/>
 
-            transition
+<span className="text-xs text-slate-500">
 
-            hover:bg-black
-          "
-        >
+ROI Potential
 
-          View Detail
+</span>
 
-          <ArrowUpRight
-            size={16}
-          />
 
-        </button>
+</div>
 
-      </div>
 
-    </div>
+<p className="mt-3 font-bold">
 
-  );
+{roiText(
+recommendation.roi
+)}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div
+
+className="
+rounded-2xl
+bg-slate-50
+p-4
+"
+
+>
+
+
+<div className="flex gap-2 items-center">
+
+<Zap size={16}/>
+
+<span className="text-xs text-slate-500">
+
+Difficulty
+
+</span>
+
+</div>
+
+
+<p className="mt-3 font-bold">
+
+{recommendation.difficulty}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div
+
+className="
+rounded-2xl
+bg-slate-50
+p-4
+"
+
+>
+
+
+<div className="flex gap-2 items-center">
+
+<CalendarDays size={16}/>
+
+<span className="text-xs text-slate-500">
+
+Timeline
+
+</span>
+
+
+</div>
+
+
+<p className="mt-3 font-bold">
+
+{recommendation.estimatedDays}
+
+ Days
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* AI REASONING */}
+
+
+<div
+
+className="
+mt-8
+rounded-2xl
+bg-indigo-50
+p-5
+"
+
+>
+
+
+<div
+
+className="
+flex
+items-center
+gap-2
+font-semibold
+text-indigo-900
+"
+
+>
+
+
+<Sparkles size={18}/>
+
+
+Why AI Recommends This
+
+
+</div>
+
+
+
+<p
+
+className="
+mt-3
+text-sm
+leading-7
+text-slate-700
+"
+
+>
+
+AI mendeteksi peluang terbesar berdasarkan kombinasi
+traffic, ranking, CTR, user behavior, dan potensi ROI.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* ACTION */}
+
+
+
+<div
+
+className="
+mt-5
+rounded-2xl
+bg-blue-50
+p-5
+"
+
+>
+
+
+<h4 className="font-bold text-blue-900">
+
+Recommended Action
+
+</h4>
+
+
+<p
+
+className="
+mt-2
+text-sm
+leading-7
+text-slate-700
+"
+
+>
+
+{recommendation.recommendation}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* IMPACT */}
+
+
+<div
+
+className="
+mt-5
+rounded-2xl
+bg-emerald-50
+p-5
+"
+
+>
+
+
+<div
+
+className="
+flex
+items-center
+gap-2
+font-bold
+text-emerald-900
+"
+
+>
+
+
+<Target size={18}/>
+
+Expected Impact
+
+
+</div>
+
+
+
+<p
+
+className="
+mt-2
+text-sm
+leading-7
+text-slate-700
+"
+
+>
+
+{recommendation.impact}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* FOOTER */}
+
+
+
+<div
+
+className="
+mt-6
+flex
+items-center
+justify-between
+"
+
+>
+
+
+<span
+
+className="
+rounded-full
+bg-slate-100
+px-3
+py-1
+text-xs
+font-semibold
+"
+
+>
+
+{recommendation.category}
+
+</span>
+
+
+
+
+
+<button
+
+className="
+flex
+items-center
+gap-2
+rounded-xl
+bg-slate-900
+px-5
+py-2
+text-sm
+font-semibold
+text-white
+transition
+hover:bg-black
+"
+
+>
+
+View Strategy
+
+
+<ArrowRight size={16}/>
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+);
 
 }

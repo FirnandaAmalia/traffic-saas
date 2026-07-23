@@ -1,56 +1,21 @@
 import { NextResponse } from "next/server";
+
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/lib/auth";
 
-export async function POST() {
+export async function GET() {
+  const session = await getServerSession(authOptions);
 
-const session =
-await getServerSession(
-authOptions
-);
+  return NextResponse.json({
+    session,
 
+    hasSession: !!session,
 
-if(
-!session?.user?.id
-){
+    userId: session?.user?.id ?? null,
 
-return NextResponse.json(
-{
-error:"Unauthorized"
-},
-{
-status:401
-}
-);
+    email: session?.user?.email ?? null,
 
-}
-
-
-const result =
-await createPayment({
-
-userId:
-session.user.id,
-
-amount:
-99000,
-
-});
-
-
-return NextResponse.json({
-
-success:true,
-
-token:
-result.token,
-
-redirectUrl:
-result.redirectUrl,
-
-orderId:
-result.payment.orderId,
-
-});
-
+    refreshToken: session?.refreshToken ? "AVAILABLE" : "MISSING",
+  });
 }

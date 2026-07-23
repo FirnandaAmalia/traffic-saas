@@ -1,13 +1,13 @@
 import { getServerSession } from "next-auth";
-import {
-  redirect,
-} from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { authOptions } from "@/lib/auth";
 
 import DashboardHeader from "@/components/dashboard/layout/dashboard-header";
-import DashboardGrid from "@/components/dashboard/layout/dashboard-grid";
-import ExecutiveSummary from "@/components/dashboard/ai/executive-summary";
+import GrowthOverview from "@/components/dashboard/growth/growth-overview";
+
+import ExecutiveDashboard 
+from "@/components/dashboard/overview/executive-dashboard";
 
 import {
   generateExecutiveSummary,
@@ -42,346 +42,678 @@ import {
   type DateRange,
 } from "@/lib/date-range";
 
+import {
+ calculateSEOHealthScore
+} from "@/lib/ai/seo-health-score";
+
+import {
+generateGrowthOpportunity
+}
+from "@/lib/ai/growth-opportunity";
+
+export const metadata = {
+  title: "Dashboard SEO Intelligence | TrafficSaaS",
+  description:
+    "Pantau performa SEO, trafik organik, Google Search Console, dan Google Analytics dalam satu dashboard.",
+};
+
+
 interface DashboardPageProps {
+
   searchParams: Promise<{
+
     projectId?: string;
+
     range?: DateRange;
+
   }>;
+
 }
 
 export default async function Dashboard({
+
   searchParams,
+
 }: DashboardPageProps) {
-  /*
-  |--------------------------------------------------------------------------
-  | Authentication
-  |--------------------------------------------------------------------------
-  */
 
-  const session =
-    await getServerSession(
-      authOptions
-    );
 
-  if (
-    !session?.user?.id ||
-    !session.user.email
-  ) {
-    redirect("/login");
-  }
 
-  /*
-  |--------------------------------------------------------------------------
-  | Search Parameters
-  |--------------------------------------------------------------------------
-  */
+/*
+|--------------------------------------------------------------------------
+| Autentikasi User
+|--------------------------------------------------------------------------
+*/
 
-  const {
-    projectId,
-    range = "28d",
-  } = await searchParams;
 
-  const requestedProjectId =
-    projectId?.trim() || null;
+const session =
+await getServerSession(
+  authOptions
+);
 
-  /*
-  |--------------------------------------------------------------------------
-  | Resolve Authorized Project
-  |--------------------------------------------------------------------------
-  */
 
-  const project =
-    await resolveProjectForUser({
-      userId: session.user.id,
-      projectId: requestedProjectId,
-    });
 
-  /*
-  |--------------------------------------------------------------------------
-  | Invalid Explicit Project
-  |--------------------------------------------------------------------------
-  |
-  | projectId diberikan tetapi project tidak ditemukan
-  | atau bukan milik user yang sedang login.
-  |
-  */
+if(
+  !session?.user?.id ||
+  !session.user.email
+){
 
-  if (
-    requestedProjectId &&
-    !project
-  ) {
-    return (
-      <main className="p-10">
-        <h1 className="text-2xl font-bold">
-          Project tidak ditemukan
-        </h1>
+  redirect("/login");
 
-        <p className="mt-2 text-slate-500">
-          Project tidak tersedia atau kamu tidak
-          memiliki akses ke project tersebut.
-        </p>
-      </main>
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | User Has No Project
-  |--------------------------------------------------------------------------
-  */
-
-  if (!project) {
-    return (
-      <main className="p-10">
-        <h1 className="text-2xl font-bold">
-          Belum ada project
-        </h1>
-
-        <p className="mt-2 text-slate-500">
-          Buat project pertama untuk mulai
-          melihat SEO analytics.
-        </p>
-      </main>
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Canonical Dashboard URL
-  |--------------------------------------------------------------------------
-  |
-  | Saat user membuka /dashboard tanpa projectId,
-  | resolver memilih project terbaru milik user.
-  |
-  | Setelah ditemukan, URL diarahkan ke project
-  | tersebut agar seluruh navigasi memiliki konteks
-  | project yang eksplisit.
-  |
-  */
-
-  if (!requestedProjectId) {
-    redirect(
-      `/dashboard?projectId=${project.id}&range=${range}`
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Integration Setup
-  |--------------------------------------------------------------------------
-  */
-
-  if (!project.gscSiteUrl) {
-    redirect(
-      `/setup/gsc?projectId=${project.id}`
-    );
-  }
-
-  if (!project.ga4PropertyId) {
-    redirect(
-      `/setup/ga4?projectId=${project.id}`
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Google Credential
-  |--------------------------------------------------------------------------
-  |
-  | Session user dan Google credential merupakan
-  | dua kondisi yang berbeda.
-  |
-  */
-
-  if (!session.refreshToken) {
-    return (
-      <main className="p-10">
-        <h1 className="text-2xl font-bold">
-          Google perlu dihubungkan kembali
-        </h1>
-
-        <p className="mt-2 text-slate-500">
-          Sesi TrafficSaaS masih aktif, tetapi
-          credential Google tidak tersedia.
-          Silakan login ulang menggunakan Google.
-        </p>
-      </main>
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Subscription
-  |--------------------------------------------------------------------------
-  */
-
-  const plan =
-    await getCurrentPlan(
-      session.user.email
-    );
-
-  /*
-  |--------------------------------------------------------------------------
-  | Dashboard Data
-  |--------------------------------------------------------------------------
-  */
-
-  const {
-    data,
-    queries,
-    pages,
-    ga4,
-    gscHistory,
-    ga4History,
-    country,
-    trafficAcquisition,
-    deviceCategory,
-    landingPages,
-    topEvents,
-    browser,
-  } = await getDashboardData(
-    session.refreshToken,
-    project,
-    range
-  );
-
-  /*
-  |--------------------------------------------------------------------------
-  | Calculated Metrics
-  |--------------------------------------------------------------------------
-  */
-
-  const clicks =
-    data.clicks ?? 0;
-
-  const impressions =
-    data.impressions ?? 0;
-
-  const ctr =
-    Number(
-      calculateCTR(
-        clicks,
-        impressions
-      )
-    );
-
-  const previousCTR =
-    Number(
-      calculateCTR(
-        data.previousClicks,
-        data.previousImpressions
-      )
-    );
-
-  /*
-  |--------------------------------------------------------------------------
-  | AI Executive Summary
-  |--------------------------------------------------------------------------
-  */
-
-  const executiveSummary =
-    generateExecutiveSummary({
-      clicks,
-
-      previousClicks:
-        data.previousClicks,
-
-      impressions,
-
-      previousImpressions:
-        data.previousImpressions,
-
-      ctr,
-      previousCTR,
-
-      users:
-        ga4.users,
-
-      previousUsers:
-        ga4.previousUsers,
-
-      sessions:
-        ga4.sessions,
-
-      previousSessions:
-        ga4.previousSessions,
-    });
-
-  /*
-  |--------------------------------------------------------------------------
-  | Chart Formatting
-  |--------------------------------------------------------------------------
-  */
-
-  const clicksHistory =
-    formatGSCHistory(
-      gscHistory
-    );
-
-  const usersHistory =
-    formatGA4History(
-      ga4History,
-      range
-    );
-
-  const rangeLabel =
-    getRangeLabel(range);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Render
-  |--------------------------------------------------------------------------
-  */
-
-  return (
-    <div className="space-y-6">
-      <DashboardHeader
-        projectId={project.id}
-        range={range}
-        projectName={project.projectName}
-        gscSiteUrl={project.gscSiteUrl}
-        ga4PropertyId={project.ga4PropertyId}
-        ga4PropertyName={project.ga4PropertyName}
-        lastSyncedAt={project.lastSyncedAt}
-      />
-
-      <ExecutiveSummary
-        plan={plan}
-        summary={executiveSummary}
-      />
-
-      <DashboardGrid
-        plan={plan}
-        clicksHistory={clicksHistory}
-        usersHistory={usersHistory}
-        clicks={clicks}
-        impressions={impressions}
-        previousClicks={
-          data.previousClicks
-        }
-        previousImpressions={
-          data.previousImpressions
-        }
-        users={ga4.users}
-        sessions={ga4.sessions}
-        pageViews={ga4.pageViews}
-        engagementRate={
-          ga4.engagementRate
-        }
-        rangeLabel={rangeLabel}
-        queries={queries}
-        pages={pages}
-        country={country}
-        trafficAcquisition={
-          trafficAcquisition
-        }
-        deviceCategory={
-          deviceCategory
-        }
-        browser={browser}
-        landingPages={landingPages}
-        topEvents={topEvents}
-      />
-    </div>
-  );
 }
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Parameter Dashboard
+|--------------------------------------------------------------------------
+*/
+
+
+const {
+
+  projectId,
+
+  range="28d",
+
+}=await searchParams;
+
+
+
+const requestedProjectId =
+projectId?.trim() || null;
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Validasi Project User
+|--------------------------------------------------------------------------
+*/
+
+
+const project =
+await resolveProjectForUser({
+
+  userId:
+  session.user.id,
+
+  projectId:
+  requestedProjectId,
+
+});
+
+
+
+
+
+if(
+  requestedProjectId &&
+  !project
+){
+
+return (
+
+<main className="p-10">
+
+
+<h1 className="text-2xl font-bold text-slate-900">
+
+Proyek Tidak Ditemukan
+
+</h1>
+
+
+
+<p className="mt-2 text-slate-500">
+
+Proyek tidak tersedia atau akun Anda
+tidak memiliki izin untuk mengakses data tersebut.
+
+</p>
+
+
+</main>
+
+);
+
+}
+
+
+
+
+
+
+if(!project){
+
+return (
+
+<main className="p-10">
+
+
+<h1 className="text-2xl font-bold text-slate-900">
+
+Belum Ada Proyek
+
+</h1>
+
+
+
+<p className="mt-2 text-slate-500">
+
+Buat proyek pertama Anda untuk mulai
+memantau performa SEO website.
+
+</p>
+
+
+</main>
+
+);
+
+}
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Redirect Dashboard Default
+|--------------------------------------------------------------------------
+*/
+
+
+if(!requestedProjectId){
+
+redirect(
+
+`/dashboard?projectId=${project.id}&range=${range}`
+
+);
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Validasi Integrasi Google
+|--------------------------------------------------------------------------
+*/
+
+
+if(!project.gscSiteUrl){
+
+redirect(
+
+`/setup/gsc?projectId=${project.id}`
+
+);
+
+}
+
+
+
+if(!project.ga4PropertyId){
+
+redirect(
+
+`/setup/ga4?projectId=${project.id}`
+
+);
+
+}
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Validasi Credential Google
+|--------------------------------------------------------------------------
+*/
+
+
+if(!session.refreshToken){
+
+return (
+
+<main className="p-10">
+
+
+<h1 className="text-2xl font-bold text-slate-900">
+
+Koneksi Google Perlu Diperbarui
+
+</h1>
+
+
+
+<p className="mt-2 max-w-xl text-slate-500">
+
+Sesi TrafficSaaS masih aktif,
+namun akses Google Analytics dan Search Console
+tidak tersedia.
+
+Silakan hubungkan kembali akun Google Anda.
+
+</p>
+
+
+</main>
+
+);
+
+}
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Subscription
+|--------------------------------------------------------------------------
+*/
+
+
+const plan =
+await getCurrentPlan(
+  session.user.email
+);
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Ambil Data Dashboard
+|--------------------------------------------------------------------------
+*/
+
+
+const {
+
+data,
+
+queries,
+
+pages,
+
+ga4,
+
+gscHistory,
+
+ga4History,
+
+country,
+
+trafficAcquisition,
+
+deviceCategory,
+
+landingPages,
+
+topEvents,
+
+browser,
+
+
+}=await getDashboardData(
+
+session.refreshToken,
+
+project,
+
+range
+
+);
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Perhitungan Metric
+|--------------------------------------------------------------------------
+*/
+
+
+const clicks =
+data.clicks ?? 0;
+
+
+
+const impressions =
+data.impressions ?? 0;
+
+
+
+const ctr =
+Number(
+
+calculateCTR(
+
+clicks,
+
+impressions
+
+)
+
+);
+
+
+
+
+const previousCTR =
+Number(
+
+calculateCTR(
+
+data.previousClicks,
+
+data.previousImpressions
+
+)
+
+);
+
+/*
+|--------------------------------------------------------------------------
+| AI Executive Summary
+|--------------------------------------------------------------------------
+*/
+
+
+const executiveSummary =
+
+generateExecutiveSummary({
+
+clicks,
+
+
+previousClicks:
+
+data.previousClicks ?? 0,
+
+
+
+impressions,
+
+
+previousImpressions:
+
+data.previousImpressions ?? 0,
+
+
+
+ctr,
+
+
+previousCTR,
+
+
+
+users:
+
+ga4.users ?? 0,
+
+
+
+previousUsers:
+
+ga4.previousUsers ?? 0,
+
+
+
+sessions:
+
+ga4.sessions ?? 0,
+
+
+
+previousSessions:
+
+ga4.previousSessions ?? 0,
+
+
+
+
+queries:
+
+queries ?? [],
+
+
+
+pages:
+
+pages ?? [],
+
+
+
+landingPages:
+
+landingPages ?? [],
+
+
+
+trafficAcquisition:
+
+trafficAcquisition ?? [],
+
+
+
+deviceCategory:
+
+deviceCategory ?? [],
+
+
+
+country:
+
+country ?? [],
+
+
+
+browser:
+
+browser ?? [],
+
+
+});
+
+const seoHealth =
+calculateSEOHealthScore({
+
+clicks,
+
+impressions,
+
+users:ga4.users,
+
+sessions:ga4.sessions,
+
+engagementRate:
+ga4.engagementRate,
+
+
+previousClicks:
+data.previousClicks,
+
+
+previousImpressions:
+data.previousImpressions,
+
+
+previousUsers:
+ga4.previousUsers,
+
+
+previousSessions:
+ga4.previousSessions,
+
+
+ctr,
+
+previousCTR,
+
+
+});
+
+const growthOpportunities =
+generateGrowthOpportunity({
+
+clicks,
+
+previousClicks:
+data.previousClicks ?? 0,
+
+
+impressions,
+
+
+previousImpressions:
+data.previousImpressions ?? 0,
+
+
+ctr,
+
+
+previousCTR,
+
+
+queries:
+queries ?? [],
+
+
+landingPages:
+landingPages ?? [],
+
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Format Chart Data
+|--------------------------------------------------------------------------
+*/
+
+
+const clicksHistory =
+
+formatGSCHistory(
+
+gscHistory
+
+);
+
+
+
+const usersHistory =
+
+formatGA4History(
+
+ga4History,
+
+range
+
+);
+
+
+
+const rangeLabel =
+
+getRangeLabel(
+
+range
+
+);
+
+/*
+|--------------------------------------------------------------------------
+| Render Dashboard
+|--------------------------------------------------------------------------
+*/
+
+return (
+
+<div className="space-y-6">
+
+
+<DashboardHeader
+
+projectId={project.id}
+
+range={range}
+
+projectName={project.projectName}
+
+gscSiteUrl={project.gscSiteUrl}
+
+ga4PropertyId={project.ga4PropertyId}
+
+ga4PropertyName={project.ga4PropertyName}
+
+lastSyncedAt={project.lastSyncedAt}
+
+/>
+
+
+
+
+<GrowthOverview
+
+clicks={clicks}
+
+impressions={impressions}
+
+users={ga4.users}
+
+/>
+
+<ExecutiveDashboard
+
+clicks={clicks}
+
+impressions={impressions}
+
+users={ga4.users}
+
+sessions={ga4.sessions}
+
+ctr={ctr}
+
+engagementRate={ga4.engagementRate}
+
+summary={executiveSummary}
+
+healthScore={seoHealth}
+
+growthOpportunities={growthOpportunities}
+
+/>
+
+
+
+</div>
+
+);
+
+}
+

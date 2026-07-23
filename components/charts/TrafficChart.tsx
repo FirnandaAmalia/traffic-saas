@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
 
 import {
   ResponsiveContainer,
@@ -12,36 +17,65 @@ import {
   YAxis,
 } from "recharts";
 
+
 import type {
   Payload,
   ValueType,
   NameType,
 } from "recharts/types/component/DefaultTooltipContent";
 
+
+
 type ChartData = {
-  date: string;
-  [key: string]: string | number;
+
+  date:string;
+
+  [key:string]:
+  string | number;
+
 };
 
+
+
 interface TrafficChartProps {
-  title: string;
-  data: ChartData[];
-  dataKey: string;
-  rangeLabel: string;
+
+  title:string;
+
+  data:ChartData[];
+
+  dataKey:string;
+
+  rangeLabel:string;
+
 }
 
-function parseDate(value: string): Date |null {
 
-  if (!value) {
+
+
+
+function parseDate(
+  value:string
+){
+
+  if(!value)
     return null;
-  }
 
-  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
 
-    const [year, month, day] =
-      value
-        .split("-")
-        .map(Number);
+
+  if(
+    /^\d{4}-\d{2}-\d{2}$/.test(value)
+  ){
+
+    const [
+      year,
+      month,
+      day
+    ] =
+    value
+    .split("-")
+    .map(Number);
+
+
 
     return new Date(
       year,
@@ -51,360 +85,695 @@ function parseDate(value: string): Date |null {
 
   }
 
-  if (/^\d{8}$/.test(value)) {
+
+
+  if(
+    /^\d{8}$/.test(value)
+  ){
 
     return new Date(
-      Number(value.slice(0, 4)),
-      Number(value.slice(4, 6)) - 1,
-      Number(value.slice(6, 8))
+      Number(value.slice(0,4)),
+      Number(value.slice(4,6))-1,
+      Number(value.slice(6,8))
     );
 
   }
+
+
 
   return null;
 
 }
 
-export default function TrafficChart({
-  title,
-  data,
-  dataKey,
-  rangeLabel,
-}: TrafficChartProps) {
 
-  const [mounted, setMounted] = useState(false);
 
-useEffect(() => {
-  const timer = requestAnimationFrame(() => {
-    setMounted(true);
-  });
 
-  return () => cancelAnimationFrame(timer);
-}, []);
 
-  const latest = Number(
-    data.at(-1)?.[dataKey] ?? 0
-  );
+function formatNumber(
+  value:number
+){
 
-  const xTicks = useMemo(() => {
 
-    if (!data.length) {
-      return [];
-    }
+  if(value >= 1000000){
 
-    switch (rangeLabel) {
-
-      case "Last 7 Days":
-        return data.map((d) => d.date);
-
-      case "Last 28 Days": {
-
-        const ticks =
-          data
-            .filter((_, i) => i % 4 === 0)
-            .map((d) => d.date);
-
-        const last =
-          data.at(-1)?.date;
-
-        if (
-          last &&
-          ticks.at(-1) !== last
-        ) {
-          ticks.push(last);
-        }
-
-        return ticks;
-
-      }
-
-      case "Last 3 Months": {
-
-        const ticks =
-          data
-            .filter((_, i) => i % 14 === 0)
-            .map((d) => d.date);
-
-        const last =
-          data.at(-1)?.date;
-
-        if (
-          last &&
-          ticks.at(-1) !== last
-        ) {
-          ticks.push(last);
-        }
-
-        return ticks;
-
-      }
-
-      case "Last 6 Months": {
-
-        const ticks =
-          data
-            .filter((_, i) => i % 28 === 0)
-            .map((d) => d.date);
-
-        const last =
-          data.at(-1)?.date;
-
-        if (
-          last &&
-          ticks.at(-1) !== last
-        ) {
-          ticks.push(last);
-        }
-
-        return ticks;
-
-      }
-
-      case "Last 12 Months": {
-
-        const ticks =
-          data
-            .filter((_, i) => i % 60 === 0)
-            .map((d) => d.date);
-
-        const last =
-          data.at(-1)?.date;
-
-        if (
-          last &&
-          ticks.at(-1) !== last
-        ) {
-          ticks.push(last);
-        }
-
-        return ticks;
-
-      }
-
-      default:
-        return data.map((d) => d.date);
-
-    }
-
-  }, [
-    data,
-    rangeLabel,
-  ]);
-
-  function formatXAxis(
-    value: string
-  ) {
-
-    const date =
-      parseDate(value);
-
-    if (!date) {
-      return value;
-    }
-
-    return date.toLocaleDateString(
-      "en-GB",
-      {
-        day: "2-digit",
-        month: "short",
-      }
-    );
+    return `${(
+      value / 1000000
+    ).toFixed(1)} jt`;
 
   }
 
-  function formatTooltipLabel(
-  _: unknown,
-  payload?: readonly Payload<ValueType, NameType>[]
-) {
 
-  const raw =
-    payload?.[0]?.payload?.date;
 
-  if (!raw) {
-    return "";
+  if(value >= 1000){
+
+    return `${(
+      value / 1000
+    ).toFixed(1)} rb`;
+
   }
 
-  const date =
-    parseDate(
-      String(raw)
-    );
 
-  if (!date) {
-    return String(raw);
-  }
 
-  return date.toLocaleDateString(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }
+  return value.toLocaleString(
+    "id-ID"
   );
 
 }
 
+
+
+
+
+
+
+function translateRange(
+  range:string
+){
+
+  const map:Record<string,string> = {
+
+    "Last 7 Days":
+    "7 Hari Terakhir",
+
+    "Last 28 Days":
+    "28 Hari Terakhir",
+
+    "Last 3 Months":
+    "3 Bulan Terakhir",
+
+    "Last 6 Months":
+    "6 Bulan Terakhir",
+
+    "Last 12 Months":
+    "12 Bulan Terakhir",
+
+  };
+
+
   return (
-  <div className="flex flex-col">
+    map[range]
+    ??
+    range
+  );
 
-    {/* Header */}
-    <div className="mb-4 flex items-center justify-between">
+}
 
-      <div>
 
-        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-          {title}
-        </p>
 
-        <div className="mt-1 flex items-end gap-3">
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-            {latest.toLocaleString()}
-          </h2>
 
-          <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-600">
-            {rangeLabel}
-          </span>
 
-        </div>
 
-      </div>
+export default function TrafficChart({
 
-      <div className="flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1">
+  title,
 
-        <span className="h-2 w-2 rounded-full bg-blue-600" />
+  data,
 
-        <span className="text-xs font-medium capitalize text-slate-600">
-          {dataKey}
-        </span>
+  dataKey,
 
-      </div>
+  rangeLabel,
 
-    </div>
+}:TrafficChartProps){
 
-    {/* Chart */}
-    <div className="h-[420px] w-full">
 
-      {!mounted ? (
 
-        <div className="h-full animate-pulse rounded-xl bg-slate-100" />
+const [
+  mounted,
+  setMounted
+]=
+useState(false);
 
-      ) : (
 
-        <ResponsiveContainer
-          width="100%"
-          height="100%"
-        >
 
-          <AreaChart
-  width={900}
-  height={420}
-  data={data}
-  margin={{
-    top: 5,
-    right: 10,
-    left: 0,
-    bottom: 0,
-  }}
+
+useEffect(()=>{
+
+
+const frame =
+requestAnimationFrame(
+()=>setMounted(true)
+);
+
+
+
+return ()=>{
+
+cancelAnimationFrame(frame);
+
+};
+
+
+
+},[]);
+
+
+
+
+
+
+const chartId =
+`gradient-${dataKey}`;
+
+
+
+
+
+
+const total =
+
+useMemo(()=>{
+
+
+return data.reduce(
+
+(sum,item)=>
+
+sum +
+Number(
+item[dataKey] ?? 0
+),
+
+0
+
+);
+
+
+
+},[
+data,
+dataKey
+]);
+
+
+
+
+
+
+
+
+const xTicks =
+
+useMemo(()=>{
+
+
+if(!data.length)
+
+return [];
+
+
+
+const step =
+Math.ceil(
+data.length / 6
+);
+
+
+
+return data
+
+.filter(
+(_,index)=>
+index % step === 0
+)
+
+.map(
+(item)=>
+item.date
+);
+
+
+
+},[
+data
+]);
+
+
+
+
+
+
+
+
+
+
+function formatDate(
+value:string
+){
+
+
+const date =
+parseDate(value);
+
+
+
+if(!date)
+
+return value;
+
+
+
+return date.toLocaleDateString(
+"id-ID",
+{
+day:"2-digit",
+month:"short"
+}
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function tooltipLabel(
+
+_:unknown,
+
+payload?:
+readonly Payload<ValueType,NameType>[]
+
+){
+
+
+
+const raw =
+payload?.[0]?.payload?.date;
+
+
+
+if(!raw)
+
+return "";
+
+
+
+const date =
+parseDate(
+String(raw)
+);
+
+
+
+if(!date)
+
+return String(raw);
+
+
+
+return date.toLocaleDateString(
+
+"id-ID",
+
+{
+
+day:"2-digit",
+
+month:"long",
+
+year:"numeric"
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+return (
+
+<div
+className="
+flex
+flex-col
+"
 >
 
-            <defs>
 
-              <linearGradient
-                id="trafficGradient"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
 
-                <stop
-                  offset="0%"
-                  stopColor="#2563eb"
-                  stopOpacity={0.22}
-                />
 
-                <stop
-                  offset="100%"
-                  stopColor="#2563eb"
-                  stopOpacity={0}
-                />
 
-              </linearGradient>
+<div
+className="
+mb-5
+flex
+items-center
+justify-between
+"
+>
 
-            </defs>
 
-            <CartesianGrid
-              vertical={false}
-              stroke="#eef2f7"
-              strokeDasharray="3 3"
-            />
+<div>
 
-            <XAxis
-              dataKey="date"
-              ticks={xTicks}
-              tickFormatter={formatXAxis}
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tick={{
-                fill: "#94a3b8",
-                fontSize: 11,
-              }}
-            />
 
-            <YAxis
-              width={55}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(v) =>
-                Number(v).toLocaleString()
-              }
-              tick={{
-                fill: "#94a3b8",
-                fontSize: 11,
-              }}
-            />
+<p
+className="
+text-xs
+font-semibold
+uppercase
+tracking-wide
+text-slate-500
+"
+>
 
-            <Tooltip
-              labelFormatter={formatTooltipLabel}
-              formatter={(value) =>
-                Number(value).toLocaleString()
-              }
-              cursor={{
-                stroke: "#2563eb",
-                strokeDasharray: "4 4",
-              }}
-              contentStyle={{
-                borderRadius: 12,
-                border: "none",
-                boxShadow:
-                  "0 8px 20px rgba(15,23,42,.15)",
-              }}
-            />
+{title}
 
-            <Area
-              type="monotone"
-              dataKey={dataKey}
-              stroke="#2563eb"
-              strokeWidth={2.5}
-              fill="url(#trafficGradient)"
-              dot={false}
-              activeDot={{
-                r: 5,
-                strokeWidth: 3,
-              }}
-            />
+</p>
 
-          </AreaChart>
 
-        </ResponsiveContainer>
 
-      )}
+<div
+className="
+mt-1
+flex
+items-center
+gap-3
+"
+>
 
-    </div>
 
-  </div>
+<h2
+className="
+text-3xl
+font-black
+text-slate-900
+"
+>
+
+{
+formatNumber(total)
+}
+
+</h2>
+
+
+
+
+<span
+className="
+rounded-full
+bg-blue-50
+px-3
+py-1
+text-xs
+font-semibold
+text-blue-600
+"
+>
+
+{
+translateRange(
+rangeLabel
+)
+}
+
+</span>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div
+className="
+h-[360px]
+w-full
+"
+>
+
+
+{
+
+!mounted ?
+
+
+<div
+className="
+h-full
+animate-pulse
+rounded-2xl
+bg-slate-100
+"
+/>
+
+
+:
+
+
+<ResponsiveContainer
+
+width="100%"
+
+height="100%"
+
+>
+
+
+
+<AreaChart
+
+data={data}
+
+margin={{
+
+top:10,
+
+right:20,
+
+left:0,
+
+bottom:0
+
+}}
+
+>
+
+
+
+<defs>
+
+
+<linearGradient
+
+id={chartId}
+
+x1="0"
+
+y1="0"
+
+x2="0"
+
+y2="1"
+
+>
+
+
+<stop
+
+offset="0%"
+
+stopColor="#2563eb"
+
+stopOpacity={0.25}
+
+/>
+
+
+<stop
+
+offset="100%"
+
+stopColor="#2563eb"
+
+stopOpacity={0}
+
+/>
+
+
+</linearGradient>
+
+
+</defs>
+
+
+
+
+
+
+<CartesianGrid
+
+vertical={false}
+
+stroke="#e2e8f0"
+
+strokeDasharray="4 4"
+
+/>
+
+
+
+
+
+
+
+<XAxis
+
+dataKey="date"
+
+ticks={xTicks}
+
+tickFormatter={formatDate}
+
+axisLine={false}
+
+tickLine={false}
+
+/>
+
+
+
+
+
+
+
+
+<YAxis
+
+axisLine={false}
+
+tickLine={false}
+
+tickFormatter={formatNumber}
+
+/>
+
+
+
+
+
+
+
+
+<Tooltip
+
+
+labelFormatter={
+tooltipLabel
+}
+
+
+formatter={(value)=>[
+
+formatNumber(
+Number(value)
+),
+
+title
+
+]}
+
+
+
+contentStyle={{
+
+borderRadius:16,
+
+border:"none",
+
+boxShadow:
+"0 15px 35px rgba(15,23,42,.15)"
+
+}}
+
+
+/>
+
+
+
+
+
+
+
+
+<Area
+
+type="monotone"
+
+dataKey={dataKey}
+
+stroke="#2563eb"
+
+strokeWidth={3}
+
+fill={`url(#${chartId})`}
+
+animationDuration={800}
+
+dot={false}
+
+activeDot={{
+
+r:6,
+
+strokeWidth:3
+
+}}
+
+/>
+
+
+
+
+
+
+</AreaChart>
+
+
+
+</ResponsiveContainer>
+
+
+}
+
+
+
+</div>
+
+
+
+
+</div>
+
+
 );
+
 
 }

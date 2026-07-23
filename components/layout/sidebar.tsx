@@ -2,81 +2,80 @@ import Link from "next/link";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+
 import {
   getSubscriptionUsage,
 } from "@/lib/subscription";
 
 import {
-  LayoutDashboard,
-  FolderKanban,
-  Search,
-  BarChart3,
   Zap,
-  ChevronDown,
   ArrowUpRight,
 } from "lucide-react";
 
 import SidebarUser from "./sidebar-user";
+import SidebarNavItem from "./sidebar-nav";
+
 
 export default async function Sidebar() {
 
 
-  const session =
-    await getServerSession(authOptions);
+const session =
+await getServerSession(authOptions);
 
 
 
-  const subscriptionUsage =
-  session?.user?.email
-    ? await getSubscriptionUsage(
-        session.user.email
-      )
-    : null;
+const subscriptionUsage =
+session?.user?.email
+?
+await getSubscriptionUsage(
+session.user.email
+)
+:
+null;
+
+
 
 const plan =
-  subscriptionUsage?.plan ??
-  "FREE";
+subscriptionUsage?.plan
+??
+"FREE";
+
 
 const projectCount =
-  subscriptionUsage
-    ?.projectCount ??
-  0;
+subscriptionUsage?.projectCount
+??
+0;
+
 
 const projectLimit =
-  subscriptionUsage
-    ? subscriptionUsage.projectLimit
-    : 1;
+subscriptionUsage
+?
+subscriptionUsage.projectLimit
+:
+1;
+
+
 
 const usagePercentage =
-  projectLimit === null
-    ? null
-    : Math.min(
-        (
-          projectCount /
-          projectLimit
-        ) * 100,
-        100
-      );
-
-
-
-  const workspaceName =
-    session?.user?.name
-    ??
-    session?.user?.email?.split("@")[0]
-    ??
-    "Workspace";
+projectLimit === null
+?
+null
+:
+Math.min(
+(projectCount / projectLimit) * 100,
+100
+);
 
 
 
 
-  return (
+return (
 
 <aside
 className="
 flex
 h-screen
-w-72
+w-64
 flex-col
 border-r
 border-slate-200
@@ -91,10 +90,11 @@ bg-white
 className="
 border-b
 border-slate-200
-px-6
-py-8
+px-5
+py-4
 "
 >
+
 
 <div
 className="
@@ -104,25 +104,26 @@ gap-3
 "
 >
 
+
 <div
 className="
 flex
-h-11
-w-11
+h-9
+w-9
 items-center
 justify-center
-rounded-2xl
+rounded-xl
 bg-gradient-to-br
 from-blue-600
 to-indigo-600
-shadow-lg
+shadow-sm
 "
 >
 
 <Zap
 className="
-h-5
-w-5
+h-4
+w-4
 text-white
 "
 />
@@ -130,13 +131,15 @@ text-white
 </div>
 
 
+
 <div>
 
 <h1
 className="
-text-xl
+text-lg
 font-bold
 tracking-tight
+text-slate-900
 "
 >
 TrafficSaaS
@@ -145,7 +148,7 @@ TrafficSaaS
 
 <p
 className="
-text-xs
+text-[11px]
 text-slate-500
 "
 >
@@ -158,13 +161,16 @@ SEO Intelligence Platform
 
 </div>
 
+
 </div>
 
 
 
 
 
-{/* CONTENT */}
+
+
+{/* NAVIGATION */}
 
 <div
 className="
@@ -172,308 +178,121 @@ flex
 flex-1
 flex-col
 overflow-y-auto
-px-5
-py-6
-"
->
-
-
-{/* WORKSPACE */}
-
-<div
-className="
-mb-8
-"
->
-
-
-<p
-className="
-mb-3
 px-3
-text-xs
-font-semibold
-uppercase
-tracking-[0.2em]
-text-slate-500
-"
->
-Workspace
-</p>
-
-
-
-<div
-className="
-mb-5
-rounded-2xl
-border
-border-slate-200
-bg-slate-50
-p-4
-"
->
-
-<div
-className="
-flex
-items-center
-justify-between
+py-4
 "
 >
 
 
-<div>
+<SidebarSection title="Main">
 
-<p
-className="
-text-sm
-font-semibold
-text-slate-900
-"
->
-{workspaceName}
-</p>
-
-
-<p
-className="
-mt-1
-text-xs
-text-slate-500
-"
->
-{projectCount}{" "}
-{projectCount === 1
-  ? "Project"
-  : "Projects"}
-</p>
-
-
-</div>
-
-
-
-<ChevronDown
-className="
-h-4
-w-4
-text-slate-400
-"
-/>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div
-className="
-space-y-1
-"
->
-
-
-<Link
+<SidebarNavItem
 href="/dashboard"
-className="
-flex
-items-center
-gap-3
-rounded-xl
-bg-blue-50
-px-3
-py-3
-text-sm
-font-semibold
-text-blue-700
-"
->
-
-<LayoutDashboard
-className="
-h-5
-w-5
-"
+label="Dashboard"
+icon="dashboard"
 />
 
-Dashboard
-
-</Link>
+</SidebarSection>
 
 
 
 
 
-<Link
-href="/projects"
-className="
-flex
-items-center
-gap-3
-rounded-xl
-px-3
-py-3
-text-sm
-font-medium
-text-slate-600
-hover:bg-slate-100
-"
->
+<SidebarSection title="SEO Intelligence">
 
-<FolderKanban
-className="
-h-5
-w-5
-"
+
+<SidebarNavItem
+href="/analytics"
+label="Traffic Analytics"
+icon="trending"
 />
 
-Workspace
 
-</Link>
-
-
-</div>
-
-
-</div>
+<SidebarNavItem
+href="/keywords"
+label="Keyword Intelligence"
+icon="target"
+/>
 
 
+<SidebarNavItem
+href="/ai"
+label="AI SEO Consultant"
+icon="brain"
+/>
 
 
+</SidebarSection>
 
-{/* INTEGRATIONS */}
+<SidebarSection title="Integrations">
 
-<div>
-
-
-<p
-className="
-mb-3
-px-3
-text-xs
-font-semibold
-uppercase
-tracking-[0.2em]
-text-slate-500
-"
->
-Integrations
-</p>
-
-
-
-
-<div
-className="
-space-y-1
-"
->
-
-
-<Link
+<SidebarNavItem
 href="/setup/gsc"
-className="
-flex
-items-center
-gap-3
-rounded-xl
-px-3
-py-3
-text-sm
-font-medium
-text-slate-600
-hover:bg-slate-100
-"
->
-
-<Search
-className="
-h-5
-w-5
-"
+label="Search Console"
+icon="search"
 />
 
-Search Console
 
-</Link>
-
-
-
-
-<Link
+<SidebarNavItem
 href="/setup/ga4"
-className="
-flex
-items-center
-gap-3
-rounded-xl
-px-3
-py-3
-text-sm
-font-medium
-text-slate-600
-hover:bg-slate-100
-"
->
-
-<BarChart3
-className="
-h-5
-w-5
-"
+label="Google Analytics"
+icon="chart"
 />
 
-Google Analytics
 
-</Link>
-
-
-</div>
-
-
-</div>
+</SidebarSection>
 
 
 
 
 
 
-{/* BOTTOM */}
+
+
+<SidebarSection title="Workspace">
+
+
+<SidebarNavItem
+href="/projects"
+label="Projects"
+icon="folder"
+/>
+
+
+</SidebarSection>
+
+{/* BOTTOM AREA */}
+
 
 <div
 className="
 mt-auto
-space-y-4
-pt-6
+space-y-3
+pt-3
 "
 >
-
 
 
 
 {/* SUBSCRIPTION */}
 
+
 <div
 className="
-rounded-2xl
+rounded-xl
 border
 border-slate-200
 bg-slate-50
-p-4
+p-3
 "
 >
 
 
 <p
 className="
-text-sm
+text-xs
 font-semibold
+text-slate-700
 "
 >
 Subscription
@@ -482,8 +301,8 @@ Subscription
 
 <p
 className="
-mt-1
-text-xs
+mt-0.5
+text-[11px]
 text-slate-500
 "
 >
@@ -496,33 +315,46 @@ Current plan
 
 <div
 className="
-mt-4
-rounded-xl
+mt-2
+rounded-lg
 bg-blue-50
-p-4
+px-3
+py-2
 "
 >
 
 
-<p
+<div
+className="
+flex
+items-center
+justify-between
+"
+>
+
+
+<span
 className="
 text-xs
 text-slate-500
 "
 >
 Plan
-</p>
+</span>
 
 
-<p
+<span
 className="
-text-xl
+text-lg
 font-bold
 text-blue-600
 "
 >
 {plan}
-</p>
+</span>
+
+
+</div>
 
 
 </div>
@@ -532,9 +364,10 @@ text-blue-600
 
 
 
+
 <div
 className="
-mt-4
+mt-3
 "
 >
 
@@ -543,102 +376,140 @@ mt-4
 className="
 flex
 justify-between
-text-xs
+text-[11px]
 text-slate-500
 "
 >
+
 
 <span>
 Projects
 </span>
 
+
 <span>
-  {projectLimit === null
-    ? "Unlimited"
-    : `${projectCount}/${projectLimit}`
-  }
+
+{
+projectLimit === null
+?
+"Unlimited"
+:
+`${projectCount}/${projectLimit}`
+}
+
 </span>
 
+
+</div>
+
+
+
+
+
+
+{
+projectLimit === null
+
+?
+
+<div
+className="
+mt-1.5
+rounded-lg
+bg-blue-50
+px-2
+py-1.5
+text-center
+text-[11px]
+font-medium
+text-blue-700
+"
+>
+
+Unlimited projects
+
+</div>
+
+
+:
+
+
+<div
+className="
+mt-1.5
+h-1.5
+overflow-hidden
+rounded-full
+bg-slate-200
+"
+>
+
+
+<div
+className="
+h-full
+rounded-full
+bg-blue-600
+"
+style={{
+width:`${usagePercentage ?? 0}%`
+}}
+/>
+
+
+</div>
+
+}
+
+
 </div>
 
 
 
 
-{projectLimit === null ? (
-  <div
-    className="
-    mt-2
-    rounded-xl
-    bg-blue-50
-    px-3
-    py-2
-    text-center
-    text-xs
-    font-medium
-    text-blue-700
-    "
-  >
-    Unlimited projects
-  </div>
-) : (
-  <div
-    className="
-    mt-2
-    h-2
-    overflow-hidden
-    rounded-full
-    bg-slate-200
-    "
-  >
-    <div
-      className="
-      h-full
-      rounded-full
-      bg-blue-600
-      "
-      style={{
-        width:
-          `${usagePercentage ?? 0}%`,
-      }}
-    />
-  </div>
-)}
 
 
-</div>
 
-{plan === "FREE" && (
-  <button
-    type="button"
-    className="
-    mt-4
-    flex
-    w-full
-    items-center
-    justify-center
-    gap-2
-    rounded-xl
-    border
-    border-blue-200
-    bg-white
-    px-3
-    py-2
-    text-sm
-    font-medium
-    text-blue-600
-    hover:bg-blue-50
-    "
-  >
-    Upgrade Plan
 
-    <ArrowUpRight
-      className="
-      h-4
-      w-4
-      "
-    />
-  </button>
-)}
+{
+plan==="FREE"
+&&
+
+<Link
+href="/billing"
+className="
+mt-3
+flex
+items-center
+justify-center
+gap-1
+rounded-lg
+border
+border-blue-200
+bg-white
+px-3
+py-1.5
+text-xs
+font-medium
+text-blue-600
+hover:bg-blue-50
+"
+>
+
+Upgrade
+
+<ArrowUpRight
+className="
+h-3.5
+w-3.5
+"
+/>
+
+
+</Link>
+
+}
+
 
 
 
@@ -667,6 +538,9 @@ session?.user?.image
 />
 
 
+
+
+
 </div>
 
 
@@ -677,6 +551,74 @@ session?.user?.image
 </aside>
 
 
-  );
+);
+
+}
+
+
+
+
+
+
+
+function SidebarSection({
+
+title,
+
+children,
+
+}:{
+
+title:string;
+
+children:React.ReactNode;
+
+}){
+
+
+return (
+
+<div
+className="
+mb-4
+"
+>
+
+
+<p
+className="
+mb-2
+px-2
+text-[10px]
+font-semibold
+uppercase
+tracking-[0.18em]
+text-slate-400
+"
+>
+
+{title}
+
+</p>
+
+
+
+<div
+className="
+space-y-0.5
+"
+>
+
+{children}
+
+</div>
+
+
+
+</div>
+
+
+);
+
 
 }

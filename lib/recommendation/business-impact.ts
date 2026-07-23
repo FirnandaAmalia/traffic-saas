@@ -1,9 +1,8 @@
-import type {
-  PrioritizedRecommendation,
-} from "./prioritizer";
+import type { PrioritizedRecommendation } from "./prioritizer";
+
+import type { RecommendationInput } from "./recommendation-engine";
 
 export interface BusinessImpact {
-
   potentialClicks: number;
 
   potentialUsers: number;
@@ -14,124 +13,300 @@ export interface BusinessImpact {
 
   roiScore: number;
 
+  trafficGrowth: "Very High" | "High" | "Moderate" | "Low";
+
+  revenueOpportunity:
+    | "High Revenue Potential"
+    | "Moderate Growth Opportunity"
+    | "Incremental Improvement";
+
+  businessPriority: "High" | "Medium" | "Low";
 }
 
-export function calculateBusinessImpact(
-  recommendations: PrioritizedRecommendation[]
-): BusinessImpact {
+interface BusinessImpactInput {
+  recommendations: PrioritizedRecommendation[];
 
-  let clicks = 0;
+  data: RecommendationInput;
+}
 
-  let users = 0;
+export function calculateBusinessImpact({
+  recommendations,
 
-  let conversion = 0;
+  data,
+}: BusinessImpactInput): BusinessImpact {
+  /*
+|--------------------------------------------------------------------------
+| CURRENT DATA
+|--------------------------------------------------------------------------
+*/
 
-  let days = 0;
+  const clicks = data.clicks ?? 0;
 
-  let roi = 0;
+  const impressions = data.impressions ?? 0;
 
-  for (const item of recommendations) {
+  const users = data.users ?? 0;
 
-    roi += item.roi;
+  const ctr = data.ctr ?? 0;
 
-    days += item.estimatedDays;
+  const engagementRate = data.engagementRate ?? 0;
 
-    switch (item.id) {
+  /*
+|--------------------------------------------------------------------------
+| ORGANIC SEARCH OPPORTUNITY
+|--------------------------------------------------------------------------
+|
+| Model:
+| High impression
+| Position 4-20
+| CTR gap
+|
+*/
 
-      case "quick-win":
+  const opportunities = data.queries.filter((item) => {
+    const position = item.position ?? 999;
 
-        clicks += 8000;
-        users += 3200;
-        conversion += 1.2;
+    const impression = item.impressions ?? 0;
 
-        break;
+    return position >= 4 && position <= 20 && impression >= 50;
+  });
 
-      case "high-impression-low-ctr":
+  let potentialClicks = 0;
 
-        clicks += 12000;
-        users += 4500;
-        conversion += 1.5;
+  for (const keyword of opportunities) {
+    const position = keyword.position ?? 999;
 
-        break;
+    const keywordCTR = keyword.ctr ?? 0;
 
-      case "content-decay":
+    const keywordImpression = keyword.impressions ?? 0;
 
-        clicks += 6000;
-        users += 2400;
-        conversion += 0.8;
+    let targetCTR = 0.03;
 
-        break;
-
-      case "organic-dependency":
-
-        users += 3000;
-        conversion += 0.7;
-
-        break;
-
-      case "mobile-first":
-
-        users += 2500;
-        conversion += 1.8;
-
-        break;
-
-      case "browser-compatibility":
-
-        conversion += 0.5;
-
-        break;
-
-      case "landing-page":
-
-        clicks += 5000;
-        users += 2000;
-        conversion += 2.0;
-
-        break;
-
-      case "event-insight":
-
-        conversion += 1.3;
-
-        break;
-
-      case "country-opportunity":
-
-        users += 1800;
-        conversion += 0.9;
-
-        break;
-
+    if (position <= 10) {
+      targetCTR = 0.05;
     }
 
+    if (position <= 5) {
+      targetCTR = 0.07;
+    }
+
+    const ctrGap = Math.max(
+      0,
+
+      targetCTR - keywordCTR,
+    );
+
+    /*
+ Conservative multiplier
+*/
+
+    let multiplier = 1;
+
+    if (position >= 4 && position <= 10) {
+      multiplier = 1.2;
+    } else if (position > 10) {
+      multiplier = 0.8;
+    }
+
+    potentialClicks += keywordImpression * ctrGap * multiplier;
+  }
+
+  /*
+|--------------------------------------------------------------------------
+| FALLBACK IMPRESSION MODEL
+|--------------------------------------------------------------------------
+*/
+
+  if (potentialClicks === 0 && impressions > 0) {
+    const targetCTR = ctr < 0.02 ? 0.035 : ctr * 1.3;
+
+    potentialClicks =
+      impressions *
+      Math.max(
+        0,
+
+        targetCTR - ctr,
+      ) *
+      0.3;
+  }
+
+  potentialClicks = Math.round(
+    Math.max(
+      0,
+
+      potentialClicks,
+    ),
+  );
+
+  /*
+|--------------------------------------------------------------------------
+| USER OPPORTUNITY
+|--------------------------------------------------------------------------
+*/
+
+  let userRatio = 0.7;
+
+  if (clicks > 0 && users > 0) {
+    userRatio = users / clicks;
+  }
+
+  const potentialUsers = Math.round(potentialClicks * userRatio);
+
+  /*
+|--------------------------------------------------------------------------
+| CONVERSION IMPACT
+|--------------------------------------------------------------------------
+*/
+
+  let conversion = 2;
+
+  if (engagementRate >= 0.6) {
+    conversion += 3;
+  } else if (engagementRate >= 0.4) {
+    conversion += 2;
+  }
+
+  if (data.topEvents.length > 0) {
+    conversion += 2;
+  }
+
+  if (data.landingPages.length > 0) {
+    conversion += 2;
+  }
+
+  if (recommendations.some((item) => item.category === "Conversion")) {
+    conversion += 3;
+  }
+
+  conversion = Math.min(
+    12,
+
+    conversion,
+  );
+
+  /*
+|--------------------------------------------------------------------------
+| ROI SCORE
+|--------------------------------------------------------------------------
+*/
+
+  let impactScore = 0;
+
+  let effortScore = 0;
+
+  for (const item of recommendations) {
+    impactScore += item.roi ?? 3;
+
+    effortScore +=
+      item.difficulty === "Easy" ? 1 : item.difficulty === "Medium" ? 2 : 3;
+  }
+
+  let roiScore = 50;
+
+  if (recommendations.length > 0) {
+    roiScore += (impactScore / recommendations.length) * 8;
+
+    roiScore -= effortScore * 1.5;
+  }
+
+  roiScore = Math.round(
+    Math.min(
+      100,
+
+      Math.max(
+        0,
+
+        roiScore,
+      ),
+    ),
+  );
+
+  /*
+|--------------------------------------------------------------------------
+| IMPLEMENTATION TIME
+|--------------------------------------------------------------------------
+*/
+
+  const totalDays = recommendations.reduce(
+    (total, item) => total + (item.estimatedDays ?? 7),
+
+    0,
+  );
+
+  const estimatedWeeks = Math.max(
+    1,
+
+    Math.ceil(totalDays / 14),
+  );
+
+  /*
+|--------------------------------------------------------------------------
+| TRAFFIC GROWTH
+|--------------------------------------------------------------------------
+*/
+
+  let trafficGrowth: BusinessImpact["trafficGrowth"];
+
+  if (potentialClicks >= 30000) {
+    trafficGrowth = "Very High";
+  } else if (potentialClicks >= 10000) {
+    trafficGrowth = "High";
+  } else if (potentialClicks >= 3000) {
+    trafficGrowth = "Moderate";
+  } else {
+    trafficGrowth = "Low";
+  }
+
+  /*
+|--------------------------------------------------------------------------
+| REVENUE OPPORTUNITY
+|--------------------------------------------------------------------------
+*/
+
+  let revenueOpportunity: BusinessImpact["revenueOpportunity"];
+
+  if (conversion >= 9) {
+    revenueOpportunity = "High Revenue Potential";
+  } else if (conversion >= 5) {
+    revenueOpportunity = "Moderate Growth Opportunity";
+  } else {
+    revenueOpportunity = "Incremental Improvement";
+  }
+
+  /*
+|--------------------------------------------------------------------------
+| BUSINESS PRIORITY
+|--------------------------------------------------------------------------
+*/
+
+  let businessPriority: BusinessImpact["businessPriority"];
+
+  const hasCritical = recommendations.some(
+    (item) => item.priority === "critical",
+  );
+
+  if (hasCritical || roiScore >= 80 || potentialClicks >= 10000) {
+    businessPriority = "High";
+  } else if (roiScore >= 60 || potentialClicks >= 3000) {
+    businessPriority = "Medium";
+  } else {
+    businessPriority = "Low";
   }
 
   return {
+    potentialClicks,
 
-    potentialClicks:
-      Math.round(clicks),
+    potentialUsers,
 
-    potentialUsers:
-      Math.round(users),
+    potentialConversion: conversion,
 
-    potentialConversion:
-      Number(
-        conversion.toFixed(1)
-      ),
+    estimatedWeeks,
 
-    estimatedWeeks:
-      Math.ceil(days / 7),
+    roiScore,
 
-    roiScore:
-      Math.round(
-        roi /
-          Math.max(
-            recommendations.length,
-            1
-          )
-      ),
+    trafficGrowth,
 
+    revenueOpportunity,
+
+    businessPriority,
   };
-
 }

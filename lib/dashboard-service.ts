@@ -188,30 +188,64 @@ data:{
   ...ga4Summary,
 },
 
-queries,
 
-pages,
+queries:
+queries ?? [],
 
-gscHistory,
 
-gscRawData,
+pages:
+pages ?? [],
 
-ga4History,
 
-ga4: ga4Summary,
+gscHistory:
+gscHistory ?? [],
 
-country,
 
-trafficAcquisition,
+gscRawData:
+gscRawData ?? [],
 
-deviceCategory,
 
-landingPages,
+ga4History:
+ga4History ?? [],
 
-topEvents,
 
-browser,
+ga4:
+ga4Summary,
+
+
+country:
+country ?? [],
+
+
+trafficAcquisition:
+trafficAcquisition ?? [],
+
+
+deviceCategory:
+deviceCategory ?? [],
+
+
+landingPages:
+landingPages ?? [],
+
+
+topEvents:
+topEvents ?? [],
+
+
+browser:
+browser ?? [],
+
+
+meta:{
+  fetchedAt:new Date(),
+
+  source:[
+    "Google Search Console",
+    "Google Analytics 4"
+  ]
+}
+
 
 };
-
 }

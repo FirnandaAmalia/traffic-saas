@@ -1,30 +1,40 @@
 import {
-NextResponse
+  NextResponse,
 } from "next/server";
 
 
 import {
-getServerSession
+  getServerSession,
 } from "next-auth";
 
 
 import {
-authOptions
+  authOptions,
 } from "@/lib/auth";
 
 
 import {
-createPayment
+  prisma,
+} from "@/lib/prisma";
+
+
+import {
+  createPayment,
 } from "@/lib/payment/payment-service";
 
 
 
-export async function POST(){
+export async function POST(
+  request: Request
+){
+
+
+try{
 
 
 const session =
 await getServerSession(
-authOptions
+  authOptions
 );
 
 
@@ -47,6 +57,116 @@ status:401
 
 
 
+
+const body =
+await request.json();
+
+
+
+const {
+
+plan="PRO",
+
+billing="MONTHLY"
+
+}=body;
+
+
+
+
+
+
+
+const subscription =
+await prisma.subscription.findUnique({
+
+where:{
+userId:
+session.user.id
+}
+
+});
+
+
+
+
+
+
+if(
+subscription?.plan === "PRO"
+){
+
+return NextResponse.json(
+
+{
+error:
+"Anda sudah menggunakan paket PRO"
+},
+
+{
+status:400
+}
+
+);
+
+}
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| PRICE CONFIG
+|--------------------------------------------------------------------------
+*/
+
+
+const prices = {
+
+
+MONTHLY:{
+
+amount:299000,
+
+label:"PRO Monthly"
+
+},
+
+
+YEARLY:{
+
+amount:2990000,
+
+label:"PRO Yearly"
+
+}
+
+
+};
+
+
+
+
+const selectedPrice =
+billing==="YEARLY"
+?
+prices.YEARLY
+:
+prices.MONTHLY;
+
+
+
+
+
+
+
+
+
+
 const result =
 await createPayment({
 
@@ -55,9 +175,16 @@ session.user.id,
 
 
 amount:
-99000,
+selectedPrice.amount,
 
 });
+
+
+
+
+
+
+
 
 
 
@@ -66,14 +193,67 @@ return NextResponse.json({
 success:true,
 
 
+orderId:
+result.payment.orderId,
+
+
+redirectUrl:
+result.redirectUrl,
+
+
 payment:
 result.payment,
 
 
+plan,
+
+
+billing,
+
+
+amount:
+selectedPrice.amount,
+
+
 message:
-"Payment created"
+"Payment created successfully"
+
 
 });
+
+
+
+
+
+}
+
+catch(error:any){
+
+
+
+console.error(
+"CREATE PAYMENT ERROR",
+error
+);
+
+
+
+return NextResponse.json(
+
+{
+error:
+error?.message ??
+"Internal server error"
+},
+
+{
+status:500
+}
+
+);
+
+
+}
 
 
 }

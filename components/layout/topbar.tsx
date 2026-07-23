@@ -1,63 +1,61 @@
 "use client";
 
 import {
-  Bell,
-  Search,
-  RefreshCw,
   ChevronDown,
-  Command,
+  Settings,
+  CreditCard,
+  LogOut,
 } from "lucide-react";
 
-import { useSession } from "next-auth/react";
+import {
+  useSession,
+  signOut,
+} from "next-auth/react";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import {
+  useState,
+} from "react";
 
+import Link from "next/link";
 
-export default function Topbar() {
-
-
-  const {
-    data: session
-  } = useSession();
-
-
-
-  const userName =
-    session?.user?.name ??
-    "User";
+export default function Topbar(){
 
 
+const {
+ data:session,
+ status,
+}=useSession();
 
-  const userEmail =
-    session?.user?.email ??
-    "";
+
+const [open,setOpen]=
+useState(false);
 
 
 
-  const userImage =
-    session?.user?.image;
+const userName =
+session?.user?.name ??
+"User";
 
 
-
-  const userRole =
-    session?.user?.role === "ADMIN"
-      ?
-      "Administrator"
-      :
-      "Member";
-
+const userRole =
+session?.user?.role==="ADMIN"
+?
+"Administrator"
+:
+"Member";
 
 
-  const initial =
-    userName
-      .charAt(0)
-      .toUpperCase();
+const userImage =
+session?.user?.image;
 
+const initial =
+userName
+.charAt(0)
+.toUpperCase();
 
+if(status==="loading"){
 
-
-  return (
+return (
 
 <header
 className="
@@ -76,158 +74,38 @@ backdrop-blur-xl
 "
 >
 
+<div/>
 
-{/* LEFT */}
+</header>
 
-<div
+);
+
+}
+
+return (
+
+<header
 className="
+sticky
+top-0
+z-30
 flex
+h-16
 items-center
-gap-5
-"
->
-
-
-{/* Search */}
-
-<div
-className="
-relative
-w-[420px]
-"
->
-
-
-<Search
-className="
-absolute
-left-4
-top-1/2
-h-4
-w-4
--translate-y-1/2
-text-slate-400
-"
-/>
-
-
-
-<Input
-
-placeholder="
-Search projects, pages, reports...
-"
-
-className="
-h-11
-rounded-xl
+justify-between
+border-b
 border-slate-200
-bg-slate-50
-pl-11
-pr-16
-"
-
-/>
-
-
-
-<div
-className="
-absolute
-right-3
-top-1/2
-flex
--translate-y-1/2
-items-center
-gap-1
-rounded-md
-border
-border-slate-200
-bg-white
-px-2
-py-1
-text-[11px]
-font-medium
-text-slate-500
+bg-white/80
+px-8
+backdrop-blur-xl
 "
 >
 
-<Command
-className="
-h-3
-w-3
-"
-/>
+{/* LEFT EMPTY */}
 
-K
-
-</div>
-
-
-</div>
-
-
-
-
-
-{/* Workspace */}
-
-<Button
-variant="outline"
-className="
-h-11
-rounded-xl
-"
->
-
-Personal Workspace
-
-<ChevronDown
-className="
-ml-2
-h-4
-w-4
-"
-/>
-
-</Button>
-
-
-
-
-
-{/* Current Project */}
-
-<Button
-variant="outline"
-className="
-h-11
-rounded-xl
-"
->
-
-Workspace
-
-<ChevronDown
-className="
-ml-2
-h-4
-w-4
-"
-/>
-
-</Button>
-
-
-</div>
-
-
-
-
-
+<div />
 
 {/* RIGHT */}
-
 
 <div
 className="
@@ -237,60 +115,21 @@ gap-3
 "
 >
 
+{/* PROFILE DROPDOWN */}
 
 
-<Button
-variant="outline"
+
+<div
 className="
-h-11
-rounded-xl
+relative
 "
 >
 
-<RefreshCw
-className="
-mr-2
-h-4
-w-4
-"
-/>
-
-Sync
-
-</Button>
-
-
-
-
-
-<Button
-variant="outline"
-size="icon"
-className="
-h-11
-w-11
-rounded-xl
-"
->
-
-<Bell
-className="
-h-4
-w-4
-"
-/>
-
-</Button>
-
-
-
-
-
-
-
-{/* USER */}
 
 <button
+
+onClick={()=>setOpen(!open)}
+
 className="
 flex
 h-11
@@ -301,43 +140,49 @@ border
 border-slate-200
 bg-white
 px-3
-transition
 hover:bg-slate-50
 "
+
 >
 
 
-
 <div
+
 className="
 flex
 h-9
 w-9
-overflow-hidden
 items-center
 justify-center
+overflow-hidden
 rounded-full
 bg-gradient-to-br
 from-blue-600
 to-indigo-600
-font-semibold
+font-bold
 text-white
 "
+
 >
 
 
 {
 userImage
+
 ?
 
 <img
+
 src={userImage}
+
 alt={userName}
+
 className="
 h-full
 w-full
 object-cover
 "
+
 />
 
 :
@@ -361,10 +206,13 @@ text-left
 
 
 <p
+
 className="
 text-sm
 font-semibold
+text-slate-900
 "
+
 >
 
 {userName}
@@ -372,12 +220,13 @@ font-semibold
 </p>
 
 
-
 <p
+
 className="
 text-xs
 text-slate-500
 "
+
 >
 
 {userRole}
@@ -391,11 +240,9 @@ text-slate-500
 
 
 
-
 <ChevronDown
+size={15}
 className="
-h-4
-w-4
 text-slate-400
 "
 />
@@ -406,12 +253,141 @@ text-slate-400
 
 
 
+
+
+
+
+
+
+{
+open &&
+
+<div
+
+className="
+absolute
+right-0
+mt-3
+w-56
+rounded-2xl
+border
+bg-white
+p-2
+shadow-xl
+"
+
+>
+
+
+<Link
+
+href="/settings"
+
+className="
+flex
+items-center
+gap-3
+rounded-xl
+px-3
+py-3
+text-sm
+hover:bg-slate-50
+"
+
+>
+
+<Settings size={16}/>
+
+Profile Settings
+
+</Link>
+
+
+
+
+
+
+<Link
+
+href="/billing"
+
+className="
+flex
+items-center
+gap-3
+rounded-xl
+px-3
+py-3
+text-sm
+hover:bg-slate-50
+"
+
+>
+
+
+<CreditCard size={16}/>
+
+Subscription
+
+
+</Link>
+
+
+
+
+
+
+<button
+
+onClick={()=>signOut({
+callbackUrl:"/"
+})}
+
+className="
+flex
+w-full
+items-center
+gap-3
+rounded-xl
+px-3
+py-3
+text-sm
+text-red-600
+hover:bg-red-50
+"
+
+>
+
+
+<LogOut size={16}/>
+
+Sign Out
+
+
+</button>
+
+
+
+
 </div>
+
+}
+
+
+
+</div>
+
+
+
+
+
+</div>
+
 
 
 </header>
 
+);
 
-  );
 
 }

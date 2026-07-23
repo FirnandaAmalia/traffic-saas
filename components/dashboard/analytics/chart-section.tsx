@@ -1,5 +1,6 @@
 import ChartTabs from "./chart-tabs";
 
+
 interface ChartSectionProps {
   clicksHistory: {
     date: string;
@@ -21,7 +22,10 @@ interface ChartSectionProps {
   rangeLabel: string;
 }
 
+
+
 export default function ChartSection({
+
   clicksHistory,
   usersHistory,
   clicks,
@@ -29,48 +33,117 @@ export default function ChartSection({
   users,
   sessions,
   rangeLabel,
+
 }: ChartSectionProps) {
-  return (
-    <section className="flex h-full flex-col">
 
-      {/* Header */}
 
-      <div className="mb-3 flex items-center justify-between">
+return (
 
-        <div>
+<section
+className="
+flex
+flex-col
+"
+>
 
-          <h2 className="text-xl font-semibold text-slate-900">
-            Performance Trend
-          </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
-            Organic clicks & user growth • {rangeLabel}
-          </p>
+{/* Header */}
 
-        </div>
+<div
+className="
+mb-4
+flex
+items-start
+justify-between
+"
+>
 
-        <div className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm">
-          {rangeLabel}
-        </div>
 
-      </div>
+<div>
 
-      {/* Chart */}
+<h2
+className="
+text-lg
+font-bold
+text-slate-900
+"
+>
+Traffic Trend
+</h2>
 
-      <div className="flex-1">
 
-        <ChartTabs
-          clicksHistory={clicksHistory}
-          usersHistory={usersHistory}
-          clicks={clicks}
-          impressions={impressions}
-          users={users}
-          sessions={sessions}
-          rangeLabel={rangeLabel}
-        />
+<p
+className="
+mt-1
+text-sm
+text-slate-500
+"
+>
+Organic clicks & user growth • {rangeLabel}
+</p>
 
-      </div>
 
-    </section>
-  );
+</div>
+
+
+
+<div
+className="
+rounded-full
+border
+border-slate-200
+bg-slate-50
+px-3
+py-1
+text-xs
+font-medium
+text-slate-600
+"
+>
+{rangeLabel}
+</div>
+
+
+</div>
+
+
+
+
+{/* Chart Container */}
+
+<div
+className="
+h-[280px]
+w-full
+"
+>
+
+
+<ChartTabs
+
+clicksHistory={clicksHistory}
+
+usersHistory={usersHistory}
+
+clicks={clicks}
+
+impressions={impressions}
+
+users={users}
+
+sessions={sessions}
+
+rangeLabel={rangeLabel}
+
+/>
+
+
+</div>
+
+
+</section>
+
+
+);
+
 }

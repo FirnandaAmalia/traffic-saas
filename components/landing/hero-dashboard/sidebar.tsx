@@ -5,10 +5,9 @@ import {
   Brain,
   ChevronDown,
   FileSpreadsheet,
-  Home,
   LayoutDashboard,
-  Settings,
 } from "lucide-react";
+
 
 const menus = [
   {
@@ -16,276 +15,413 @@ const menus = [
     label: "Dashboard",
     active: true,
   },
+
   {
     icon: BarChart3,
-    label: "Analytics",
+    label: "Traffic Analytics",
   },
+
   {
     icon: Brain,
-    label: "AI Insights",
+    label: "AI SEO Consultant",
     badge: "PRO",
   },
+
   {
     icon: FileSpreadsheet,
-    label: "Reports",
-  },
-  {
-    icon: Settings,
-    label: "Settings",
+    label: "SEO Reports",
   },
 ];
 
+
 export default function Sidebar() {
-  return (
-    <aside
-      className="
-        flex
-        h-full
-        w-64
-        flex-col
 
-        border-r
-        border-slate-200
+return (
+
+<aside
+className="
+flex
+h-full
+w-64
+flex-col
+border-r
+border-slate-200
+bg-white/75
+backdrop-blur-xl
+"
+>
 
-        bg-white/75
 
-        backdrop-blur-xl
-      "
-    >
-      {/* Workspace */}
+{/* WORKSPACE */}
 
-      <div className="border-b border-slate-200 p-5">
+<div
+className="
+border-b
+border-slate-200
+p-5
+"
+>
 
-        <button
-          className="
-            flex
-            w-full
-            items-center
-            justify-between
 
-            rounded-2xl
+<button
+className="
+flex
+w-full
+items-center
+justify-between
+rounded-2xl
+bg-slate-50
+p-3
+transition
+hover:bg-slate-100
+"
+>
 
-            bg-slate-50
 
-            p-3
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
 
-            transition
 
-            hover:bg-slate-100
-          "
-        >
+<div
+className="
+flex
+h-10
+w-10
+items-center
+justify-center
+rounded-2xl
+bg-gradient-to-br
+from-violet-600
+to-sky-500
+font-black
+text-white
+"
+>
 
-          <div className="flex items-center gap-3">
+T
 
-            <div
-              className="
-                flex
-                h-10
-                w-10
+</div>
 
-                items-center
-                justify-center
 
-                rounded-2xl
+<div
+className="text-left"
+>
 
-                bg-gradient-to-br
+<p
+className="
+font-bold
+text-slate-900
+"
+>
 
-                from-violet-600
-                to-sky-500
+TrafficSaaS
 
-                font-black
+</p>
 
-                text-white
-              "
-            >
 
-              T
+<p
+className="
+text-xs
+text-slate-500
+"
+>
 
-            </div>
+SEO Workspace
 
-            <div className="text-left">
+</p>
 
-              <p className="font-bold text-slate-900">
 
-                TrafficSaaS
+</div>
 
-              </p>
 
-              <p className="text-xs text-slate-500">
+</div>
 
-                SEO Workspace
 
-              </p>
+<ChevronDown
+className="
+h-4
+w-4
+text-slate-500
+"
+/>
 
-            </div>
 
-          </div>
+</button>
 
-          <ChevronDown className="h-4 w-4 text-slate-500" />
 
-        </button>
+</div>
 
-      </div>
 
-      {/* Menu */}
 
-      <nav className="flex-1 space-y-2 p-4">
 
-        {menus.map((item) => {
 
-          const Icon = item.icon;
+{/* MENU */}
 
-          return (
+<nav
+className="
+flex-1
+space-y-2
+p-4
+"
+>
 
-            <button
-              key={item.label}
-              className={`
-                group
 
-                flex
-                w-full
+{
+menus.map((item)=>{
 
-                items-center
-                justify-between
 
-                rounded-2xl
+const Icon =
+item.icon;
 
-                px-4
-                py-3
 
-                transition-all
-                duration-300
+return (
 
-                ${
-                  item.active
-                    ? `
-                      bg-gradient-to-r
-                      from-violet-600
-                      to-sky-500
+<button
+key={item.label}
 
-                      text-white
+className={`
+group
+flex
+w-full
+items-center
+justify-between
+rounded-2xl
+px-4
+py-3
+transition-all
 
-                      shadow-lg
-                    `
-                    : `
-                      text-slate-600
+${
+item.active
 
-                      hover:bg-slate-100
-                    `
-                }
-              `}
-            >
+?
 
-              <div className="flex items-center gap-3">
+`
+bg-gradient-to-r
+from-violet-600
+to-sky-500
+text-white
+shadow-lg
+`
 
-                <Icon className="h-5 w-5" />
+:
 
-                <span className="font-medium">
+`
+text-slate-600
+hover:bg-slate-100
+`
 
-                  {item.label}
+}
 
-                </span>
+`}
+>
 
-              </div>
 
-              {item.badge && (
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
 
-                <span
-                  className="
-                    rounded-full
+<Icon
+className="
+h-5
+w-5
+"
+/>
 
-                    bg-white/20
 
-                    px-2
-                    py-1
+<span
+className="
+font-medium
+"
+>
 
-                    text-[10px]
-                    font-bold
-                  "
-                >
+{item.label}
 
-                  {item.badge}
+</span>
 
-                </span>
 
-              )}
+</div>
 
-            </button>
 
-          );
 
-        })}
+{
+item.badge &&
 
-      </nav>
+<span
+className="
+rounded-full
+bg-white/20
+px-2
+py-1
+text-[10px]
+font-bold
+"
+>
 
-      {/* Bottom Card */}
+{item.badge}
 
-      <div className="border-t border-slate-200 p-4">
+</span>
 
-        <div
-          className="
-            rounded-3xl
+}
 
-            bg-gradient-to-br
 
-            from-violet-600
-            to-sky-500
+</button>
 
-            p-5
+);
 
-            text-white
-          "
-        >
 
-          <div className="flex items-center gap-3">
+})
 
-            <Home className="h-10 w-10 rounded-2xl bg-white/20 p-2" />
+}
 
-            <div>
 
-              <p className="text-xs opacity-80">
+</nav>
 
-                SEO Health
 
-              </p>
 
-              <h3 className="text-3xl font-black">
 
-                92%
 
-              </h3>
+{/* HEALTH CARD */}
 
-            </div>
+<div
+className="
+border-t
+border-slate-200
+p-4
+"
+>
 
-          </div>
 
-          <div className="mt-5">
+<div
+className="
+rounded-3xl
+bg-gradient-to-br
+from-violet-600
+to-sky-500
+p-5
+text-white
+"
+>
 
-            <div className="h-2 rounded-full bg-white/20">
 
-              <div
-                className="h-full rounded-full bg-white"
-                style={{
-                  width: "92%",
-                }}
-              />
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
 
-            </div>
 
-          </div>
+<div
+className="
+flex
+h-10
+w-10
+items-center
+justify-center
+rounded-2xl
+bg-white/20
+"
+>
 
-          <p className="mt-4 text-xs leading-5 text-violet-100">
+✓
 
-            Excellent website health.
-            AI recommends publishing
-            two new articles this week.
+</div>
 
-          </p>
 
-        </div>
+<div>
 
-      </div>
+<p
+className="
+text-xs
+opacity-80
+"
+>
 
-    </aside>
-  );
+SEO Health
+
+</p>
+
+
+<h3
+className="
+text-3xl
+font-black
+"
+>
+
+92%
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div
+className="
+mt-5
+h-2
+rounded-full
+bg-white/20
+"
+>
+
+
+<div
+className="
+h-full
+rounded-full
+bg-white
+"
+style={{
+width:"92%"
+}}
+/>
+
+
+</div>
+
+
+
+<p
+className="
+mt-4
+text-xs
+leading-5
+text-violet-100
+"
+>
+
+Excellent website health.
+AI recommends publishing
+two new articles this week.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</aside>
+
+);
+
 }

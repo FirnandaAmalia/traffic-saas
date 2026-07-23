@@ -1,3 +1,8 @@
+"use client";
+
+
+import Link from "next/link";
+
 import {
   Bot,
   Sparkles,
@@ -6,295 +11,835 @@ import {
   TrendingUp,
   Lightbulb,
   CheckCircle2,
+  AlertTriangle,
+  Lock,
+  Trophy,
 } from "lucide-react";
 
+
 import CardShell from "../layout/card-shell";
+
 
 import type {
   ExecutiveSummary,
 } from "@/lib/ai/executive-summary";
 
-import Link from "next/link";
-import { Lock } from "lucide-react";
 
 import {
   FEATURES,
   hasFeature,
 } from "@/lib/features";
 
+
 import {
-  PLANS,
   type Plan,
 } from "@/lib/plan";
 
+
+
+
+
 interface ExecutiveSummaryProps {
-  plan: Plan;
-  summary: ExecutiveSummary;
+
+  plan:Plan;
+
+  summary:ExecutiveSummary;
+
 }
+
+
+
+
+
+
+
+function healthColor(
+
+health:ExecutiveSummary["seoHealth"]
+
+){
+
+switch(health){
+
+case "Sangat Baik":
+
+return "bg-emerald-100 text-emerald-700";
+
+
+case "Baik":
+
+return "bg-blue-100 text-blue-700";
+
+
+default:
+
+return "bg-amber-100 text-amber-700";
+
+
+}
+
+}
+
+
+
+
+
+
+
+function trendColor(
+
+trend:ExecutiveSummary["trend"]
+
+){
+
+switch(trend){
+
+case "Growing":
+
+return "bg-emerald-100 text-emerald-700";
+
+
+case "Declining":
+
+return "bg-red-100 text-red-700";
+
+
+default:
+
+return "bg-slate-100 text-slate-700";
+
+
+}
+
+}
+
+
+
+
+
+
+
 
 export default function ExecutiveSummary({
-  plan,
-  summary,
-}: ExecutiveSummaryProps) {
 
-  const canUseAI = hasFeature(
-    plan,
-    FEATURES.AI_DASHBOARD
-  );
+plan,
 
-  const healthColor = {
-    Excellent:
-      "bg-emerald-100 text-emerald-700",
+summary,
 
-    Good:
-      "bg-blue-100 text-blue-700",
+}:ExecutiveSummaryProps){
 
-    "Needs Attention":
-      "bg-amber-100 text-amber-700",
-  };
 
-  if (!canUseAI) {
-  return (
-    <CardShell
-      title={
-        <div className="flex items-center gap-2">
-          <Bot className="h-5 w-5 text-violet-600" />
-          AI Executive Dashboard
-        </div>
-      }
-      description="Available on Pro Plan"
-    >
-      <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
 
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-100">
-          <Lock className="h-8 w-8 text-violet-600" />
-        </div>
+const canUseAI = hasFeature(
 
-        <h2 className="mt-6 text-2xl font-bold text-slate-900">
-          Unlock AI Executive Dashboard
-        </h2>
+plan,
 
-        <p className="mt-3 max-w-xl text-slate-500">
-          AI akan menganalisis data Google Search Console dan Google Analytics
-          untuk memberikan executive summary, SEO health, peluang pertumbuhan,
-          serta rekomendasi prioritas.
-        </p>
+FEATURES.AI_DASHBOARD
 
-        <div className="mt-8 grid w-full max-w-2xl gap-4 md:grid-cols-2">
+);
 
-          <div className="rounded-xl border p-4 text-left">
-            <Sparkles className="mb-2 h-5 w-5 text-violet-600" />
-            <h4 className="font-semibold">Executive Summary</h4>
-            <p className="mt-2 text-sm text-slate-500">
-              Ringkasan otomatis performa website.
-            </p>
-          </div>
 
-          <div className="rounded-xl border p-4 text-left">
-            <ShieldCheck className="mb-2 h-5 w-5 text-emerald-600" />
-            <h4 className="font-semibold">SEO Health</h4>
-            <p className="mt-2 text-sm text-slate-500">
-              Analisis kesehatan SEO secara otomatis.
-            </p>
-          </div>
 
-          <div className="rounded-xl border p-4 text-left">
-            <TrendingUp className="mb-2 h-5 w-5 text-blue-600" />
-            <h4 className="font-semibold">Growth Opportunities</h4>
-            <p className="mt-2 text-sm text-slate-500">
-              Temukan peluang peningkatan traffic.
-            </p>
-          </div>
 
-          <div className="rounded-xl border p-4 text-left">
-            <Lightbulb className="mb-2 h-5 w-5 text-amber-500" />
-            <h4 className="font-semibold">Priority Recommendation</h4>
-            <p className="mt-2 text-sm text-slate-500">
-              Prioritas tindakan berdasarkan AI.
-            </p>
-          </div>
 
-        </div>
 
-        <Link
-          href="/billing"
-          className="mt-8 rounded-xl bg-violet-600 px-6 py-3 font-semibold text-white transition hover:bg-violet-700"
-        >
-          Upgrade to Pro
-        </Link>
 
-      </div>
-    </CardShell>
-  );
+
+if(!canUseAI){
+
+
+return (
+
+<CardShell
+
+title={
+
+<div className="flex items-center gap-2">
+
+<Bot className="h-5 w-5 text-violet-600"/>
+
+AI Executive Dashboard
+
+</div>
+
 }
 
-  return (
+description="Available on Pro Plan"
 
-    <CardShell
-      title={
-        <div className="flex items-center gap-2">
-          <Bot className="h-5 w-5 text-violet-600" />
-          AI Executive Dashboard
-        </div>
-      }
-      description="AI generated business insight"
-    >
+>
 
-      <div className="space-y-6">
 
-        {/* KPI */}
+<div
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+className="
+flex
+min-h-[420px]
+flex-col
+items-center
+justify-center
+text-center
+"
 
-          <div className="rounded-xl border p-4">
+>
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
 
-              <ShieldCheck className="h-4 w-4 text-emerald-600"/>
+<div
 
-              Health
+className="
+flex
+h-16
+w-16
+items-center
+justify-center
+rounded-full
+bg-violet-100
+"
 
-            </div>
+>
 
-            <div
-              className={`mt-3 inline-flex rounded-full px-3 py-1 text-sm font-semibold ${healthColor[summary.seoHealth]}`}
-            >
+<Lock
 
-              {summary.seoHealth}
+className="
+h-8
+w-8
+text-violet-600
+"
 
-            </div>
+/>
 
-          </div>
+</div>
 
-          <div className="rounded-xl border p-4">
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
 
-              <Target className="h-4 w-4 text-blue-600"/>
+<h2
 
-              Confidence
+className="
+mt-6
+text-2xl
+font-bold
+"
 
-            </div>
+>
 
-            <div className="mt-3 text-3xl font-bold">
+Unlock AI Consultant
 
-              {summary.confidence}%
+</h2>
 
-            </div>
 
-          </div>
+<p
 
-          <div className="rounded-xl border p-4">
+className="
+mt-3
+max-w-xl
+text-slate-500
+"
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
+>
 
-              <TrendingUp className="h-4 w-4 text-green-600"/>
+AI analyzes SEO performance,
+traffic trends, risks,
+and growth opportunities.
 
-              Opportunity
+</p>
 
-            </div>
 
-            <div className="mt-3 text-3xl font-bold text-green-600">
 
-              {summary.opportunities.length}
+<Link
 
-            </div>
+href="/billing"
 
-            <div className="text-xs text-slate-500">
+className="
+mt-8
+rounded-xl
+bg-violet-600
+px-6
+py-3
+font-semibold
+text-white
+hover:bg-violet-700
+"
 
-              Actionable insights
+>
 
-            </div>
+Upgrade Pro
 
-          </div>
+</Link>
 
-          <div className="rounded-xl border p-4">
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
 
-              <Lightbulb className="h-4 w-4 text-yellow-500"/>
+</div>
 
-              Next Action
 
-            </div>
+</CardShell>
 
-            <div className="mt-3 text-sm font-medium leading-6">
+);
 
-              {summary.opportunities[0] ?? "-"}
 
-            </div>
+}
 
-          </div>
 
-        </div>
 
-        {/* Executive Summary */}
 
-        <div className="rounded-2xl bg-gradient-to-r from-violet-50 via-blue-50 to-cyan-50 p-6">
 
-          <div className="flex items-center gap-2">
 
-            <Sparkles className="h-5 w-5 text-violet-600"/>
 
-            <span className="font-semibold">
 
-              Executive Insight
 
-            </span>
+return (
 
-          </div>
 
-          <p className="mt-4 leading-8 text-slate-700">
+<CardShell
 
-            {summary.overview}
+title={
 
-          </p>
+<div className="flex items-center gap-2">
 
-        </div>
+<Bot
 
-        {/* Opportunities */}
+className="
+h-5
+w-5
+text-violet-600
+"
 
-        <div className="rounded-2xl border p-6">
+/>
 
-          <h3 className="font-semibold">
+AI Executive Dashboard
 
-            Priority Recommendations
+</div>
 
-          </h3>
+}
 
-          <div className="mt-5 space-y-3">
+description="AI-powered website growth analysis"
 
-            {summary.opportunities
-              .slice(0,5)
-              .map((item,index)=>(
+>
 
-                <div
-                  key={index}
-                  className="flex gap-3"
-                >
 
-                  <CheckCircle2
-                    className="mt-0.5 h-5 w-5 text-emerald-600"
-                  />
+<div className="space-y-6">
 
-                  <p className="text-sm leading-7 text-slate-600">
 
-                    {item}
 
-                  </p>
 
-                </div>
 
-              ))}
+{/* KPI */}
 
-          </div>
 
-        </div>
+<div
 
-      </div>
+className="
+grid
+gap-4
+md:grid-cols-2
+xl:grid-cols-4
+"
 
-    </CardShell>
+>
 
-  );
+
+
+
+<div className="rounded-2xl border p-5">
+
+<div className="flex items-center gap-2 text-sm text-slate-500">
+
+<ShieldCheck
+
+size={16}
+
+className="text-emerald-600"
+
+/>
+
+SEO Health
+
+</div>
+
+
+<div
+
+className={`
+mt-4
+inline-flex
+rounded-full
+px-3
+py-1
+text-sm
+font-bold
+
+${healthColor(
+summary.seoHealth
+)}
+`}
+
+>
+
+{summary.seoHealth}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div className="rounded-2xl border p-5">
+
+
+<div className="flex items-center gap-2 text-sm text-slate-500">
+
+<TrendingUp
+
+size={16}
+
+/>
+
+Growth Trend
+
+</div>
+
+
+<div
+
+className={`
+mt-4
+inline-flex
+rounded-full
+px-3
+py-1
+text-sm
+font-bold
+
+${trendColor(
+summary.trend
+)}
+`}
+
+>
+
+{summary.trend}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div className="rounded-2xl border p-5">
+
+
+<div className="flex items-center gap-2 text-sm text-slate-500">
+
+<Target size={16}/>
+
+AI Confidence
+
+</div>
+
+
+<div className="mt-3 text-3xl font-black">
+
+{summary.confidence}%
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div className="rounded-2xl border p-5">
+
+
+<div className="flex items-center gap-2 text-sm text-slate-500">
+
+<Lightbulb size={16}/>
+
+Priority
+
+</div>
+
+
+<p className="mt-3 text-sm font-semibold leading-6">
+
+{summary.nextPriority}
+
+</p>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* OVERVIEW */}
+
+
+
+<div
+
+className="
+rounded-3xl
+bg-gradient-to-r
+from-violet-50
+via-blue-50
+to-cyan-50
+p-6
+"
+
+>
+
+
+<div className="flex items-center gap-2">
+
+
+<Sparkles
+
+className="text-violet-600"
+
+/>
+
+
+<h3 className="font-bold">
+
+AI Executive Insight
+
+</h3>
+
+
+</div>
+
+
+<p
+
+className="
+mt-4
+leading-8
+text-slate-700
+"
+
+>
+
+{summary.overview}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* WINS + RISKS */}
+
+
+
+<div
+
+className="
+grid
+gap-5
+lg:grid-cols-2
+"
+
+>
+
+
+
+<div
+
+className="
+rounded-2xl
+border
+p-6
+"
+
+>
+
+
+<h3 className="flex items-center gap-2 font-bold">
+
+<Trophy
+
+size={18}
+
+className="text-emerald-600"
+
+/>
+
+Key Wins
+
+</h3>
+
+
+
+<div className="mt-4 space-y-3">
+
+
+{summary.keyWins.map(
+
+(item,index)=>(
+
+
+<div
+
+key={index}
+
+className="
+flex
+gap-3
+text-sm
+text-slate-600
+"
+
+>
+
+
+<CheckCircle2
+
+size={18}
+
+className="
+text-emerald-600
+"
+
+/>
+
+
+{item}
+
+
+</div>
+
+
+)
+
+)}
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div
+
+className="
+rounded-2xl
+border
+p-6
+"
+
+>
+
+
+<h3 className="flex items-center gap-2 font-bold">
+
+<AlertTriangle
+
+size={18}
+
+className="text-orange-500"
+
+/>
+
+Risks
+
+</h3>
+
+
+
+<div className="mt-4 space-y-3">
+
+
+{
+
+summary.risks.map(
+
+(item,index)=>(
+
+
+<div
+
+key={index}
+
+className="
+flex
+gap-3
+text-sm
+text-slate-600
+"
+
+>
+
+<AlertTriangle
+
+size={16}
+
+className="text-orange-500"
+
+/>
+
+
+{item}
+
+
+</div>
+
+
+)
+
+)
+
+
+}
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* OPPORTUNITIES */}
+
+
+
+<div
+
+className="
+rounded-2xl
+border
+p-6
+"
+
+>
+
+
+<h3 className="font-bold">
+
+Growth Opportunities
+
+</h3>
+
+
+<div className="mt-5 space-y-3">
+
+
+{
+
+summary.opportunities
+.slice(0,5)
+.map(
+
+(item,index)=>(
+
+
+<div
+
+key={index}
+
+className="
+flex
+gap-3
+text-sm
+leading-7
+text-slate-600
+"
+
+>
+
+
+<CheckCircle2
+
+className="
+mt-1
+text-emerald-600
+"
+
+size={17}
+
+/>
+
+
+{item}
+
+
+</div>
+
+
+)
+
+
+)
+
+
+}
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</CardShell>
+
+
+);
+
 
 }

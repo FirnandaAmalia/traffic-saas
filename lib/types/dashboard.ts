@@ -15,6 +15,31 @@ import type {
 } from "./ga4";
 
 
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Meta
+|--------------------------------------------------------------------------
+*/
+
+export interface DashboardMeta {
+
+  /**
+   * Waktu data terakhir diambil
+   * dari Google API
+   */
+  fetchedAt: Date;
+
+
+  /**
+   * Sumber data dashboard
+   */
+  source: string[];
+
+}
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard Summary
@@ -91,11 +116,15 @@ export interface DashboardData {
   gscHistory:GSCRow[];
 
 
+
   /*
   | Raw data export untuk Excel / Analyst
   */
- 
-gscRawData:GSCRawData[];
+
+  gscRawData:GSCRawData[];
+
+
+
   /*
   |--------------------------------------------------------------------------
   | Google Analytics 4
@@ -104,18 +133,36 @@ gscRawData:GSCRawData[];
 
   ga4History:GA4History[];
 
+
   ga4:GA4Summary;
+
 
   country:CountryMetric[];
 
+
   trafficAcquisition:TrafficSourceMetric[];
+
 
   deviceCategory:DeviceCategoryMetric[];
 
+
   landingPages:LandingPageMetric[];
+
 
   topEvents:EventMetric[];
 
+
   browser:BrowserMetric[];
+
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Dashboard Metadata
+  |--------------------------------------------------------------------------
+  */
+
+  meta:DashboardMeta;
+
 
 }

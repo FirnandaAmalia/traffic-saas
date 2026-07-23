@@ -530,45 +530,72 @@ export const authOptions:
     */
 
     async session({
-      session,
-      token,
-    }) {
-      if (session.user) {
-        session.user.id =
-          getTokenUserId(token) ??
-          "";
+  session,
+  token,
+}) {
 
-        session.user.role =
-          token.role === "ADMIN"
-            ? "ADMIN"
-            : "USER";
-      }
+  if(session.user){
 
-      /*
-       * TEMPORARY COMPATIBILITY
-       *
-       * Dashboard, GSC setup, dan GA4 setup masih
-       * membaca token melalui getServerSession().
-       *
-       * Tahap berikutnya akan memindahkan credential
-       * Google ke server-only credential service.
-       * Setelah itu dua field token ini harus dihapus.
-       */
+    const userId =
+      getTokenUserId(token);
 
-      session.accessToken =
-        token.access_token;
 
-      session.refreshToken =
-        token.refresh_token;
+    session.user.id =
+      userId ?? "";
 
-      session.expiresAt =
-        token.expires_at;
 
-      session.error =
-        token.error;
+    session.user.role =
+      token.role === "ADMIN"
+        ? "ADMIN"
+        : "USER";
 
-      return session;
-    },
+
+
+    if(userId){
+
+      const subscription =
+        await prisma.subscription.findUnique({
+
+          where:{
+            userId
+          },
+
+          select:{
+            plan:true
+          }
+
+        });
+
+
+      session.user.plan =
+        subscription?.plan ?? "FREE";
+
+    }
+
+
+  }
+
+
+
+  session.accessToken =
+    token.access_token;
+
+
+  session.refreshToken =
+    token.refresh_token;
+
+
+  session.expiresAt =
+    token.expires_at;
+
+
+  session.error =
+    token.error;
+
+
+  return session;
+
+},
 
     /*
     |--------------------------------------------------------------------------

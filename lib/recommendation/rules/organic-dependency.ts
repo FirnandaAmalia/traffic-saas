@@ -3,84 +3,297 @@ import type {
   RecommendationInput,
 } from "../recommendation-engine";
 
+
+
 export function organicDependencyRule(
   data: RecommendationInput
 ): Recommendation[] {
 
-  if (!data.trafficAcquisition.length) {
+
+  if(!data.trafficAcquisition.length){
+
     return [];
+
   }
+
+
+
 
   const totalSessions =
-    data.trafficAcquisition.reduce(
-      (sum, item) =>
-        sum + item.sessions,
-      0
-    );
+
+  data.trafficAcquisition.reduce(
+
+    (sum,item)=>
+
+      sum +
+      (item.sessions ?? 0),
+
+    0
+
+  );
+
+
+
+
+
+  if(totalSessions === 0){
+
+    return [];
+
+  }
+
+
+
+
+
 
   const organic =
-    data.trafficAcquisition.find(
-      (item) =>
-        item.channel ===
-        "Organic Search"
-    );
 
-  if (!organic) {
+  data.trafficAcquisition.find(
+
+    item =>
+
+    item.channel ===
+    "Organic Search"
+
+  );
+
+
+
+
+
+  if(!organic){
+
     return [];
+
   }
+
+
+
+
+
+
 
   const organicPercent =
-    (organic.sessions /
-      totalSessions) *
-    100;
 
-  if (organicPercent < 70) {
+  (
+
+    organic.sessions /
+    totalSessions
+
+  ) * 100;
+
+
+
+
+
+
+
+
+  if(organicPercent < 75){
+
     return [];
+
   }
 
-  let score = 70;
 
-  if (organicPercent >= 80)
+
+
+
+
+
+
+  const otherChannels =
+
+  data.trafficAcquisition
+
+  .filter(
+
+    item =>
+
+    item.channel !==
+    "Organic Search"
+
+  )
+
+  .sort(
+
+    (a,b)=>
+
+    a.sessions -
+    b.sessions
+
+  )
+
+  .slice(0,3)
+
+  .map(
+
+    item =>
+
+    `${item.channel} (${item.sessions.toLocaleString("id-ID")} sesi)`
+
+  )
+
+  .join(", ");
+
+
+
+
+
+
+
+
+
+  let score = 65;
+
+
+
+
+
+  if(organicPercent >= 85){
+
     score += 10;
 
-  if (organicPercent >= 90)
+  }
+
+
+
+  if(organicPercent >= 95){
+
+    score += 15;
+
+  }
+
+
+
+  if(totalSessions >= 100000){
+
     score += 10;
 
-  if (organicPercent >= 95)
-    score += 10;
+  }
 
-  score = Math.min(score, 100);
+
+
+  score =
+  Math.min(
+    score,
+    100
+  );
+
+
+
+
+
+
+
+  let priority:
+  "medium" |
+  "high";
+
+
+
+  if(
+
+    organicPercent >= 90 &&
+    totalSessions >= 100000
+
+  ){
+
+    priority="high";
+
+  }else{
+
+    priority="medium";
+
+  }
+
+
+
+
+
+
+
+
 
   return [
 
+
     {
 
-      id: "organic-dependency",
 
-      priority: "medium",
+      id:
+
+      "organic-dependency",
+
+
+
+
+      priority,
+
+
+
 
       score,
 
+
+
+
       title:
-        "High Organic Traffic Dependency",
+
+      "High Organic Traffic Dependency",
+
+
+
+
+
 
       description:
-        `Sebanyak ${organicPercent.toFixed(
-          1
-        )}% sesi berasal dari Organic Search sehingga website memiliki ketergantungan tinggi terhadap mesin pencari.`,
+
+      `Organic Search menyumbang ${organicPercent.toFixed(1)}% dari total traffic website. Website memiliki peluang pertumbuhan tinggi dari SEO, namun masih bergantung pada satu sumber traffic utama.`,
+
+
+
+
+
 
       recommendation:
-        "Diversifikasikan sumber trafik melalui Email Marketing, Media Sosial, Referral Partnership, Brand Campaign, dan Direct Traffic untuk mengurangi risiko apabila terjadi perubahan algoritma Google.",
+
+      "Bangun channel traffic tambahan melalui content distribution, social media, email marketing, referral partnership, dan brand awareness campaign agar pertumbuhan lebih stabil.",
+
+
+
+
+
+
 
       impact:
-        "Diversifikasi channel akan meningkatkan stabilitas trafik jangka panjang dan mengurangi risiko kehilangan pengunjung akibat penurunan ranking organik.",
 
-      category: "Marketing",
+      `Dari total ${totalSessions.toLocaleString("id-ID")} sesi, sekitar ${(organic.sessions).toLocaleString("id-ID")} sesi berasal dari Organic Search. Channel dengan kontribusi terendah: ${otherChannels || "-"}.`,
 
-      icon: "🌱",
+
+
+
+
+
+      category:
+
+      "Marketing",
+
+
+
+
+
+      icon:
+
+      "🌱",
+
+
 
     },
 
+
   ];
+
 
 }

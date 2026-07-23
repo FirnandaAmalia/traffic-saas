@@ -3,81 +3,283 @@ import type {
   RecommendationInput,
 } from "../recommendation-engine";
 
+
+
 export function browserCompatibilityRule(
   data: RecommendationInput
 ): Recommendation[] {
 
-  if (!data.browser.length) {
+
+  if(!data.browser.length){
+
     return [];
+
   }
+
+
+
 
   const totalUsers =
-    data.browser.reduce(
-      (sum, item) => sum + item.users,
-      0
-    );
+
+  data.browser.reduce(
+
+    (sum,item)=>
+
+      sum +
+      (item.users ?? 0),
+
+    0
+
+  );
+
+
+
+
+
+  if(totalUsers === 0){
+
+    return [];
+
+  }
+
+
+
+
+
+
+
+  const browsers =
+
+  [...data.browser]
+
+  .sort(
+
+    (a,b)=>
+
+      b.users -
+      a.users
+
+  );
+
+
+
+
+
 
   const dominant =
-    [...data.browser]
-      .sort(
-        (a, b) =>
-          b.users - a.users
-      )[0];
+    browsers[0];
 
-  if (!dominant) {
+
+
+
+
+  if(!dominant){
+
     return [];
+
   }
+
+
+
+
+
+
 
   const percent =
-    (dominant.users / totalUsers) * 100;
 
-  if (percent < 50) {
+  (
+
+    dominant.users /
+    totalUsers
+
+  ) * 100;
+
+
+
+
+
+
+
+  if(percent < 50){
+
     return [];
+
   }
 
-  let score = 65;
 
-  if (percent >= 70)
+
+
+
+
+
+
+  let score = 60;
+
+
+
+
+
+  if(percent >= 70){
+
     score += 10;
 
-  if (percent >= 80)
+  }
+
+
+
+  if(percent >= 85){
+
+    score += 15;
+
+  }
+
+
+
+  if(totalUsers >= 100000){
+
     score += 10;
 
-  if (percent >= 90)
-    score += 10;
+  }
 
-  score = Math.min(score, 100);
+
+
+  score =
+  Math.min(
+    score,
+    100
+  );
+
+
+
+
+
+
+
+
+  const otherBrowsers =
+
+  browsers
+
+  .slice(1,4)
+
+  .map(
+
+    item =>
+
+    `${item.browser} (${item.users.toLocaleString("id-ID")})`
+
+  )
+
+  .join(", ");
+
+
+
+
+
+
+
+
+  const priority:
+
+  "low" |
+
+  "medium" |
+
+  "high" =
+
+
+  percent >= 85
+
+  ?
+
+  "medium"
+
+  :
+
+  "low";
+
+
+
+
+
+
+
 
   return [
 
+
     {
 
-      id: "browser-compatibility",
 
-      priority: "low",
+      id:
+
+      "browser-compatibility",
+
+
+
+
+      priority,
+
+
+
 
       score,
 
+
+
+
       title:
-        "Browser Compatibility Priority",
+
+      "Browser Experience Priority",
+
+
+
+
 
       description:
-        `${percent.toFixed(
-          1
-        )}% pengguna menggunakan ${dominant.browser}. Browser tersebut sebaiknya menjadi prioritas utama dalam proses pengujian kualitas aplikasi.`,
+
+      `${dominant.browser} digunakan oleh ${percent.toFixed(1)}% pengguna (${dominant.users.toLocaleString("id-ID")} user). Browser ini menjadi prioritas utama untuk validasi kualitas tampilan dan performa website.`,
+
+
+
+
+
 
       recommendation:
-        `Lakukan pengujian rutin pada ${dominant.browser}, kemudian validasi kompatibilitas di browser lain seperti Safari, Firefox, Edge, dan Opera agar pengalaman pengguna tetap konsisten.`,
+
+      `Pastikan testing utama dilakukan pada ${dominant.browser}. Validasi juga browser alternatif seperti ${otherBrowsers || "Safari, Firefox, dan Edge"} untuk menjaga pengalaman pengguna tetap konsisten.`,
+
+
+
+
+
 
       impact:
-        "Prioritas pengujian berdasarkan browser yang paling banyak digunakan dapat mengurangi bug pada pengguna mayoritas serta meningkatkan kepuasan pengguna.",
 
-      category: "Performance",
+      "Pengujian berdasarkan browser mayoritas membantu mengurangi potensi tampilan rusak, error JavaScript, dan masalah kompatibilitas yang dapat menurunkan kepuasan pengguna.",
 
-      icon: "🌐",
+
+
+
+
+      category:
+
+      "Performance",
+
+
+
+
+
+      icon:
+
+      "🌐",
+
+
 
     },
 
+
   ];
+
 
 }

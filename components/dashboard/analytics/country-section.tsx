@@ -1,6 +1,5 @@
-"use client";
-
 import CardShell from "../layout/card-shell";
+
 import CountryMap from "./country-map";
 import CountryTable from "./country-table";
 
@@ -8,53 +7,195 @@ import type {
   CountryMetric,
 } from "@/lib/types/ga4";
 
+
+
 interface CountrySectionProps {
+
   country: CountryMetric[];
+
 }
 
+
+
+
+
 export default function CountrySection({
+
   country,
+
 }: CountrySectionProps) {
-  return (
-    <CardShell
-      title="🌍 Active Users by Country"
-      description="Top visitor locations"
-      action={
-        <button className="text-xs font-medium text-blue-600 hover:text-blue-700">
-          View All →
-        </button>
-      }
-      className="h-[680px]"
-      contentClassName="h-full p-0"
-    >
-      <div className="grid h-full grid-cols-[26%_74%]">
 
-        {/* MAP */}
 
-        <div className="flex items-center justify-center border-r border-slate-100 bg-slate-50 px-2">
 
-          <div className="mx-auto h-[190px] w-[190px]">
+return (
 
-            <CountryMap
-              country={country}
-            />
+<CardShell
 
-          </div>
 
-        </div>
+title="🌍 Pengguna Aktif Berdasarkan Negara"
 
-        {/* COUNTRY TABLE */}
 
-        <div className="h-full overflow-hidden">
+description="Distribusi lokasi pengguna website berdasarkan data Google Analytics"
 
-          <CountryTable
-            country={country}
-          />
 
-        </div>
+action={
 
-      </div>
+<button
 
-    </CardShell>
-  );
+type="button"
+
+className="
+text-xs
+font-medium
+text-blue-600
+transition
+hover:text-blue-700
+"
+
+>
+
+Lihat Semua →
+
+</button>
+
+}
+
+
+
+/* FIX HEIGHT */
+
+className="
+h-[420px]
+overflow-hidden
+"
+
+
+
+contentClassName="
+h-full
+p-0
+"
+
+
+>
+
+
+
+<div
+
+className="
+grid
+h-full
+min-h-0
+grid-cols-[28%_72%]
+"
+
+
+>
+
+
+
+{/* MAP */}
+
+
+<div
+
+className="
+flex
+min-h-0
+items-center
+justify-center
+border-r
+border-slate-100
+bg-slate-50
+px-3
+"
+
+
+>
+
+
+<div
+
+className="
+h-[170px]
+w-[170px]
+"
+
+
+>
+
+<CountryMap
+
+country={country}
+
+/>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+{/* COUNTRY LIST */}
+
+
+<div
+
+className="
+min-h-0
+overflow-hidden
+"
+
+
+>
+
+
+<div
+
+className="
+h-full
+overflow-y-auto
+pr-1
+scrollbar-thin
+scrollbar-thumb-slate-300
+scrollbar-track-transparent
+"
+
+
+>
+
+
+<CountryTable
+
+country={country}
+
+/>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</CardShell>
+
+
+);
+
 }

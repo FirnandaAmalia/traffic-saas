@@ -1,48 +1,61 @@
-import type {
-  DashboardData,
-} from "@/lib/types/dashboard";
+// lib/ai/context-builder.ts
 
-import type {
-  AIInsight,
-} from "@/lib/recommendation";
+
+import type { DashboardData } from "@/lib/types/dashboard";
+
+import type { AIInsight } from "@/lib/recommendation";
+
+
 
 export interface AIContext {
 
   websiteHealth: {
-
     score: number;
-
     grade: string;
-
   };
+
 
   business: {
-
     clicks: number;
-
     users: number;
-
     conversion: number;
-
   };
+
 
   maturity: {
-
     score: number;
-
     level: string;
-
   };
 
+
+  confidence: {
+    score: number;
+    level: string;
+    explanation: string[];
+  };
+
+
   recommendations: {
-
     title: string;
-
     priority: string;
-
     recommendation: string;
-
+    impact?: string;
+    reason?: string;
   }[];
+
+
+  growthOpportunities: {
+    title: string;
+    type: string;
+    impact: string;
+    estimatedImpact: string;
+    reason: string;
+    action: string;
+    source: string;
+    priority: string;
+    confidence: number;
+  }[];
+
 
   queries: string[];
 
@@ -58,171 +71,164 @@ export interface AIContext {
 
   events: string[];
 
+
+  memory?: {
+
+    messages:{
+      role:string;
+      content:string;
+    }[];
+
+  };
+
 }
 
 export function buildAIContext(
-
   dashboard: DashboardData,
-
   ai: AIInsight,
-
 ): AIContext {
 
   return {
 
     websiteHealth: {
-
-      score:
-        ai.health.score,
-
-      grade:
-        ai.health.grade,
-
+      score: ai.health.score,
+      grade: ai.health.grade,
     },
+
 
     business: {
-
-      clicks:
-        ai.business.potentialClicks,
-
-      users:
-        ai.business.potentialUsers,
-
-      conversion:
-        ai.business.potentialConversion,
-
+      clicks: ai.business.potentialClicks,
+      users: ai.business.potentialUsers,
+      conversion: ai.business.potentialConversion,
     },
+
 
     maturity: {
-
-      score:
-        ai.maturity.overall,
-
-      level:
-        ai.maturity.level,
-
+      score: ai.maturity.overall,
+      level: ai.maturity.level,
     },
 
+
+    confidence: {
+      score: ai.confidence.score,
+      level: ai.confidence.level,
+      explanation: ai.confidence.explanation,
+    },
+
+
     recommendations:
-
       ai.recommendations
-
-        .slice(0, 8)
-
-        .map(r => ({
-
-          title:
-            r.title,
-
-          priority:
-            r.priority,
-
-          recommendation:
-            r.recommendation,
-
+        .slice(0, 10)
+        .map((item) => ({
+          title: item.title,
+          priority: item.priority,
+          recommendation: item.recommendation,
+          impact: item.impact,
+          reason: item.reason,
         })),
 
+
+    growthOpportunities:
+      ai.growthOpportunities
+        .slice(0, 5)
+        .map((item) => ({
+          title: item.title,
+          type: item.type,
+          impact: item.impact,
+          estimatedImpact: item.estimatedImpact,
+          reason: item.reason,
+          action: item.action,
+          source: item.source,
+          priority: item.priority,
+          confidence: item.confidence,
+        })),
+
+
     queries:
+      dashboard.queries?.slice(0,10).map((q)=>`
+Keyword:
+${q.keys?.[0] ?? "-"}
 
-      dashboard.queries
+Clicks:
+${q.clicks ?? 0}
 
-        .slice(0, 10)
+Impressions:
+${q.impressions ?? 0}
 
-        .map(
+CTR:
+${q.ctr ? (q.ctr * 100).toFixed(2) : 0}%
 
-          q =>
+Position:
+${q.position ?? "-"}
+`) ?? [],
 
-            q.keys?.[0] ??
-
-            ""
-
-        ),
 
     pages:
+      dashboard.pages?.slice(0,10).map((p)=>`
+Page:
+${p.keys?.[0] ?? "-"}
 
-      dashboard.pages
+Clicks:
+${p.clicks ?? 0}
 
-        .slice(0, 10)
+Impressions:
+${p.impressions ?? 0}
+`) ?? [],
 
-        .map(
-
-          p =>
-
-            p.keys?.[0] ??
-
-            ""
-
-        ),
 
     trafficSources:
+      dashboard.trafficAcquisition?.slice(0,8).map((t)=>`
+Channel:
+${t.channel}
 
-      dashboard.trafficAcquisition
+Sessions:
+${t.sessions}
+`) ?? [],
 
-        .slice(0, 8)
-
-        .map(
-
-          t =>
-
-            `${t.channel} (${t.sessions})`
-
-        ),
 
     countries:
+      dashboard.country?.slice(0,8).map((c)=>`
+Country:
+${c.country}
 
-      dashboard.country
+Users:
+${c.users}
+`) ?? [],
 
-        .slice(0, 8)
-
-        .map(
-
-          c =>
-
-            `${c.country} (${c.users})`
-
-        ),
 
     devices:
+      dashboard.deviceCategory?.slice(0,8).map((d)=>`
+Device:
+${d.device}
 
-      dashboard.deviceCategory
+Users:
+${d.users}
+`) ?? [],
 
-        .slice(0, 8)
-
-        .map(
-
-          d =>
-
-            `${d.device} (${d.users})`
-
-        ),
 
     browsers:
+      dashboard.browser?.slice(0,8).map((b)=>`
+Browser:
+${b.browser}
 
-      dashboard.browser
+Users:
+${b.users}
+`) ?? [],
 
-        .slice(0, 8)
-
-        .map(
-
-          b =>
-
-            `${b.browser} (${b.users})`
-
-        ),
 
     events:
+      dashboard.topEvents?.slice(0,8).map((e)=>`
+Event:
+${e.event}
 
-      dashboard.topEvents
+Count:
+${e.count}
+`) ?? [],
 
-        .slice(0, 8)
 
-        .map(
-
-          e =>
-
-            `${e.event} (${e.count})`
-
-        ),
+    memory:{
+      messages:[]
+    }
 
   };
 

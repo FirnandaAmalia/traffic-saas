@@ -17,6 +17,33 @@ enum Role {
   ADMIN
 }
 
+enum PaymentStatus {
+  PENDING
+
+  WAITING_PAYMENT
+
+  PAYMENT_SUBMITTED
+
+  SUCCESS
+
+  FAILED
+
+  EXPIRED
+}
+
+enum PaymentProvider {
+  MANUAL
+  MIDTRANS
+  XENDIT
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  VIRTUAL_ACCOUNT
+  EWALLET
+  CREDIT_CARD
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -153,9 +180,27 @@ model Payment {
 
   amount Int
 
-  status String
+  status PaymentStatus @default(PENDING)
 
-  provider String
+  provider PaymentProvider @default(MANUAL)
+
+  paymentMethod PaymentMethod?
+
+  qrCodeUrl String?
+
+  proofUrl String?
+
+  // waktu user klik "Saya Sudah Bayar"
+
+  paymentSubmittedAt DateTime?
+
+  // waktu admin melakukan konfirmasi
+
+  confirmedAt DateTime?
+
+  // id admin yang approve
+
+  confirmedBy String?
 
   transactionId String?
 
@@ -304,4 +349,43 @@ model ReportAction {
   report Report @relation(fields: [reportId], references: [id], onDelete: Cascade)
 
   @@index([reportId])
+}
+
+model AIConversation {
+  id String @id @default(cuid())
+
+  userId String
+
+  projectId String?
+
+  title String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  messages AIMessage[]
+
+  @@index([userId])
+  @@index([projectId])
+}
+
+model AIMessage {
+  id String @id @default(cuid())
+
+  conversationId String
+
+  role String
+
+  content String
+
+  intent String?
+
+  confidence Int?
+
+  createdAt DateTime @default(now())
+
+  conversation AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
 }

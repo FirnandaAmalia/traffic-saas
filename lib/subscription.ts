@@ -264,3 +264,57 @@ export async function canCreateProject(
     false
   );
 }
+
+/*
+|--------------------------------------------------------------------------
+| Check PRO Access
+|--------------------------------------------------------------------------
+*/
+
+export async function isProUser(
+  email:string
+):Promise<boolean>{
+
+
+const plan =
+await getCurrentPlan(email);
+
+
+return plan === "PRO";
+
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Require PRO Access
+|--------------------------------------------------------------------------
+|
+| Digunakan untuk server page / API route
+|
+*/
+
+
+export async function requirePro(
+  email:string
+){
+
+const isPro =
+await isProUser(email);
+
+
+
+if(!isPro){
+
+throw new Error(
+"Fitur ini hanya tersedia untuk pengguna PRO."
+);
+
+}
+
+
+return true;
+
+}

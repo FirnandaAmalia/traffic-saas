@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Bell,
+
   CalendarDays,
   ChevronDown,
   Search,
@@ -195,74 +195,6 @@ export default function Topbar() {
         >
 
           <Settings2 className="h-5 w-5 text-slate-600" />
-
-        </button>
-
-        {/* Notification */}
-
-        <button
-          className="
-            relative
-
-            flex
-            h-11
-            w-11
-
-            items-center
-            justify-center
-
-            rounded-2xl
-
-            border
-            border-slate-200
-
-            bg-white
-
-            shadow-sm
-
-            transition-all
-            duration-300
-
-            hover:bg-slate-50
-            hover:shadow-md
-          "
-        >
-
-          <Bell className="h-5 w-5 text-slate-600" />
-
-          <span
-            className="
-              absolute
-              right-3
-              top-3
-
-              flex
-              h-2.5
-              w-2.5
-            "
-          >
-
-            <span
-              className="
-                absolute
-                inline-flex
-
-                h-full
-                w-full
-
-                animate-ping
-
-                rounded-full
-
-                bg-emerald-500
-
-                opacity-70
-              "
-            />
-
-            <span className="relative h-2.5 w-2.5 rounded-full bg-emerald-500" />
-
-          </span>
 
         </button>
 

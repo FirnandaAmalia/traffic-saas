@@ -1,30 +1,40 @@
 import { prisma } from "@/lib/prisma";
+import { generatePaymentQR } from "./qrcode";
+
+import {
+  PaymentStatus,
+  PaymentProvider,
+} from "@prisma/client";
+
+
+interface CreatePaymentInput {
+  userId: string;
+  amount: number;
+}
 
 
 export async function createPayment({
-
   userId,
-
   amount,
-
-}:{
-
-  userId:string;
-
-  amount:number;
-
-}){
+}: CreatePaymentInput) {
 
 
   const orderId =
     `TRAFFIC-${Date.now()}`;
 
 
+  const qrCodeUrl =
+    await generatePaymentQR({
+      orderId,
+      amount,
+    });
+
+
 
   const payment =
     await prisma.payment.create({
 
-      data:{
+      data: {
 
         userId,
 
@@ -32,9 +42,16 @@ export async function createPayment({
 
         amount,
 
-        status:"PENDING",
 
-        provider:"MANUAL",
+        status:
+          PaymentStatus.WAITING_PAYMENT,
+
+
+        provider:
+          PaymentProvider.MANUAL,
+
+
+        qrCodeUrl,
 
       },
 
@@ -46,7 +63,9 @@ export async function createPayment({
 
     payment,
 
-  };
+    redirectUrl:
+      `/payment/${payment.orderId}`,
 
+  };
 
 }

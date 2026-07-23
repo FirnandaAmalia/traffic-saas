@@ -15,6 +15,7 @@ import {
 } from "@/lib/plan";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
 
@@ -82,36 +83,101 @@ export default function PricingCard({
       : "Built for Agencies & Businesses";
 
 
-
 const [loading,setLoading] = useState(false);
+
+const router = useRouter();
 
 
 async function upgrade(){
 
- setLoading(true);
+console.log("UPGRADE PRO CLICKED");
 
 
- await fetch(
-   "/api/user/plan",
-   {
-     method:"POST",
+try{
 
-     headers:{
-       "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-       plan:"PRO"
-
-     })
-
-   }
- );
+setLoading(true);
 
 
- window.location.reload();
+const response = await fetch(
+"/api/payment/create",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+plan:"PRO",
+billing:"MONTHLY"
+})
+}
+);
+
+
+
+const data = await response.json();
+
+
+console.log(
+"PAYMENT RESPONSE:",
+data
+);
+
+
+
+if(!response.ok){
+
+throw new Error(
+data.error ||
+"Gagal membuat pembayaran"
+);
+
+}
+
+
+
+const orderId =
+data.orderId ??
+data.payment?.orderId;
+
+
+
+if(!orderId){
+
+throw new Error(
+"Order ID pembayaran tidak ditemukan"
+);
+
+}
+
+window.location.href =
+`/payment/${orderId}`;
+
+}
+catch(error){
+
+
+console.error(
+"UPGRADE ERROR",
+error
+);
+
+
+alert(
+error instanceof Error
+?
+error.message
+:
+"Gagal membuat pembayaran"
+);
+
+
+}
+finally{
+
+setLoading(false);
+
+}
+
 
 }
 
@@ -417,27 +483,17 @@ Hemat lebih banyak dengan pembayaran tahunan
 
 </div>
 
-
-
-
-
-
 {/* CTA */}
 
 <Button
 
 onClick={
- !isFree
- ?
- upgrade
- :
- undefined
+  !isFree
+    ? upgrade
+    : undefined
 }
 
-
-disabled={
- loading
-}
+disabled={loading || isFree}
 
 className={
 recommended
@@ -458,7 +514,6 @@ hover:scale-[1.03]
 "mt-8 w-full"
 }
 
-
 variant={
 isFree
 ?
@@ -469,25 +524,19 @@ isFree
 
 >
 
-
 {
 loading
 ?
-"Processing..."
+"Membuat Pembayaran..."
 :
 isFree
 ?
-"Current Plan"
+"Mulai Gratis"
 :
 "Upgrade ke Pro"
 }
 
-
 </Button>
-
-
-
-
 
 {/* Features */}
 

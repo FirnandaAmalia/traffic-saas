@@ -1,4 +1,13 @@
+import {
+  Users,
+  Activity,
+  FileText,
+  Gauge,
+} from "lucide-react";
+
+
 import PerformanceSection from "../analytics/performance-section";
+
 import CountrySection from "../analytics/country-section";
 import TrafficAcquisition from "../analytics/traffic-acquisition";
 import DeviceCategory from "../analytics/device-category";
@@ -10,18 +19,16 @@ import TopEvents from "../analytics/top-events";
 
 import StatCard from "../metrics/stat-card";
 
-import {
-  Users,
-  Activity,
-  FileText,
-  Gauge,
-} from "lucide-react";
 
-import {
-  type Plan,
+import type {
+  Plan,
 } from "@/lib/plan";
 
-import type { GSCRow } from "@/lib/types/gsc";
+
+import type {
+  GSCRow,
+} from "@/lib/types/gsc";
+
 
 import type {
   CountryMetric,
@@ -32,185 +39,519 @@ import type {
   BrowserMetric,
 } from "@/lib/types/ga4";
 
+
+
+
+
 interface ClickHistoryPoint {
-  date: string;
-  clicks: number;
-  impressions: number;
+
+  date:string;
+
+  clicks:number;
+
+  impressions:number;
+
 }
 
+
+
 interface UserHistoryPoint {
-  date: string;
-  users: number;
-  sessions: number;
+
+  date:string;
+
+  users:number;
+
+  sessions:number;
+
 }
+
+
+
 
 
 interface DashboardGridProps {
-  plan: Plan;
 
-  clicksHistory: ClickHistoryPoint[];
-  usersHistory: UserHistoryPoint[];
 
-  clicks: number;
-  impressions: number;
+plan:Plan;
 
-  previousClicks: number;
-  previousImpressions: number;
 
-  users: number;
-  sessions: number;
-  pageViews: number;
-  engagementRate: number;
+clicksHistory:ClickHistoryPoint[];
 
-  rangeLabel: string;
+usersHistory:UserHistoryPoint[];
 
-  queries: GSCRow[];
-  pages: GSCRow[];
 
-  country: CountryMetric[];
-  trafficAcquisition: TrafficSourceMetric[];
-  deviceCategory: DeviceCategoryMetric[];
-  browser: BrowserMetric[];
-  landingPages: LandingPageMetric[];
-  topEvents: EventMetric[];
+clicks:number;
+
+impressions:number;
+
+
+previousClicks:number;
+
+previousImpressions:number;
+
+
+
+users:number;
+
+sessions:number;
+
+pageViews:number;
+
+engagementRate:number;
+
+
+rangeLabel:string;
+
+
+
+queries:GSCRow[];
+
+pages:GSCRow[];
+
+
+
+country:CountryMetric[];
+
+
+trafficAcquisition:
+TrafficSourceMetric[];
+
+
+deviceCategory:
+DeviceCategoryMetric[];
+
+
+browser:
+BrowserMetric[];
+
+
+landingPages:
+LandingPageMetric[];
+
+
+topEvents:
+EventMetric[];
+
 }
 
+
+
+
+
+
+
+
 export default function DashboardGrid({
-  plan,
-  clicksHistory,
-  usersHistory,
 
-  clicks,
-  impressions,
+plan,
 
-  users,
-  sessions,
-  pageViews,
-  engagementRate,
+clicksHistory,
 
-  rangeLabel,
+usersHistory,
 
-  queries,
-  pages,
+clicks,
 
-  country,
-  trafficAcquisition,
-  deviceCategory,
-  browser,
-  landingPages,
-  topEvents,
-}: DashboardGridProps) {
-  
-  return (
-    <div className="space-y-6">
+impressions,
 
-      {/* KPI */}
+users,
 
-      <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
+sessions,
 
-        <StatCard
-          title="Users"
-          value={users.toLocaleString()}
-          icon={Users}
-          iconColor="text-blue-600"
-        />
+pageViews,
 
-        <StatCard
-          title="Sessions"
-          value={sessions.toLocaleString()}
-          icon={Activity}
-          iconColor="text-emerald-600"
-        />
+engagementRate,
 
-        <StatCard
-          title="Page Views"
-          value={pageViews.toLocaleString()}
-          icon={FileText}
-          iconColor="text-rose-600"
-        />
+rangeLabel,
 
-        <StatCard
-          title="Engagement Rate"
-          value={`${(engagementRate * 100).toFixed(2)}%`}
-          icon={Gauge}
-          iconColor="text-amber-600"
-        />
+queries,
 
-      </div>
+pages,
 
-  {/* PERFORMANCE */}
+country,
 
-  <PerformanceSection
-  clicksHistory={clicksHistory}
-  usersHistory={usersHistory}
-  clicks={clicks}
-  impressions={impressions}
-  users={users}
-  sessions={sessions}
-  rangeLabel={rangeLabel}
-  queries={queries}
-  pages={pages}
+trafficAcquisition,
+
+deviceCategory,
+
+browser,
+
+landingPages,
+
+topEvents,
+
+}:DashboardGridProps){
+
+
+
+return (
+
+<div
+
+className="
+w-full
+space-y-5
+"
+
+>
+
+
+
+
+
+{/* =====================
+ PERFORMANCE
+===================== */}
+
+
+<PerformanceSection
+
+clicksHistory={clicksHistory}
+
+usersHistory={usersHistory}
+
+clicks={clicks}
+
+impressions={impressions}
+
+users={users}
+
+sessions={sessions}
+
+rangeLabel={rangeLabel}
+
+queries={queries}
+
+pages={pages}
+
 />
 
-  {/* ANALYTICS */}
 
-  <div className="mt-6 grid grid-cols-12 gap-5 items-start">
 
-    <div className="col-span-12 xl:col-span-8">
 
-      <CountrySection
-        country={country}
-      />
 
-    </div>
 
-    <div className="col-span-12 xl:col-span-4">
 
-      <div className="flex h-full flex-col gap-5">
 
-        <div className="grid grid-cols-2 gap-5">
 
-          <TrafficAcquisition
-            data={trafficAcquisition}
-          />
+{/* =====================
+ KPI
+===================== */}
 
-          <BrowserSection
-            data={browser}
-          />
 
-        </div>
+<div
 
-        <DeviceCategory
-          data={deviceCategory}
-        />
+className="
+grid
+gap-5
+sm:grid-cols-2
+xl:grid-cols-4
+"
 
-      </div>
+>
 
-    </div>
 
-  </div>
+<StatCard
 
-  {/* BOTTOM */}
+title="Pengguna Aktif"
 
-  <div className="mt-6 grid grid-cols-12 gap-5">
+value={
+users.toLocaleString("id-ID")
+}
 
-    <div className="col-span-12 xl:col-span-6">
+icon={Users}
 
-      <LandingPages
-        data={landingPages}
-      />
+iconColor="text-blue-600"
 
-    </div>
+/>
 
-    <div className="col-span-12 xl:col-span-6">
 
-      <TopEvents
-        data={topEvents}
-      />
 
-    </div>
 
-  </div>
+
+<StatCard
+
+title="Sesi Kunjungan"
+
+value={
+sessions.toLocaleString("id-ID")
+}
+
+icon={Activity}
+
+iconColor="text-emerald-600"
+
+/>
+
+
+
+
+
+<StatCard
+
+title="Tayangan Halaman"
+
+value={
+pageViews.toLocaleString("id-ID")
+}
+
+icon={FileText}
+
+iconColor="text-rose-600"
+
+/>
+
+
+
+
+
+<StatCard
+
+title="Tingkat Keterlibatan"
+
+value={
+`${(engagementRate * 100).toFixed(2)}%`
+}
+
+icon={Gauge}
+
+iconColor="text-amber-600"
+
+/>
+
+
 </div>
-  );
+
+
+
+
+
+
+
+
+
+{/* =====================
+ ANALYTICS SECTION
+===================== */}
+
+
+<div
+
+className="
+grid
+gap-5
+items-start
+xl:grid-cols-12
+"
+
+>
+
+
+
+
+
+{/* COUNTRY */}
+
+
+<div
+
+className="
+min-w-0
+xl:col-span-5
+"
+
+>
+
+
+<CountrySection
+
+country={country}
+
+/>
+
+
+</div>
+
+
+
+
+
+
+
+
+{/* RIGHT STACK */}
+
+
+<div
+
+className="
+grid
+gap-5
+min-w-0
+xl:col-span-7
+"
+
+>
+
+
+<div
+
+className="
+min-w-0
+"
+
+>
+
+
+<TrafficAcquisition
+
+data={trafficAcquisition}
+
+/>
+
+
+</div>
+
+
+
+
+
+
+<div
+
+className="
+min-w-0
+"
+
+>
+
+
+<DeviceCategory
+
+data={deviceCategory}
+
+/>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* =====================
+ TECHNOLOGY
+===================== */}
+
+
+<div
+
+className="
+grid
+items-start
+gap-5
+xl:grid-cols-3
+"
+
+>
+
+
+<div
+
+className="
+min-w-0
+"
+
+>
+
+
+<BrowserSection
+
+data={browser}
+
+/>
+
+
+</div>
+
+
+
+
+
+
+
+<div
+
+className="
+min-w-0
+"
+
+>
+
+
+<LandingPages
+
+data={landingPages}
+
+/>
+
+
+</div>
+
+
+
+
+
+
+
+<div
+
+className="
+min-w-0
+"
+
+>
+
+
+<TopEvents
+
+data={topEvents}
+
+/>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+);
+
+
 }

@@ -5,9 +5,11 @@ import {
   CheckCircle2,
   Globe,
   Settings,
+  AlertCircle,
 } from "lucide-react";
 
 import { formatDistanceToNow } from "date-fns";
+import { id } from "date-fns/locale";
 
 import { Button } from "@/components/ui/button";
 
@@ -21,27 +23,37 @@ import type {
 
 
 interface DashboardHeaderProps {
+
   projectId: string;
+
   projectName: string;
 
   range: DateRange;
 
   gscSiteUrl: string | null;
+
   ga4PropertyId: string | null;
+
   ga4PropertyName: string | null;
 
   lastSyncedAt: Date | null;
+
 }
 
 
+
 export default function DashboardHeader({
+
   projectId,
+
   projectName,
 
   range,
 
   gscSiteUrl,
+
   ga4PropertyId,
+
   ga4PropertyName,
 
   lastSyncedAt,
@@ -49,451 +61,686 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
 
 
-  const lastSyncLabel = lastSyncedAt
-    ? formatDistanceToNow(
-        lastSyncedAt,
-        {
-          addSuffix: true,
-        }
-      )
-    : "Never";
-
-
-
-  return (
-
-    <header
-      className="
-        overflow-hidden
-        rounded-3xl
-        border
-        border-slate-200
-        bg-white
-        shadow-sm
-      "
-    >
-
-
-      <div
-        className="
-          flex
-          flex-col
-          gap-8
-          p-8
-          xl:flex-row
-          xl:items-start
-          xl:justify-between
-        "
-      >
-
-
-        {/* Left */}
-
-        <div className="max-w-3xl">
-
-
-          <div
-            className="
-              inline-flex
-              items-center
-              rounded-full
-              bg-blue-50
-              px-3
-              py-1
-              text-xs
-              font-semibold
-              text-blue-700
-            "
-          >
-            SEO Intelligence Dashboard
-          </div>
-
-
-
-          <h1
-            className="
-              mt-4
-              text-4xl
-              font-bold
-              tracking-tight
-              text-slate-900
-            "
-          >
-            {projectName}
-          </h1>
-
-
-
-          <p
-            className="
-              mt-3
-              text-base
-              leading-7
-              text-slate-500
-            "
-          >
-            Monitor your organic traffic, search visibility,
-            and Google Analytics performance from one workspace.
-          </p>
 
+const lastSyncLabel =
+lastSyncedAt
 
+?
 
-          <div
-            className="
-              mt-6
-              flex
-              flex-wrap
-              gap-3
-            "
-          >
+formatDistanceToNow(
+  lastSyncedAt,
+  {
+    addSuffix:true,
+    locale:id,
+  }
+)
 
-            <div
-              className="
-                inline-flex
-                items-center
-                rounded-full
-                bg-emerald-50
-                px-3
-                py-1
-                text-sm
-                font-medium
-                text-emerald-700
-              "
-            >
+:
 
-              <CheckCircle2
-                className="
-                  mr-2
-                  h-4
-                  w-4
-                "
-              />
+"Belum pernah";
 
-              Healthy Workspace
 
-            </div>
 
+const gscConnected =
+Boolean(gscSiteUrl);
 
 
-            <div
-              className="
-                inline-flex
-                items-center
-                rounded-full
-                bg-slate-100
-                px-3
-                py-1
-                text-sm
-                font-medium
-                text-slate-700
-              "
-            >
-              Last Sync • {lastSyncLabel}
-            </div>
+const ga4Connected =
+Boolean(ga4PropertyId);
 
 
-          </div>
+const workspaceReady =
+gscConnected &&
+ga4Connected;
 
 
-        </div>
 
+return (
 
+<header
+className="
+overflow-hidden
+rounded-3xl
+border
+border-slate-200
+bg-white
+shadow-sm
+"
+>
 
 
 
-        {/* Right */}
+<div
+className="
+flex
+flex-col
+gap-8
+p-8
+xl:flex-row
+xl:items-start
+xl:justify-between
+"
+>
 
-        <div
-          className="
-            flex
-            flex-wrap
-            items-center
-            justify-start
-            gap-3
-            xl:justify-end
-          "
-        >
 
 
-          <DateRangePicker />
+{/* HEADER LEFT */}
 
+<div
+className="
+max-w-3xl
+"
+>
 
 
-          <ExportDialog
-            projectId={projectId}
-            projectName={projectName}
-            range={range}
-          />
+<div
+className="
+inline-flex
+items-center
+rounded-full
+bg-blue-50
+px-3
+py-1
+text-xs
+font-semibold
+text-blue-700
+"
+>
 
+Dashboard SEO Intelligence
 
+</div>
 
-          <SyncButton />
 
 
+<h1
+className="
+mt-4
+text-4xl
+font-bold
+tracking-tight
+text-slate-900
+"
+>
 
-          <Button
-            asChild
-            variant="outline"
-          >
+{projectName}
 
-            <Link
-              href={`/dashboard/settings?projectId=${projectId}&range=${range}`}
-            >
+</h1>
 
-              <Settings
-                className="
-                  mr-2
-                  h-4
-                  w-4
-                "
-              />
 
-              Settings
 
-            </Link>
+<p
+className="
+mt-3
+text-base
+leading-7
+text-slate-500
+"
+>
 
-          </Button>
+Pantau trafik organik, visibilitas pencarian,
+dan performa Google Analytics dalam satu workspace.
 
+</p>
 
 
-        </div>
 
 
-      </div>
 
+<div
+className="
+mt-6
+flex
+flex-wrap
+gap-3
+"
+>
 
 
 
+<div
+className={`
+inline-flex
+items-center
+rounded-full
+px-3
+py-1
+text-sm
+font-medium
 
+${
+workspaceReady
 
-      {/* Workspace Information */}
+?
 
+"bg-emerald-50 text-emerald-700"
 
-      <div
-        className="
-          grid
-          gap-px
-          border-t
-          border-slate-200
-          bg-slate-200
-          lg:grid-cols-3
-        "
-      >
+:
 
+"bg-amber-50 text-amber-700"
 
-        {/* GSC */}
+}
+`}
+>
 
-        <div className="bg-white p-6">
 
-          <div className="flex items-start gap-4">
+{
+workspaceReady
 
+?
 
-            <div
-              className="
-                rounded-xl
-                bg-blue-50
-                p-3
-              "
-            >
+<>
 
-              <Globe
-                className="
-                  h-5
-                  w-5
-                  text-blue-600
-                "
-              />
+<CheckCircle2
+className="
+mr-2
+h-4
+w-4
+"
+/>
 
-            </div>
+Workspace Siap Digunakan
 
+</>
 
 
-            <div>
+:
 
+<>
 
-              <p
-                className="
-                  text-xs
-                  font-semibold
-                  uppercase
-                  tracking-wider
-                  text-slate-500
-                "
-              >
-                Google Search Console
-              </p>
+<AlertCircle
+className="
+mr-2
+h-4
+w-4
+"
+/>
 
+Perlu Konfigurasi
 
+</>
 
-              <p
-                className="
-                  mt-2
-                  break-all
-                  text-sm
-                  font-medium
-                  text-slate-900
-                "
-              >
-                {gscSiteUrl ?? "Not Connected"}
-              </p>
+}
 
 
-            </div>
 
+</div>
 
-          </div>
 
 
-        </div>
 
 
+<div
+className="
+inline-flex
+items-center
+rounded-full
+bg-slate-100
+px-3
+py-1
+text-sm
+font-medium
+text-slate-700
+"
+>
 
+Sinkronisasi terakhir • {lastSyncLabel}
 
+</div>
 
-        {/* GA4 */}
 
-        <div className="bg-white p-6">
 
+</div>
 
-          <div className="flex items-start gap-4">
 
 
-            <div
-              className="
-                rounded-xl
-                bg-emerald-50
-                p-3
-              "
-            >
+</div>
 
-              <BarChart3
-                className="
-                  h-5
-                  w-5
-                  text-emerald-600
-                "
-              />
 
-            </div>
 
 
 
-            <div>
 
 
-              <p
-                className="
-                  text-xs
-                  font-semibold
-                  uppercase
-                  tracking-wider
-                  text-slate-500
-                "
-              >
-                Google Analytics 4
-              </p>
+{/* ACTION AREA */}
 
 
+<div
+className="
+flex
+flex-wrap
+items-center
+gap-3
+"
+>
 
-              <p
-                className="
-                  mt-2
-                  break-all
-                  text-sm
-                  font-medium
-                  text-slate-900
-                "
-              >
-                {
-                  ga4PropertyName ??
-                  ga4PropertyId ??
-                  "Not Connected"
-                }
-              </p>
 
+<DateRangePicker />
 
-            </div>
 
 
-          </div>
+<ExportDialog
 
+projectId={projectId}
 
-        </div>
+projectName={projectName}
 
+range={range}
 
+/>
 
 
 
-        {/* Workspace Status */}
+<SyncButton />
 
-        <div className="bg-white p-6">
 
 
-          <p
-            className="
-              text-xs
-              font-semibold
-              uppercase
-              tracking-wider
-              text-slate-500
-            "
-          >
-            Workspace Status
-          </p>
 
 
+<Button
 
-          <div
-            className="
-              mt-3
-              inline-flex
-              items-center
-              rounded-full
-              bg-emerald-50
-              px-3
-              py-1
-              text-sm
-              font-semibold
-              text-emerald-700
-            "
-          >
+asChild
 
-            <CheckCircle2
-              className="
-                mr-2
-                h-4
-                w-4
-              "
-            />
+variant="outline"
 
-            Connected & Ready
+>
 
-          </div>
 
+<Link
 
+href={`/dashboard/settings?projectId=${projectId}&range=${range}`}
 
-          <p
-            className="
-              mt-3
-              text-sm
-              leading-6
-              text-slate-500
-            "
-          >
-            Google Search Console and Google Analytics are connected
-            successfully and ready for synchronization.
-          </p>
+>
 
 
-        </div>
+<Settings
+className="
+mr-2
+h-4
+w-4
+"
+/>
 
 
+Pengaturan
 
-      </div>
 
+</Link>
 
 
-    </header>
+</Button>
 
-  );
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+{/* CONNECTION INFO */}
+
+
+<div
+className="
+grid
+gap-px
+border-t
+border-slate-200
+bg-slate-200
+lg:grid-cols-3
+"
+>
+
+
+
+
+{/* GSC */}
+
+
+<div
+className="
+bg-white
+p-6
+"
+>
+
+
+<div
+className="
+flex
+items-start
+gap-4
+"
+>
+
+
+<div
+className="
+rounded-xl
+bg-blue-50
+p-3
+"
+>
+
+<Globe
+className="
+h-5
+w-5
+text-blue-600
+"
+/>
+
+</div>
+
+
+
+<div>
+
+
+<p
+className="
+text-xs
+font-semibold
+uppercase
+tracking-wider
+text-slate-500
+"
+>
+
+Google Search Console
+
+</p>
+
+
+
+<p
+className="
+mt-2
+break-all
+text-sm
+font-medium
+text-slate-900
+"
+>
+
+{
+gscSiteUrl
+??
+
+"Belum Terhubung"
+}
+
+</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+{/* GA4 */}
+
+
+<div
+className="
+bg-white
+p-6
+"
+>
+
+
+<div
+className="
+flex
+items-start
+gap-4
+"
+>
+
+
+<div
+className="
+rounded-xl
+bg-emerald-50
+p-3
+"
+>
+
+
+<BarChart3
+className="
+h-5
+w-5
+text-emerald-600
+"
+/>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<p
+className="
+text-xs
+font-semibold
+uppercase
+tracking-wider
+text-slate-500
+"
+>
+
+Google Analytics 4
+
+</p>
+
+
+
+
+<p
+className="
+mt-2
+break-all
+text-sm
+font-medium
+text-slate-900
+"
+>
+
+
+{
+ga4PropertyName
+??
+
+ga4PropertyId
+??
+
+"Belum Terhubung"
+}
+
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+{/* STATUS */}
+
+
+
+<div
+className="
+bg-white
+p-6
+"
+>
+
+
+<p
+className="
+text-xs
+font-semibold
+uppercase
+tracking-wider
+text-slate-500
+"
+>
+
+Status Workspace
+
+</p>
+
+
+
+
+
+<div
+className={`
+mt-3
+inline-flex
+items-center
+rounded-full
+px-3
+py-1
+text-sm
+font-semibold
+
+${
+workspaceReady
+
+?
+
+"bg-emerald-50 text-emerald-700"
+
+:
+
+"bg-amber-50 text-amber-700"
+
+}
+`}
+>
+
+
+{
+workspaceReady
+
+?
+
+<>
+
+<CheckCircle2
+className="
+mr-2
+h-4
+w-4
+"
+/>
+
+Terhubung & Siap
+
+</>
+
+:
+
+<>
+
+<AlertCircle
+className="
+mr-2
+h-4
+w-4
+"
+/>
+
+Perlu Setup
+
+</>
+
+}
+
+
+
+</div>
+
+
+
+
+<p
+className="
+mt-3
+text-sm
+leading-6
+text-slate-500
+"
+>
+
+
+{
+workspaceReady
+
+?
+
+"Google Search Console dan Google Analytics sudah terhubung dan siap digunakan untuk analisis data."
+
+:
+
+"Hubungkan Google Search Console dan Google Analytics untuk membuka seluruh fitur analitik SEO."
+
+}
+
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</header>
+
+
+);
+
+
 }

@@ -1,11 +1,32 @@
-import type { DefaultSession } from "next-auth";
-import type { DefaultJWT } from "next-auth/jwt";
+import NextAuth, {
+  DefaultSession,
+} from "next-auth";
+
+import {
+  DefaultJWT
+} from "next-auth/jwt";
 
 
 declare module "next-auth" {
 
 
   interface Session {
+
+    user: {
+
+      id: string;
+
+      role:
+      | "ADMIN"
+      | "USER";
+
+      plan:
+      | "FREE"
+      | "PRO";
+
+
+    } & DefaultSession["user"];
+
 
     accessToken?: string;
 
@@ -16,55 +37,52 @@ declare module "next-auth" {
     error?: string;
 
 
-    user: {
-      id: string;
-      role: "USER" | "ADMIN";
-    } & DefaultSession["user"];
-
   }
 
 
 
   interface User {
 
-    id: string;
+    id:string;
 
-    role: "USER" | "ADMIN";
+    role:
+    | "ADMIN"
+    | "USER";
 
   }
 
-
 }
+
 
 
 
 declare module "next-auth/jwt" {
 
 
-  interface JWT extends DefaultJWT {
+ interface JWT extends DefaultJWT {
 
 
-    userId?: string;
-
-    role?: "USER" | "ADMIN";
-
-    email?: string;
+   userId?:string;
 
 
-    access_token?: string;
-
-    refresh_token?: string;
-
-    expires_at?: number;
-
-    error?: string;
+   role?:
+   | "ADMIN"
+   | "USER";
 
 
-  }
+   access_token?:string;
+
+
+   refresh_token?:string;
+
+
+   expires_at?:number;
+
+
+   error?:string;
+
+
+ }
 
 
 }
-
-
-// WAJIB supaya file dianggap module
-export {};

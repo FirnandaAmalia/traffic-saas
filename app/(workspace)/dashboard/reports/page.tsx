@@ -1,10 +1,22 @@
+import Link from "next/link";
+
 import {
   getServerSession,
 } from "next-auth";
 
 import {
+  redirect,
+} from "next/navigation";
+
+
+import {
   authOptions,
 } from "@/lib/auth";
+
+
+import {
+  resolveProjectForUser,
+} from "@/lib/project-service";
 
 
 import {
@@ -13,109 +25,77 @@ import {
 
 
 import {
-  resolveProjectForUser,
-} from "@/lib/project-service";
-
-import Link from "next/link";
-
-import {
   FileText,
-  Download,
-  ArrowLeft,
-  FileSpreadsheet,
-  FileJson,
   Sparkles,
-  TrendingUp,
+  Plus,
 } from "lucide-react";
+
 
 import {
   Button,
 } from "@/components/ui/button";
 
+
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
+
+
+import ReportCard from "@/components/reports/report-card";
 
 interface PageProps {
 
-  params: Promise<{
-    id:string;
+  searchParams: Promise<{
+
+    projectId?: string;
+
   }>;
 
 }
 
 
 
-export default async function ReportDetailPage({
 
-params,
+
+
+
+export default async function ReportsPage({
+
+searchParams,
 
 }:PageProps){
 
 
 
 const session =
+
 await getServerSession(
-  authOptions
+
+authOptions
+
 );
 
 
 
-if(!session?.user?.id){
 
-return null;
+if(
+!session?.user?.id
+){
+
+redirect("/login");
 
 }
+
 
 
 
 
 const {
 
-id
+projectId,
 
-} = await params;
-
-
-
-
-
-const report =
-
-await prisma.report.findUnique({
-
-where:{
-id,
-},
-
-include:{
-project:true,
-},
-
-});
-
-
-
-
-
-
-if(!report){
-
-return (
-
-<div>
-
-Report not found
-
-</div>
-
-);
-
-}
-
+}=await searchParams;
 
 
 
@@ -126,13 +106,12 @@ const project =
 await resolveProjectForUser({
 
 userId:
+
 session.user.id,
 
-projectId:
-report.projectId,
+projectId,
 
 });
-
 
 
 
@@ -142,9 +121,33 @@ if(!project){
 
 return (
 
-<div>
+<div className="p-10 space-y-4">
 
-Unauthorized
+
+<h1 className="text-2xl font-bold">
+
+Belum Ada Project
+
+</h1>
+
+
+<p className="text-slate-500">
+
+Tambahkan website terlebih dahulu untuk membuat laporan SEO.
+
+</p>
+
+
+<Link href="/projects">
+
+<Button>
+
+Buat Project
+
+</Button>
+
+</Link>
+
 
 </div>
 
@@ -157,26 +160,30 @@ Unauthorized
 
 
 
-const created =
 
-new Date(
-report.createdAt
-)
-.toLocaleDateString(
+const reports =
 
-"id-ID",
+await prisma.report.findMany({
 
-{
+where:{
 
-day:"2-digit",
+projectId:
 
-month:"long",
+project.id,
 
-year:"numeric",
+},
 
-}
+orderBy:{
 
-);
+createdAt:
+
+"desc",
+
+},
+
+});
+
+
 
 
 
@@ -186,43 +193,36 @@ year:"numeric",
 
 return (
 
-<main
-className="
-space-y-8
-"
->
+
+<div className="space-y-8">
 
 
 
+
+
+
+
+{/* HEADER */}
+
+
+<div className="flex items-center justify-between">
 
 
 <div>
 
-<Link
 
-href={`/dashboard/reports?projectId=${project.id}`}
+<h1 className="text-3xl font-bold">
 
-className="
-inline-flex
-items-center
-gap-2
-text-sm
-text-slate-500
-hover:text-slate-900
-"
+SEO Reports
 
->
+</h1>
 
-<ArrowLeft
-className="
-h-4
-w-4
-"
-/>
 
-Kembali ke Daftar Laporan
+<p className="mt-2 text-slate-500">
 
-</Link>
+Monitor SEO performance, AI insights, and website growth.
+
+</p>
 
 
 </div>
@@ -231,6 +231,39 @@ Kembali ke Daftar Laporan
 
 
 
+
+<Button
+
+className="rounded-xl"
+
+>
+
+<Plus
+
+className="mr-2 h-4 w-4"
+
+/>
+
+
+Generate Report
+
+
+</Button>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* PROJECT SUMMARY */}
 
 
 <Card
@@ -238,30 +271,42 @@ Kembali ke Daftar Laporan
 className="
 rounded-3xl
 border
-shadow-sm
+bg-gradient-to-br
+from-blue-50
+to-white
 "
 
 >
 
 
-<CardHeader>
+<CardContent
+
+className="
+p-6
+"
+
+>
 
 
 <div
+
 className="
 flex
 items-center
 gap-4
 "
+
 >
 
 
 <div
+
 className="
 rounded-2xl
-bg-blue-50
+bg-blue-600
 p-4
 "
+
 >
 
 <FileText
@@ -269,323 +314,37 @@ p-4
 className="
 h-6
 w-6
-text-blue-600
+text-white
 "
 
 />
 
 </div>
+
 
 
 
 
 <div>
 
-<CardTitle
-className="
-text-2xl
-"
->
 
-{report.title}
+<p className="text-sm text-slate-500">
 
-</CardTitle>
-
-
-
-<p
-className="
-mt-1
-text-sm
-text-slate-500
-"
->
-
-Laporan Analisis SEO & Pertumbuhan Website
+Current Project
 
 </p>
 
 
-</div>
-
-
-</div>
-
-
-</CardHeader>
-
-<CardContent
-className="
-space-y-6
-"
->
-
-<div
-className="
-grid
-gap-4
-md:grid-cols-2
-"
->
-
-
-<div
-className="
-rounded-2xl
-border
-p-5
-"
->
-
-
-<div
-className="
-flex
-items-center
-gap-2
-text-sm
-text-slate-500
-"
->
-
-<Sparkles
-className="
-h-4
-w-4
-"
-/>
-
-AI Report Status
-
-</div>
-
-
-
-<p
-className="
-mt-3
-text-xl
-font-bold
-"
->
-
-Ready
-
-</p>
-
-
-<p
-className="
-mt-2
-text-sm
-text-slate-500
-"
->
-
-Laporan telah dianalisis menggunakan SEO Intelligence Engine.
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div
-className="
-rounded-2xl
-border
-p-5
-"
->
-
-
-<div
-className="
-flex
-items-center
-gap-2
-text-sm
-text-slate-500
-"
->
-
-<TrendingUp
-className="
-h-4
-w-4
-"
-/>
-
-Report Type
-
-</div>
-
-
-
-<p
-className="
-mt-3
-text-xl
-font-bold
-"
->
-
-SEO Growth Intelligence
-
-</p>
-
-
-<p
-className="
-mt-2
-text-sm
-text-slate-500
-"
->
-
-Data Google Search Console + Google Analytics.
-
-</p>
-
-
-</div>
-
-
-</div>
-
-<div
-
-className="
-grid
-gap-4
-md:grid-cols-3
-"
-
->
-
-<div
-
-className="
-rounded-2xl
-bg-slate-50
-p-5
-"
-
->
-
-
-<p
-className="
-text-xs
-uppercase
-text-slate-500
-"
->
-
-Proyek
-
-</p>
-
-
-<p
-className="
-mt-2
-font-semibold
-"
->
+<h2 className="text-xl font-bold">
 
 {project.projectName}
 
-</p>
+</h2>
 
 
-</div>
+<p className="text-sm text-slate-500">
 
-
-
-
-
-
-
-<div
-
-className="
-rounded-2xl
-bg-slate-50
-p-5
-"
-
->
-
-
-<p
-className="
-text-xs
-uppercase
-text-slate-500
-"
->
-
-Periode Analisis
-
-</p>
-
-
-<p
-className="
-mt-2
-font-semibold
-"
->
-
-{report.period}
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div
-
-className="
-rounded-2xl
-bg-slate-50
-p-5
-"
-
->
-
-
-<p
-className="
-text-xs
-uppercase
-text-slate-500
-"
->
-
-Tanggal Dibuat
-
-</p>
-
-
-<p
-className="
-mt-2
-font-semibold
-"
->
-
-{created}
+{project.gscSiteUrl}
 
 </p>
 
@@ -596,104 +355,135 @@ font-semibold
 
 </div>
 
-<div
-className="
-flex
-flex-wrap
-gap-3
-"
->
-
-<Button
-asChild
-className="rounded-xl"
->
-
-<a
-
-href={`/api/export/pdf?projectId=${project.id}&range=${report.period}`}
-
-download
-
->
-
-<Download
-className="
-mr-2
-h-4
-w-4
-"
-/>
-
-Download PDF
-
-</a>
-
-
-</Button>
-
-<Button
-asChild
-variant="outline"
-className="rounded-xl"
->
-
-<a
-
-href={`/api/export/excel?projectId=${project.id}&range=${report.period}`}
-
-download
-
->
-
-<FileSpreadsheet
-className="
-mr-2
-h-4
-w-4
-"
-/>
-
-Download Excel
-
-</a>
-
-</Button>
-
-<Button
-asChild
-variant="outline"
-className="rounded-xl"
->
-
-<a
-
-href={`/api/export/csv?projectId=${project.id}&range=${report.period}`}
-
-download
->
-
-<FileJson
-className="
-mr-2
-h-4
-w-4
-"
-/>
-
-Download CSV
-
-</a>
-</Button>
-
-</div>
 
 </CardContent>
 
 
 </Card>
 
-</main>
+
+
+
+
+
+
+
+
+{/* REPORT LIST */}
+
+
+
+{
+
+reports.length === 0
+
+?
+
+(
+
+<Card
+
+className="
+rounded-3xl
+"
+
+>
+
+
+<CardContent
+
+className="
+p-12
+text-center
+"
+
+>
+
+
+<Sparkles
+
+className="
+mx-auto
+h-10
+w-10
+text-blue-600
+"
+
+/>
+
+
+<h3 className="mt-5 text-xl font-bold">
+
+Belum Ada Laporan
+
+</h3>
+
+
+<p className="mt-2 text-slate-500">
+
+Generate laporan SEO pertama untuk mendapatkan insight otomatis.
+
+</p>
+
+
+</CardContent>
+
+
+</Card>
+
+)
+
+
+:
+
+
+(
+
+
+
+<div
+
+className="
+grid
+gap-6
+lg:grid-cols-2
+"
+
+>
+
+
+{
+
+reports.map((report)=>(
+
+
+<ReportCard
+
+key={report.id}
+
+report={report}
+
+/>
+
+))
+
+
+}
+
+
+</div>
+
+
+)
+
+
+}
+
+
+
+
+</div>
+
 
 );
 

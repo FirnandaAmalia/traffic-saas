@@ -3,9 +3,9 @@ import DataTable from "./data-table";
 
 import type { GSCRow } from "@/lib/types/gsc";
 
-import LockedFeature from "@/components/billing/locked-feature";
 
 interface PerformanceSectionProps {
+
   clicksHistory: {
     date: string;
     clicks: number;
@@ -26,10 +26,15 @@ interface PerformanceSectionProps {
   rangeLabel: string;
 
   queries: GSCRow[];
+
   pages: GSCRow[];
+
+  siteUrl?: string | null;
+
 }
 
 export default function PerformanceSection({
+
   clicksHistory,
   usersHistory,
   clicks,
@@ -39,56 +44,173 @@ export default function PerformanceSection({
   rangeLabel,
   queries,
   pages,
-}: PerformanceSectionProps) {
-  return (
-    <section className="space-y-5">
+  siteUrl,
 
-      {/* Performance Trend */}
+}:PerformanceSectionProps){
 
-      <ChartSection
-        clicksHistory={clicksHistory}
-        usersHistory={usersHistory}
-        clicks={clicks}
-        impressions={impressions}
-        users={users}
-        sessions={sessions}
-        rangeLabel={rangeLabel}
-      />
 
-      {/* Tables */}
+return (
 
-      <div className="grid gap-5 lg:grid-cols-2">
+<section className="space-y-4">
 
-        <DataTable
-          title="Top Keywords 🔥"
-          rows={queries}
-          renderLabel={(row) => row.keys?.[0]}
-        />
 
-        <DataTable
-          title="Top Pages 📄"
-          rows={pages}
-          renderLabel={(row) => {
-            const path =
-              row.keys?.[0]?.replace(
-                "https://yaplegal.id",
-                ""
-              ) ?? "";
+{/* TRAFFIC TREND */}
 
-            return (
-              <span
-                className="block truncate"
-                title={path}
-              >
-                {path}
-              </span>
-            );
-          }}
-        />
-        
+<div
+className="
+rounded-2xl
+border
+border-slate-200
+bg-white
+p-4
+shadow-sm
+"
+>
 
-      </div>
 
-    </section>
-  );
+<ChartSection
+
+clicksHistory={clicksHistory}
+
+usersHistory={usersHistory}
+
+clicks={clicks}
+
+impressions={impressions}
+
+users={users}
+
+sessions={sessions}
+
+rangeLabel={rangeLabel}
+
+/>
+
+
+</div>
+
+
+
+
+
+{/* SEO TABLE */}
+
+<div
+
+className="
+grid
+gap-4
+lg:grid-cols-2
+"
+
+
+>
+
+
+<div
+
+className="
+rounded-2xl
+border
+border-slate-200
+bg-white
+p-4
+shadow-sm
+"
+
+>
+
+
+<DataTable
+
+title="Kata Kunci Teratas 🔥"
+
+rows={queries}
+
+renderLabel={(row)=>
+row.keys?.[0] ?? "-"
+}
+
+/>
+
+
+</div>
+
+
+
+
+
+<div
+
+className="
+rounded-2xl
+border
+border-slate-200
+bg-white
+p-4
+shadow-sm
+"
+
+>
+
+
+<DataTable
+
+title="Halaman Terbaik 📄"
+
+rows={pages}
+
+renderLabel={(row)=>{
+
+const url =
+row.keys?.[0] ?? "";
+
+
+let path=url;
+
+
+if(siteUrl){
+
+path=url.replace(
+siteUrl,
+""
+);
+
+}
+
+
+return (
+
+<span
+
+className="
+block
+truncate
+"
+
+title={url}
+
+>
+
+{path || "/"}
+
+</span>
+
+);
+
+}}
+
+/>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+);
+
 }

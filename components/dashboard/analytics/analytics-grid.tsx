@@ -1,5 +1,6 @@
 import GA4Section from "./ga4-section";
 
+
 import type {
   CountryMetric,
   TrafficSourceMetric,
@@ -9,36 +10,69 @@ import type {
   BrowserMetric,
 } from "@/lib/types/ga4";
 
+
+
+
 interface AnalyticsGridProps {
 
-  users: number;
-  sessions: number;
-  pageViews: number;
-  engagementRate: number;
 
-  country: CountryMetric[];
+  users:number;
 
-  trafficAcquisition: TrafficSourceMetric[];
+  sessions:number;
 
-  deviceCategory: DeviceCategoryMetric[];
+  pageViews:number;
 
-  landingPages: LandingPageMetric[];
+  engagementRate:number;
 
-  topEvents: EventMetric[];
 
-  browser: BrowserMetric[];
+
+  country:CountryMetric[];
+
+
+  trafficAcquisition:
+    TrafficSourceMetric[];
+
+
+  deviceCategory:
+    DeviceCategoryMetric[];
+
+
+  landingPages:
+    LandingPageMetric[];
+
+
+  topEvents:
+    EventMetric[];
+
+
+  browser:
+    BrowserMetric[];
+
 }
 
+
+
+
+
+
 export default function AnalyticsGrid(
-  props: AnalyticsGridProps
-) {
 
-  return (
+props:Readonly<AnalyticsGridProps>
 
-    <GA4Section
-      {...props}
-    />
+){
 
-  );
+
+return (
+
+
+<GA4Section
+
+{...props}
+
+/>
+
+
+);
+
 
 }
