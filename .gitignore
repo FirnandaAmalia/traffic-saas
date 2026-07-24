@@ -49,3 +49,6 @@ prisma/*-backup.prisma
 
 # Generated PDF reports
 public/reports/*.pdf
+
+prisma/*.backup.prisma
+prisma/*.before-neon.db
