@@ -23,7 +23,7 @@ import {
   CheckCircle2,
   Clock,
   XCircle,
-  DollarSign,
+  Banknote,
 } from "lucide-react";
 
 
@@ -260,8 +260,6 @@ md:grid-cols-5
 
 >
 
-
-
 <SummaryCard
 
 title="Revenue"
@@ -270,13 +268,9 @@ value={
 `Rp${totalRevenue.toLocaleString("id-ID")}`
 }
 
-icon={<DollarSign className="h-6 w-6"/>}
+icon={<Banknote className="h-6 w-6"/>}
 
 />
-
-
-
-
 
 <SummaryCard
 
