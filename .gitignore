@@ -42,3 +42,10 @@ next-env.d.ts
 
 /lib/generated/prisma
 structure.txt
+
+# Local database and backup files
+prisma/*.db
+prisma/*-backup.prisma
+
+# Generated PDF reports
+public/reports/*.pdf
