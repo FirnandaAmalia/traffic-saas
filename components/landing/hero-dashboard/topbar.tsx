@@ -33,7 +33,7 @@ export default function Topbar() {
 
         <h2 className="text-2xl font-black tracking-tight text-slate-900">
 
-          SEO Dashboard
+          Dashboard SEO
 
         </h2>
 
@@ -63,7 +63,7 @@ export default function Topbar() {
 
           </span>
 
-          Live syncing
+          Sinkronisasi aktif
 
         </p>
 
@@ -108,7 +108,7 @@ export default function Topbar() {
           <Search className="h-4 w-4 text-slate-400" />
 
           <input
-            placeholder="Search pages..."
+            placeholder="Cari halaman..."
             className="
               w-52
 
@@ -157,7 +157,7 @@ export default function Topbar() {
 
           <span className="text-sm font-medium">
 
-            Last 28 Days
+            28 Hari Terakhir
 
           </span>
 
@@ -236,7 +236,7 @@ export default function Topbar() {
           <div className="hidden xl:block">
 
             <p className="text-sm font-semibold">
-  Workspace Owner
+  Pemilik Workspace
 </p>
 
 <p className="text-xs text-slate-500">

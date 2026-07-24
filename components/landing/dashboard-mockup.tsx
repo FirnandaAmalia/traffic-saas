@@ -12,7 +12,7 @@ import {
 
 const kpis = [
   {
-    title: "Organic Clicks",
+    title: "Klik Organik",
     value: "148K",
     change: "+18%",
     icon: MousePointerClick,
@@ -20,7 +20,7 @@ const kpis = [
     bg: "bg-violet-100",
   },
   {
-    title: "Users",
+    title: "Pengguna",
     value: "92.4K",
     change: "+12%",
     icon: Users,
@@ -122,13 +122,13 @@ export default function DashboardMockup() {
 
                 <h3 className="text-3xl font-black">
 
-                  Executive Dashboard
+                  Dashboard Eksekutif
 
                 </h3>
 
                 <p className="mt-2 text-slate-500">
 
-                  Last updated 3 seconds ago
+                  Diperbarui 3 detik lalu
 
                 </p>
 
@@ -187,7 +187,7 @@ export default function DashboardMockup() {
 
                     <p className="mt-4 text-sm font-semibold text-emerald-600">
 
-                      {item.change} this month
+                      {item.change} bulan ini
 
                     </p>
 
@@ -209,7 +209,7 @@ export default function DashboardMockup() {
 
                   <h4 className="font-bold">
 
-                    Organic Performance
+                    Performa Organik
 
                   </h4>
 
@@ -253,7 +253,7 @@ export default function DashboardMockup() {
 
                   <p className="text-sm text-slate-600">
 
-                    Your CTR dropped by
+                    CTR Anda turun sebesar
 
                     <span className="font-bold text-red-500">
 
@@ -261,7 +261,7 @@ export default function DashboardMockup() {
 
                     </span>
 
-                    {" "}on high impression pages.
+                    {" "}pada halaman dengan impression tinggi.
 
                   </p>
 
@@ -269,14 +269,14 @@ export default function DashboardMockup() {
 
                     <p className="text-sm font-semibold text-emerald-700">
 
-                      Recommendation
+                      Rekomendasi
 
                     </p>
 
                     <p className="mt-2 text-sm text-slate-600">
 
-                      Update title tags on
-                      your top landing pages.
+                      Perbarui title tag pada
+landing page dengan performa terbaik.
 
                     </p>
 

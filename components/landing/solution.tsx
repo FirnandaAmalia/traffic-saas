@@ -11,42 +11,40 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const solutions = [
   {
     number: "01",
     icon: Brain,
-    tag: "AI INTELLIGENCE",
-    title: "AI SEO Analysis",
+    tag: "KECERDASAN AI",
+    title: "Analisis SEO Berbasis AI",
     description:
       "TrafficSaaS membaca data website, keyword, dan performa halaman untuk menemukan peluang SEO yang paling berdampak.",
   },
   {
     number: "02",
     icon: Lightbulb,
-    tag: "SMART RECOMMENDATION",
-    title: "Actionable Recommendations",
+    tag: "REKOMENDASI CERDAS",
+    title: "Rekomendasi yang Bisa Diterapkan",
     description:
-      "Dapatkan rekomendasi yang jelas mengenai halaman, keyword, dan strategi yang harus dilakukan berikutnya.",
+      "Dapatkan rekomendasi jelas mengenai halaman, keyword, dan strategi yang perlu dilakukan berikutnya.",
   },
   {
     number: "03",
     icon: TrendingUp,
-    tag: "GROWTH MONITORING",
-    title: "Growth Tracking",
+    tag: "MONITORING PERTUMBUHAN",
+    title: "Pelacakan Perkembangan",
     description:
       "Pantau perubahan traffic, ranking keyword, dan peluang pertumbuhan melalui satu sistem terpadu.",
   },
   {
     number: "04",
     icon: Zap,
-    tag: "AUTOMATED DECISION",
-    title: "Faster Decisions",
+    tag: "KEPUTUSAN OTOMATIS",
+    title: "Keputusan Lebih Cepat",
     description:
-      "Kurangi analisis manual dan ubah data kompleks menjadi keputusan SEO yang cepat dan akurat.",
+      "Kurangi proses analisis manual dan ubah data kompleks menjadi keputusan SEO yang cepat dan akurat.",
   },
 ];
-
 
 export default function Solution() {
   return (
@@ -132,7 +130,7 @@ export default function Solution() {
 
               <Sparkles className="h-4 w-4"/>
 
-              THE AI SEO SOLUTION
+              SOLUSI SEO BERBASIS AI
 
             </div>
 

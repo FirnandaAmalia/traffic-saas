@@ -131,11 +131,11 @@ export default function Hero() {
                 "
               >
 
-                Turn Website Data
+                Ubah Data Website
 
                 <br />
 
-                Into
+                Menjadi
 
                 <br />
 
@@ -149,7 +149,7 @@ export default function Hero() {
                   "
                 >
 
-                  SEO Growth
+                  Pertumbuhan SEO
 
                 </span>
 
@@ -169,12 +169,12 @@ export default function Hero() {
                 "
               >
 
-                Connect Google Analytics 4 and Search Console,
-                then let AI discover your biggest SEO opportunities.
+                Hubungkan Google Analytics 4 dan Google Search Console,
+lalu biarkan AI menemukan peluang SEO terbesar Anda.
 
-                TrafficSaaS transforms complex website data
-                into clear insights, recommendations,
-                and actions that help you grow faster.
+                TrafficSaaS mengubah data website yang kompleks
+menjadi insight, rekomendasi, dan tindakan yang jelas
+untuk membantu pertumbuhan lebih cepat.
 
               </p>
 
@@ -208,7 +208,7 @@ export default function Hero() {
 
                   <Link href="/api/auth/signin">
 
-                    Start Free
+                    Mulai Gratis
 
                     <ArrowRight
                       className="
@@ -250,7 +250,7 @@ export default function Hero() {
                       "
                     />
 
-                    See How It Works
+                    Lihat Cara Kerja
 
                   </Link>
 
@@ -278,7 +278,7 @@ export default function Hero() {
 
                 <Badge text="Search Console" />
 
-                <Badge text="AI Recommendations" />
+                <Badge text="Rekomendasi AI" />
 
               </div>
 
@@ -298,21 +298,21 @@ export default function Hero() {
                 <Stat
                   value={100}
                   suffix="+"
-                  label="Connected Websites"
+                  label="Website Terhubung"
                 />
 
 
                 <Stat
                   value={24}
                   suffix="/7"
-                  label="AI Monitoring"
+                  label="Monitoring AI"
                 />
 
 
                 <Stat
                   value={99}
                   suffix="%"
-                  label="Faster Reporting"
+                  label="Laporan Lebih Cepat"
                 />
 
               </div>

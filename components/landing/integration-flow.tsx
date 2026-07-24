@@ -9,34 +9,32 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const steps = [
   {
     icon: Search,
-    title: "Connect Your Data",
+    title: "Hubungkan Data",
     description:
       "Hubungkan Google Search Console dan Google Analytics 4 untuk mengambil data performa website.",
   },
   {
     icon: Brain,
-    title: "AI Analysis",
+    title: "Analisis AI",
     description:
       "TrafficSaaS menganalisis traffic, keyword, dan halaman untuk menemukan peluang pertumbuhan.",
   },
   {
     icon: Sparkles,
-    title: "Smart Recommendations",
+    title: "Rekomendasi Cerdas",
     description:
       "Dapatkan insight SEO yang mudah dipahami dan rekomendasi yang langsung dapat diterapkan.",
   },
   {
     icon: CheckCircle2,
-    title: "Grow Your Traffic",
+    title: "Tingkatkan Traffic",
     description:
       "Ambil keputusan berdasarkan data dan tingkatkan performa website secara konsisten.",
   },
 ];
-
 
 export default function IntegrationFlow() {
   return (
@@ -103,7 +101,7 @@ export default function IntegrationFlow() {
 
               <Sparkles className="h-4 w-4"/>
 
-              How TrafficSaaS Works
+              Cara Kerja TrafficSaaS
 
             </div>
 

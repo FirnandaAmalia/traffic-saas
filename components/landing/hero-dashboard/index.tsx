@@ -160,7 +160,7 @@ export default function HeroDashboard() {
               <div>
 
                 <p className="text-sm text-slate-500">
-                  Website Overview
+                  Ringkasan Website
                 </p>
 
 
@@ -184,7 +184,7 @@ export default function HeroDashboard() {
                 "
               >
 
-                Live
+                Aktif
 
               </div>
 
@@ -254,7 +254,7 @@ export default function HeroDashboard() {
               <div className="flex justify-between">
 
                 <p className="text-sm text-white">
-                  Organic Growth
+                  Pertumbuhan Organik
                 </p>
 
                 <TrendingUp className="text-emerald-400"/>
@@ -339,7 +339,7 @@ export default function HeroDashboard() {
             </p>
 
             <p className="font-bold">
-              12 Opportunities
+              12 Peluang
             </p>
 
           </div>
@@ -369,7 +369,7 @@ export default function HeroDashboard() {
       >
 
         <p className="text-xs text-slate-500">
-          Organic Growth
+          Pertumbuhan Organik
         </p>
 
         <p className="text-xl font-black text-emerald-600">

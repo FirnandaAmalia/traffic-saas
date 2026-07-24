@@ -19,13 +19,11 @@ import FadeUp from "@/components/motion/fade-up";
 import HeroDashboard from "@/components/landing/hero-dashboard";
 
 const features = [
-  "Google Analytics 4 Integration",
-  "Search Console Intelligence",
-  "AI SEO Recommendations",
-  "Automated Performance Reports",
+  "Integrasi Google Analytics 4",
+  "Insight Google Search Console",
+  "Rekomendasi SEO berbasis AI",
+  "Laporan performa otomatis",
 ];
-
-
 
 export default function DashboardShowcase() {
   return (
@@ -576,7 +574,7 @@ export default function DashboardShowcase() {
                   <div>
 
                     <p className="text-xs text-slate-500">
-                      Organic Growth
+                      Pertumbuhan Organik
                     </p>
 
 

@@ -18,18 +18,18 @@ const menus = [
 
   {
     icon: BarChart3,
-    label: "Traffic Analytics",
+    label: "Analisis Traffic",
   },
 
   {
     icon: Brain,
-    label: "AI SEO Consultant",
+    label: "Konsultan SEO AI",
     badge: "PRO",
   },
 
   {
     icon: FileSpreadsheet,
-    label: "SEO Reports",
+    label: "Laporan SEO",
   },
 ];
 
@@ -407,9 +407,9 @@ text-violet-100
 "
 >
 
-Excellent website health.
-AI recommends publishing
-two new articles this week.
+Kondisi website sangat baik.
+AI merekomendasikan publikasi
+dua artikel baru minggu ini.
 
 </p>
 

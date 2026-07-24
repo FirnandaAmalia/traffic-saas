@@ -64,7 +64,7 @@ export default function TrafficChart() {
               text-slate-900
             "
           >
-            Organic Traffic
+            Traffic Organik
           </h3>
 
 
@@ -74,7 +74,7 @@ export default function TrafficChart() {
               text-slate-500
             "
           >
-            Last 28 Days
+            28 Hari Terakhir
           </p>
 
         </div>

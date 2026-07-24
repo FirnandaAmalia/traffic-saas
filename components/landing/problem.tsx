@@ -15,23 +15,25 @@ const problems = [
   {
     icon: Search,
     number: "01",
-    tag: "DATA OVERLOAD",
+    tag: "DATA TERLALU BANYAK",
     title: "Data SEO Terlalu Banyak",
     description:
       "Google Search Console dan Analytics menghasilkan ribuan data setiap hari, tetapi sulit mengetahui mana yang benar-benar memiliki dampak.",
   },
+
   {
     icon: BarChart3,
     number: "02",
-    tag: "HIDDEN OPPORTUNITY",
+    tag: "PELUANG TERSEMBUNYI",
     title: "Peluang Pertumbuhan Tersembunyi",
     description:
       "Keyword potensial, halaman lemah, dan peluang traffic sering terlewat karena analisis masih dilakukan secara manual.",
   },
+
   {
     icon: AlertTriangle,
     number: "03",
-    tag: "MANUAL PROCESS",
+    tag: "PROSES MANUAL",
     title: "Keputusan Masih Berdasarkan Tebakan",
     description:
       "Tim SEO menghabiskan waktu membaca laporan daripada mengambil keputusan strategis yang menghasilkan pertumbuhan.",
@@ -119,7 +121,7 @@ export default function Problem() {
 
               <Sparkles className="h-4 w-4"/>
 
-              THE SEO CHALLENGE
+              TANTANGAN SEO
 
             </div>
 
@@ -154,7 +156,7 @@ export default function Problem() {
                   text-transparent
                 "
               >
-                SEO Kekurangan Arah.
+                SEO Membutuhkan Arah yang Tepat.
               </span>
 
             </h2>
@@ -454,7 +456,7 @@ export default function Problem() {
                     "
                   >
 
-                    Learn more
+                    Pelajari lebih lanjut
 
                     <ArrowRight
                       className="

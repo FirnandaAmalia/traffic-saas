@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Sparkles,
-  ShieldCheck,
-  Database,
-  Brain,
-} from "lucide-react";
+import { Sparkles, ShieldCheck, Database, Brain } from "lucide-react";
 
 const companies = [
   {
@@ -29,11 +24,8 @@ const companies = [
 export default function SocialProof() {
   return (
     <section className="relative py-24">
-
       <div className="mx-auto max-w-7xl px-6">
-
         <div className="text-center">
-
           <span
             className="
               inline-flex
@@ -53,7 +45,7 @@ export default function SocialProof() {
               shadow-sm
             "
           >
-            Built with trusted technologies
+            Dibangun dengan teknologi modern
           </span>
 
           <h2
@@ -65,7 +57,7 @@ export default function SocialProof() {
               text-slate-900
             "
           >
-            Powered by Industry Leaders
+            Menggunakan teknologi terbaik
           </h2>
 
           <p
@@ -79,11 +71,9 @@ export default function SocialProof() {
               text-slate-500
             "
           >
-            TrafficSaaS integrates directly with
-            Google products and leverages modern AI
-            to deliver reliable SEO intelligence.
+            TrafficSaaS terhubung dengan teknologi Google dan AI modern untuk
+            membantu menghasilkan analisis SEO yang lebih akurat.
           </p>
-
         </div>
 
         <div
@@ -97,13 +87,10 @@ export default function SocialProof() {
             lg:grid-cols-4
           "
         >
-
           {companies.map((item) => {
-
             const Icon = item.icon;
 
             return (
-
               <div
                 key={item.name}
                 className="
@@ -131,7 +118,6 @@ export default function SocialProof() {
                   hover:shadow-2xl
                 "
               >
-
                 <div
                   className="
                     mx-auto
@@ -153,9 +139,7 @@ export default function SocialProof() {
                     shadow-lg
                   "
                 >
-
                   <Icon className="h-8 w-8 text-white" />
-
                 </div>
 
                 <h3
@@ -176,19 +160,13 @@ export default function SocialProof() {
                     text-slate-500
                   "
                 >
-                  Fully integrated
+                  Terintegrasi langsung
                 </p>
-
               </div>
-
             );
-
           })}
-
         </div>
-
       </div>
-
     </section>
   );
 }

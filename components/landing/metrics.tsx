@@ -11,12 +11,11 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const metrics = [
   {
     icon: MousePointerClick,
     value: "+42%",
-    title: "Organic Click Growth",
+    title: "Pertumbuhan Klik Organik",
     description:
       "Membantu menemukan peluang SEO untuk meningkatkan performa pencarian organik.",
     gradient:
@@ -53,8 +52,6 @@ const metrics = [
       "from-orange-500 to-amber-500",
   },
 ];
-
-
 
 export default function Metrics() {
 
@@ -132,7 +129,7 @@ export default function Metrics() {
 
               <Sparkles className="h-4 w-4"/>
 
-              PLATFORM IMPACT
+              DAMPAK PLATFORM
 
             </div>
 

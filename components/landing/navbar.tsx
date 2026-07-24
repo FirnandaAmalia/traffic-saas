@@ -12,11 +12,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-
-
 const links = [
   {
-    label: "Features",
+    label: "Fitur",
     href:"#features",
   },
   {
@@ -24,11 +22,11 @@ const links = [
     href:"#ai",
   },
   {
-    label:"Workflow",
+    label:"Alur Kerja",
     href:"#workflow",
   },
   {
-    label:"Pricing",
+    label:"Harga",
     href:"#pricing",
   },
   {
@@ -36,9 +34,6 @@ const links = [
     href:"#faq",
   },
 ];
-
-
-
 export default function Navbar(){
 
 
@@ -334,95 +329,60 @@ export default function Navbar(){
         </nav>
 
 
+{/* DESKTOP ACTION */}
+
+<div
+  className="
+    hidden
+    items-center
+    gap-3
+    lg:flex
+  "
+>
 
 
+  <Button
+    asChild
+    className="
+      rounded-full
+
+      bg-gradient-to-r
+
+      from-violet-600
+
+      to-sky-500
+
+      px-7
+
+      shadow-lg
+
+      shadow-violet-500/30
+
+      transition
+
+      hover:scale-105
+    "
+  >
+
+    <Link href="/api/auth/signin">
+
+      Mulai Gratis
 
 
-        {/* DESKTOP ACTION */}
+      <ArrowRight
+        className="
+          ml-2
+          h-4
+          w-4
+        "
+      />
+
+    </Link>
+
+  </Button>
 
 
-
-        <div
-          className="
-            hidden
-
-            items-center
-
-            gap-3
-
-            lg:flex
-          "
-        >
-
-
-          <Button
-            variant="ghost"
-            asChild
-          >
-
-            <Link href="/api/auth/signin">
-
-              Sign In
-
-            </Link>
-
-          </Button>
-
-
-
-          <Button
-            asChild
-            className="
-              rounded-full
-
-              bg-gradient-to-r
-
-              from-violet-600
-
-              to-sky-500
-
-              px-7
-
-              shadow-lg
-
-              shadow-violet-500/30
-
-              transition
-
-              hover:scale-105
-            "
-          >
-
-            <Link href="/api/auth/signin">
-
-
-              Start Free
-
-
-              <ArrowRight
-                className="
-                  ml-2
-
-                  h-4
-
-                  w-4
-                "
-              />
-
-
-            </Link>
-
-
-          </Button>
-
-
-        </div>
-
-
-
-
-
-
+</div>
 
         {/* MOBILE BUTTON */}
 
@@ -557,7 +517,7 @@ export default function Navbar(){
 
                 <Link href="/api/auth/signin">
 
-                  Start Free
+                  Mulai Gratis
 
                   <ArrowRight className="ml-2 h-4 w-4"/>
 

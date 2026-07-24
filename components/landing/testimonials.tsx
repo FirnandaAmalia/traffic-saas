@@ -8,37 +8,34 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const testimonials = [
   {
     name: "Daniel Kim",
-    role: "SEO Specialist",
-    company: "Digital Agency",
+    role: "Spesialis SEO",
+    company: "Agensi Digital",
     initials: "DK",
     quote:
-      "TrafficSaaS membantu kami memahami data Search Console dan Analytics tanpa harus membuat laporan manual setiap minggu. Insight AI membuat proses analisis jauh lebih cepat.",
+      "TrafficSaaS membantu kami memahami data Google Search Console dan Google Analytics 4 tanpa harus membuat laporan manual setiap minggu. Insight dari AI membuat proses analisis menjadi jauh lebih cepat."
   },
 
   {
     name: "Sarah Johnson",
-    role: "Marketing Consultant",
+    role: "Konsultan Marketing",
     company: "Growth Studio",
     initials: "SJ",
     quote:
-      "Biasanya kami harus membuka banyak tools untuk melihat performa website. TrafficSaaS membuat semua data lebih mudah dipahami dalam satu dashboard.",
+      "Sebelumnya kami harus membuka banyak tools untuk melihat performa website. TrafficSaaS membuat semua data lebih mudah dipahami dalam satu dashboard."
   },
 
   {
     name: "Michael Chen",
-    role: "SEO Consultant",
-    company: "Independent Consultant",
+    role: "Konsultan SEO",
+    company: "Konsultan Independen",
     initials: "MC",
     quote:
-      "Fitur AI recommendation membantu menemukan peluang SEO yang sebelumnya terlewat. Laporan menjadi lebih mudah dipresentasikan kepada klien.",
+      "Fitur AI Recommendation membantu menemukan peluang SEO yang sebelumnya sulit terlihat. Laporan menjadi lebih mudah dipahami dan dipresentasikan kepada klien."
   },
 ];
-
-
 
 export default function Testimonials() {
 
@@ -136,7 +133,7 @@ export default function Testimonials() {
                 "
               />
 
-              USER EXPERIENCE
+              PENGALAMAN PENGGUNA
 
 
             </div>
@@ -160,11 +157,11 @@ export default function Testimonials() {
               "
             >
 
-              Dibangun untuk tim
+              Dirancang untuk tim
 
               <br />
 
-              yang ingin tumbuh lebih cepat
+              yang ingin berkembang lebih cepat
 
 
             </h2>
@@ -183,11 +180,10 @@ export default function Testimonials() {
                 text-slate-600
               "
             >
-
-              Dari SEO specialist hingga digital agency,
-              TrafficSaaS membantu memahami data,
-              menemukan peluang, dan mengambil keputusan
-              berdasarkan insight.
+Mulai dari SEO specialist hingga digital agency,
+TrafficSaaS membantu memahami data website,
+menemukan peluang optimasi, dan mengambil
+keputusan berdasarkan insight yang lebih jelas.
 
 
             </p>

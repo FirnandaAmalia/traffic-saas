@@ -34,15 +34,15 @@ Prisma.PaymentGetPayload<{
 export default async function PaymentsPage(){
 
 
-
 const session =
 await getServerSession(
   authOptions
 );
 
-
-
-
+console.log(
+  "PAYMENT ADMIN SESSION:",
+  JSON.stringify(session, null, 2)
+);
 
 if(!session?.user?.id){
 

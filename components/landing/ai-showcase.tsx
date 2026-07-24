@@ -12,38 +12,36 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const insights = [
   {
     icon: TrendingUp,
-    title: "Organic Traffic Growth",
+    title: "Pertumbuhan Organic Traffic",
     value: "+42%",
     description:
       "Traffic organik meningkat dibanding periode sebelumnya.",
   },
   {
     icon: AlertTriangle,
-    title: "CTR Opportunity",
+    title: "Peluang CTR",
     value: "12 Pages",
     description:
-      "Halaman dengan impression tinggi tetapi klik rendah.",
+      "Halaman dengan impression tinggi tetapi clicks masih rendah.",
   },
   {
     icon: Lightbulb,
-    title: "AI Recommendation",
+    title: "Rekomendasi AI",
     value: "+18%",
     description:
       "Estimasi peningkatan traffic setelah optimasi.",
   },
 ];
 
-
 const features = [
-  "Executive SEO Summary",
-  "CTR Opportunity Detection",
-  "Content Decay Analysis",
-  "Business Impact Prediction",
-  "Prioritized Recommendations",
+  "Ringkasan SEO Eksekutif",
+  "Deteksi Peluang CTR",
+  "Analisis Penurunan Konten",
+  "Prediksi Dampak Bisnis",
+  "Rekomendasi Prioritas",
 ];
 
 
@@ -206,8 +204,8 @@ export default function AIShowcase() {
               >
 
                 TrafficSaaS memahami data Google Search Console
-                dan Google Analytics untuk menemukan masalah,
-                peluang, dan strategi SEO secara otomatis.
+dan Google Analytics 4 untuk menemukan masalah,
+peluang, dan strategi SEO secara otomatis.
 
 
               </p>
@@ -464,7 +462,7 @@ export default function AIShowcase() {
                   "
                 >
 
-                  SEO Performance Score
+                  Skor Performa SEO
 
                 </p>
 
@@ -677,7 +675,7 @@ export default function AIShowcase() {
                     "
                   >
 
-                    AI Recommendation
+                    Rekomendasi AI
 
                   </p>
 
@@ -689,7 +687,7 @@ export default function AIShowcase() {
                     "
                   >
 
-                    Improve 12 meta titles
+                    Optimalkan 12 meta titles
 
                   </p>
 

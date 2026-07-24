@@ -252,22 +252,22 @@ export default function AiCard() {
 
         <Insight
           icon={<CheckCircle2 />}
-          title="CTR increased by 18%"
-          desc="Meta title improvements are performing well."
+          title="CTR meningkat 18%"
+desc="Perbaikan meta title menunjukkan hasil positif."
         />
 
 
         <Insight
           icon={<Sparkles />}
-          title="12 keywords entered Top 10"
-          desc="Strong growth for informational pages."
+          title="12 kata kunci masuk Top 10"
+desc="Pertumbuhan kuat pada halaman informasional."
         />
 
 
         <Insight
           icon={<TriangleAlert />}
-          title="3 landing pages lost clicks"
-          desc="Refresh outdated content to recover rankings."
+         title="3 halaman landing kehilangan klik"
+desc="Perbarui konten lama untuk memulihkan peringkat."
         />
 
 
@@ -281,7 +281,7 @@ export default function AiCard() {
 
         <div className="text-sm text-violet-100">
 
-          Generated just now
+          Dibuat baru saja
 
         </div>
 
@@ -311,7 +311,7 @@ export default function AiCard() {
 
           <FileText className="h-4 w-4" />
 
-          Generate Report
+          Buat Laporan
 
         </button>
 

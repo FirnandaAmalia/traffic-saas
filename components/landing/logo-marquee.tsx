@@ -8,7 +8,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-
 const logos = [
   {
     name: "Google Analytics 4",
@@ -17,7 +16,7 @@ const logos = [
       "from-orange-400 to-yellow-400",
   },
   {
-    name: "Search Console",
+    name: "Google Search Console",
     icon: Globe,
     gradient:
       "from-blue-500 to-cyan-400",
@@ -41,8 +40,6 @@ const logos = [
       "from-emerald-500 to-teal-400",
   },
 ];
-
-
 const items = [
   ...logos,
   ...logos,

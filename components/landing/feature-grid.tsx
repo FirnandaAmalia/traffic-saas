@@ -12,102 +12,68 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const features = [
   {
     icon: BarChart3,
-    title: "Unified SEO Dashboard",
+    title: "Dashboard SEO Terpadu",
     description:
-      "Pantau Google Search Console dan Google Analytics 4 dalam satu dashboard tanpa berpindah platform.",
-    gradient:
-      "from-violet-600 to-fuchsia-500",
-    benefits: [
-      "SEO Performance Overview",
-      "Realtime Metrics",
-    ],
+      "Pantau Google Search Console dan Google Analytics 4 dalam satu dashboard tanpa perlu berpindah platform.",
+    gradient: "from-violet-600 to-fuchsia-500",
+    benefits: ["Ringkasan Performa SEO", "Realtime Metrics"],
   },
 
   {
     icon: Brain,
-    title: "AI Executive Insights",
+    title: "Insight AI untuk Bisnis",
     description:
       "AI menghasilkan ringkasan performa, analisis masalah, dan rekomendasi SEO yang dapat langsung diterapkan.",
-    gradient:
-      "from-sky-500 to-cyan-500",
-    pro:true,
-    benefits:[
-      "AI Summary",
-      "SEO Recommendation",
-    ],
+    gradient: "from-sky-500 to-cyan-500",
+    pro: true,
+    benefits: ["AI Summary", "SEO Recommendation"],
   },
-
 
   {
     icon: Globe,
     title: "Traffic Intelligence",
     description:
       "Analisis sumber traffic, negara, device, landing page, dan perilaku pengguna dalam satu tempat.",
-    gradient:
-      "from-emerald-500 to-teal-500",
-    benefits:[
-      "Country Analytics",
-      "Device Analysis",
-    ],
+    gradient: "from-emerald-500 to-teal-500",
+    benefits: ["Country Analytics", "Device Analysis"],
   },
-
 
   {
     icon: FolderOpen,
-    title: "Workspace Management",
+    title: "Manajemen Workspace",
     description:
-      "Kelola banyak website, client, dan project dalam satu akun dengan sistem workspace terorganisir.",
-    gradient:
-      "from-orange-500 to-amber-500",
-    pro:true,
-    benefits:[
-      "Multiple Projects",
-      "Centralized Data",
-    ],
+      "Kelola banyak website, client, dan project dalam satu akun dengan sistem workspace yang terorganisir.",
+    gradient: "from-orange-500 to-amber-500",
+    pro: true,
+    benefits: ["Multiple Projects", "Centralized Data"],
   },
-
 
   {
     icon: FileSpreadsheet,
-    title: "Professional Reports",
+    title: "Laporan Profesional",
     description:
       "Buat laporan profesional dalam format PDF, Excel, dan CSV untuk client maupun stakeholder.",
-    gradient:
-      "from-pink-500 to-rose-500",
-    pro:true,
-    benefits:[
-      "PDF Export",
-      "Excel Export",
-    ],
+    gradient: "from-pink-500 to-rose-500",
+    pro: true,
+    benefits: ["PDF Export", "Excel Export"],
   },
-
 
   {
     icon: Sparkles,
-    title: "Smart Recommendations",
+    title: "Rekomendasi Cerdas",
     description:
       "Temukan peluang SEO berdasarkan dampak traffic, keyword, dan nilai bisnis.",
-    gradient:
-      "from-indigo-500 to-violet-500",
-    pro:true,
-    benefits:[
-      "Priority Score",
-      "Growth Opportunity",
-    ],
+    gradient: "from-indigo-500 to-violet-500",
+    pro: true,
+    benefits: ["Priority Score", "Growth Opportunity"],
   },
-
 ];
 
-
-
 export default function FeatureGrid() {
-
   return (
-
     <section
       id="features"
       className="
@@ -116,9 +82,6 @@ export default function FeatureGrid() {
         py-32
       "
     >
-
-
-
       {/* Background */}
 
       <div
@@ -141,9 +104,6 @@ export default function FeatureGrid() {
         "
       />
 
-
-
-
       <div
         className="
           relative
@@ -152,14 +112,9 @@ export default function FeatureGrid() {
           px-6
         "
       >
-
-
-
-
         {/* HEADER */}
 
         <FadeUp>
-
           <div
             className="
               mx-auto
@@ -167,8 +122,6 @@ export default function FeatureGrid() {
               text-center
             "
           >
-
-
             <div
               className="
                 inline-flex
@@ -193,16 +146,9 @@ export default function FeatureGrid() {
                 text-violet-700
               "
             >
-
-              <Sparkles className="h-4 w-4"/>
-
-              PLATFORM FEATURES
-
+              <Sparkles className="h-4 w-4" />
+              FITUR PLATFORM
             </div>
-
-
-
-
 
             <h2
               className="
@@ -219,12 +165,8 @@ export default function FeatureGrid() {
                 lg:text-6xl
               "
             >
-
               Semua kebutuhan SEO
-
               <br />
-
-
               <span
                 className="
                   bg-gradient-to-r
@@ -238,12 +180,7 @@ export default function FeatureGrid() {
               >
                 dalam satu platform
               </span>
-
-
             </h2>
-
-
-
 
             <p
               className="
@@ -256,26 +193,11 @@ export default function FeatureGrid() {
                 text-slate-600
               "
             >
-
-              TrafficSaaS membantu tim SEO memahami data,
-              menemukan peluang, dan mengambil keputusan
-              lebih cepat dengan bantuan AI.
-
-
+              TrafficSaaS membantu tim SEO memahami data, menemukan peluang, dan
+              mengambil keputusan lebih cepat dengan bantuan AI.
             </p>
-
-
           </div>
-
-
         </FadeUp>
-
-
-
-
-
-
-
 
         {/* FEATURES */}
 
@@ -292,21 +214,11 @@ export default function FeatureGrid() {
             xl:grid-cols-3
           "
         >
-
-
-          {features.map((feature,index)=>{
-
-
+          {features.map((feature, index) => {
             const Icon = feature.icon;
 
-
             return (
-
-              <FadeUp
-                key={feature.title}
-                delay={index * 0.08}
-              >
-
+              <FadeUp key={feature.title} delay={index * 0.08}>
                 <div
                   className="
                     group
@@ -338,10 +250,6 @@ export default function FeatureGrid() {
                     hover:shadow-2xl
                   "
                 >
-
-
-
-
                   {/* Glow */}
 
                   <div
@@ -374,15 +282,9 @@ export default function FeatureGrid() {
                     `}
                   />
 
-
-
-
-
-
                   {/* PRO */}
 
                   {feature.pro && (
-
                     <div
                       className="
                         absolute
@@ -406,18 +308,9 @@ export default function FeatureGrid() {
                         text-violet-700
                       "
                     >
-
                       PRO
-
                     </div>
-
                   )}
-
-
-
-
-
-
 
                   {/* ICON */}
 
@@ -450,7 +343,6 @@ export default function FeatureGrid() {
                       group-hover:scale-110
                     `}
                   >
-
                     <Icon
                       className="
                         h-8
@@ -460,14 +352,7 @@ export default function FeatureGrid() {
                         text-white
                       "
                     />
-
                   </div>
-
-
-
-
-
-
 
                   <h3
                     className="
@@ -480,14 +365,8 @@ export default function FeatureGrid() {
                       text-slate-900
                     "
                   >
-
                     {feature.title}
-
                   </h3>
-
-
-
-
 
                   <p
                     className="
@@ -500,16 +379,8 @@ export default function FeatureGrid() {
                       text-slate-600
                     "
                   >
-
                     {feature.description}
-
                   </p>
-
-
-
-
-
-
 
                   {/* Benefits */}
 
@@ -520,9 +391,7 @@ export default function FeatureGrid() {
                       space-y-3
                     "
                   >
-
-                    {feature.benefits.map((item)=>(
-
+                    {feature.benefits.map((item) => (
                       <div
                         key={item}
                         className="
@@ -535,7 +404,6 @@ export default function FeatureGrid() {
                           text-slate-600
                         "
                       >
-
                         <CheckCircle2
                           className="
                             h-4
@@ -546,38 +414,16 @@ export default function FeatureGrid() {
                           "
                         />
 
-
                         {item}
-
-
                       </div>
-
                     ))}
-
-
                   </div>
-
-
-
-
                 </div>
-
-
               </FadeUp>
-
             );
-
-
           })}
-
-
         </div>
-
-
       </div>
-
-
     </section>
-
   );
 }

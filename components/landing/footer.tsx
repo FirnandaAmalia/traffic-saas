@@ -12,15 +12,15 @@ import {
 
 const product = [
   {
-    label:"Features",
+    label:"Fitur",
     href:"#features",
   },
   {
-    label:"Pricing",
+    label:"Harga",
     href:"#pricing",
   },
   {
-    label:"AI Insights",
+    label:"Insight AI",
     href:"#ai",
   },
   {
@@ -32,7 +32,7 @@ const product = [
 
 const resources = [
   {
-    label:"Documentation",
+    label:"Dokumentasi",
     href:"/documentation",
   },
   {
@@ -41,27 +41,24 @@ const resources = [
   },
 ];
 
-
 const company = [
   {
-    label:"About",
+    label:"Tentang Kami",
     href:"/about",
   },
   {
-    label:"Contact",
+    label:"Kontak",
     href:"/contact",
   },
   {
-    label:"Privacy Policy",
+    label:"Kebijakan Privasi",
     href:"/privacy",
   },
   {
-    label:"Terms",
+    label:"Syarat & Ketentuan",
     href:"/terms",
   },
 ];
-
-
 
 export default function Footer(){
 
@@ -180,7 +177,7 @@ text-xs
 text-slate-400
 "
 >
-AI SEO Intelligence Platform
+Platform Intelligence SEO Berbasis AI
 </p>
 
 

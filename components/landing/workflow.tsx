@@ -11,47 +11,38 @@ import {
 
 import FadeUp from "@/components/motion/fade-up";
 
-
 const steps = [
   {
     icon: Link2,
     title: "Hubungkan Data",
     description:
       "Hubungkan Google Search Console dan Google Analytics 4 secara aman untuk mengambil data performa website.",
-    color:
-      "from-violet-600 to-fuchsia-500",
+    color: "from-violet-600 to-fuchsia-500",
   },
   {
     icon: DatabaseZap,
     title: "Sinkronisasi Otomatis",
     description:
       "TrafficSaaS menggabungkan data SEO dan analytics menjadi satu workspace yang mudah dipahami.",
-    color:
-      "from-sky-500 to-cyan-500",
+    color: "from-sky-500 to-cyan-500",
   },
   {
     icon: BrainCircuit,
-    title: "AI Insight",
+    title: "Insight AI",
     description:
       "AI membaca data traffic, keyword, dan halaman untuk menemukan peluang SEO yang paling berdampak.",
-    color:
-      "from-emerald-500 to-teal-500",
+    color: "from-emerald-500 to-teal-500",
   },
   {
     icon: TrendingUp,
-    title: "Tingkatkan Growth",
+    title: "Tingkatkan Pertumbuhan",
     description:
       "Terapkan rekomendasi, pantau perubahan, dan tingkatkan traffic organik secara berkelanjutan.",
-    color:
-      "from-orange-500 to-amber-500",
+    color: "from-orange-500 to-amber-500",
   },
 ];
-
-
 export default function Workflow() {
-
   return (
-
     <section
       id="workflow"
       className="
@@ -60,11 +51,9 @@ export default function Workflow() {
         py-32
       "
     >
-
       {/* Background */}
 
       <div className="pointer-events-none absolute inset-0">
-
         <div
           className="
             absolute
@@ -90,11 +79,7 @@ export default function Workflow() {
             blur-[140px]
           "
         />
-
       </div>
-
-
-
 
       <div
         className="
@@ -104,12 +89,9 @@ export default function Workflow() {
           px-6
         "
       >
-
-
         {/* HEADER */}
 
         <FadeUp>
-
           <div
             className="
               mx-auto
@@ -117,7 +99,6 @@ export default function Workflow() {
               text-center
             "
           >
-
             <div
               className="
                 inline-flex
@@ -134,13 +115,9 @@ export default function Workflow() {
                 text-violet-700
               "
             >
-
-              <Sparkles className="h-4 w-4"/>
-
-              HOW IT WORKS
-
+              <Sparkles className="h-4 w-4" />
+              CARA KERJA
             </div>
-
 
             <h2
               className="
@@ -152,15 +129,10 @@ export default function Workflow() {
                 lg:text-6xl
               "
             >
-
               Dari data mentah
-
               <br />
-
               menjadi strategi SEO
-
               <br />
-
               <span
                 className="
                   bg-gradient-to-r
@@ -172,9 +144,7 @@ export default function Workflow() {
               >
                 yang lebih cerdas
               </span>
-
             </h2>
-
 
             <p
               className="
@@ -184,20 +154,12 @@ export default function Workflow() {
                 text-slate-600
               "
             >
-              TrafficSaaS mengubah data website yang kompleks
-              menjadi insight dan rekomendasi yang bisa langsung
-              digunakan untuk meningkatkan performa SEO.
+              TrafficSaaS mengubah data website yang kompleks menjadi insight
+              dan rekomendasi yang bisa langsung digunakan untuk meningkatkan
+              performa SEO.
             </p>
-
-
           </div>
-
         </FadeUp>
-
-
-
-
-
 
         {/* STEPS */}
 
@@ -207,8 +169,6 @@ export default function Workflow() {
             mt-20
           "
         >
-
-
           {/* LINE */}
 
           <div
@@ -227,9 +187,6 @@ export default function Workflow() {
             "
           />
 
-
-
-
           <div
             className="
               grid
@@ -237,21 +194,11 @@ export default function Workflow() {
               lg:grid-cols-4
             "
           >
-
-
-            {steps.map((step,index)=>{
-
-
+            {steps.map((step, index) => {
               const Icon = step.icon;
 
-
               return (
-
-                <FadeUp
-                  key={step.title}
-                  delay={index * 0.12}
-                >
-
+                <FadeUp key={step.title} delay={index * 0.12}>
                   <div
                     className="
                       group
@@ -259,8 +206,6 @@ export default function Workflow() {
                       h-[340px]
                     "
                   >
-
-
                     <div
                       className="
                         relative
@@ -291,9 +236,6 @@ export default function Workflow() {
                         hover:shadow-2xl
                       "
                     >
-
-
-
                       {/* NUMBER */}
 
                       <div
@@ -306,13 +248,8 @@ export default function Workflow() {
                           text-slate-100
                         "
                       >
-
                         0{index + 1}
-
                       </div>
-
-
-
 
                       {/* ICON */}
 
@@ -332,7 +269,6 @@ export default function Workflow() {
                           group-hover:scale-110
                         `}
                       >
-
                         <Icon
                           className="
                             h-8
@@ -340,11 +276,7 @@ export default function Workflow() {
                             text-white
                           "
                         />
-
                       </div>
-
-
-
 
                       {/* TITLE */}
 
@@ -356,13 +288,8 @@ export default function Workflow() {
                           text-slate-900
                         "
                       >
-
                         {step.title}
-
                       </h3>
-
-
-
 
                       {/* DESCRIPTION */}
 
@@ -375,13 +302,8 @@ export default function Workflow() {
                           text-slate-600
                         "
                       >
-
                         {step.description}
-
                       </p>
-
-
-
 
                       {/* STEP */}
 
@@ -397,38 +319,17 @@ export default function Workflow() {
                           text-violet-600
                         "
                       >
-
                         Step {index + 1}
-
-                        <ArrowRight className="h-4 w-4"/>
-
+                        <ArrowRight className="h-4 w-4" />
                       </div>
-
-
                     </div>
-
-
                   </div>
-
-
                 </FadeUp>
-
               );
-
             })}
-
-
           </div>
-
-
         </div>
-
-
       </div>
-
-
     </section>
-
   );
-
 }

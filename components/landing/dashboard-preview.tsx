@@ -58,7 +58,7 @@ export default function DashboardPreview() {
 
             <Sparkles className="h-4 w-4" />
 
-            Dashboard Preview
+            Tampilan Dashboard
 
           </span>
 
@@ -76,11 +76,11 @@ export default function DashboardPreview() {
             "
           >
 
-            Your Entire SEO Stack
+            Semua kebutuhan SEO Anda
 
             <br />
 
-            Inside One Dashboard
+            Dalam satu dashboard
 
           </h2>
 
@@ -99,11 +99,11 @@ export default function DashboardPreview() {
             "
           >
 
-            Stop switching between Google Search Console,
-            Google Analytics 4, spreadsheets and reports.
+            Tidak perlu lagi berpindah antara Google Search Console,
+Google Analytics 4, spreadsheet, dan berbagai laporan.
 
-            Everything lives inside one beautiful AI-powered
-            workspace.
+            Semua data tersedia dalam satu workspace
+yang didukung AI.
 
           </p>
 
@@ -151,7 +151,7 @@ export default function DashboardPreview() {
 
                 <p className="text-xs text-slate-500">
 
-                  Organic Traffic
+                  Traffic Organik
 
                 </p>
 
@@ -203,20 +203,20 @@ export default function DashboardPreview() {
 
                 <p className="text-xs text-slate-500">
 
-                  AI Recommendation
+                  Rekomendasi AI
 
                 </p>
 
                 <h3 className="mt-1 font-bold">
 
-                  Improve CTR by 18%
+                  Tingkatkan CTR hingga 18%
 
                 </h3>
 
                 <p className="mt-2 text-xs text-slate-500">
 
-                  Optimize title tags on your
-                  highest-impression pages.
+                  Optimalkan title tag pada halaman
+dengan impression tertinggi.
 
                 </p>
 
@@ -262,13 +262,13 @@ export default function DashboardPreview() {
 
                 <p className="text-xs text-slate-500">
 
-                  Active Countries
+                  Negara Aktif
 
                 </p>
 
                 <h3 className="font-bold">
 
-                  128 Regions
+                  128 Wilayah
 
                 </h3>
 
@@ -302,7 +302,7 @@ export default function DashboardPreview() {
 
             <Link href="/dashboard">
 
-              Explore Dashboard
+              Lihat Dashboard
 
               <ArrowRight className="ml-2 h-4 w-4" />
 

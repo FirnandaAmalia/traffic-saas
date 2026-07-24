@@ -16,7 +16,7 @@ const faqs = [
     question:
       "Apakah TrafficSaaS bisa digunakan secara gratis?",
     answer:
-      "Ya. TrafficSaaS menyediakan paket Free yang dapat digunakan untuk mencoba dashboard SEO, menghubungkan Google Search Console dan Google Analytics 4, serta melihat insight dasar website.",
+      "Bisa. TrafficSaaS menyediakan paket Free untuk mencoba dashboard SEO, menghubungkan Google Search Console dan Google Analytics 4, serta melihat insight dasar performa website.",
   },
 
 
@@ -24,23 +24,23 @@ const faqs = [
     question:
       "Apa perbedaan paket Free dan Pro?",
     answer:
-      "Paket Pro menyediakan fitur tambahan seperti AI Executive Summary, rekomendasi SEO otomatis, analisis lebih mendalam, export laporan PDF dan Excel, serta dukungan untuk banyak project.",
+      "Paket Pro memberikan akses ke fitur lanjutan seperti AI Executive Summary, rekomendasi SEO berbasis AI, analisis yang lebih mendalam, export laporan PDF dan Excel, serta kemampuan mengelola lebih banyak project.",
   },
 
 
   {
     question:
-      "Bagaimana TrafficSaaS mengambil data website?",
+      "Bagaimana TrafficSaaS mendapatkan data website?",
     answer:
-      "TrafficSaaS menggunakan koneksi resmi Google API melalui autentikasi OAuth sehingga pengguna dapat menghubungkan Google Search Console dan Google Analytics 4 dengan aman.",
+      "TrafficSaaS menggunakan koneksi resmi Google API melalui autentikasi OAuth. Dengan begitu, Anda dapat menghubungkan Google Search Console dan Google Analytics 4 secara aman.",
   },
 
 
   {
     question:
-      "Apakah saya bisa mengelola banyak website?",
+      "Apakah saya bisa mengelola beberapa website?",
     answer:
-      "Bisa. Paket Pro dirancang untuk freelancer, agency, dan bisnis yang memiliki beberapa website atau project SEO dalam satu akun.",
+      "Bisa. Paket Pro dibuat untuk freelancer SEO, agency, dan bisnis yang mengelola beberapa website atau project SEO dalam satu akun.",
   },
 
 
@@ -48,22 +48,18 @@ const faqs = [
     question:
       "Apakah data Google saya aman?",
     answer:
-      "Aman. TrafficSaaS tidak menyimpan password Google pengguna. Akses hanya menggunakan izin yang diperlukan untuk membaca data analytics dan SEO.",
+      "Aman. TrafficSaaS tidak menyimpan password Google Anda. Akses hanya digunakan untuk membaca data SEO dan analytics sesuai izin yang diberikan.",
   },
 
 
   {
     question:
-      "Apakah bisa upgrade setelah menggunakan Free?",
+      "Apakah bisa upgrade dari Free ke Pro?",
     answer:
-      "Bisa. Anda dapat mulai dari paket Free terlebih dahulu dan melakukan upgrade kapan saja ketika membutuhkan fitur AI dan analisis lanjutan.",
+      "Bisa. Anda dapat mulai menggunakan paket Free terlebih dahulu dan melakukan upgrade kapan saja ketika membutuhkan fitur AI serta analisis SEO yang lebih lengkap.",
   },
 
 ];
-
-
-
-
 
 export default function FAQ() {
 

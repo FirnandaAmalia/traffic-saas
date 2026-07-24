@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 
-import {
-  ArrowRight,
-  Play,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Play, Sparkles } from "lucide-react";
 
 import { motion } from "framer-motion";
 
@@ -29,7 +25,7 @@ export default function HeroContent() {
     >
       <motion.div
         animate={{
-          opacity: [1, .75, 1],
+          opacity: [1, 0.75, 1],
         }}
         transition={{
           repeat: Infinity,
@@ -60,37 +56,25 @@ export default function HeroContent() {
         "
       >
         <Sparkles className="h-4 w-4" />
-
-        AI Powered SEO Analytics
-
+        Analitik SEO Berbasis AI
       </motion.div>
 
       <h1 className="mt-8 text-6xl font-black leading-tight tracking-tight lg:text-7xl">
-
-        Grow Your
-
+        Tingkatkan
         <br />
-
-        SEO With
-
+        SEO Dengan
         <span className="bg-gradient-to-r from-violet-600 to-sky-500 bg-clip-text text-transparent">
-
-          {" "}AI
-
+          {" "}
+          AI
         </span>
-
       </h1>
 
       <p className="mt-8 max-w-xl text-xl leading-9 text-slate-600">
-
-        Connect Google Search Console and
-        Google Analytics 4 into one modern
-        AI-powered dashboard.
-
+        Hubungkan Google Search Console dan Google Analytics 4 dalam satu
+        dashboard modern berbasis AI.
       </p>
 
       <div className="mt-10 flex flex-wrap gap-4">
-
         <Button
           asChild
           size="lg"
@@ -107,64 +91,30 @@ export default function HeroContent() {
           "
         >
           <Link href="/api/auth/signin">
-
-            Start Free
-
+            Mulai Gratis
             <ArrowRight className="ml-2 h-4 w-4" />
-
           </Link>
-
         </Button>
 
-        <Button
-          variant="outline"
-          size="lg"
-          className="rounded-full px-8"
-        >
+        <Button variant="outline" size="lg" className="rounded-full px-8">
           <Play className="mr-2 h-4 w-4" />
-
-          Live Demo
-
+          Lihat Demo
         </Button>
-
       </div>
 
       <div className="mt-12 flex gap-10">
-
         <div>
+          <h2 className="text-4xl font-black">100+</h2>
 
-          <h2 className="text-4xl font-black">
-
-            100+
-
-          </h2>
-
-          <p className="text-slate-500">
-
-            Connected Sites
-
-          </p>
-
+          <p className="text-slate-500">Website Terhubung</p>
         </div>
 
         <div>
+          <h2 className="text-4xl font-black">4.9★</h2>
 
-          <h2 className="text-4xl font-black">
-
-            4.9★
-
-          </h2>
-
-          <p className="text-slate-500">
-
-            Product Experience
-
-          </p>
-
+          <p className="text-slate-500">Pengalaman Produk</p>
         </div>
-
       </div>
-
     </motion.div>
   );
 }

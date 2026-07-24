@@ -6,22 +6,22 @@ import {
 } from "react";
 
 import {
-  useRouter,
-} from "next/navigation";
-
-import {
   Clock,
   ShieldCheck,
   CreditCard,
   CheckCircle,
+  Loader2,
 } from "lucide-react";
 
+import {
+  useRouter,
+} from "next/navigation";
 
 interface PaymentData {
 
-  id:string;
+  id: string;
 
-  orderId:string;
+  orderId: string;
 
   status:
   | "PENDING"
@@ -31,9 +31,9 @@ interface PaymentData {
   | "FAILED"
   | "EXPIRED";
 
-  amount:number;
+  amount: number;
 
-  qrCodeUrl?:string | null;
+  qrCodeUrl?: string | null;
 
 }
 
@@ -41,14 +41,10 @@ interface PaymentData {
 
 
 export default function PaymentClient({
-  payment
-}:{
-  payment:PaymentData;
-}){
-
-
-const router =
-useRouter();
+  payment,
+}: {
+  payment: PaymentData;
+}) {
 
 
 
@@ -59,8 +55,8 @@ useState(false);
 
 const [submitted,setSubmitted] =
 useState(
- payment.status === "PAYMENT_SUBMITTED" ||
- payment.status === "SUCCESS"
+  payment.status === "PAYMENT_SUBMITTED" ||
+  payment.status === "SUCCESS"
 );
 
 
@@ -68,30 +64,25 @@ useState(
 const [status,setStatus] =
 useState(payment.status);
 
-
-
-
+const router =
+useRouter();
 
 /*
 |--------------------------------------------------------------------------
-| CHECK PAYMENT STATUS
+| AUTO CHECK PAYMENT STATUS
 |--------------------------------------------------------------------------
 */
-
 
 useEffect(()=>{
 
 
 if(status !== "PAYMENT_SUBMITTED"){
-
-return;
-
+  return;
 }
 
 
 
-const interval =
-setInterval(async()=>{
+const interval = setInterval(async()=>{
 
 
 try{
@@ -99,13 +90,10 @@ try{
 
 const response =
 await fetch(
-
 `/api/payment/status/${payment.orderId}`,
-
 {
-cache:"no-store"
+cache:"no-store",
 }
-
 );
 
 
@@ -115,7 +103,9 @@ await response.json();
 
 
 
+
 if(
+response.ok &&
 data.status === "SUCCESS"
 ){
 
@@ -123,9 +113,21 @@ data.status === "SUCCESS"
 clearInterval(interval);
 
 
-router.push("/dashboard");
 
-router.refresh();
+setSubmitted(true);
+
+setStatus("SUCCESS");
+
+
+
+setTimeout(()=>{
+
+window.location.href =
+"/dashboard";
+
+
+},2000);
+
 
 
 }
@@ -136,16 +138,15 @@ router.refresh();
 catch(error){
 
 console.error(
-"Payment checking failed:",
+"PAYMENT STATUS CHECK ERROR",
 error
 );
-
 
 }
 
 
 
-},5000);
+},3000);
 
 
 
@@ -159,15 +160,8 @@ clearInterval(interval);
 
 },[
 status,
-payment.orderId,
-router
+payment.orderId
 ]);
-
-
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -177,6 +171,7 @@ router
 
 
 async function submitPayment(){
+
 
 
 try{
@@ -196,18 +191,17 @@ await fetch(
 method:"POST",
 
 headers:{
-
 "Content-Type":
-"application/json"
-
+"application/json",
 },
+
 
 body:JSON.stringify({
 
 orderId:
-payment.orderId
+payment.orderId,
 
-})
+}),
 
 }
 
@@ -217,16 +211,22 @@ payment.orderId
 
 
 const data =
-await response.json();
+await response.json()
+.catch(()=>null);
 
 
 
 
-if(!response.ok){
+
+if(
+!response.ok
+){
 
 throw new Error(
-data.error ||
+
+data?.error ??
 "Payment submit failed"
+
 );
 
 }
@@ -234,8 +234,8 @@ data.error ||
 
 
 
-
 setSubmitted(true);
+
 
 setStatus(
 "PAYMENT_SUBMITTED"
@@ -247,12 +247,24 @@ setStatus(
 catch(error){
 
 
-console.error(error);
+
+console.error(
+"SUBMIT PAYMENT ERROR",
+error
+);
+
 
 
 alert(
-"Gagal mengirim konfirmasi pembayaran"
+
+error instanceof Error
+?
+error.message
+:
+"Gagal mengirim pembayaran"
+
 );
+
 
 
 }
@@ -267,8 +279,6 @@ setLoading(false);
 
 
 }
-
-
 
 
 
@@ -303,7 +313,6 @@ border-slate-200
 
 
 
-
 {/* HEADER */}
 
 
@@ -330,7 +339,7 @@ text-white
 "
 >
 
-<CreditCard/>
+<CreditCard />
 
 </div>
 
@@ -370,11 +379,7 @@ Aktifkan fitur AI SEO premium
 
 
 
-
-
-
 {/* ORDER DETAIL */}
-
 
 
 <div
@@ -420,17 +425,11 @@ font-semibold
 
 
 
-
-
+{/* PAYMENT METHOD */}
 
 
 {
-!submitted
-
-?
-
-(
-
+!submitted &&
 
 <div
 className="
@@ -468,7 +467,6 @@ Scan QRIS menggunakan
 mobile banking atau e-wallet
 
 </p>
-
 
 
 
@@ -540,16 +538,20 @@ payment.amount.toLocaleString(
 </div>
 
 
-
 </div>
 
+}
 
-)
 
-:
 
-(
 
+
+{/* WAITING STATUS */}
+
+
+{
+submitted &&
+status !== "SUCCESS" &&
 
 <div
 className="
@@ -585,7 +587,6 @@ Menunggu Konfirmasi Admin
 
 
 
-
 <p
 className="
 mt-2
@@ -602,8 +603,66 @@ Admin sedang melakukan verifikasi.
 
 </div>
 
+}
 
-)
+
+
+
+
+
+{/* SUCCESS */}
+
+
+{
+status === "SUCCESS" &&
+
+<div
+className="
+mt-6
+rounded-2xl
+bg-emerald-50
+p-6
+text-center
+text-emerald-700
+"
+>
+
+
+<CheckCircle
+className="
+mx-auto
+mb-2
+"
+/>
+
+
+
+<h3
+className="
+font-bold
+"
+>
+
+Pembayaran Berhasil
+
+</h3>
+
+
+
+<p
+className="
+mt-2
+text-sm
+"
+>
+
+Paket PRO sedang diaktifkan.
+Anda akan diarahkan ke dashboard.
+
+</p>
+
+
+</div>
 
 }
 
@@ -613,10 +672,7 @@ Admin sedang melakukan verifikasi.
 
 
 
-
-
-{/* ACTION BUTTON */}
-
+{/* SUBMIT BUTTON */}
 
 
 {
@@ -630,7 +686,11 @@ disabled={loading}
 
 className="
 mt-6
+flex
 w-full
+items-center
+justify-center
+gap-2
 rounded-xl
 bg-violet-600
 py-3
@@ -643,12 +703,24 @@ disabled:opacity-50
 >
 
 {
-
 loading
 
 ?
 
-"Mengirim..."
+<>
+
+<Loader2
+className="
+h-4
+w-4
+animate-spin
+"
+/>
+
+Mengirim...
+
+</>
+
 
 :
 
@@ -661,40 +733,6 @@ loading
 
 }
 
-
-
-
-
-
-
-{
-status === "SUCCESS" &&
-
-<div
-className="
-mt-6
-rounded-xl
-bg-emerald-50
-p-4
-text-center
-text-emerald-700
-"
->
-
-<CheckCircle
-className="
-mx-auto
-mb-2
-"
-/>
-
-
-Pembayaran berhasil.
-Mengaktifkan PRO...
-
-</div>
-
-}
 
 
 

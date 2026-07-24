@@ -2,49 +2,37 @@
 
 import Link from "next/link";
 
-import {
-  ArrowRight,
-  Check,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
 
 import { Button } from "@/components/ui/button";
 
-
 const freeFeatures = [
-  "1 Website Project",
-  "Google Search Console Integration",
-  "Google Analytics 4 Integration",
-  "Basic SEO Dashboard",
-  "Traffic Overview",
-  "Basic Keyword Monitoring",
-  "Traffic Performance Overview",
-  "CSV Export",
-  "Weekly SEO Summary",
+  "1 Project Website",
+  "Integrasi Google Search Console",
+  "Integrasi Google Analytics 4",
+  "Dashboard SEO Dasar",
+  "Ringkasan Traffic",
+  "Monitoring Keyword Dasar",
+  "Overview Performa Traffic",
+  "Export CSV",
+  "Ringkasan SEO Mingguan",
 ];
-
 
 const proFeatures = [
-  "Unlimited Workspaces",
-  "Unlimited Projects",
-  "AI Executive Dashboard",
-  "AI SEO Insights",
-  "AI Recommendation",
-  "Keyword & Page Analysis",
-  "PDF Report Export",
-  "Excel Export",
-  "Priority Support",
+  "Workspace Tanpa Batas",
+  "Project Tanpa Batas",
+  "Dashboard Eksekutif Berbasis AI",
+  "Insight SEO AI",
+  "Rekomendasi AI",
+  "Analisis Keyword & Halaman",
+  "Export Laporan PDF",
+  "Export Excel",
+  "Dukungan Prioritas",
 ];
-
-
-
 export default function PricingPreview() {
-
-
   return (
-
     <section
       id="pricing"
       className="
@@ -53,8 +41,6 @@ export default function PricingPreview() {
         py-32
       "
     >
-
-
       {/* Background */}
 
       <div
@@ -64,7 +50,6 @@ export default function PricingPreview() {
           inset-0
         "
       >
-
         <div
           className="
             absolute
@@ -82,7 +67,6 @@ export default function PricingPreview() {
           "
         />
 
-
         <div
           className="
             absolute
@@ -99,13 +83,7 @@ export default function PricingPreview() {
             blur-[140px]
           "
         />
-
-
       </div>
-
-
-
-
 
       <div
         className="
@@ -115,15 +93,9 @@ export default function PricingPreview() {
           px-6
         "
       >
-
-
-
-
-
         {/* HEADER */}
 
         <FadeUp>
-
           <div
             className="
               mx-auto
@@ -131,8 +103,6 @@ export default function PricingPreview() {
               text-center
             "
           >
-
-
             <div
               className="
                 inline-flex
@@ -155,20 +125,14 @@ export default function PricingPreview() {
                 text-violet-700
               "
             >
-
               <Sparkles
                 className="
                   h-4
                   w-4
                 "
               />
-
-              SIMPLE PRICING
-
+              PILIHAN PAKET
             </div>
-
-
-
 
             <h2
               className="
@@ -185,18 +149,10 @@ export default function PricingPreview() {
                 lg:text-6xl
               "
             >
-
               Mulai gratis.
-
               <br />
-
-              Upgrade saat berkembang.
-
-
+              Tingkatkan Saat Bisnis Berkembang.
             </h2>
-
-
-
 
             <p
               className="
@@ -209,26 +165,12 @@ export default function PricingPreview() {
                 text-slate-600
               "
             >
-
-              Gunakan fitur dasar untuk memahami performa website.
-              Tingkatkan ke versi Pro untuk mendapatkan AI insight
-              dan analisis SEO yang lebih mendalam.
-
-
+              Gunakan fitur dasar untuk memahami performa website. Tingkatkan ke
+              versi Pro untuk mendapatkan AI insight dan analisis SEO yang lebih
+              mendalam.
             </p>
-
-
-
           </div>
-
-
         </FadeUp>
-
-
-
-
-
-
 
         {/* PRICING */}
 
@@ -243,17 +185,11 @@ export default function PricingPreview() {
             lg:grid-cols-2
           "
         >
-
-
-
-
           {/* FREE */}
 
           <FadeUp>
-
-
-<div
-  className="
+            <div
+              className="
     flex
     min-h-[720px]
     flex-col
@@ -275,10 +211,7 @@ export default function PricingPreview() {
     hover:-translate-y-2
     hover:shadow-xl
   "
->
-
-
-
+            >
               <span
                 className="
                   rounded-full
@@ -296,13 +229,8 @@ export default function PricingPreview() {
                   text-slate-700
                 "
               >
-
-                FREE PLAN
-
+                PAKET GRATIS
               </span>
-
-
-
 
               <div
                 className="
@@ -312,16 +240,15 @@ export default function PricingPreview() {
                   gap-2
                 "
               >
-
-<h3
-  className="
+                <h3
+                  className="
     text-6xl
     font-black
     text-slate-900
   "
->
-  Rp0
-</h3>
+                >
+                  Rp0
+                </h3>
 
                 <span
                   className="
@@ -330,16 +257,9 @@ export default function PricingPreview() {
                     text-slate-500
                   "
                 >
-
                   selamanya
-
                 </span>
-
-
               </div>
-
-
-
 
               <p
                 className="
@@ -348,98 +268,56 @@ export default function PricingPreview() {
                   text-slate-600
                 "
               >
-
-                Cocok untuk mencoba analisis SEO
-                dan memahami performa website.
-
-
+                Cocok untuk memulai analisis SEO dan memahami performa website
+                Anda.
               </p>
 
-
-
-
-
               <div
-className="
+                className="
 my-8
 h-px
 bg-slate-200
 "
-/>
+              />
 
               <div
-  className="
+                className="
     flex-1
     space-y-5
   "
-
               >
-
-                {freeFeatures.map((item)=>(
-
-                  <Feature
-                    key={item}
-                    text={item}
-                  />
-
+                {freeFeatures.map((item) => (
+                  <Feature key={item} text={item} />
                 ))}
-
-
               </div>
 
-
-
-
-
               <div
-className="
+                className="
 mt-auto
 pt-10
 "
->
-
-  <Button
-    asChild
-    variant="outline"
-    className="
+              >
+                <Button
+                  asChild
+                  variant="outline"
+                  className="
       h-14
       w-full
       rounded-2xl
       font-semibold
     "
-  >
-
-    <Link href="/api/auth/signin">
-
-      Mulai Gratis
-
-    </Link>
-
-  </Button>
-
-</div>
-
-
+                >
+                  <Link href="/api/auth/signin">Mulai Gratis</Link>
+                </Button>
+              </div>
             </div>
-
-
-
           </FadeUp>
-
-
-
-
-
-
-
 
           {/* PRO */}
 
           <FadeUp delay={0.15}>
-
-
             <div
-  className="
+              className="
     relative
     flex
     min-h-[720px]
@@ -460,10 +338,8 @@ pt-10
                 shadow-[0_40px_120px_rgba(124,58,237,.35)]
               "
             >
-
-
               <div
- className="
+                className="
    relative
    flex
    flex-1
@@ -477,10 +353,7 @@ pt-10
 
    text-white
  "
->
-
-
-
+              >
                 <div
                   className="
                     absolute
@@ -504,14 +377,8 @@ pt-10
                     backdrop-blur
                   "
                 >
-
-                  ⭐ POPULAR
-
+                  ⭐ TERPOPULER
                 </div>
-
-
-
-
 
                 <span
                   className="
@@ -524,14 +391,8 @@ pt-10
                     text-violet-300
                   "
                 >
-
-                  PRO PLAN
-
+                  PAKET PRO
                 </span>
-
-
-
-
 
                 <div
                   className="
@@ -544,55 +405,51 @@ pt-10
                     gap-2
                   "
                 >
-
                   <h3
-  className="
+                    className="
     text-6xl
     font-black
   "
->
-  Rp299.000
-</h3>
+                  >
+                    Rp299.000
+                  </h3>
 
-
-<span
-  className="
+                  <span
+                    className="
     mb-4
     text-slate-400
   "
->
-  /bulan
-</span>
-
+                  >
+                    /bulan
+                  </span>
                 </div>
-                <div
- className="
- mt-3
- text-sm
- text-emerald-400
- "
->
- Hemat dengan pembayaran tahunan:
- <br />
- Rp2.988.000/tahun
- ≈ Rp249.000/bulan
-</div>
+                <h3
+                  className="
+    text-6xl
+    font-black
+  "
+                >
+                  Rp299.000
+                </h3>
+
+                <span
+                  className="
+    mb-4
+    text-slate-400
+  "
+                >
+                  /bulan
+                </span>
 
                 <p
                   className="
-                    mt-4
-
-                    text-slate-300
-                  "
+    mt-4
+    text-slate-300
+  "
                 >
-Untuk freelancer SEO, agency,
-dan bisnis yang membutuhkan insight
-berbasis data.
+                  Untuk freelancer SEO, agency, dan bisnis yang membutuhkan
+                  insight berbasis data untuk berkembang lebih cepat.
                 </p>
-
-
-
-
 
                 <div
                   className="
@@ -604,37 +461,20 @@ berbasis data.
                   "
                 />
 
-
-
-
-
                 <div
                   className="
                     space-y-5
                   "
                 >
-
-                  {proFeatures.map((item)=>(
-
-                    <Feature
-                      key={item}
-                      text={item}
-                      dark
-                    />
-
+                  {proFeatures.map((item) => (
+                    <Feature key={item} text={item} dark />
                   ))}
-
-
                 </div>
-
-
-
-
 
                 <div className="mt-auto pt-10">
                   <Button
-                  asChild
-                  className="
+                    asChild
+                    className="
 
                     h-14
 
@@ -650,68 +490,32 @@ berbasis data.
 
                     hover:bg-slate-100
                   "
-                >
-
-                  <Link href="/billing">
-
-                    Upgrade ke Pro
-
-                    <ArrowRight
-                      className="
+                  >
+                    <Link href="/billing">
+                      Upgrade ke Pro
+                      <ArrowRight
+                        className="
                         ml-2
 
                         h-4
 
                         w-4
                       "
-                    />
-
-                  </Link>
-
-
-                </Button>
+                      />
+                    </Link>
+                  </Button>
                 </div>
-
-
               </div>
-
-
             </div>
-
-
-
           </FadeUp>
-
-
         </div>
-
-
-
       </div>
-
-
-
     </section>
-
   );
 }
 
-
-
-
-
-
-function Feature({
-  text,
-  dark=false,
-}:{
-  text:string;
-  dark?:boolean;
-}){
-
-
+function Feature({ text, dark = false }: { text: string; dark?: boolean }) {
   return (
-
     <div
       className="
         flex
@@ -719,7 +523,6 @@ function Feature({
         gap-4
       "
     >
-
       <div
         className={`
           flex
@@ -729,50 +532,28 @@ function Feature({
           justify-center
           rounded-full
 
-          ${
-            dark
-            ? "bg-white/10"
-            : "bg-emerald-100"
-          }
+          ${dark ? "bg-white/10" : "bg-emerald-100"}
         `}
       >
-
         <Check
           className={`
             h-4
             w-4
 
-            ${
-              dark
-              ? "text-emerald-400"
-              : "text-emerald-600"
-            }
+            ${dark ? "text-emerald-400" : "text-emerald-600"}
           `}
         />
-
-
       </div>
-
 
       <span
         className={`
           font-medium
 
-          ${
-            dark
-            ? "text-slate-200"
-            : "text-slate-700"
-          }
+          ${dark ? "text-slate-200" : "text-slate-700"}
         `}
       >
-
         {text}
-
       </span>
-
-
     </div>
-
   );
-
 }
