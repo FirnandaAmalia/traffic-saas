@@ -14,7 +14,7 @@ import {
 
 import SidebarUser from "./sidebar-user";
 import SidebarNavItem from "./sidebar-nav";
-
+import TourFeatureButton from "@/components/onboarding/tour-feature-button";
 
 export default async function Sidebar() {
 
@@ -183,13 +183,13 @@ py-4
 "
 >
 
-
 <SidebarSection title="Main">
 
 <SidebarNavItem
 href="/dashboard"
 label="Dashboard"
 icon="dashboard"
+tourClass="tour-dashboard"
 />
 
 </SidebarSection>
@@ -205,47 +205,53 @@ icon="dashboard"
 href="/analytics"
 label="Traffic Analytics"
 icon="trending"
+tourClass="tour-analytics"
 />
+
 
 
 <SidebarNavItem
 href="/keywords"
 label="Keyword Intelligence"
 icon="target"
+tourClass="tour-keywords"
 />
+
 
 
 <SidebarNavItem
 href="/ai"
 label="AI SEO Consultant"
 icon="brain"
+tourClass="tour-ai"
 />
 
 
 </SidebarSection>
 
+
+
 <SidebarSection title="Integrations">
+
 
 <SidebarNavItem
 href="/setup/gsc"
 label="Search Console"
 icon="search"
+tourClass="tour-gsc"
 />
+
 
 
 <SidebarNavItem
 href="/setup/ga4"
 label="Google Analytics"
 icon="chart"
+tourClass="tour-ga4"
 />
 
 
 </SidebarSection>
-
-
-
-
-
 
 
 
@@ -256,8 +262,15 @@ icon="chart"
 href="/projects"
 label="Projects"
 icon="folder"
+tourClass="tour-projects"
 />
 
+
+</SidebarSection>
+
+<SidebarSection title="Help">
+
+  <TourFeatureButton />
 
 </SidebarSection>
 

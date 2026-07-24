@@ -183,44 +183,11 @@ tidak memiliki izin untuk mengakses data tersebut.
 
 }
 
-
-
-
-
-
 if(!project){
 
-return (
-
-<main className="p-10">
-
-
-<h1 className="text-2xl font-bold text-slate-900">
-
-Belum Ada Proyek
-
-</h1>
-
-
-
-<p className="mt-2 text-slate-500">
-
-Buat proyek pertama Anda untuk mulai
-memantau performa SEO website.
-
-</p>
-
-
-</main>
-
-);
+redirect("/projects");
 
 }
-
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -650,11 +617,12 @@ range
 | Render Dashboard
 |--------------------------------------------------------------------------
 */
-
 return (
 
 <div className="space-y-6">
 
+
+<div className="tour-dashboard-header">
 
 <DashboardHeader
 
@@ -674,8 +642,13 @@ lastSyncedAt={project.lastSyncedAt}
 
 />
 
+</div>
 
 
+
+
+
+<div className="tour-performance">
 
 <GrowthOverview
 
@@ -686,6 +659,14 @@ impressions={impressions}
 users={ga4.users}
 
 />
+
+</div>
+
+
+
+
+
+<div className="tour-ai-insight">
 
 <ExecutiveDashboard
 
@@ -709,6 +690,10 @@ growthOpportunities={growthOpportunities}
 
 />
 
+</div>
+
+
+
 
 
 </div>
@@ -716,4 +701,3 @@ growthOpportunities={growthOpportunities}
 );
 
 }
-

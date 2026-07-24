@@ -173,19 +173,18 @@ export default function CreateProjectDialog({
 
 
 
+setProjectName("");
+
+setDomain("");
+
+localStorage.removeItem(
+  "traffic-saas-tour-completed"
+);
 
 
-      setProjectName("");
-
-      setDomain("");
-
-
-
-      router.push(
-        `/setup/gsc?projectId=${data.project.id}`
-      );
-
-
+router.push(
+  `/dashboard?projectId=${data.project.id}`
+);
 
     } catch(error) {
 
@@ -224,34 +223,31 @@ export default function CreateProjectDialog({
         <DialogTrigger asChild>
 
 
-          <Button
+  <Button
 
-            onClick={(e)=>{
+    className="button"
 
+    onClick={(e)=>{
 
-              if (!canCreateProject) {
+      if (!canCreateProject) {
 
+        e.preventDefault();
 
-                e.preventDefault();
+        setShowUpgrade(true);
 
+      }
 
-                setShowUpgrade(true);
+    }}
 
+  >
 
-              }
-
-
-            }}
-
-          >
-
-            + Create Project
+    + Create Project
 
 
-          </Button>
+  </Button>
 
 
-        </DialogTrigger>
+</DialogTrigger>
 
 
 

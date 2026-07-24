@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-
 import { usePathname } from "next/navigation";
 
 import {
@@ -54,6 +53,8 @@ interface SidebarNavItemProps {
 
   icon:keyof typeof ICONS;
 
+  tourClass?:string;
+
 }
 
 
@@ -65,6 +66,8 @@ export default function SidebarNavItem({
   label,
 
   icon,
+
+  tourClass,
 
 }: SidebarNavItemProps){
 
@@ -85,6 +88,7 @@ export default function SidebarNavItem({
     );
 
 
+
   return (
 
     <Link
@@ -92,6 +96,8 @@ export default function SidebarNavItem({
       href={href}
 
       className={`
+        ${tourClass ?? ""}
+
         flex
         items-center
         gap-3
@@ -114,6 +120,7 @@ export default function SidebarNavItem({
           "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
 
         }
+
       `}
 
     >
@@ -137,6 +144,7 @@ export default function SidebarNavItem({
             "text-slate-500"
 
           }
+
         `}
 
       />

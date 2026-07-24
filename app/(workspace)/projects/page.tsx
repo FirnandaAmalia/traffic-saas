@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 import { prisma } from "@/lib/prisma";
+
 import {
   getSubscriptionUsage,
 } from "@/lib/subscription";
@@ -12,7 +13,6 @@ import FreePlanBanner from "@/components/projects/free-plan-banner";
 import PageHeader from "@/components/projects/page-header";
 import ProjectGrid from "@/components/projects/project-grid";
 import ProjectToolbar from "@/components/projects/project-toolbar";
-
 
 export default async function ProjectsPage() {
 
@@ -94,18 +94,17 @@ const plan =
 
 
 
-  return (
+ return (
 
-    <main className="space-y-8">
+  <main className="space-y-8">
+    
+    <PageHeader
 
+      title="Workspace"
 
-      <PageHeader
+      description="Manage all your SEO workspaces."
 
-        title="Workspace"
-
-        description="Manage all your SEO workspaces."
-
-      >
+    >
 
 
         <CreateProjectDialog
@@ -337,19 +336,13 @@ const plan =
 
       />
 
+<div className="project-grid">
 
+  <ProjectGrid
+    projects={projects}
+  />
 
-
-
-      <ProjectGrid
-
-        projects={
-          projects
-        }
-
-      />
-
-
+</div>
 
     </main>
 

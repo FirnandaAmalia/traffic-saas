@@ -4,30 +4,32 @@ import AIInsightCard from "./ai-insight-card";
 import QuickActions from "./quick-actions";
 import GrowthOpportunities from "./growth-opportunities";
 
+
 interface ExecutiveDashboardProps {
 
-clicks:number;
+  clicks:number;
 
-impressions:number;
+  impressions:number;
 
-users:number;
+  users:number;
 
-sessions:number;
+  sessions:number;
 
-ctr:number;
+  ctr:number;
 
-engagementRate:number;
+  engagementRate:number;
 
-summary:any;
+  summary:any;
 
+  healthScore:any;
 
-healthScore:any;
-
-
-growthOpportunities:any[];
-
+  growthOpportunities:any[];
 
 }
+
+
+
+
 
 export default function ExecutiveDashboard({
 
@@ -70,8 +72,6 @@ space-y-6
 
 {/* TOP EXECUTIVE SUMMARY */}
 
-
-
 <div
 
 className="
@@ -89,11 +89,11 @@ items-start
 
 {/* HEALTH SCORE */}
 
-
 <div
 
 className="
 xl:col-span-4
+tour-health-score
 "
 
 >
@@ -118,12 +118,11 @@ data={healthScore}
 
 {/* PERFORMANCE */}
 
-
-
 <div
 
 className="
 xl:col-span-8
+tour-performance
 "
 
 >
@@ -155,7 +154,17 @@ sessions={sessions}
 
 </div>
 
+
+
+
+
+
+
+
+
 {/* AI INSIGHT */}
+
+<div className="tour-ai-insight">
 
 <AIInsightCard
 
@@ -165,13 +174,49 @@ healthScore={healthScore}
 
 />
 
+</div>
+
+
+
+
+
+
+
+
+
 {/* GROWTH OPPORTUNITY */}
+
+<div className="tour-growth">
+
+
 <GrowthOpportunities
+
 data={growthOpportunities}
+
 />
 
+
+</div>
+
+
+
+
+
+
+
+
+
 {/* ACTION */}
+
+<div className="tour-actions">
+
+
 <QuickActions />
+
+
+</div>
+
+
 
 
 

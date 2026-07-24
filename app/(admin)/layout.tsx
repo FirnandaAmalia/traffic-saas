@@ -6,9 +6,13 @@ import { authOptions } from "@/lib/auth";
 
 
 export default async function AdminLayout({
+
   children,
+
 }: {
+
   children: ReactNode;
+
 }) {
 
 
@@ -18,11 +22,27 @@ export default async function AdminLayout({
     );
 
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | Authentication Check
+  |--------------------------------------------------------------------------
+  */
+
+
   if(!session?.user){
 
     redirect("/login");
 
   }
+
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Admin Authorization
+  |--------------------------------------------------------------------------
+  */
 
 
   if(session.user.role !== "ADMIN"){
@@ -33,17 +53,32 @@ export default async function AdminLayout({
 
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | Admin Workspace Layout
+  |--------------------------------------------------------------------------
+  */
+
+
   return (
 
-    <div className="
-      min-h-screen
-      bg-slate-950
-      text-white
-    ">
+    <div
+
+      className="
+        min-h-screen
+        bg-slate-50
+        text-slate-900
+      "
+
+    >
+
 
       <main>
+
         {children}
+
       </main>
+
 
     </div>
 

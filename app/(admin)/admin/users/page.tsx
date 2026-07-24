@@ -20,16 +20,17 @@ import {
 
 import {
   Users,
-  CreditCard,
-  DollarSign,
-  Clock,
+  Crown,
+  UserCheck,
 } from "lucide-react";
 
 
 
 
 
-export default async function AdminPage(){
+
+export default async function AdminUsersPage(){
+
 
 
 const session =
@@ -57,17 +58,15 @@ redirect("/dashboard");
 
 
 
+
+
 const [
 
 totalUsers,
 
 proUsers,
 
-payments,
-
-pendingPayments,
-
-revenue
+users,
 
 ] = await Promise.all([
 
@@ -89,7 +88,9 @@ plan:"PRO"
 
 
 
-prisma.payment.findMany({
+
+
+prisma.user.findMany({
 
 orderBy:{
 
@@ -97,43 +98,16 @@ createdAt:"desc"
 
 },
 
-take:5,
+
+take:50,
+
 
 include:{
 
-user:true
+subscription:true
 
 }
 
-}),
-
-
-
-prisma.payment.count({
-
-where:{
-
-status:"PAYMENT_SUBMITTED"
-
-}
-
-}),
-
-
-
-prisma.payment.aggregate({
-
-where:{
-
-status:"SUCCESS"
-
-},
-
-_sum:{
-
-amount:true
-
-}
 
 })
 
@@ -144,11 +118,6 @@ amount:true
 
 
 
-const totalRevenue =
-revenue._sum.amount ?? 0;
-
-
-
 
 
 return (
@@ -156,9 +125,6 @@ return (
 <div
 
 className="
-min-h-screen
-bg-slate-50
-p-8
 space-y-8
 "
 
@@ -166,7 +132,10 @@ space-y-8
 
 
 
+
+
 {/* HEADER */}
+
 
 
 <div>
@@ -183,7 +152,7 @@ text-slate-900
 
 >
 
-TrafficSaaS Admin
+Users Management
 
 </h1>
 
@@ -199,8 +168,7 @@ text-slate-500
 
 >
 
-Monitoring platform, user, subscription,
-dan transaksi TrafficSaaS.
+Kelola pengguna TrafficSaaS dan informasi subscription.
 
 </p>
 
@@ -213,7 +181,9 @@ dan transaksi TrafficSaaS.
 
 
 
-{/* STAT CARD */}
+
+
+{/* SUMMARY */}
 
 
 
@@ -222,14 +192,14 @@ dan transaksi TrafficSaaS.
 className="
 grid
 gap-6
-md:grid-cols-4
+md:grid-cols-3
 "
 
 >
 
 
 
-<StatCard
+<SummaryCard
 
 title="Total Users"
 
@@ -242,41 +212,28 @@ icon={<Users className="h-6 w-6"/>}
 
 
 
-<StatCard
+
+<SummaryCard
 
 title="PRO Users"
 
 value={proUsers.toString()}
 
-icon={<CreditCard className="h-6 w-6"/>}
+icon={<Crown className="h-6 w-6"/>}
 
 />
 
 
 
 
-<StatCard
 
-title="Revenue"
+<SummaryCard
 
-value={
-`Rp${totalRevenue.toLocaleString("id-ID")}`
-}
+title="Active Account"
 
-icon={<DollarSign className="h-6 w-6"/>}
+value={users.length.toString()}
 
-/>
-
-
-
-
-<StatCard
-
-title="Pending Payment"
-
-value={pendingPayments.toString()}
-
-icon={<Clock className="h-6 w-6"/>}
+icon={<UserCheck className="h-6 w-6"/>}
 
 />
 
@@ -291,7 +248,8 @@ icon={<Clock className="h-6 w-6"/>}
 
 
 
-{/* PAYMENT TABLE */}
+
+{/* USER TABLE */}
 
 
 
@@ -302,19 +260,21 @@ rounded-3xl
 border
 border-slate-200
 bg-white
-p-6
 shadow-sm
+overflow-hidden
 "
 
 >
 
 
+
 <div
 
 className="
-flex
-items-center
-justify-between
+border-b
+border-slate-200
+px-6
+py-5
 "
 
 >
@@ -323,31 +283,15 @@ justify-between
 <h2
 
 className="
-text-xl
 font-bold
 text-slate-900
 "
 
 >
 
-Recent Payments
+Latest Users
 
 </h2>
-
-
-
-<span
-
-className="
-text-xs
-text-slate-400
-"
-
->
-
-Last 5 transaction
-
-</span>
 
 
 </div>
@@ -361,31 +305,110 @@ Last 5 transaction
 <div
 
 className="
-mt-5
-space-y-3
+overflow-x-auto
 "
 
 >
 
 
-{
-
-payments.map(payment=>(
-
-
-<div
-
-key={payment.id}
+<table
 
 className="
-flex
-items-center
-justify-between
-rounded-2xl
-border
-border-slate-100
+w-full
+text-sm
+"
+
+>
+
+
+<thead
+
+className="
 bg-slate-50
-p-4
+text-left
+text-xs
+uppercase
+tracking-wide
+text-slate-500
+"
+
+>
+
+
+<tr>
+
+
+<th className="px-6 py-4">
+
+User
+
+</th>
+
+
+<th className="px-6 py-4">
+
+Plan
+
+</th>
+
+
+<th className="px-6 py-4">
+
+Joined
+
+</th>
+
+
+<th className="px-6 py-4">
+
+ID
+
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+
+<tbody
+
+className="
+divide-y
+divide-slate-100
+"
+
+>
+
+
+
+{
+
+users.map((user)=>(
+
+
+<tr
+
+key={user.id}
+
+className="
+hover:bg-slate-50
+transition
+"
+
+>
+
+
+<td
+
+className="
+px-6
+py-4
 "
 
 >
@@ -403,7 +426,7 @@ text-slate-900
 
 >
 
-{payment.user.email}
+{user.email}
 
 </p>
 
@@ -418,7 +441,7 @@ text-slate-500
 
 >
 
-{payment.orderId}
+{user.name ?? "No name"}
 
 </p>
 
@@ -426,58 +449,118 @@ text-slate-500
 </div>
 
 
+</td>
 
 
 
 
 
-<div
+
+<td
 
 className="
-text-right
+px-6
+py-4
 "
 
 >
-
-
-<p
-
-className="
-font-bold
-text-slate-900
-"
-
->
-
-Rp{
-payment.amount.toLocaleString("id-ID")
-}
-
-</p>
-
 
 
 <span
 
-className="
+className={`
+rounded-full
+px-3
+py-1
 text-xs
-font-medium
-text-emerald-600
-"
+font-semibold
+
+${
+user.subscription?.plan === "PRO"
+
+?
+
+"bg-blue-50 text-blue-700"
+
+:
+
+"bg-slate-100 text-slate-600"
+
+}
+
+`}
 
 >
 
-{payment.status}
+
+{
+
+user.subscription?.plan ?? "FREE"
+
+}
+
 
 </span>
 
 
-</div>
+</td>
 
 
 
 
-</div>
+
+
+
+<td
+
+className="
+px-6
+py-4
+text-slate-600
+"
+
+>
+
+
+{
+
+new Date(
+user.createdAt
+).toLocaleDateString(
+"id-ID"
+)
+
+}
+
+
+</td>
+
+
+
+
+
+
+<td
+
+className="
+px-6
+py-4
+font-mono
+text-xs
+text-slate-400
+"
+
+>
+
+
+{user.id.slice(0,8)}
+
+
+</td>
+
+
+
+</tr>
 
 
 ))
@@ -487,31 +570,15 @@ text-emerald-600
 
 
 
-{
-payments.length===0 && (
+</tbody>
 
-<p
 
-className="
-py-10
-text-center
-text-sm
-text-slate-400
-"
-
->
-
-Belum ada transaksi.
-
-</p>
-
-)
-
-}
-
+</table>
 
 
 </div>
+
+
 
 
 
@@ -522,8 +589,8 @@ Belum ada transaksi.
 
 
 
-</div>
 
+</div>
 
 );
 
@@ -538,7 +605,7 @@ Belum ada transaksi.
 
 
 
-function StatCard({
+function SummaryCard({
 
 title,
 
@@ -558,7 +625,6 @@ icon:React.ReactNode;
 
 
 return (
-
 
 <div
 

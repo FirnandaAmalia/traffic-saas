@@ -1,6 +1,12 @@
 import Sidebar from "@/components/layout/sidebar";
 import Topbar from "@/components/layout/topbar";
 
+import {
+  TourProvider
+} from "@/components/onboarding/tour-provider";
+
+import AutoTour from "@/components/onboarding/auto-tour";
+
 export default function WorkspaceLayout({
   children,
 }: {
@@ -9,48 +15,52 @@ export default function WorkspaceLayout({
 
   return (
 
-    <div className="
-      flex
-      h-screen
-      overflow-hidden
-      bg-slate-50
-    ">
-
-      <aside className="
-        h-screen
-        shrink-0
-      ">
-        <Sidebar />
-      </aside>
-
-
+    <TourProvider>
+      <AutoTour />
       <div className="
         flex
-        min-w-0
-        flex-1
-        flex-col
+        h-screen
         overflow-hidden
+        bg-slate-50
       ">
 
+        <aside className="
+          h-screen
+          shrink-0
+        ">
+          <Sidebar />
+        </aside>
 
-        <Topbar />
 
-
-        <main className="
+        <div className="
+          flex
+          min-w-0
           flex-1
-          overflow-y-auto
-          p-6
+          flex-col
+          overflow-hidden
         ">
 
-          {children}
 
-        </main>
+          <Topbar />
+
+
+          <main className="
+            flex-1
+            overflow-y-auto
+            p-6
+          ">
+
+            {children}
+
+          </main>
+
+
+        </div>
 
 
       </div>
 
-
-    </div>
+    </TourProvider>
 
   );
 
