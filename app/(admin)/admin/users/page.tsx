@@ -24,7 +24,7 @@ import {
   UserCheck,
 } from "lucide-react";
 
-
+import UserPlanSelector from "@/components/admin/user-plan-selector";
 
 
 
@@ -451,65 +451,24 @@ text-slate-500
 
 </td>
 
-
-
-
-
-
 <td
-
 className="
 px-6
 py-4
 "
-
 >
 
+<UserPlanSelector
 
-<span
+  userId={user.id}
 
-className={`
-rounded-full
-px-3
-py-1
-text-xs
-font-semibold
+  currentPlan={
+    user.subscription?.plan ?? "FREE"
+  }
 
-${
-user.subscription?.plan === "PRO"
-
-?
-
-"bg-blue-50 text-blue-700"
-
-:
-
-"bg-slate-100 text-slate-600"
-
-}
-
-`}
-
->
-
-
-{
-
-user.subscription?.plan ?? "FREE"
-
-}
-
-
-</span>
-
+/>
 
 </td>
-
-
-
-
-
-
 
 <td
 
