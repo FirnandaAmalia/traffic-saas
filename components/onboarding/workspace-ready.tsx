@@ -208,7 +208,7 @@ text-slate-900
 
 >
 
-Workspace SEO Anda Siap 🚀
+Workspace SEO Anda Siap!
 
 </h2>
 

@@ -77,8 +77,6 @@ shadow-blue-200
 
 >
 
-🚀
-
 </motion.div>
 
 

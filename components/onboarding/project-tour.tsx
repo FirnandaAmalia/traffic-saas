@@ -38,7 +38,7 @@ content:(
 <div>
 
 <h3 className="font-bold">
-Welcome to Workspace 👋
+Welcome to Workspace
 </h3>
 
 

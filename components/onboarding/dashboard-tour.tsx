@@ -424,7 +424,7 @@ step="01"
 
 category="DASHBOARD UTAMA"
 
-icon="📊"
+icon="analytics"
 
 title="Dashboard SEO Intelligence"
 
@@ -519,7 +519,7 @@ step="03"
 
 category="KECERDASAN SEO"
 
-icon="🎯"
+icon="target"
 
 title="Keyword Intelligence"
 
@@ -566,7 +566,7 @@ step="04"
 
 category="AI POWERED"
 
-icon="🤖"
+icon="ai"
 
 title="AI SEO Consultant"
 
@@ -614,7 +614,7 @@ step="05"
 
 category="DATA GOOGLE"
 
-icon="🔎"
+icon="search"
 
 title="Google Search Console"
 
@@ -661,7 +661,7 @@ step="06"
 
 category="ANALISIS PENGUNJUNG"
 
-icon="📈"
+icon="performance"
 
 title="Google Analytics 4"
 
@@ -709,7 +709,7 @@ step="07"
 
 category="WORKSPACE"
 
-icon="📁"
+icon="project"
 
 title="SEO Workspace"
 

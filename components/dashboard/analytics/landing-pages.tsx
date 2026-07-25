@@ -70,21 +70,11 @@ item => item.sessions
 
 );
 
-
-
-
-
-
-
 return (
-
-
 
 <Widget
 
-
-title="📄 Halaman Tujuan Teratas"
-
+title="Top Landing Pages"
 
 subtitle="Halaman website dengan trafik organik tertinggi"
 

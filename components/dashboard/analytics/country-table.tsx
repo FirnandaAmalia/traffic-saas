@@ -454,7 +454,7 @@ text-base
 >
 
 {
-FLAGS[item.country] ?? "🌍"
+FLAGS[item.country] ?? "Global"
 }
 
 </span>
