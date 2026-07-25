@@ -26,11 +26,8 @@ import {
   Banknote,
 } from "lucide-react";
 
-
-
-
-
-
+import PaymentConfirmButton
+from "@/components/admin/payment-confirm-button";
 
 export default async function AdminPaymentsPage(){
 
@@ -463,6 +460,13 @@ Date
 </th>
 
 
+<th className="px-6 py-4">
+
+Action
+
+</th>
+
+
 </tr>
 
 
@@ -603,36 +607,69 @@ status={payment.status}
 
 
 
-
-
 <td
-
 className="
 px-6
 py-4
 text-slate-500
 "
-
 >
-
-
 {
-
 new Date(
 payment.createdAt
 ).toLocaleDateString(
 "id-ID"
 )
-
 }
-
-
 </td>
 
 
+<td
+className="
+px-6
+py-4
+"
+>
 
+{
+payment.status === "PAYMENT_SUBMITTED"
 
+?
 
+<PaymentConfirmButton
+orderId={payment.orderId}
+/>
+
+:
+
+payment.status === "SUCCESS"
+
+?
+
+<span
+className="
+text-xs
+font-semibold
+text-emerald-600
+"
+>
+✓ Confirmed
+</span>
+
+:
+
+<span
+className="
+text-xs
+text-slate-400
+"
+>
+-
+</span>
+
+}
+
+</td>
 
 </tr>
 
@@ -652,7 +689,7 @@ payments.length===0 && (
 
 <td
 
-colSpan={5}
+colSpan={6}
 
 className="
 px-6
