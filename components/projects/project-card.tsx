@@ -423,15 +423,6 @@ export default function ProjectCard({
 
           >
 
-            <Link
-              href={`/dashboard/reports?projectId=${project.id}`}
-            >
-
-              Reports
-
-            </Link>
-
-
           </Button>
 
 
