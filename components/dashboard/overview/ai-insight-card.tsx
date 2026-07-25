@@ -1,24 +1,34 @@
 import {
   Sparkles,
-  Lightbulb,
-  AlertTriangle,
-  CheckCircle,
   ArrowRight,
-  Target,
-  TrendingUp,
-  Search,
-  FileText,
-  Cpu,
-  ShieldCheck,
-  Activity,
 } from "lucide-react";
 
+
+interface AIInsightSummary {
+
+  overview?: string;
+
+}
+
+
+interface AIHealthScore {
+
+  label?: string;
+
+  strengths?: string[];
+
+  issues?: string[];
+
+  recommendations?: string[];
+
+}
 
 
 interface AIInsightCardProps {
 
-  summary:any;
-  healthScore:any;
+  summary?: AIInsightSummary | null;
+
+  healthScore?: AIHealthScore | null;
 
 }
 
@@ -31,12 +41,11 @@ healthScore,
 }:AIInsightCardProps){
 
 
-const data =
+const data: AIInsightSummary =
 summary ?? {};
 
 
-
-const health =
+const health: AIHealthScore =
 healthScore ?? {};
 
 

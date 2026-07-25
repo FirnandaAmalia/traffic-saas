@@ -26,234 +26,233 @@ import {
 
 export async function POST(
   request: Request
-){
+) {
 
 
-try{
+  try {
 
 
-const session =
-await getServerSession(
-  authOptions
-);
+    const session =
+      await getServerSession(
+        authOptions
+      );
 
 
 
-if(!session?.user?.id){
+    if (!session?.user?.id) {
 
-return NextResponse.json(
+      return NextResponse.json(
 
-{
-error:"Unauthorized"
-},
+        {
+          error: "Unauthorized",
+        },
 
-{
-status:401
-}
+        {
+          status: 401,
+        }
 
-);
+      );
 
-}
+    }
 
 
 
 
-const body =
-await request.json();
+    const body =
+      await request.json();
 
 
 
-const {
+    const {
+      plan = "PRO",
+      billing = "MONTHLY",
+    } = body;
 
-plan="PRO",
 
-billing="MONTHLY"
 
-}=body;
 
 
 
+    const subscription =
+      await prisma.subscription.findUnique({
 
+        where: {
+          userId:
+            session.user.id,
+        },
 
+      });
 
 
-const subscription =
-await prisma.subscription.findUnique({
 
-where:{
-userId:
-session.user.id
-}
 
-});
 
 
+    if (
+      subscription?.plan === "PRO"
+    ) {
 
 
+      return NextResponse.json(
 
+        {
+          error:
+            "Anda sudah menggunakan paket PRO",
+        },
 
-if(
-subscription?.plan === "PRO"
-){
+        {
+          status: 400,
+        }
 
-return NextResponse.json(
+      );
 
-{
-error:
-"Anda sudah menggunakan paket PRO"
-},
+    }
 
-{
-status:400
-}
 
-);
 
-}
 
 
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | PRICE CONFIG
+    |--------------------------------------------------------------------------
+    */
 
 
+    const prices = {
 
 
-/*
-|--------------------------------------------------------------------------
-| PRICE CONFIG
-|--------------------------------------------------------------------------
-*/
+      MONTHLY: {
 
+        amount: 299000,
 
-const prices = {
+        label: "PRO Monthly",
 
+      },
 
-MONTHLY:{
 
-amount:299000,
+      YEARLY: {
 
-label:"PRO Monthly"
+        amount: 2990000,
 
-},
+        label: "PRO Yearly",
 
+      },
 
-YEARLY:{
 
-amount:2990000,
+    };
 
-label:"PRO Yearly"
 
-}
 
 
-};
 
+    const selectedPrice =
+      billing === "YEARLY"
+        ? prices.YEARLY
+        : prices.MONTHLY;
 
 
 
-const selectedPrice =
-billing==="YEARLY"
-?
-prices.YEARLY
-:
-prices.MONTHLY;
 
 
 
 
 
+    const result =
+      await createPayment({
 
+        userId:
+          session.user.id,
 
 
+        amount:
+          selectedPrice.amount,
 
+      });
 
-const result =
-await createPayment({
 
-userId:
-session.user.id,
 
 
-amount:
-selectedPrice.amount,
 
-});
 
 
 
 
+    return NextResponse.json({
 
+      success: true,
 
 
+      orderId:
+        result.payment.orderId,
 
 
+      redirectUrl:
+        result.redirectUrl,
 
-return NextResponse.json({
 
-success:true,
+      payment:
+        result.payment,
 
 
-orderId:
-result.payment.orderId,
+      plan,
 
 
-redirectUrl:
-result.redirectUrl,
+      billing,
 
 
-payment:
-result.payment,
+      amount:
+        selectedPrice.amount,
 
 
-plan,
+      message:
+        "Payment created successfully",
 
+    });
 
-billing,
 
 
-amount:
-selectedPrice.amount,
 
 
-message:
-"Payment created successfully"
 
+  } catch (error: unknown) {
 
-});
 
 
+    console.error(
 
+      "CREATE PAYMENT ERROR",
 
+      error
 
-}
+    );
 
-catch(error:any){
 
 
 
-console.error(
-"CREATE PAYMENT ERROR",
-error
-);
+    return NextResponse.json(
 
+      {
 
+        error:
+          error instanceof Error
+            ? error.message
+            : "Internal server error",
 
-return NextResponse.json(
+      },
 
-{
-error:
-error?.message ??
-"Internal server error"
-},
+      {
 
-{
-status:500
-}
+        status: 500,
 
-);
+      }
 
+    );
 
-}
+
+  }
 
 
 }

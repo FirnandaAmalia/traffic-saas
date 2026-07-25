@@ -58,8 +58,60 @@ technicalAnalysis:string;
 
 }
 
-interface ExecutiveSummaryInput {
+interface QueryData {
+  query?: string;
+  keyword?: string;
+  clicks?: number;
+  impressions?: number;
+  ctr?: number;
+  position?: number;
+}
 
+interface PageData {
+  page?: string;
+  path?: string;
+  clicks?: number;
+  impressions?: number;
+  ctr?: number;
+  position?: number;
+  sessions?: number;
+  users?: number;
+}
+
+interface LandingPageData {
+  page?: string;
+  path?: string;
+  clicks?: number;
+  impressions?: number;
+  ctr?: number;
+  position?: number;
+  sessions?: number;
+  users?: number;
+  conversions?: number;
+}
+
+interface TrafficData {
+  source?: string;
+  users?: number;
+  sessions?: number;
+}
+
+interface DeviceData {
+  device?: string;
+  users?: number;
+}
+
+interface CountryData {
+  country?: string;
+  users?: number;
+}
+
+interface BrowserData {
+  browser?: string;
+  users?: number;
+}
+
+interface ExecutiveSummaryInput {
 
 clicks:number;
 
@@ -86,26 +138,19 @@ sessions:number;
 previousSessions:number;
 
 
+queries?: QueryData[];
 
-queries?:any[];
+pages?: PageData[];
 
+landingPages?: LandingPageData[];
 
-pages?:any[];
+trafficAcquisition?: TrafficData[];
 
+deviceCategory?: DeviceData[];
 
-landingPages?:any[];
+country?: CountryData[];
 
-
-trafficAcquisition?:any[];
-
-
-deviceCategory?:any[];
-
-
-country?:any[];
-
-
-browser?:any[];
+browser?: BrowserData[];
 
 }
 
@@ -659,7 +704,7 @@ queries
 
 
 
-topQueries.forEach((item:any)=>{
+topQueries.forEach((item: QueryData)=>{
 
 
 keywordInsights.push(
@@ -710,11 +755,7 @@ pages
 ||
 [];
 
-
-
-
-
-topPages.forEach((item:any)=>{
+topPages.forEach((item: LandingPageData | PageData)=>{
 
 
 contentInsights.push(

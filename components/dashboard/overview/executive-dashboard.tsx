@@ -1,9 +1,23 @@
+import type { ComponentProps } from "react";
+
+import type {
+  ExecutiveSummary,
+} from "@/lib/ai/executive-summary";
+
+import type {
+  SEOHealthScore,
+} from "@/lib/ai/seo-health-score";
+
+
 import HealthScore from "./health-score";
 import PerformanceSummary from "./performance-summary";
 import AIInsightCard from "./ai-insight-card";
 import QuickActions from "./quick-actions";
 import GrowthOpportunities from "./growth-opportunities";
 
+
+type GrowthOpportunityData =
+  ComponentProps<typeof GrowthOpportunities>["data"];
 
 interface ExecutiveDashboardProps {
 
@@ -19,17 +33,13 @@ interface ExecutiveDashboardProps {
 
   engagementRate:number;
 
-  summary:any;
+  summary:ExecutiveSummary;
 
-  healthScore:any;
+  healthScore:SEOHealthScore;
 
-  growthOpportunities:any[];
+  growthOpportunities:GrowthOpportunityData;
 
 }
-
-
-
-
 
 export default function ExecutiveDashboard({
 

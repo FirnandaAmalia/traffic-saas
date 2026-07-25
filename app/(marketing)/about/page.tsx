@@ -9,6 +9,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+import type React from "react";
+
 import { Button } from "@/components/ui/button";
 
 
@@ -191,7 +193,7 @@ function Card({
   title,
   text,
 }:{
-  icon:any;
+  icon: React.ElementType;
   title:string;
   text:string;
 }) {

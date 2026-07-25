@@ -1,4 +1,7 @@
-import { NextResponse } from "next/server";
+import {
+  NextResponse,
+} from "next/server";
+
 
 import {
   prisma,
@@ -8,144 +11,163 @@ import {
 
 export async function GET(
 
-request: Request,
+  request: Request,
 
-{
-  params
-}:{
-  params: Promise<{
-    orderId:string;
-  }>
-}
+  {
+    params,
+  }: {
+    params: Promise<{
+      orderId: string;
+    }>;
+  }
 
-){
+) {
 
 
-try{
+  try {
 
 
-const {
-  orderId
-} = await params;
+    const {
+      orderId,
+    } = await params;
 
 
 
 
 
-if(!orderId){
+    if (!orderId) {
 
 
-return NextResponse.json(
+      return NextResponse.json(
 
-{
-error:"Order ID required"
-},
+        {
+          error: "Order ID required",
+        },
 
-{
-status:400
-}
+        {
+          status: 400,
+        }
 
-);
+      );
 
-}
+    }
 
 
 
 
 
-const payment =
 
-await prisma.payment.findUnique({
 
-where:{
-  orderId
-},
+    const payment =
 
-select:{
+      await prisma.payment.findUnique({
 
-status:true,
+        where: {
+          orderId,
+        },
 
-orderId:true,
 
-}
+        select: {
 
-});
+          status: true,
 
+          orderId: true,
 
+        },
 
+      });
 
 
 
 
 
-if(!payment){
 
 
-return NextResponse.json(
 
-{
-error:"Payment not found"
-},
+    if (!payment) {
 
-{
-status:404
-}
 
-);
+      return NextResponse.json(
 
-}
+        {
+          error: "Payment not found",
+        },
 
+        {
+          status: 404,
+        }
 
+      );
 
+    }
 
-return NextResponse.json({
 
-success:true,
 
-status:
-payment.status,
 
 
-orderId:
-payment.orderId,
 
-});
 
-}
+    return NextResponse.json({
 
-catch(error:any){
+      success: true,
 
+      status:
+        payment.status,
 
-console.error(
 
-"PAYMENT STATUS ERROR",
+      orderId:
+        payment.orderId,
 
-error
+    });
 
-);
 
 
 
+  } catch (error: unknown) {
 
-return NextResponse.json(
 
-{
-success:false,
 
-error:
-error?.message ??
-"Internal server error"
+    console.error(
 
-},
+      "PAYMENT STATUS ERROR",
 
-{
-status:500
-}
+      error
 
-);
+    );
 
 
-}
+
+
+
+
+    return NextResponse.json(
+
+      {
+
+        success: false,
+
+
+        error:
+
+          error instanceof Error
+
+            ? error.message
+
+            : "Internal server error",
+
+      },
+
+
+      {
+
+        status: 500,
+
+      }
+
+    );
+
+
+  }
 
 
 }

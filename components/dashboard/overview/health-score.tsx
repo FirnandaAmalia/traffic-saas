@@ -2,14 +2,35 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+interface HealthScoreData {
 
-interface HealthScoreProps {
+score?: number;
 
-data:any;
+label?: string;
+
+signals?: {
+
+traffic?: number;
+
+visibility?: number;
+
+engagement?: number;
+
+};
+
+strengths?: string[];
+
+issues?: string[];
 
 }
 
 
+
+interface HealthScoreProps {
+
+data:HealthScoreData | null;
+
+}
 
 export default function HealthScore({
 

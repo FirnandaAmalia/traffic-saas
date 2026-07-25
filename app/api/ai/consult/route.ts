@@ -15,9 +15,9 @@ export async function POST(request: NextRequest) {
       question,
     }: {
       context: AIContext;
-
       question: string;
     } = body;
+
 
     if (!context || !question) {
       return Response.json(
@@ -30,13 +30,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+
     /*
     |--------------------------------------------------------------------------
     | BUILD AI CONSULTANT PROMPT
     |--------------------------------------------------------------------------
     */
 
-    const prompt = buildConsultantPrompt(context, question);
+    const prompt = buildConsultantPrompt(
+      context,
+      question,
+    );
+
 
     /*
     |--------------------------------------------------------------------------
@@ -45,11 +50,13 @@ export async function POST(request: NextRequest) {
     */
 
     const response = await openai.chat.completions.create({
+
       model: "gpt-5-mini",
 
       temperature: 0.3,
 
       messages: [
+
         {
           role: "system",
 
@@ -64,49 +71,59 @@ Gunakan bahasa profesional.
 `,
         },
 
+
         {
           role: "user",
 
           content: prompt,
         },
+
       ],
+
     });
 
+
     const answer =
-      response.choices[0]?.message?.content ?? "AI tidak memberikan jawaban.";
+      response.choices[0]?.message?.content ??
+      "AI tidak memberikan jawaban.";
+
 
     return Response.json({
+
       success: true,
 
       answer,
 
       usage: response.usage,
+
     });
-  } catch(error:any){
+
+
+  } catch (error: unknown) {
 
 
     console.error(
       "AI Consultant Error:",
-      error
+      error,
     );
 
 
     return Response.json(
 
       {
-        success:false,
+        success: false,
 
         error:
-        error?.message ??
-        "Unknown AI error"
+          error instanceof Error
+            ? error.message
+            : "Unknown AI error",
       },
 
       {
-        status:500
-      }
+        status: 500,
+      },
 
     );
 
-
-}
+  }
 }

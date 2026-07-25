@@ -8,7 +8,7 @@ import {
   BarChart3,
 } from "lucide-react";
 
-
+import type React from "react";
 
 interface PerformanceSummaryProps {
 
@@ -45,7 +45,7 @@ value:string;
 
 description:string;
 
-icon:any;
+icon: React.ElementType;
 
 trend:"up"|"down"|"stable";
 

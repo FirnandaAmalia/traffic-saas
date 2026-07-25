@@ -94,14 +94,15 @@ response.usage
 
 }
 
-catch(error:any){
+catch(error: unknown){
 
 
 console.log(
 "OpenAI fallback:",
-error.message
+error instanceof Error
+? error.message
+: error
 );
-
 
 
 return {
@@ -127,6 +128,5 @@ usage:null
 
 
 }
-
 
 }

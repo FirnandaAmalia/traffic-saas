@@ -10,6 +10,8 @@ import {
   Send,
 } from "lucide-react";
 
+import type React from "react";
+
 import { Button } from "@/components/ui/button";
 
 
@@ -359,7 +361,7 @@ function ContactItem({
   title,
   value,
 }:{
-  icon:any;
+  icon: React.ElementType;
   title:string;
   value:string;
 }) {

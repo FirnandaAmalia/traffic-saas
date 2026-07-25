@@ -158,19 +158,13 @@ estimatedDays?:number;
 
 
 
-
-
-
-
-
-
 export function generateRecommendations(
 data:RecommendationInput
 ):Recommendation[]{
 
 
 
-let recommendations:Recommendation[]=[];
+const recommendations:Recommendation[]=[];
 
 
 

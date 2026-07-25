@@ -66,17 +66,22 @@ export async function POST(request: Request) {
 
       message: "Payment submitted. Waiting admin confirmation.",
     });
-  } catch (error: any) {
-    console.error("PAYMENT SUBMIT ERROR", error);
+  } catch (error: unknown) {
+  console.error(
+    "PAYMENT SUBMIT ERROR",
+    error,
+  );
 
-    return NextResponse.json(
-      {
-        error: error?.message ?? "Internal server error",
-      },
-
-      {
-        status: 500,
-      },
-    );
-  }
+  return NextResponse.json(
+    {
+      error:
+        error instanceof Error
+          ? error.message
+          : "Internal server error",
+    },
+    {
+      status: 500,
+    },
+  );
+}
 }

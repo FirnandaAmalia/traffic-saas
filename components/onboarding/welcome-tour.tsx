@@ -335,15 +335,16 @@ steps={steps}
 run={run}
 
 continuous
-
-onEvent={(event:any)=>{
+onEvent={(event:{
+  status?: string;
+})=>{
 
 
 if(
 
-event.status===STATUS.FINISHED ||
+event.status === STATUS.FINISHED ||
 
-event.status===STATUS.SKIPPED
+event.status === STATUS.SKIPPED
 
 ){
 
@@ -355,7 +356,6 @@ localStorage.setItem(
 "true"
 
 );
-
 
 
 onFinish();

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 import FadeUp from "@/components/motion/fade-up";
 
-
+import type React from "react";
 
 export default function CTA() {
 
@@ -557,7 +557,7 @@ function TrustItem({
   title,
   text,
 }:{
-  icon:any;
+  icon: React.ElementType;
   title:string;
   text:string;
 }) {

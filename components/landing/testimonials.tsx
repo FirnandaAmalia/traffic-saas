@@ -378,27 +378,15 @@ keputusan berdasarkan insight yang lebih jelas.
 
 
                 {/* Text */}
-
-                <p
-                  className="
-                    mt-6
-
-                    leading-8
-
-                    text-slate-600
-                  "
-                >
-
-                  "{item.quote}"
-
-
-                </p>
-
-
-
-
-
-
+<p
+  className="
+    mt-6
+    leading-8
+    text-slate-600
+  "
+>
+  “{item.quote}”
+</p>
 
                 {/* User */}
 

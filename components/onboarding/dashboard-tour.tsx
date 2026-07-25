@@ -11,31 +11,31 @@ import type {
 
 import { motion } from "framer-motion";
 
+import {
+  BarChart3,
+  Target,
+  Bot,
+  Search,
+  TrendingUp,
+  Folder,
+  Activity,
+  BriefcaseBusiness,
+} from "lucide-react";
+
 interface Props {
   run:boolean;
   onFinish:()=>void;
 }
 
-
-
-
-
 function PremiumTourCard({
 
 step,
-
 category,
-
 icon,
-
 title,
-
 subtitle,
-
 description,
-
 insights,
-
 benefit,
 
 }:{
@@ -44,7 +44,7 @@ step:string;
 
 category:string;
 
-icon:string;
+icon:keyof typeof TOUR_ICONS;
 
 title:string;
 
@@ -57,6 +57,9 @@ insights:string[];
 benefit:string;
 
 }){
+
+
+const Icon = TOUR_ICONS[icon];
 
 
 return (
@@ -73,20 +76,19 @@ rounded-[28px]
 <div
 className="
 flex
-items-center
-justify-between
+justify-center
 "
 >
-
 
 <div
 className="
 flex
+flex-col
 items-center
-gap-3
+gap-2
+text-center
 "
 >
-
 <div
 className="
 flex
@@ -152,13 +154,9 @@ TrafficSaaS Intelligence
 </div>
 
 
-
-
-
 {/* ICON */}
 
 <motion.div
-
 initial={{
 scale:0.5,
 opacity:0,
@@ -178,6 +176,7 @@ type:"spring"
 
 className="
 mt-6
+mx-auto
 flex
 h-20
 w-20
@@ -188,13 +187,17 @@ bg-gradient-to-br
 from-blue-50
 via-white
 to-indigo-100
-text-5xl
 shadow-inner
 "
-
 >
 
-{icon}
+<Icon
+className="
+h-10
+w-10
+text-blue-600
+"
+/>
 
 </motion.div>
 
@@ -409,6 +412,17 @@ leading-5
 
 
 }
+
+const TOUR_ICONS = {
+  analytics: BarChart3,
+  target: Target,
+  ai: Bot,
+  search: Search,
+  growth: TrendingUp,
+  folder: Folder,
+  performance: Activity,
+  project: BriefcaseBusiness,
+};
 
 const steps: Step[] = [
 
@@ -753,7 +767,6 @@ onFinish,
 
 
 return (
-
 <Joyride
 
 steps={steps}
@@ -762,65 +775,26 @@ run={run}
 
 continuous
 
-onEvent={(event:any)=>{
-
+onEvent={(event: {
+  status?: string;
+})=>{
 
 if(
-
-event.status===STATUS.FINISHED ||
-
-event.status===STATUS.SKIPPED
-
+event.status === STATUS.FINISHED ||
+event.status === STATUS.SKIPPED
 ){
-
 
 localStorage.setItem(
 "traffic-saas-tour-completed",
 "true"
 );
 
-
 onFinish();
 
-
 }
-
 
 }}
 
-styles={{
-
-
-tooltip:{
-
-borderRadius:"28px",
-
-padding:"28px",
-
-width:"420px",
-
-boxShadow:
-"0 25px 60px rgba(15,23,42,.18)"
-
-},
-
-
-tooltipContainer:{
-
-padding:0
-
-},
-
-
-overlay:{
-
-backgroundColor:
-"rgba(15,23,42,.65)"
-
-}
-
-
-}}
 
 
 />

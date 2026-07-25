@@ -1117,20 +1117,24 @@ transformGSCRawData(
 */
 
 function normalizeKeyword(
- item:any
-):string {
+  item: {
+    keys?: string[];
+    query?: string;
+    keyword?: string;
+  }
+): string {
 
- return (
- item.keys?.[0]
- ??
- item.query
- ??
- item.keyword
- ??
- ""
- )
- .toString()
- .trim();
+  return (
+    item.keys?.[0]
+    ??
+    item.query
+    ??
+    item.keyword
+    ??
+    ""
+  )
+  .toString()
+  .trim();
 
 }
 

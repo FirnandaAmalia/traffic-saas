@@ -717,7 +717,7 @@ function translateMetric(
 title:string
 ){
 
-const map:any={
+const map:Record<string,string> = {
 
 "Clicks":
 "Klik Organik",
