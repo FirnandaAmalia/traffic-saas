@@ -12,7 +12,6 @@ import {
 import PricingHeader from "@/components/billing/pricing-header";
 import PricingCard from "@/components/billing/pricing-card";
 import PricingFAQ from "@/components/billing/pricing-faq";
-import PricingToggle from "@/components/billing/pricing-toggle";
 import PricingComparison from "@/components/billing/pricing-comparison";
 import FeatureMatrix from "@/components/billing/feature-matrix";
 import WhyUpgrade from "@/components/billing/why-upgrade";
@@ -50,13 +49,6 @@ currentPlan,
 
 const router =
 useRouter();
-
-
-
-const [yearly,setYearly] =
-useState(false);
-
-
 
 const [loading,setLoading] =
 useState(false);
@@ -280,27 +272,6 @@ text-blue-600
 
 </div>
 
-
-
-
-
-
-
-<PricingToggle
-
-yearly={yearly}
-
-onChange={setYearly}
-
-/>
-
-
-
-
-
-
-
-
 <div
 
 className="
@@ -317,8 +288,6 @@ lg:grid-cols-2
 <PricingCard
 
 plan={PLANS.FREE}
-
-yearly={yearly}
 
 currentPlan={currentPlan}
 
@@ -344,8 +313,6 @@ relative
 plan={PLANS.PRO}
 
 recommended
-
-yearly={yearly}
 
 currentPlan={currentPlan}
 

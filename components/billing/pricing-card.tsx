@@ -23,8 +23,6 @@ interface Props {
 
   recommended?: boolean;
 
-  yearly: boolean;
-
   currentPlan: Plan;
 
 }
@@ -36,8 +34,6 @@ export default function PricingCard({
   plan,
 
   recommended = false,
-
-  yearly,
 
   currentPlan,
 
@@ -56,19 +52,6 @@ export default function PricingCard({
 
 
   const monthlyPrice = 299000;
-
-  const yearlyPrice = 249000;
-
-
-
-  const price =
-    isFree
-      ? 0
-      : yearly
-      ? yearlyPrice
-      : monthlyPrice;
-
-
 
   const title =
     isFree
@@ -298,7 +281,7 @@ shadow-lg
 "
 >
 
-⭐ PALING POPULER
+PALING POPULER
 
 </div>
 
@@ -381,105 +364,44 @@ text-slate-500
 
 
 
-
-
 {/* Price */}
 
-<div
-className="
-mt-10
-"
->
+<div className="mt-10">
 
-<div
-className="
-flex
-flex-col
-"
->
+<div className="flex items-end gap-2">
 
 <span
 className="
 text-5xl
 font-black
+tracking-tight
 "
 >
 {
-  isFree
-    ? "Rp0"
-    : yearly
-    ? `Rp${(
-        monthlyPrice * 12
-      ).toLocaleString("id-ID")}`
-    : `Rp${monthlyPrice.toLocaleString("id-ID")}`
+isFree
+?
+"Rp0"
+:
+`Rp${monthlyPrice.toLocaleString("id-ID")}`
 }
 </span>
 
 
 {!isFree && (
+
 <span
 className="
-mt-2
+mb-2
 text-lg
 text-slate-500
 "
 >
-{
-  yearly
-    ? "per tahun"
-    : "per bulan"
-}
+/bulan
 </span>
-)}
-
-
-{
- !isFree && yearly && (
-   <span
-   className="
-   mt-1
-   text-sm
-   text-slate-500
-   "
-   >
-   ≈ Rp249.000/bulan
-   </span>
- )
-}
-
-</div>
-
-{!isFree && yearly && (
-
-<div
-className="
-mt-3
-inline-flex
-items-center
-gap-2
-rounded-full
-bg-emerald-50
-px-3
-py-1
-text-sm
-font-medium
-text-emerald-700
-"
->
-
-<Sparkles
-className="
-h-4
-w-4
-"
-/>
-
-Hemat lebih banyak dengan pembayaran tahunan
-
-</div>
 
 )}
 
+</div>
 
 </div>
 
