@@ -33,15 +33,18 @@ Prisma.PaymentGetPayload<{
 
 export default async function PaymentsPage(){
 
-
 const session =
 await getServerSession(
   authOptions
 );
 
 console.log(
-  "PAYMENT ADMIN SESSION:",
-  JSON.stringify(session, null, 2)
+  "PAYMENT ADMIN CHECK:",
+  {
+    id: session?.user?.id,
+    email: session?.user?.email,
+    role: session?.user?.role,
+  }
 );
 
 if(!session?.user?.id){
@@ -49,10 +52,6 @@ if(!session?.user?.id){
 redirect("/login");
 
 }
-
-
-
-
 if(session.user.role !== "ADMIN"){
 
 redirect("/dashboard");
