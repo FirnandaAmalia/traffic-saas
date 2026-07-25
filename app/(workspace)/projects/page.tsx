@@ -14,6 +14,7 @@ import PageHeader from "@/components/projects/page-header";
 import ProjectGrid from "@/components/projects/project-grid";
 import ProjectToolbar from "@/components/projects/project-toolbar";
 
+
 export default async function ProjectsPage() {
 
 
@@ -21,14 +22,11 @@ export default async function ProjectsPage() {
     await getServerSession(authOptions);
 
 
-
   if (!session?.user?.email) {
     return null;
   }
 
 
-
-  // Ambil user berdasarkan email session
 
   const user =
     await prisma.user.findUnique({
@@ -46,96 +44,187 @@ export default async function ProjectsPage() {
     return null;
   }
 
-  const subscriptionUsage =
-  await getSubscriptionUsage(
-    session.user.email
-  );
 
-const plan =
-  subscriptionUsage?.plan ?? "FREE";
+
+  const subscriptionUsage =
+    await getSubscriptionUsage(
+      session.user.email
+    );
+
+
+  const plan =
+    subscriptionUsage?.plan ?? "FREE";
+
+
 
   const projects =
     await prisma.project.findMany({
 
       where:{
-
-        userId:
-          user.id,
-
+        userId:user.id,
       },
 
-
       orderBy:{
-
-        createdAt:
-          "desc",
-
+        createdAt:"desc",
       },
 
     });
 
-    const connectedServices =
-  projects.reduce(
-    (total, project) => {
-
-      if(project.gscSiteUrl){
-        total++;
-      }
-
-      if(project.ga4PropertyId){
-        total++;
-      }
-
-      return total;
-
-    },
-    0
-  );
 
 
+  const connectedServices =
+    projects.reduce(
+      (total, project)=>{
 
- return (
+        if(project.gscSiteUrl){
+          total++;
+        }
 
-  <main className="space-y-8">
-    
-    <PageHeader
+        if(project.ga4PropertyId){
+          total++;
+        }
 
-      title="Workspace"
+        return total;
 
-      description="Manage all your SEO workspaces."
-
-    >
-
-
-        <CreateProjectDialog
-
-          plan={plan}
-
-          projectCount={
-            projects.length
-          }
-
-        />
+      },
+      0
+    );
 
 
-      </PageHeader>
 
-      {
-  plan === "FREE" && subscriptionUsage && (
 
-    <FreePlanBanner
+  const workspaceStatus =
+    projects.length === 0
+      ? {
 
-      usedProjects={
-        subscriptionUsage.projectCount
-      }
+          title:"Belum Ada Workspace",
 
-      maxProjects={
-        subscriptionUsage.projectLimit ?? 1
-      }
+          description:
+            "Buat proyek pertama untuk mulai memantau SEO.",
 
-    />
+          color:
+            "text-slate-500",
 
-  )
+        }
+
+
+      : connectedServices === 0
+
+      ? {
+
+          title:"Perlu Pengaturan",
+
+          description:
+            "Hubungkan Google Search Console dan Google Analytics 4.",
+
+          color:
+            "text-amber-600",
+
+        }
+
+
+      : connectedServices >= projects.length * 2
+
+      ? {
+
+          title:"Sehat",
+
+          description:
+            "Semua integrasi berhasil terhubung.",
+
+          color:
+            "text-emerald-600",
+
+        }
+
+
+      : {
+
+          title:"Pengaturan Sebagian",
+
+          description:
+            "Beberapa integrasi belum lengkap.",
+
+          color:
+            "text-amber-600",
+
+        };
+
+
+
+
+  const syncStatus =
+    projects.length === 0
+
+      ? {
+
+          title:"Belum Pernah",
+
+          description:
+            "Belum ada sinkronisasi data.",
+
+        }
+
+
+      : {
+
+          title:"Hari Ini",
+
+          description:
+            "Data berhasil disinkronkan.",
+
+        };
+
+
+
+
+return (
+
+<main className="space-y-8">
+
+
+<PageHeader
+
+title="Workspace"
+
+description="Kelola seluruh workspace SEO Anda."
+
+>
+
+
+<CreateProjectDialog
+
+plan={plan}
+
+projectCount={
+projects.length
+}
+
+/>
+
+
+</PageHeader>
+
+
+
+
+{
+plan === "FREE" && subscriptionUsage && (
+
+<FreePlanBanner
+
+usedProjects={
+subscriptionUsage.projectCount
+}
+
+maxProjects={
+subscriptionUsage.projectLimit ?? 1
+}
+
+/>
+
+)
+
 }
 
 
@@ -143,209 +232,235 @@ const plan =
 
 
 
-      <section className="grid gap-6 md:grid-cols-4">
+<section className="grid gap-6 md:grid-cols-4">
 
 
 
-        <div className="
-          rounded-3xl
-          border
-          border-slate-200
-          bg-white
-          p-6
-          shadow-sm
-        ">
+<div className="
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-6
+shadow-sm
+">
 
 
-          <p className="text-sm text-slate-500">
+<p className="text-sm text-slate-500">
 
-            Total Projects
+Total Proyek
 
-          </p>
+</p>
 
 
-          <h2 className="
-            mt-3
-            text-4xl
-            font-bold
-            tracking-tight
-          ">
+<h2 className="
+mt-3
+text-4xl
+font-bold
+tracking-tight
+">
 
-            {projects.length}
+{projects.length}
 
-          </h2>
+</h2>
 
-
-        </div>
-
-
-
-
-
-        <div className="
-          rounded-3xl
-          border
-          border-slate-200
-          bg-white
-          p-6
-          shadow-sm
-        ">
-
-
-          <p className="text-sm text-slate-500">
-
-            Connected Services
-
-          </p>
-
-
-
-          <h2 className="
-            mt-3
-            text-4xl
-            font-bold
-            tracking-tight
-          ">
-
-            {connectedServices}
-
-          </h2>
-
-
-
-          <p className="
-            mt-2
-            text-xs
-            text-slate-500
-          ">
-
-            Google Search Console & GA4
-
-          </p>
-
-
-        </div>
-
-
-
-
-
-        <div className="
-          rounded-3xl
-          border
-          border-slate-200
-          bg-white
-          p-6
-          shadow-sm
-        ">
-
-
-          <p className="text-sm text-slate-500">
-
-            Workspace Status
-
-          </p>
-
-
-
-          <h2 className="
-            mt-3
-            text-xl
-            font-semibold
-            text-emerald-600
-          ">
-
-            Healthy
-
-          </h2>
-
-
-
-          <p className="
-            mt-2
-            text-xs
-            text-slate-500
-          ">
-
-            All integrations connected
-
-          </p>
-
-
-        </div>
-
-
-
-
-
-        <div className="
-          rounded-3xl
-          border
-          border-slate-200
-          bg-white
-          p-6
-          shadow-sm
-        ">
-
-
-          <p className="text-sm text-slate-500">
-
-            Last Sync
-
-          </p>
-
-
-
-          <h2 className="
-            mt-3
-            text-xl
-            font-semibold
-          ">
-
-            Today
-
-          </h2>
-
-
-
-          <p className="
-            mt-2
-            text-xs
-            text-slate-500
-          ">
-
-            Data synchronized successfully
-
-          </p>
-
-
-        </div>
-
-
-      </section>
-
-
-
-
-
-      <ProjectToolbar
-
-        totalProjects={
-          projects.length
-        }
-
-      />
-
-<div className="project-grid">
-
-  <ProjectGrid
-    projects={projects}
-  />
 
 </div>
 
-    </main>
 
-  );
+
+
+
+
+
+
+<div className="
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-6
+shadow-sm
+">
+
+
+<p className="text-sm text-slate-500">
+
+Layanan Terhubung
+
+</p>
+
+
+<h2 className="
+mt-3
+text-4xl
+font-bold
+tracking-tight
+">
+
+{connectedServices}
+
+</h2>
+
+
+<p className="
+mt-2
+text-xs
+text-slate-500
+">
+
+Google Search Console & Google Analytics 4
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-6
+shadow-sm
+">
+
+
+<p className="text-sm text-slate-500">
+
+Status Workspace
+
+</p>
+
+
+
+<h2
+className={`
+mt-3
+text-xl
+font-semibold
+${workspaceStatus.color}
+`}
+>
+
+{workspaceStatus.title}
+
+</h2>
+
+
+
+<p className="
+mt-2
+text-xs
+text-slate-500
+">
+
+{workspaceStatus.description}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-6
+shadow-sm
+">
+
+
+<p className="text-sm text-slate-500">
+
+Sinkronisasi Terakhir
+
+</p>
+
+
+<h2 className="
+mt-3
+text-xl
+font-semibold
+">
+
+{syncStatus.title}
+
+</h2>
+
+
+<p className="
+mt-2
+text-xs
+text-slate-500
+">
+
+{syncStatus.description}
+
+</p>
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+<ProjectToolbar
+
+totalProjects={
+projects.length
+}
+
+/>
+
+
+
+
+
+<div className="project-grid">
+
+
+<ProjectGrid
+
+projects={projects}
+
+/>
+
+
+</div>
+
+
+
+
+</main>
+
+);
+
 
 }
