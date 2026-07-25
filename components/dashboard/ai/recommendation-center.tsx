@@ -258,11 +258,10 @@ return (
 locked={!canUseRecommendation}
 
 
-title="AI SEO Consultant"
+title="SEO Consultant"
 
 
-description="AI-powered SEO intelligence, growth prediction, and business optimization."
-
+description="Analisis SEO berbasis data untuk menemukan peluang optimasi dan peningkatan performa website."
 >
 
 
@@ -344,7 +343,7 @@ plan={actionPlan}
 
 <h2 className="text-3xl font-bold">
 
-AI Growth Intelligence
+SEO Growth Intelligence
 
 </h2>
 
@@ -396,14 +395,14 @@ p-6
 
 <h3 className="text-xl font-bold text-blue-900">
 
-🚀 Growth Opportunities
+Growth Opportunities
 
 </h3>
 
 
 <span className="text-sm text-blue-600">
 
-AI Prediction
+Berdasarkan data Anda
 
 </span>
 
@@ -570,7 +569,7 @@ Confidence:
 
 {renderGroup(
 
-"🚨 Priority Issues",
+"Priority Issues",
 
 "Masalah dengan dampak bisnis terbesar.",
 
@@ -586,7 +585,7 @@ critical
 
 {renderGroup(
 
-"⚡ Quick Wins",
+"Quick Wins",
 
 "Peluang optimasi dengan implementasi cepat.",
 
@@ -602,7 +601,7 @@ high
 
 {renderGroup(
 
-"📝 Content Growth",
+"Content Growth",
 
 "Peningkatan performa melalui strategi konten.",
 
@@ -618,7 +617,7 @@ content
 
 {renderGroup(
 
-"🔧 Technical Improvements",
+"Technical Improvements",
 
 "Optimasi teknis website dan user experience.",
 
@@ -658,7 +657,7 @@ text-center
 
 <h3 className="font-bold text-lg">
 
-Website dalam kondisi optimal 🎉
+Tidak ada peluang optimasi baru
 
 </h3>
 
