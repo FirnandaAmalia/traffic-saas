@@ -32,7 +32,7 @@ return (
 <CardShell
 
 
-title="🌍 Pengguna Aktif Berdasarkan Negara"
+title="Pengguna Aktif Berdasarkan Negara"
 
 
 description="Distribusi lokasi pengguna website berdasarkan data Google Analytics"

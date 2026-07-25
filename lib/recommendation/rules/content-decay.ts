@@ -240,7 +240,7 @@ export function contentDecayRule(
 
       icon:
 
-      "📉",
+      "decline",
 
 
 

@@ -123,7 +123,7 @@ shadow-sm
 
 <DataTable
 
-title="Kata Kunci Teratas 🔥"
+title="Kata Kunci Teratas "
 
 rows={queries}
 
@@ -156,7 +156,7 @@ shadow-sm
 
 <DataTable
 
-title="Halaman Terbaik 📄"
+title="Halaman Terbaik"
 
 rows={pages}
 

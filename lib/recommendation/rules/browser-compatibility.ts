@@ -272,7 +272,7 @@ export function browserCompatibilityRule(
 
       icon:
 
-      "🌐",
+      "country",
 
 
 

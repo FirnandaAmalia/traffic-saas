@@ -298,7 +298,7 @@ export function countryOpportunityRule(
 
       icon:
 
-      "🌍",
+      "country",
 
 
 

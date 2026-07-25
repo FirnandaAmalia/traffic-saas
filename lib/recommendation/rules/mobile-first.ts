@@ -250,7 +250,7 @@ export function mobileFirstRule(
 
       icon:
 
-      "📱",
+      "mobile",
 
 
 

@@ -114,7 +114,7 @@ export function quickWinRule(
 
       category: "SEO",
 
-      icon: "🚀",
+      icon: "growth",
 
     },
 

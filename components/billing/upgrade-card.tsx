@@ -393,7 +393,7 @@ text-slate-400
 
 >
 
-🔒 AI Recommendation Locked
+AI Recommendation Locked
 
 </div>
 

@@ -64,7 +64,7 @@ content:(
 <div>
 
 <h3 className="font-bold">
-Create Project 🚀
+Create Project
 </h3>
 
 

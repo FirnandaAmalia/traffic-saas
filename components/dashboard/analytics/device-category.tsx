@@ -173,7 +173,7 @@ h-[420px]
 "
 
 
-title="📱 Kategori Perangkat"
+title="Kategori Perangkat"
 
 
 subtitle="Pengguna aktif berdasarkan perangkat"

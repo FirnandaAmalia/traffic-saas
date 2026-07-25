@@ -6,9 +6,12 @@ import {
   CalendarDays,
   CircleDollarSign,
   FileText,
+  Globe2,
+  Leaf,
   Search,
   Smartphone,
   Target,
+  TrendingDown,
   TrendingUp,
   Zap,
 } from "lucide-react";
@@ -31,6 +34,8 @@ interface Props {
 
 
 
+
+
 const ICON_MAP = {
 
   analytics: BarChart3,
@@ -45,7 +50,15 @@ const ICON_MAP = {
 
   mobile: Smartphone,
 
+  organic: Leaf,
+
+  country: Globe2,
+
+  decline: TrendingDown,
+
 };
+
+
 
 
 
@@ -110,6 +123,8 @@ w-6
 
 
 
+
+
 function priorityColor(
 priority:string
 ){
@@ -145,6 +160,8 @@ return "bg-emerald-50 text-emerald-700";
 
 
 
+
+
 function scoreColor(
 score:number
 ){
@@ -167,6 +184,7 @@ return "text-yellow-600";
 return "text-red-600";
 
 }
+
 
 
 
@@ -236,6 +254,8 @@ hover:shadow-md
 
 
 
+
+
 {/* HEADER */}
 
 
@@ -271,6 +291,8 @@ recommendation.icon
 
 
 
+
+
 <div>
 
 
@@ -284,9 +306,12 @@ text-slate-900
 
 >
 
-{recommendation.title}
+{
+recommendation.title
+}
 
 </h3>
+
 
 
 
@@ -301,7 +326,9 @@ text-slate-500
 
 >
 
-{recommendation.description}
+{
+recommendation.description
+}
 
 </p>
 
@@ -311,6 +338,7 @@ text-slate-500
 
 
 </div>
+
 
 
 
@@ -344,7 +372,6 @@ recommendation.priority
 recommendation.priority.toUpperCase()
 }
 
-
 </span>
 
 
@@ -376,6 +403,9 @@ md:grid-cols-4
 
 
 
+
+
+
 <div
 
 className="
@@ -386,14 +416,19 @@ p-4
 
 >
 
-<p className="
+<p
+
+className="
 text-xs
 text-slate-500
-">
+"
+
+>
 
 Confidence Score
 
 </p>
+
 
 
 <p
@@ -429,6 +464,8 @@ recommendation.score
 
 
 
+
+
 <div
 
 className="
@@ -440,34 +477,48 @@ p-4
 >
 
 
-<div className="
+<div
+
+className="
 flex
 items-center
 gap-2
 "
+
 >
 
 <CircleDollarSign
 size={15}
 />
 
-<span className="
+
+<span
+
+className="
 text-xs
 text-slate-500
-">
+"
+
+>
 
 ROI Potential
 
 </span>
 
+
 </div>
 
 
-<p className="
+
+<p
+
+className="
 mt-3
 font-bold
 text-slate-900
-">
+"
+
+>
 
 {
 roiText(
@@ -499,11 +550,14 @@ p-4
 >
 
 
-<div className="
+<div
+
+className="
 flex
 items-center
 gap-2
 "
+
 >
 
 <Zap
@@ -511,10 +565,14 @@ size={15}
 />
 
 
-<span className="
+<span
+
+className="
 text-xs
 text-slate-500
-">
+"
+
+>
 
 Difficulty
 
@@ -524,11 +582,16 @@ Difficulty
 </div>
 
 
-<p className="
+
+<p
+
+className="
 mt-3
 font-bold
 text-slate-900
-">
+"
+
+>
 
 {
 recommendation.difficulty
@@ -558,11 +621,14 @@ p-4
 >
 
 
-<div className="
+<div
+
+className="
 flex
 items-center
 gap-2
 "
+
 >
 
 <CalendarDays
@@ -570,10 +636,14 @@ size={15}
 />
 
 
-<span className="
+<span
+
+className="
 text-xs
 text-slate-500
-">
+"
+
+>
 
 Timeline
 
@@ -584,11 +654,15 @@ Timeline
 
 
 
-<p className="
+<p
+
+className="
 mt-3
 font-bold
 text-slate-900
-">
+"
+
+>
 
 {
 recommendation.estimatedDays
@@ -600,6 +674,7 @@ recommendation.estimatedDays
 
 
 </div>
+
 
 
 
@@ -643,6 +718,8 @@ text-slate-900
 Analysis Summary
 
 </h4>
+
+
 
 
 <p
@@ -703,6 +780,7 @@ Recommended Action
 </h4>
 
 
+
 <p
 
 className="
@@ -759,6 +837,7 @@ text-emerald-900
 Expected Impact
 
 </h4>
+
 
 
 <p
@@ -829,6 +908,7 @@ recommendation.category
 
 
 
+
 <button
 
 className="
@@ -863,6 +943,7 @@ size={16}
 
 
 </div>
+
 
 
 

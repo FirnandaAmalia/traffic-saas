@@ -271,98 +271,47 @@ export function eventInsightRule(
 
 
 
+return [
 
-  return [
+{
+  id:
+  "event-insight",
 
+  priority,
 
-    {
+  score,
 
+  title:
+  "Conversion Tracking Opportunity",
 
-      id:
+  description:
+  `Event "${topEvent.event}" menjadi aktivitas terbesar (${topPercentage.toFixed(1)}% dari seluruh event), namun kontribusi event bisnis hanya ${businessPercentage.toFixed(2)}%.`,
 
-      "event-insight",
+  recommendation:
+  "Pastikan event bisnis seperti generate_lead, purchase, sign_up, atau contact sudah terpasang dengan benar. Gunakan conversion event untuk mengukur keberhasilan website, bukan hanya jumlah kunjungan.",
 
+  impact:
+  businessEventTotal > 0
 
+  ?
 
+  `Website memiliki ${businessEventTotal.toLocaleString("id-ID")} aktivitas yang berkaitan dengan tujuan bisnis.`
 
+  :
 
-      priority,
+  "Penambahan conversion tracking dapat membantu mengukur apakah trafik website benar-benar menghasilkan nilai bisnis.",
 
 
+  category:
+  "Analytics",
 
 
+  icon:
+  "analytics",
 
-      score,
+},
 
-
-
-
-
-      title:
-
-      "Conversion Tracking Opportunity",
-
-
-
-
-
-
-      description:
-
-      `Event "${topEvent.event}" menjadi aktivitas terbesar (${topPercentage.toFixed(1)}% dari seluruh event), namun kontribusi event bisnis hanya ${businessPercentage.toFixed(2)}%.`,
-
-
-
-
-
-
-
-      recommendation:
-
-      "Pastikan event bisnis seperti generate_lead, purchase, sign_up, atau contact sudah terpasang dengan benar. Gunakan conversion event untuk mengukur keberhasilan website, bukan hanya jumlah kunjungan.",
-
-
-
-
-
-
-
-      impact:
-
-      businessEventTotal > 0
-
-      ?
-
-      `Website memiliki ${businessEventTotal.toLocaleString("id-ID")} aktivitas yang berkaitan dengan tujuan bisnis.`
-
-      :
-
-      "Penambahan conversion tracking dapat membantu mengukur apakah trafik website benar-benar menghasilkan nilai bisnis.",
-
-
-
-
-
-
-      category:
-
-      "Analytics",
-
-
-
-
-
-
-      icon:
-
-      "📊",
-
-
-
-    },
-
-
-  ];
+];
 
 
 }

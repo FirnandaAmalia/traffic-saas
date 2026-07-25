@@ -256,7 +256,7 @@ export function highImpressionLowCTRRule(
 
 
       icon:
-      "🎯",
+      "target",
 
 
     },

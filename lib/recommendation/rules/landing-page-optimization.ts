@@ -264,7 +264,7 @@ export function landingPageOptimizationRule(
 
       icon:
 
-      "🚀",
+      "growth",
 
 
 

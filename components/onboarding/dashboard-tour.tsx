@@ -471,7 +471,7 @@ step="02"
 
 category="ANALISIS TRAFFIC"
 
-icon="🚀"
+icon="growth"
 
 title="Traffic Analytics"
 

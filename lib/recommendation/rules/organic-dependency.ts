@@ -286,7 +286,7 @@ export function organicDependencyRule(
 
       icon:
 
-      "🌱",
+      "organic",
 
 
 

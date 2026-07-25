@@ -2,6 +2,7 @@
 
 import {
   Globe,
+  Smartphone,
 } from "lucide-react";
 
 
@@ -24,39 +25,25 @@ interface BrowserSectionProps {
 
 }
 
+const BROWSER_ICONS = {
 
+  Chrome: Globe,
 
+  Safari: Globe,
 
+  Edge: Globe,
 
+  Firefox: Globe,
 
-const ICONS: Record<string,string> = {
+  Opera: Globe,
 
+  "Samsung Internet": Smartphone,
 
-Chrome:"🌐",
+  Android: Smartphone,
 
-Safari:"🧭",
-
-Edge:"🟦",
-
-Firefox:"🦊",
-
-Opera:"🎭",
-
-"Samsung Internet":"📱",
-
-Android:"🤖",
-
-SafariWebview:"🍎",
-
+  SafariWebview: Smartphone,
 
 };
-
-
-
-
-
-
-
 
 
 export default function BrowserSection({
@@ -64,6 +51,8 @@ export default function BrowserSection({
 data,
 
 }:BrowserSectionProps){
+
+
 
 
 
@@ -78,6 +67,8 @@ sum + item.users,
 0
 
 );
+
+
 
 
 
@@ -112,10 +103,10 @@ return (
 <Widget
 
 
-title="🌐 Peramban"
+title="Browser"
 
 
-subtitle="Peramban yang paling banyak digunakan"
+subtitle="Most used browsers from Google Analytics 4"
 
 
 badge={
@@ -129,6 +120,7 @@ h-[420px]
 
 
 >
+
 
 
 
@@ -173,7 +165,7 @@ text-slate-500
 
 >
 
-Belum ada data peramban
+No browser data available
 
 </div>
 
@@ -181,7 +173,13 @@ Belum ada data peramban
 
 
 
+
+
 :
+
+
+
+
 
 
 
@@ -206,9 +204,31 @@ scrollbar-track-transparent
 
 
 
+
+
+
 {
 
 data.map((item)=>{
+
+
+
+
+
+const Icon =
+
+BROWSER_ICONS[
+item.browser as keyof typeof BROWSER_ICONS
+]
+
+??
+
+Globe;
+
+
+
+
+
 
 
 
@@ -223,6 +243,10 @@ total === 0
 :
 
 (item.users / total) * 100;
+
+
+
+
 
 
 
@@ -286,6 +310,7 @@ justify-between
 
 
 
+
 <div
 
 className="
@@ -299,24 +324,32 @@ gap-3
 
 
 
-
-
-<span
+<div
 
 className="
-shrink-0
-text-lg
+flex
+h-9
+w-9
+items-center
+justify-center
+rounded-lg
+bg-slate-100
+text-slate-600
 "
 
 >
 
-{
+<Icon
 
-ICONS[item.browser] ?? "🌐"
+className="
+h-5
+w-5
+"
 
-}
+/>
 
-</span>
+</div>
+
 
 
 
@@ -359,13 +392,11 @@ text-slate-700
 
 className="
 flex
-shrink-0
 items-center
 gap-2
 "
 
 >
-
 
 <Globe
 
@@ -403,7 +434,10 @@ item.users.toLocaleString(
 
 
 
+
+
 </div>
+
 
 
 
@@ -480,11 +514,14 @@ text-slate-500
 
 >
 
+
 <span>
 
-Pengguna aktif
+Active Users
 
 </span>
+
+
 
 
 <span>
@@ -498,7 +535,10 @@ percent.toFixed(1)
 </span>
 
 
+
+
 </div>
+
 
 
 
@@ -536,10 +576,9 @@ percent.toFixed(1)
 
 
 
-
-
-
 </div>
+
+
 
 
 

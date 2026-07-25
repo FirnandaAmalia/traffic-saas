@@ -153,7 +153,7 @@ return (
 
 <Widget
 
-title="🚦 Akuisisi Trafik"
+title="Akuisisi Trafik"
 
 subtitle="Sumber kunjungan utama website"
 
