@@ -1,12 +1,15 @@
 "use client";
 
-
 import {
   ArrowRight,
+  BarChart3,
   CalendarDays,
   CircleDollarSign,
-  Sparkles,
+  FileText,
+  Search,
+  Smartphone,
   Target,
+  TrendingUp,
   Zap,
 } from "lucide-react";
 
@@ -28,6 +31,83 @@ interface Props {
 
 
 
+const ICON_MAP = {
+
+  analytics: BarChart3,
+
+  growth: TrendingUp,
+
+  target: Target,
+
+  keyword: Search,
+
+  content: FileText,
+
+  mobile: Smartphone,
+
+};
+
+
+
+
+
+function RecommendationIcon({
+
+  icon,
+
+}:{
+
+  icon:string;
+
+}){
+
+
+const Icon =
+ICON_MAP[
+icon as keyof typeof ICON_MAP
+]
+??
+BarChart3;
+
+
+
+return (
+
+<div
+
+className="
+flex
+h-12
+w-12
+items-center
+justify-center
+rounded-xl
+bg-blue-50
+text-blue-600
+"
+
+>
+
+<Icon
+
+className="
+h-6
+w-6
+"
+
+/>
+
+</div>
+
+);
+
+
+}
+
+
+
+
+
 
 
 function priorityColor(
@@ -38,27 +118,26 @@ switch(priority){
 
 case "critical":
 
-return "bg-red-100 text-red-700";
+return "bg-red-50 text-red-700";
 
 
 case "high":
 
-return "bg-orange-100 text-orange-700";
+return "bg-orange-50 text-orange-700";
 
 
 case "medium":
 
-return "bg-yellow-100 text-yellow-700";
+return "bg-yellow-50 text-yellow-700";
 
 
 default:
 
-return "bg-emerald-100 text-emerald-700";
+return "bg-emerald-50 text-emerald-700";
 
 }
 
 }
-
 
 
 
@@ -71,14 +150,17 @@ score:number
 ){
 
 if(score>=90)
+
 return "text-emerald-600";
 
 
 if(score>=80)
+
 return "text-blue-600";
 
 
 if(score>=70)
+
 return "text-yellow-600";
 
 
@@ -92,25 +174,33 @@ return "text-red-600";
 
 
 
+
 function roiText(
 roi:number
 ){
 
 if(roi>=5)
+
 return "Excellent";
 
 
 if(roi>=4)
+
 return "High";
 
 
 if(roi>=2)
+
 return "Medium";
 
 
 return "Low";
 
 }
+
+
+
+
 
 
 
@@ -130,15 +220,14 @@ return (
 <div
 
 className="
-rounded-3xl
+rounded-2xl
 border
 border-slate-200
 bg-white
-p-6
+p-5
 shadow-sm
 transition
-hover:-translate-y-1
-hover:shadow-xl
+hover:shadow-md
 "
 
 >
@@ -172,26 +261,13 @@ gap-4
 >
 
 
-<div
+<RecommendationIcon
 
-className="
-flex
-h-14
-w-14
-items-center
-justify-center
-rounded-2xl
-bg-gradient-to-br
-from-indigo-100
-to-blue-100
-text-2xl
-"
+icon={
+recommendation.icon
+}
 
->
-
-{recommendation.icon}
-
-</div>
+/>
 
 
 
@@ -201,8 +277,9 @@ text-2xl
 <h3
 
 className="
-text-xl
+text-lg
 font-bold
+text-slate-900
 "
 
 >
@@ -239,7 +316,9 @@ text-slate-500
 
 
 
-<div
+
+
+<span
 
 className={`
 
@@ -251,7 +330,7 @@ py-1
 
 text-xs
 
-font-bold
+font-semibold
 
 ${priorityColor(
 recommendation.priority
@@ -261,52 +340,58 @@ recommendation.priority
 
 >
 
-{recommendation.priority.toUpperCase()}
+{
+recommendation.priority.toUpperCase()
+}
+
+
+</span>
+
 
 
 </div>
 
 
 
-</div>
 
 
 
 
 
 
-
-
-
-{/* AI SCORE GRID */}
+{/* METRICS */}
 
 
 
 <div
 
 className="
-mt-8
+mt-6
 grid
-gap-4
+gap-3
 md:grid-cols-4
 "
 
 >
 
 
+
 <div
 
 className="
-rounded-2xl
+rounded-xl
 bg-slate-50
 p-4
 "
 
 >
 
-<p className="text-xs text-slate-500">
+<p className="
+text-xs
+text-slate-500
+">
 
-AI Confidence Score
+Confidence Score
 
 </p>
 
@@ -316,7 +401,9 @@ AI Confidence Score
 className={`
 
 mt-2
-text-3xl
+
+text-2xl
+
 font-black
 
 ${scoreColor(
@@ -327,7 +414,9 @@ recommendation.score
 
 >
 
-{recommendation.score}
+{
+recommendation.score
+}
 
 </p>
 
@@ -343,7 +432,7 @@ recommendation.score
 <div
 
 className="
-rounded-2xl
+rounded-xl
 bg-slate-50
 p-4
 "
@@ -351,26 +440,40 @@ p-4
 >
 
 
-<div className="flex gap-2 items-center">
+<div className="
+flex
+items-center
+gap-2
+"
+>
 
+<CircleDollarSign
+size={15}
+/>
 
-<CircleDollarSign size={16}/>
-
-<span className="text-xs text-slate-500">
+<span className="
+text-xs
+text-slate-500
+">
 
 ROI Potential
 
 </span>
 
-
 </div>
 
 
-<p className="mt-3 font-bold">
+<p className="
+mt-3
+font-bold
+text-slate-900
+">
 
-{roiText(
+{
+roiText(
 recommendation.roi
-)}
+)
+}
 
 </p>
 
@@ -383,10 +486,12 @@ recommendation.roi
 
 
 
+
+
 <div
 
 className="
-rounded-2xl
+rounded-xl
 bg-slate-50
 p-4
 "
@@ -394,22 +499,40 @@ p-4
 >
 
 
-<div className="flex gap-2 items-center">
+<div className="
+flex
+items-center
+gap-2
+"
+>
 
-<Zap size={16}/>
+<Zap
+size={15}
+/>
 
-<span className="text-xs text-slate-500">
+
+<span className="
+text-xs
+text-slate-500
+">
 
 Difficulty
 
 </span>
 
+
 </div>
 
 
-<p className="mt-3 font-bold">
+<p className="
+mt-3
+font-bold
+text-slate-900
+">
 
-{recommendation.difficulty}
+{
+recommendation.difficulty
+}
 
 </p>
 
@@ -423,10 +546,11 @@ Difficulty
 
 
 
+
 <div
 
 className="
-rounded-2xl
+rounded-xl
 bg-slate-50
 p-4
 "
@@ -434,11 +558,22 @@ p-4
 >
 
 
-<div className="flex gap-2 items-center">
+<div className="
+flex
+items-center
+gap-2
+"
+>
 
-<CalendarDays size={16}/>
+<CalendarDays
+size={15}
+/>
 
-<span className="text-xs text-slate-500">
+
+<span className="
+text-xs
+text-slate-500
+">
 
 Timeline
 
@@ -448,9 +583,16 @@ Timeline
 </div>
 
 
-<p className="mt-3 font-bold">
 
-{recommendation.estimatedDays}
+<p className="
+mt-3
+font-bold
+text-slate-900
+">
+
+{
+recommendation.estimatedDays
+}
 
  Days
 
@@ -461,6 +603,8 @@ Timeline
 
 
 
+
+
 </div>
 
 
@@ -471,42 +615,34 @@ Timeline
 
 
 
-{/* AI REASONING */}
+{/* ANALYSIS */}
+
 
 
 <div
 
 className="
-mt-8
-rounded-2xl
-bg-indigo-50
+mt-6
+rounded-xl
+bg-slate-50
 p-5
 "
 
 >
 
 
-<div
+<h4
 
 className="
-flex
-items-center
-gap-2
 font-semibold
-text-indigo-900
+text-slate-900
 "
 
 >
 
+Analysis Summary
 
-<Sparkles size={18}/>
-
-
-Why AI Recommends This
-
-
-</div>
-
+</h4>
 
 
 <p
@@ -514,14 +650,15 @@ Why AI Recommends This
 className="
 mt-3
 text-sm
-leading-7
-text-slate-700
+leading-6
+text-slate-600
 "
 
 >
 
-AI mendeteksi peluang terbesar berdasarkan kombinasi
-traffic, ranking, CTR, user behavior, dan potensi ROI.
+Rekomendasi berdasarkan performa trafik,
+ranking keyword, CTR, user behavior,
+dan peluang peningkatan website.
 
 </p>
 
@@ -543,8 +680,8 @@ traffic, ranking, CTR, user behavior, dan potensi ROI.
 <div
 
 className="
-mt-5
-rounded-2xl
+mt-4
+rounded-xl
 bg-blue-50
 p-5
 "
@@ -552,7 +689,14 @@ p-5
 >
 
 
-<h4 className="font-bold text-blue-900">
+<h4
+
+className="
+font-semibold
+text-blue-900
+"
+
+>
 
 Recommended Action
 
@@ -564,13 +708,15 @@ Recommended Action
 className="
 mt-2
 text-sm
-leading-7
+leading-6
 text-slate-700
 "
 
 >
 
-{recommendation.recommendation}
+{
+recommendation.recommendation
+}
 
 </p>
 
@@ -588,11 +734,12 @@ text-slate-700
 {/* IMPACT */}
 
 
+
 <div
 
 className="
-mt-5
-rounded-2xl
+mt-4
+rounded-xl
 bg-emerald-50
 p-5
 "
@@ -600,26 +747,18 @@ p-5
 >
 
 
-<div
+<h4
 
 className="
-flex
-items-center
-gap-2
-font-bold
+font-semibold
 text-emerald-900
 "
 
 >
 
-
-<Target size={18}/>
-
 Expected Impact
 
-
-</div>
-
+</h4>
 
 
 <p
@@ -627,13 +766,15 @@ Expected Impact
 className="
 mt-2
 text-sm
-leading-7
+leading-6
 text-slate-700
 "
 
 >
 
-{recommendation.impact}
+{
+recommendation.impact
+}
 
 </p>
 
@@ -655,7 +796,7 @@ text-slate-700
 <div
 
 className="
-mt-6
+mt-5
 flex
 items-center
 justify-between
@@ -673,11 +814,14 @@ px-3
 py-1
 text-xs
 font-semibold
+text-slate-600
 "
 
 >
 
-{recommendation.category}
+{
+recommendation.category
+}
 
 </span>
 
@@ -691,23 +835,27 @@ className="
 flex
 items-center
 gap-2
-rounded-xl
+rounded-lg
 bg-slate-900
-px-5
+px-4
 py-2
 text-sm
 font-semibold
 text-white
 transition
-hover:bg-black
+hover:bg-slate-800
 "
 
 >
 
-View Strategy
+View Details
 
 
-<ArrowRight size={16}/>
+<ArrowRight
+
+size={16}
+
+/>
 
 
 </button>
