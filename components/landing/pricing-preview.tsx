@@ -377,7 +377,7 @@ pt-10
                     backdrop-blur
                   "
                 >
-                  ⭐ TERPOPULER
+                  TERPOPULER
                 </div>
 
                 <span
