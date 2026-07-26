@@ -423,23 +423,6 @@ pt-10
                     /bulan
                   </span>
                 </div>
-                <h3
-                  className="
-    text-6xl
-    font-black
-  "
-                >
-                  Rp299.000
-                </h3>
-
-                <span
-                  className="
-    mb-4
-    text-slate-400
-  "
-                >
-                  /bulan
-                </span>
 
                 <p
                   className="
