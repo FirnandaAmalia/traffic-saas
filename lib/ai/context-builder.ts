@@ -36,8 +36,6 @@ export interface AIContext {
 
 recommendations: {
 
-    title?: string;
-
     titleKey?:
     | "landingPageGrowth"
     | "ctrOptimization"
@@ -52,7 +50,7 @@ recommendations: {
 
     priority: string;
 
-    recommendation: string;
+    recommendation?: string;
 
     impact?: string;
 
@@ -131,20 +129,17 @@ export function buildAIContext(
     },
 
 
-    confidence: {
-      score: ai.confidence.score,
-      level: ai.confidence.level,
-      explanation: ai.confidence.explanation,
-    },
+confidence: {
+  score: ai.confidence.score,
+  level: ai.confidence.level,
+  explanation: ai.confidence.explanation,
+},
 
 
-    recommendations:
+recommendations:
 ai.recommendations
 .slice(0, 10)
 .map((item) => ({
-
-  title:
-    item.title,
 
   titleKey:
     item.titleKey,
@@ -153,25 +148,31 @@ ai.recommendations
     item.priority,
 
   recommendation:
-    item.title ?? "",
+    item.recommendationKey ?? "",
+
+  impact:
+    item.impactKey ?? "",
+
+  reason:
+    item.reason ?? "",
 
 })),
 
 
-    growthOpportunities:
-  ai.growthOpportunities
-    .slice(0, 5)
-    .map((item) => ({
-      titleKey: item.titleKey,
-      type: item.type,
-      impact: item.impact,
-      estimatedImpact: item.estimatedImpact,
-      reason: item.reason,
-      action: item.action,
-      source: item.source,
-      priority: item.priority,
-      confidence: item.confidence,
-    })),
+growthOpportunities:
+ai.growthOpportunities
+.slice(0,5)
+.map((item)=>({
+  titleKey:item.titleKey,
+  type:item.type,
+  impact:item.impact,
+  estimatedImpact:item.estimatedImpact,
+  reason:item.reason,
+  action:item.action,
+  source:item.source,
+  priority:item.priority,
+  confidence:item.confidence,
+})),
 
 
     queries:

@@ -2,6 +2,7 @@ import type {
   AIInsight,
 } from "../recommendation";
 
+
 export interface ExecutiveReport {
 
   title: string;
@@ -14,36 +15,59 @@ export interface ExecutiveReport {
 
 }
 
+
+
 export function generateExecutiveReport(
   ai: AIInsight
 ): ExecutiveReport {
 
+
+
   const topThree =
+
     ai.recommendations
+
       .slice(0, 3)
-      .map((r) => r.title);
+
+      .map(
+        (r) =>
+          r.title ??
+          r.titleKey ??
+          "SEO Optimization Task"
+      );
+
+
+
 
   let summary =
     "";
 
-  if (ai.health.score >= 90) {
+
+
+  if (
+    ai.health.score >= 90
+  ) {
 
     summary =
-      "Website menunjukkan performa yang sangat baik berdasarkan analisis Google Search Console dan Google Analytics. Fokus utama adalah mempertahankan performa serta melakukan optimasi kecil untuk meningkatkan efisiensi.";
+      "Website shows excellent performance based on Google Search Console and Google Analytics analysis. The main focus is maintaining performance and applying minor optimizations to improve efficiency.";
 
   } else if (
     ai.health.score >= 80
   ) {
 
     summary =
-      "Website memiliki fondasi SEO dan Analytics yang baik. Masih terdapat beberapa peluang optimasi yang dapat meningkatkan traffic organik dan kualitas pengalaman pengguna.";
+      "Website has a strong SEO and Analytics foundation. Several optimization opportunities remain to improve organic traffic and user experience quality.";
 
   } else {
 
     summary =
-      "Website masih memiliki beberapa area prioritas yang perlu segera dioptimalkan untuk meningkatkan visibilitas pencarian, pengalaman pengguna, dan efektivitas strategi digital.";
+      "Website still has several priority areas that require optimization to improve search visibility, user experience, and digital strategy effectiveness.";
 
   }
+
+
+
+
 
   return {
 
@@ -51,11 +75,17 @@ export function generateExecutiveReport(
 
       "AI Executive Report",
 
+
+
     summary,
+
+
 
     conclusion:
 
-      `Berdasarkan analisis AI, website memperoleh Health Score ${ai.health.score}/100 (${ai.health.grade}). Implementasi rekomendasi prioritas diperkirakan mampu meningkatkan performa organik, kualitas pengalaman pengguna, serta efektivitas strategi pemasaran digital.`,
+      `Based on AI analysis, the website achieved a Health Score of ${ai.health.score}/100 (${ai.health.grade}). Implementing priority recommendations is expected to improve organic performance, user experience quality, and digital marketing effectiveness.`,
+
+
 
     nextSteps:
 

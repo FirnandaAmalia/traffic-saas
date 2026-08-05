@@ -102,37 +102,37 @@ export async function buildExportReport({
   // Executive Summary
   // ===============================
 
-  const executiveSummary =
+ const executiveSummary =
     generateExecutiveSummary({
+
+      locale: "en",
+
       clicks,
+
       previousClicks:
-        dashboard.data
-          .previousClicks,
+        dashboard.data.previousClicks ?? 0,
 
       impressions,
 
       previousImpressions:
-        dashboard.data
-          .previousImpressions,
+        dashboard.data.previousImpressions ?? 0,
 
       ctr,
 
       previousCTR,
 
       users:
-        dashboard.ga4.users,
+        dashboard.ga4.users ?? 0,
 
       previousUsers:
-        dashboard.ga4
-          .previousUsers,
+        dashboard.ga4.previousUsers ?? 0,
 
       sessions:
-        dashboard.ga4
-          .sessions,
+        dashboard.ga4.sessions ?? 0,
 
       previousSessions:
-        dashboard.ga4
-          .previousSessions,
+        dashboard.ga4.previousSessions ?? 0,
+
     });
 
   // ===============================

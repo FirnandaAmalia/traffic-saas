@@ -180,24 +180,36 @@ ai.confidence.explanation,
 recommendations:
 
 ai.recommendations
+
 .slice(0,10)
-.map(item=>({
 
-title:item.title,
+.map((item)=>({
 
-priority:item.priority,
+  title:
+    item.title ??
+    item.titleKey ??
+    "SEO Optimization Task",
 
-recommendation:item.recommendation,
 
-impact:item.impact,
+  priority:
+    item.priority,
 
-reason:item.reason,
+
+  recommendation:
+    item.recommendationKey ??
+    "Optimize website performance based on AI recommendation.",
+
+
+  impact:
+    item.impactKey ??
+    "",
+
+
+  reason:
+    item.reason ??
+    "",
 
 })),
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | GROWTH OPPORTUNITIES
@@ -210,28 +222,35 @@ ai.growthOpportunities
 .slice(0,5)
 .map(item=>({
 
-title:item.title,
+title:
+  item.titleKey ??
+  "SEO Growth Opportunity",
 
-type:item.type,
+type:
+  item.type,
 
-impact:item.impact,
+impact:
+  item.impact,
 
-estimatedImpact:item.estimatedImpact,
+estimatedImpact:
+  item.estimatedImpact,
 
-reason:item.reason,
+reason:
+  item.reason,
 
-action:item.action,
+action:
+  item.action,
 
-source:item.source,
+source:
+  item.source,
 
-priority:item.priority,
+priority:
+  item.priority,
 
-confidence:item.confidence,
+confidence:
+  item.confidence,
 
 })),
-
-
-
 /*
 |--------------------------------------------------------------------------
 | SEARCH CONSOLE

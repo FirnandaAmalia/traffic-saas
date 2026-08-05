@@ -243,7 +243,7 @@ ${
           (item, index) => `
 
 
-${index + 1}. ${item.title}
+${index + 1}. ${item.titleKey}
 
 
 Jenis:
@@ -317,7 +317,7 @@ ${
           (item, index) => `
 
 
-${index + 1}. ${item.title}
+${index + 1}. ${item.titleKey}
 
 
 

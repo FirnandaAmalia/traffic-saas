@@ -47,7 +47,7 @@ opportunity
 `
 Peluang terbesar:
 
-${opportunity.title}
+${opportunity.titleKey ?? "SEO Growth Opportunity"}
 
 
 Impact:

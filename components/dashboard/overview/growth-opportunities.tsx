@@ -11,71 +11,9 @@ import {
   useTranslations,
 } from "next-intl";
 
-
-
-interface GrowthOpportunity {
-
-
-title:string;
-
-
-type:
-"Quick Win"
-|
-"CTR Opportunity"
-|
-"Content Growth"
-|
-"Recovery";
-
-
-
-impact:
-"High"
-|
-"Medium"
-|
-"Low";
-
-
-
-estimatedImpact:string;
-
-
-reason:string;
-
-
-action:string;
-
-
-metric:string;
-
-
-
-source:
-"GSC"
-|
-"GA4"
-|
-"Combined";
-
-
-
-priority:
-"High"
-|
-"Medium"
-|
-"Low";
-
-
-
-confidence:number;
-
-
-}
-
-
+import type {
+  GrowthOpportunity,
+} from "@/lib/ai/growth-opportunity";
 
 interface GrowthOpportunitiesProps {
 
@@ -99,17 +37,18 @@ data,
 const t =
 useTranslations("dashboard.growthOpportunities");
 
-const translateType = (
-  type: GrowthOpportunity["type"]
-) => {
-  return t(`types.${type}`);
-};
-
 
 const translateLevel = (
   level: "High" | "Medium" | "Low"
 ) => {
   return t(`levels.${level}`);
+};
+
+
+const translateType = (
+  key:string
+) => {
+  return t(`titles.${key}`);
 };
 
 const opportunities:GrowthOpportunity[] =
@@ -124,22 +63,36 @@ data
 
 [
 {
-title:t("empty.title"),
-type:"Quick Win",
-impact:"Low",
-estimatedImpact:t("empty.impact"),
-reason:t("empty.reason"),
-action:t("empty.action"),
-metric:"Stable",
-source:"Combined",
-priority:"Low",
-confidence:60
+  titleKey:"quickWin",
+
+  type:"Quick Win",
+
+  impact:"Low",
+
+  score:50,
+
+  estimatedImpact:
+    t("empty.impact"),
+
+  reason:
+    t("empty.reason"),
+
+  action:
+    t("empty.action"),
+
+  metric:
+    "Stable",
+
+  source:
+    "Combined",
+
+  priority:
+    "Low",
+
+  confidence:
+    60
 }
 ];
-
-
-
-
 
 return (
 
@@ -414,7 +367,7 @@ text-slate-800
 
 >
 
-{item.title}
+{t(`titles.${item.titleKey}`)}
 
 </p>
 

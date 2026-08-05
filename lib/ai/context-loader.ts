@@ -58,6 +58,9 @@ export async function loadProjectAIContext({
       : 0;
 
   const ai = generateAIInsight({
+
+     locale: "en",
+
     clicks: dashboard.data.clicks ?? 0,
 
     impressions: dashboard.data.impressions ?? 0,
