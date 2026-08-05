@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import {
@@ -8,20 +10,20 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import {
+  useTranslations,
+} from "next-intl";
+
+
 
 const actions = [
 
 {
-title:"Optimasi Keyword",
-
-description:
-"Temukan keyword dengan impression tinggi tetapi CTR rendah. Tingkatkan peluang klik melalui optimasi konten dan semantic keyword.",
+key:"keyword",
 
 href:"/keywords",
 
 icon:Search,
-
-impact:"SEO Opportunity",
 
 color:
 "bg-blue-50 text-blue-600",
@@ -30,16 +32,11 @@ color:
 
 
 {
-title:"Optimasi Landing Page",
-
-description:
-"Analisis halaman dengan trafik tinggi namun performa konversi belum optimal. Tingkatkan struktur halaman, heading, internal link, dan elemen konversi.",
+key:"landing",
 
 href:"/analytics",
 
 icon:TrendingUp,
-
-impact:"Growth Area",
 
 color:
 "bg-emerald-50 text-emerald-600",
@@ -48,16 +45,11 @@ color:
 
 
 {
-title:"AI SEO Consultant",
-
-description:
-"Dapatkan rekomendasi strategi SEO berdasarkan analisis data Google Search Console dan Google Analytics.",
+key:"ai",
 
 href:"/ai",
 
 icon:Brain,
-
-impact:"AI Analysis",
 
 color:
 "bg-indigo-50 text-indigo-600",
@@ -69,7 +61,14 @@ color:
 
 
 
+
+
 export default function QuickActions(){
+
+
+const t =
+useTranslations("dashboard.quickActions");
+
 
 
 return (
@@ -114,9 +113,10 @@ text-slate-900
 
 >
 
-Recommended Actions
+{t("title")}
 
 </h2>
+
 
 
 
@@ -137,14 +137,20 @@ text-violet-700
 
 >
 
+
 <Sparkles size={11}/>
 
-AI Suggested
+
+{t("badge")}
+
 
 </span>
 
 
+
 </div>
+
+
 
 
 
@@ -158,9 +164,10 @@ text-slate-500
 
 >
 
-Prioritas optimasi berdasarkan performa website dan peluang pertumbuhan SEO.
+{t("subtitle")}
 
 </p>
+
 
 
 </div>
@@ -169,7 +176,11 @@ Prioritas optimasi berdasarkan performa website dan peluang pertumbuhan SEO.
 
 
 
+
+
+
 {/* CARDS */}
+
 
 <div
 
@@ -184,6 +195,7 @@ xl:grid-cols-3
 >
 
 
+
 {
 
 actions.map((action)=>(
@@ -191,7 +203,7 @@ actions.map((action)=>(
 
 <Link
 
-key={action.title}
+key={action.key}
 
 href={action.href}
 
@@ -214,6 +226,7 @@ hover:shadow-xl
 >
 
 
+
 <div
 
 className="
@@ -223,6 +236,7 @@ justify-between
 "
 
 >
+
 
 
 <div
@@ -241,6 +255,7 @@ group-hover:scale-110
 
 >
 
+
 <action.icon
 
 className="
@@ -250,7 +265,9 @@ w-6
 
 />
 
+
 </div>
+
 
 
 
@@ -269,13 +286,16 @@ text-slate-500
 
 >
 
-{action.impact}
 
-</div>
-
+{t(`items.${action.key}.impact`)}
 
 
 </div>
+
+
+
+</div>
+
 
 
 
@@ -293,9 +313,12 @@ text-slate-900
 
 >
 
-{action.title}
+
+{t(`items.${action.key}.title`)}
+
 
 </h3>
+
 
 
 
@@ -313,7 +336,9 @@ text-slate-500
 
 >
 
-{action.description}
+
+{t(`items.${action.key}.description`)}
+
 
 </p>
 
@@ -345,9 +370,13 @@ text-blue-600
 
 >
 
-View Recommendation
+
+{t("view")}
+
 
 </span>
+
+
 
 
 
@@ -374,8 +403,8 @@ group-hover:text-blue-600
 
 
 
-</Link>
 
+</Link>
 
 
 ))
@@ -384,7 +413,11 @@ group-hover:text-blue-600
 }
 
 
+
 </div>
+
+
+
 
 
 

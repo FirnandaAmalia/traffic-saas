@@ -13,18 +13,26 @@ interface CountrySectionProps {
 
   country: CountryMetric[];
 
+  title:string;
+
+  description:string;
+
+  actionLabel:string;
+
 }
-
-
-
 
 
 export default function CountrySection({
 
-  country,
+country,
 
-}: CountrySectionProps) {
+title,
 
+description,
+
+actionLabel,
+
+}:CountrySectionProps){
 
 
 return (
@@ -32,10 +40,10 @@ return (
 <CardShell
 
 
-title="Pengguna Aktif Berdasarkan Negara"
+title={title}
 
 
-description="Distribusi lokasi pengguna website berdasarkan data Google Analytics"
+description={description}
 
 
 action={
@@ -54,7 +62,7 @@ hover:text-blue-700
 
 >
 
-Lihat Semua →
+{actionLabel}
 
 </button>
 
@@ -70,7 +78,6 @@ overflow-hidden
 "
 
 
-
 contentClassName="
 h-full
 p-0
@@ -78,7 +85,6 @@ p-0
 
 
 >
-
 
 
 <div
@@ -94,9 +100,7 @@ grid-cols-[28%_72%]
 >
 
 
-
 {/* MAP */}
-
 
 <div
 
@@ -111,7 +115,6 @@ bg-slate-50
 px-3
 "
 
-
 >
 
 
@@ -122,7 +125,6 @@ h-[170px]
 w-[170px]
 "
 
-
 >
 
 <CountryMap
@@ -131,13 +133,10 @@ country={country}
 
 />
 
-
 </div>
 
 
-
 </div>
-
 
 
 
@@ -145,14 +144,12 @@ country={country}
 
 {/* COUNTRY LIST */}
 
-
 <div
 
 className="
 min-h-0
 overflow-hidden
 "
-
 
 >
 
@@ -168,9 +165,7 @@ scrollbar-thumb-slate-300
 scrollbar-track-transparent
 "
 
-
 >
-
 
 <CountryTable
 
@@ -178,19 +173,13 @@ country={country}
 
 />
 
+</div>
+
 
 </div>
 
 
-
 </div>
-
-
-
-
-
-</div>
-
 
 
 </CardShell>

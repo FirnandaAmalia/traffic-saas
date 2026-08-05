@@ -39,7 +39,9 @@ import type {
   BrowserMetric,
 } from "@/lib/types/ga4";
 
-
+import {
+  getTranslations,
+} from "next-intl/server";
 
 
 
@@ -135,13 +137,7 @@ EventMetric[];
 }
 
 
-
-
-
-
-
-
-export default function DashboardGrid({
+export default async function DashboardGrid({
 
 plan,
 
@@ -182,6 +178,8 @@ topEvents,
 }:DashboardGridProps){
 
 
+const t =
+await getTranslations("dashboard");
 
 return (
 
@@ -249,10 +247,11 @@ xl:grid-cols-4
 
 >
 
-
 <StatCard
 
-title="Pengguna Aktif"
+title={
+t("metrics.users")
+}
 
 value={
 users.toLocaleString("id-ID")
@@ -270,7 +269,9 @@ iconColor="text-blue-600"
 
 <StatCard
 
-title="Sesi Kunjungan"
+title={
+t("metrics.sessions")
+}
 
 value={
 sessions.toLocaleString("id-ID")
@@ -288,7 +289,9 @@ iconColor="text-emerald-600"
 
 <StatCard
 
-title="Tayangan Halaman"
+title={
+t("metrics.pageViews")
+}
 
 value={
 pageViews.toLocaleString("id-ID")
@@ -306,7 +309,9 @@ iconColor="text-rose-600"
 
 <StatCard
 
-title="Tingkat Keterlibatan"
+title={
+t("metrics.engagement")
+}
 
 value={
 `${(engagementRate * 100).toFixed(2)}%`
@@ -361,10 +366,21 @@ xl:col-span-5
 
 >
 
-
 <CountrySection
 
 country={country}
+
+title={
+t("analytics.sections.country")
+}
+
+description={
+t("analytics.sections.countryDescription")
+}
+
+actionLabel={
+t("analytics.sections.viewAll")
+}
 
 />
 
@@ -401,10 +417,44 @@ min-w-0
 
 >
 
-
 <TrafficAcquisition
 
 data={trafficAcquisition}
+
+title={
+t("analytics.sections.acquisition")
+}
+
+subtitle={
+t("analytics.traffic.subtitle")
+}
+
+empty={
+t("analytics.traffic.empty")
+}
+
+sessionLabel={
+t("analytics.traffic.session")
+}
+
+labels={{
+
+organicSearch:
+t("analytics.acquisition.labels.organicSearch"),
+
+direct:
+t("analytics.acquisition.labels.direct"),
+
+referral:
+t("analytics.acquisition.labels.referral"),
+
+organicSocial:
+t("analytics.acquisition.labels.organicSocial"),
+
+email:
+t("analytics.acquisition.labels.email"),
+
+}}
 
 />
 
@@ -424,13 +474,19 @@ min-w-0
 
 >
 
-
 <DeviceCategory
 
 data={deviceCategory}
 
-/>
+title={
+t("analytics.sections.device")
+}
 
+subtitle={
+t("analytics.deviceSubtitle")
+}
+
+/>
 
 </div>
 
@@ -483,6 +539,10 @@ min-w-0
 
 data={browser}
 
+title={
+t("analytics.sections.browser")
+}
+
 />
 
 
@@ -502,10 +562,13 @@ min-w-0
 
 >
 
-
 <LandingPages
 
 data={landingPages}
+
+title={
+t("analytics.sections.landingPages")
+}
 
 />
 
@@ -530,6 +593,10 @@ min-w-0
 <TopEvents
 
 data={topEvents}
+
+title={
+t("analytics.sections.events")
+}
 
 />
 

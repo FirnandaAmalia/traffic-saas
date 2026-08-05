@@ -1,172 +1,328 @@
 "use client";
 
-import { Sparkles, ShieldCheck, Database, Brain } from "lucide-react";
+import {
+  Sparkles,
+  ShieldCheck,
+  Database,
+  Brain,
+} from "lucide-react";
+
+import { useTranslations } from "next-intl";
+
 
 const companies = [
   {
-    name: "Google Analytics 4",
+    key: "ga4",
     icon: Database,
   },
   {
-    name: "Google Search Console",
+    key: "gsc",
     icon: ShieldCheck,
   },
   {
-    name: "OpenAI",
+    key: "openai",
     icon: Brain,
   },
   {
-    name: "Next.js",
+    key: "nextjs",
     icon: Sparkles,
   },
 ];
 
+
 export default function SocialProof() {
+
+  const t = useTranslations("socialProof");
+
+
   return (
-    <section className="relative py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center">
+    <section
+      className="
+        relative
+        overflow-hidden
+        py-24
+      "
+    >
+
+
+      {/* Background */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
+
+          h-[500px]
+          w-[900px]
+
+          -translate-x-1/2
+
+          rounded-full
+
+          bg-violet-500/10
+
+          blur-[160px]
+        "
+      />
+
+
+
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-6
+        "
+      >
+
+
+        {/* HEADER */}
+
+        <div
+          className="
+            mx-auto
+            max-w-3xl
+            text-center
+          "
+        >
+
+
           <span
             className="
               inline-flex
               items-center
+              gap-2
+
               rounded-full
+
               border
-              border-slate-200
-              bg-white
+              border-violet-200
+
+              bg-violet-50
 
               px-4
               py-2
 
               text-sm
-              font-semibold
-              text-slate-600
+              font-bold
 
-              shadow-sm
+              text-violet-700
             "
           >
-            Dibangun dengan teknologi modern
+
+            <Sparkles className="h-4 w-4"/>
+
+            {t("badge")}
+
           </span>
+
+
+
 
           <h2
             className="
               mt-6
+
               text-4xl
+
               font-black
+
               tracking-tight
+
               text-slate-900
+
+              lg:text-6xl
             "
           >
-            Menggunakan teknologi terbaik
+
+            {t("title")}
+
           </h2>
+
+
+
 
           <p
             className="
               mx-auto
-              mt-4
+
+              mt-5
+
               max-w-2xl
 
               text-lg
+
               leading-8
-              text-slate-500
+
+              text-slate-600
             "
           >
-            TrafficSaaS terhubung dengan teknologi Google dan AI modern untuk
-            membantu menghasilkan analisis SEO yang lebih akurat.
+
+            {t("description")}
+
           </p>
+
+
         </div>
+
+
+
+
+
+        {/* COMPANIES */}
 
         <div
           className="
             mt-14
 
             grid
+
             gap-6
 
             sm:grid-cols-2
+
             lg:grid-cols-4
           "
         >
-          {companies.map((item) => {
-            const Icon = item.icon;
 
-            return (
-              <div
-                key={item.name}
-                className="
-                  group
+          {
+            companies.map((item)=>{
 
-                  rounded-3xl
+              const Icon = item.icon;
 
-                  border
-                  border-white/60
 
-                  bg-white/70
+              return (
 
-                  p-8
-
-                  text-center
-
-                  shadow-lg
-
-                  backdrop-blur-xl
-
-                  transition-all
-                  duration-500
-
-                  hover:-translate-y-2
-                  hover:shadow-2xl
-                "
-              >
                 <div
+                  key={item.key}
+
                   className="
-                    mx-auto
+                    group
 
-                    flex
-                    h-16
-                    w-16
+                    rounded-3xl
 
-                    items-center
-                    justify-center
+                    border
 
-                    rounded-2xl
+                    border-slate-200
 
-                    bg-gradient-to-br
+                    bg-white
 
-                    from-violet-600
-                    to-sky-500
+                    p-8
 
-                    shadow-lg
+                    text-center
+
+                    shadow-sm
+
+                    transition-all
+
+                    duration-500
+
+                    hover:-translate-y-2
+
+                    hover:border-violet-200
+
+                    hover:shadow-2xl
                   "
                 >
-                  <Icon className="h-8 w-8 text-white" />
+
+
+                  <div
+                    className="
+                      mx-auto
+
+                      flex
+
+                      h-16
+
+                      w-16
+
+                      items-center
+
+                      justify-center
+
+                      rounded-2xl
+
+                      bg-gradient-to-br
+
+                      from-violet-600
+
+                      to-sky-500
+
+                      shadow-lg
+
+                      transition-transform
+
+                      duration-300
+
+                      group-hover:scale-110
+                    "
+                  >
+
+                    <Icon
+                      className="
+                        h-8
+                        w-8
+                        text-white
+                      "
+                    />
+
+                  </div>
+
+
+
+                  <h3
+                    className="
+                      mt-5
+
+                      text-lg
+
+                      font-black
+
+                      text-slate-900
+                    "
+                  >
+
+                    {t(`companies.${item.key}.name`)}
+
+                  </h3>
+
+
+
+
+                  <p
+                    className="
+                      mt-2
+
+                      text-sm
+
+                      text-slate-500
+                    "
+                  >
+
+                    {t("integrated")}
+
+                  </p>
+
+
+
                 </div>
 
-                <h3
-                  className="
-                    mt-5
-                    text-lg
-                    font-bold
-                    text-slate-900
-                  "
-                >
-                  {item.name}
-                </h3>
+              );
 
-                <p
-                  className="
-                    mt-2
-                    text-sm
-                    text-slate-500
-                  "
-                >
-                  Terintegrasi langsung
-                </p>
-              </div>
-            );
-          })}
+
+            })
+          }
+
+
         </div>
+
+
       </div>
+
+
     </section>
   );
 }

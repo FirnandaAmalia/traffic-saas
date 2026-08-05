@@ -10,38 +10,38 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
+
 
 const steps = [
   {
     icon: Link2,
-    title: "Hubungkan Data",
-    description:
-      "Hubungkan Google Search Console dan Google Analytics 4 secara aman untuk mengambil data performa website.",
+    key: "connect",
     color: "from-violet-600 to-fuchsia-500",
   },
   {
     icon: DatabaseZap,
-    title: "Sinkronisasi Otomatis",
-    description:
-      "TrafficSaaS menggabungkan data SEO dan analytics menjadi satu workspace yang mudah dipahami.",
+    key: "sync",
     color: "from-sky-500 to-cyan-500",
   },
   {
     icon: BrainCircuit,
-    title: "Insight AI",
-    description:
-      "AI membaca data traffic, keyword, dan halaman untuk menemukan peluang SEO yang paling berdampak.",
+    key: "ai",
     color: "from-emerald-500 to-teal-500",
   },
   {
     icon: TrendingUp,
-    title: "Tingkatkan Pertumbuhan",
-    description:
-      "Terapkan rekomendasi, pantau perubahan, dan tingkatkan traffic organik secara berkelanjutan.",
+    key: "growth",
     color: "from-orange-500 to-amber-500",
   },
 ];
+
+
 export default function Workflow() {
+
+  const t = useTranslations("workflow");
+  
+
   return (
     <section
       id="workflow"
@@ -51,9 +51,13 @@ export default function Workflow() {
         py-32
       "
     >
+
+
       {/* Background */}
 
       <div className="pointer-events-none absolute inset-0">
+
+
         <div
           className="
             absolute
@@ -67,6 +71,7 @@ export default function Workflow() {
           "
         />
 
+
         <div
           className="
             absolute
@@ -79,7 +84,13 @@ export default function Workflow() {
             blur-[140px]
           "
         />
+
+
       </div>
+
+
+
+
 
       <div
         className="
@@ -89,9 +100,15 @@ export default function Workflow() {
           px-6
         "
       >
+
+
+
+
         {/* HEADER */}
 
+
         <FadeUp>
+
           <div
             className="
               mx-auto
@@ -99,6 +116,8 @@ export default function Workflow() {
               text-center
             "
           >
+
+
             <div
               className="
                 inline-flex
@@ -115,9 +134,16 @@ export default function Workflow() {
                 text-violet-700
               "
             >
-              <Sparkles className="h-4 w-4" />
-              CARA KERJA
+
+              <Sparkles className="h-4 w-4"/>
+
+              {t("badge")}
+
             </div>
+
+
+
+
 
             <h2
               className="
@@ -129,10 +155,16 @@ export default function Workflow() {
                 lg:text-6xl
               "
             >
-              Dari data mentah
+
+              {t("title.line1")}
+
               <br />
-              menjadi strategi SEO
+
+              {t("title.line2")}
+
               <br />
+
+
               <span
                 className="
                   bg-gradient-to-r
@@ -142,9 +174,17 @@ export default function Workflow() {
                   text-transparent
                 "
               >
-                yang lebih cerdas
+
+                {t("title.highlight")}
+
               </span>
+
+
             </h2>
+
+
+
+
 
             <p
               className="
@@ -154,14 +194,26 @@ export default function Workflow() {
                 text-slate-600
               "
             >
-              TrafficSaaS mengubah data website yang kompleks menjadi insight
-              dan rekomendasi yang bisa langsung digunakan untuk meningkatkan
-              performa SEO.
+
+              {t("description")}
+
             </p>
+
+
+
           </div>
+
+
         </FadeUp>
 
+
+
+
+
+
+
         {/* STEPS */}
+
 
         <div
           className="
@@ -169,6 +221,9 @@ export default function Workflow() {
             mt-20
           "
         >
+
+
+
           {/* LINE */}
 
           <div
@@ -187,6 +242,10 @@ export default function Workflow() {
             "
           />
 
+
+
+
+
           <div
             className="
               grid
@@ -194,11 +253,22 @@ export default function Workflow() {
               lg:grid-cols-4
             "
           >
-            {steps.map((step, index) => {
+
+
+            {steps.map((step,index)=>{
+
+
               const Icon = step.icon;
 
+
               return (
-                <FadeUp key={step.title} delay={index * 0.12}>
+
+                <FadeUp
+                  key={step.key}
+                  delay={index * 0.12}
+                >
+
+
                   <div
                     className="
                       group
@@ -206,37 +276,31 @@ export default function Workflow() {
                       h-[340px]
                     "
                   >
+
+
                     <div
                       className="
                         relative
                         flex
                         h-full
                         flex-col
-
                         rounded-[32px]
-
                         border
                         border-slate-200
-
                         bg-white/90
-
                         p-8
-
                         shadow-sm
-
                         backdrop-blur-xl
-
                         transition-all
                         duration-500
-
                         hover:-translate-y-3
-
                         hover:border-violet-200
-
                         hover:shadow-2xl
                       "
                     >
-                      {/* NUMBER */}
+
+
+
 
                       <div
                         className="
@@ -248,10 +312,15 @@ export default function Workflow() {
                           text-slate-100
                         "
                       >
+
                         0{index + 1}
+
                       </div>
 
-                      {/* ICON */}
+
+
+
+
 
                       <div
                         className={`
@@ -269,6 +338,7 @@ export default function Workflow() {
                           group-hover:scale-110
                         `}
                       >
+
                         <Icon
                           className="
                             h-8
@@ -276,9 +346,14 @@ export default function Workflow() {
                             text-white
                           "
                         />
+
                       </div>
 
-                      {/* TITLE */}
+
+
+
+
+
 
                       <h3
                         className="
@@ -288,10 +363,16 @@ export default function Workflow() {
                           text-slate-900
                         "
                       >
-                        {step.title}
+
+                        {t(`steps.${step.key}.title`)}
+
                       </h3>
 
-                      {/* DESCRIPTION */}
+
+
+
+
+
 
                       <p
                         className="
@@ -302,10 +383,15 @@ export default function Workflow() {
                           text-slate-600
                         "
                       >
-                        {step.description}
+
+                        {t(`steps.${step.key}.description`)}
+
                       </p>
 
-                      {/* STEP */}
+
+
+
+
 
                       <div
                         className="
@@ -319,17 +405,43 @@ export default function Workflow() {
                           text-violet-600
                         "
                       >
-                        Step {index + 1}
-                        <ArrowRight className="h-4 w-4" />
+
+                        {t("step")} {index + 1}
+
+                        <ArrowRight className="h-4 w-4"/>
+
                       </div>
+
+
+
+
                     </div>
+
+
                   </div>
+
+
                 </FadeUp>
+
+
               );
+
+
             })}
+
+
+
           </div>
+
+
         </div>
+
+
+
       </div>
+
+
+
     </section>
   );
 }

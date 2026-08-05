@@ -20,7 +20,7 @@ import {
 } from "@/lib/plan";
 
 import { goToBilling } from "@/lib/upgrade";
-
+import { useLocale } from "next-intl";
 
 interface CreateProjectDialogProps {
 
@@ -39,7 +39,7 @@ export default function CreateProjectDialog({
 
 }: CreateProjectDialogProps) {
 
-
+const locale = useLocale();
   const router = useRouter();
 
 
@@ -183,7 +183,7 @@ localStorage.removeItem(
 
 
 router.push(
-  `/dashboard?projectId=${data.project.id}`
+  `/${locale}/dashboard?projectId=${data.project.id}`
 );
 
     } catch(error) {

@@ -348,9 +348,7 @@ export async function POST(
       "/projects"
     );
 
-    revalidatePath(
-      "/dashboard"
-    );
+    revalidatePath("/[locale]/dashboard", "page");
 
     revalidatePath(
       "/setup/gsc"

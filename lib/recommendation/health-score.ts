@@ -13,19 +13,22 @@ export interface HealthScore {
   grade:string;
 
 
-  summary:string;
-
-
   status:
-    | "Excellent"
-    | "Good"
-    | "Needs Improvement"
-    | "Critical";
+    | "excellent"
+    | "good"
+    | "optimization"
+    | "critical";
+
+
+  summary:
+    | "excellent"
+    | "good"
+    | "optimization"
+    | "critical";
 
 
 
   breakdown:{
-
 
     seo:number;
 
@@ -39,11 +42,12 @@ export interface HealthScore {
 
     marketing:number;
 
-
   };
 
 
 }
+
+
 
 
 
@@ -74,6 +78,9 @@ marketing:100,
 
 
 };
+
+
+
 
 
 
@@ -131,13 +138,6 @@ break;
 
 
 
-/*
-AI confidence adjustment
-
-Recommendation score tinggi
-lebih berdampak
-*/
-
 
 if(item.score >=90){
 
@@ -157,90 +157,116 @@ penalty += 2;
 
 
 
-switch(item.category){
-
-
-
-case "SEO":
-
-breakdown.seo -= penalty;
-
-break;
-
-
-
-case "Content":
-
-breakdown.content -= penalty;
-
-break;
-
-
-
-case "UX":
-
-breakdown.ux -= penalty;
-
-break;
-
-
-
-case "Performance":
-
-breakdown.performance -= penalty;
-
-break;
-
-
-
-case "Analytics":
-
-breakdown.analytics -= penalty;
-
-break;
-
-
-
-case "Marketing":
-
-breakdown.marketing -= penalty;
-
-break;
-
-
-
-case "Conversion":
-
-
-breakdown.marketing -=
-Math.ceil(
-penalty/2
-);
-
-
-breakdown.ux -=
-Math.ceil(
-penalty/2
-);
-
-
-break;
-
-
-
-}
-
-
-
-}
-
-
-
-
 
 /*
-Clamp score
+ Mapping berdasarkan titleKey
 */
+
+
+switch(item.titleKey){
+
+
+
+case "quickWin":
+
+case "ctrOptimization":
+
+  breakdown.seo -= penalty;
+
+break;
+
+
+
+
+case "contentDecay":
+
+  breakdown.content -= penalty;
+
+break;
+
+
+
+
+case "landingPageGrowth":
+
+case "conversionTracking":
+
+  breakdown.ux -= Math.ceil(
+    penalty / 2
+  );
+
+  breakdown.marketing -= Math.ceil(
+    penalty / 2
+  );
+
+break;
+
+
+
+
+case "mobileOptimization":
+
+  breakdown.performance -= penalty;
+
+  breakdown.ux -= Math.ceil(
+    penalty / 2
+  );
+
+break;
+
+
+
+
+case "browserCompatibility":
+
+  breakdown.performance -= penalty;
+
+break;
+
+
+
+
+case "countryOpportunity":
+
+  breakdown.marketing -= penalty;
+
+break;
+
+
+
+
+case "eventInsight":
+
+  breakdown.analytics -= penalty;
+
+break;
+
+
+
+default:
+
+  breakdown.seo -= Math.ceil(
+    penalty / 2
+  );
+
+break;
+
+
+
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+
 
 
 Object.keys(
@@ -272,10 +298,13 @@ breakdown[k]
 
 
 
+
 const values =
 Object.values(
 breakdown
 );
+
+
 
 
 
@@ -300,10 +329,6 @@ values.length
 
 
 
-/*
-Bonus penalty berdasarkan jumlah issue
-*/
-
 
 if(
 recommendations.length >=8
@@ -320,6 +345,9 @@ recommendations.length >=5
 score -=5;
 
 }
+
+
+
 
 
 
@@ -342,11 +370,20 @@ score
 
 
 
+let grade = "F";
 
-let grade="F";
 
 let status:
 HealthScore["status"];
+
+
+let summary:
+HealthScore["summary"];
+
+
+
+
+
 
 
 
@@ -355,7 +392,10 @@ if(score>=95){
 
 grade="A+";
 
-status="Excellent";
+status="excellent";
+
+summary="excellent";
+
 
 }
 
@@ -363,7 +403,10 @@ else if(score>=90){
 
 grade="A";
 
-status="Excellent";
+status="excellent";
+
+summary="excellent";
+
 
 }
 
@@ -371,7 +414,10 @@ else if(score>=85){
 
 grade="A-";
 
-status="Good";
+status="good";
+
+summary="good";
+
 
 }
 
@@ -379,7 +425,10 @@ else if(score>=80){
 
 grade="B+";
 
-status="Good";
+status="good";
+
+summary="good";
+
 
 }
 
@@ -387,7 +436,10 @@ else if(score>=70){
 
 grade="B";
 
-status="Needs Improvement";
+status="optimization";
+
+summary="optimization";
+
 
 }
 
@@ -395,7 +447,10 @@ else if(score>=60){
 
 grade="C";
 
-status="Needs Improvement";
+status="optimization";
+
+summary="optimization";
+
 
 }
 
@@ -403,7 +458,10 @@ else if(score>=50){
 
 grade="D";
 
-status="Critical";
+status="critical";
+
+summary="critical";
+
 
 }
 
@@ -411,68 +469,13 @@ else{
 
 grade="F";
 
-status="Critical";
+status="critical";
 
-}
-
-
-
-
-
-
-
-
-
-let summary="";
-
-
-
-
-
-if(score>=90){
-
-
-summary =
-"Website memiliki kesehatan digital yang sangat baik. Fokus utama adalah mempertahankan performa dan melakukan optimasi lanjutan untuk meningkatkan pertumbuhan.";
+summary="critical";
 
 
 }
 
-else if(score>=80){
-
-
-summary =
-"Website berada dalam kondisi baik, namun terdapat beberapa peluang optimasi yang dapat meningkatkan trafik, engagement, dan konversi.";
-
-
-}
-
-else if(score>=70){
-
-
-summary =
-"Website memiliki fondasi yang cukup baik tetapi membutuhkan perbaikan pada beberapa area penting agar pertumbuhan SEO lebih maksimal.";
-
-
-}
-
-else if(score>=60){
-
-
-summary =
-"Website membutuhkan perhatian pada beberapa faktor utama seperti SEO, pengalaman pengguna, dan strategi konten.";
-
-
-}
-
-else{
-
-
-summary =
-"Website memerlukan optimasi menyeluruh karena terdapat banyak faktor yang berpotensi menghambat performa organik dan bisnis.";
-
-
-}
 
 
 

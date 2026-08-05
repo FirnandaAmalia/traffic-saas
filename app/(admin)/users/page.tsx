@@ -17,11 +17,11 @@ import {
   prisma,
 } from "@/lib/prisma";
 
-
+import { getLocale } from "next-intl/server";
 
 export default async function UsersPage(){
 
-
+const locale = await getLocale();
 
 const session =
 await getServerSession(
@@ -41,7 +41,7 @@ redirect("/login");
 
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

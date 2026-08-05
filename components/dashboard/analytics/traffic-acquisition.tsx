@@ -23,9 +23,23 @@ interface Props {
 
   data: TrafficSourceMetric[];
 
+  title:string;
+
+  subtitle:string;
+
+  empty:string;
+
+  sessionLabel:string;
+
+  labels:{
+    organicSearch:string;
+    direct:string;
+    referral:string;
+    organicSocial:string;
+    email:string;
+  };
+
 }
-
-
 
 
 
@@ -66,6 +80,25 @@ Mail,
 
 
 
+
+export default function TrafficAcquisition({
+
+data,
+
+title,
+
+subtitle,
+
+empty,
+
+sessionLabel,
+
+labels,
+
+}:Props){
+
+
+
 const LABELS: Record<
 string,
 string
@@ -73,40 +106,28 @@ string
 
 
 "Organic Search":
-"Pencarian Organik",
+labels.organicSearch,
 
 
 Direct:
-"Langsung",
+labels.direct,
 
 
 Referral:
-"Rujukan",
+labels.referral,
 
 
 "Organic Social":
-"Media Sosial Organik",
+labels.organicSocial,
 
 
 Email:
-"Email",
+labels.email,
 
 
 };
 
 
-
-
-
-
-
-
-
-export default function TrafficAcquisition({
-
-data,
-
-}:Props){
 
 
 
@@ -148,14 +169,15 @@ item.sessions
 
 
 
+
 return (
 
 
 <Widget
 
-title="Akuisisi Trafik"
+title={title}
 
-subtitle="Sumber kunjungan utama website"
+subtitle={subtitle}
 
 badge={
 <LiveBadge />
@@ -196,6 +218,8 @@ scrollbar-track-transparent
 
 >
 
+
+
 {
 
 data.length === 0
@@ -216,7 +240,7 @@ text-slate-500
 
 >
 
-Belum ada data kunjungan
+{empty}
 
 
 </div>
@@ -255,6 +279,7 @@ item.channel;
 
 
 
+
 const percent =
 
 total === 0
@@ -282,14 +307,15 @@ const width =
 
 
 
-
 return (
 
 
 <div
 
 
-key={item.channel}
+key={
+item.channel
+}
 
 
 className="
@@ -303,11 +329,7 @@ hover:border-blue-100
 hover:bg-slate-50
 "
 
-
 >
-
-
-
 
 
 <div
@@ -321,8 +343,6 @@ justify-between
 >
 
 
-
-
 <div
 
 className="
@@ -332,8 +352,6 @@ gap-3
 "
 
 >
-
-
 
 
 <div
@@ -369,7 +387,6 @@ text-blue-600
 
 
 
-
 <div>
 
 
@@ -384,7 +401,6 @@ text-slate-800
 >
 
 {label}
-
 
 </p>
 
@@ -401,13 +417,12 @@ text-slate-500
 
 >
 
+
 {
 percent.toFixed(1)
-}% dari total kunjungan
-
+}%
 
 </p>
-
 
 
 
@@ -448,14 +463,14 @@ text-slate-900
 >
 
 {
+
 item.sessions.toLocaleString(
 "id-ID"
 )
+
 }
 
-
 </div>
-
 
 
 
@@ -469,23 +484,20 @@ text-slate-400
 
 >
 
-Sesi
-
-
-</div>
-
-
+{sessionLabel}
 
 </div>
 
 
 
 
+</div>
+
+
 
 
 
 </div>
-
 
 
 
@@ -504,7 +516,6 @@ bg-slate-100
 "
 
 >
-
 
 
 <div
@@ -527,12 +538,11 @@ width:
 }}
 
 
-
 />
 
 
-
 </div>
+
 
 
 
@@ -551,18 +561,14 @@ width:
 )
 
 
-
 }
 
 
 
-
 </div>
 
 
-
 </div>
-
 
 
 </Widget>

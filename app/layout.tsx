@@ -72,6 +72,7 @@ antialiased
 
 >
 
+<Providers>
 
 <Providers>
 
@@ -79,6 +80,7 @@ antialiased
 
 </Providers>
 
+</Providers>
 
 
 <Toaster
@@ -88,7 +90,6 @@ richColors
 position="top-right"
 
 />
-
 
 </body>
 

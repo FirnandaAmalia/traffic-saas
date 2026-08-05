@@ -15,7 +15,9 @@ import type {
   ActionPlan,
 } from "@/lib/recommendation/action-plan";
 
-
+import {
+  useTranslations,
+} from "next-intl";
 
 interface Props {
 
@@ -23,85 +25,92 @@ interface Props {
 
 }
 
+function priorityStyle(
+priority:string,
+t:any
+){
 
+switch(priority){
 
+case "critical":
+return {
+class:"bg-red-100 text-red-700",
+label:t("priority.critical")
+};
 
+case "high":
+return {
+class:"bg-orange-100 text-orange-700",
+label:t("priority.high")
+};
+
+case "medium":
+return {
+class:"bg-yellow-100 text-yellow-700",
+label:t("priority.medium")
+};
+
+default:
+return {
+class:"bg-slate-100 text-slate-700",
+label:priority
+};
+
+}
+
+}
 
 function phaseStyle(
-phase:string
+phase:string,
+t:any
 ){
 
 switch(phase){
 
 case "Quick Wins":
 
-return "bg-emerald-100 text-emerald-700";
+return {
+class:"bg-emerald-100 text-emerald-700",
+label:t("phases.quickWins")
+};
 
 
 case "Optimization":
 
-return "bg-blue-100 text-blue-700";
+return {
+class:"bg-blue-100 text-blue-700",
+label:t("phases.optimization")
+};
 
 
 case "Growth Strategy":
 
-return "bg-purple-100 text-purple-700";
+return {
+class:"bg-purple-100 text-purple-700",
+label:t("phases.growthStrategy")
+};
 
 
 default:
 
-return "bg-slate-100 text-slate-700";
+return {
+class:"bg-slate-100 text-slate-700",
+label:phase
+};
 
 }
 
 }
-
-
-
-
-
-function priorityStyle(
-priority:string
-){
-
-switch(priority){
-
-case "critical":
-
-return "bg-red-100 text-red-700";
-
-
-case "high":
-
-return "bg-orange-100 text-orange-700";
-
-
-case "medium":
-
-return "bg-yellow-100 text-yellow-700";
-
-
-default:
-
-return "bg-slate-100 text-slate-700";
-
-}
-
-}
-
-
-
-
-
-
 
 export default function ActionPlanCard({
-
-plan,
-
+  plan,
 }:Props){
 
+const t =
+useTranslations("actionPlan");
 
+const tr =
+useTranslations("recommendations");
 
 const grouped =
 
@@ -215,7 +224,7 @@ font-bold
 
 >
 
-AI Growth Roadmap
+{t("title")}
 
 </h2>
 
@@ -229,8 +238,7 @@ text-slate-500
 
 >
 
-Strategic execution plan generated from
-SEO opportunities and business impact.
+{t("subtitle")}
 
 </p>
 
@@ -275,16 +283,14 @@ text-center
 
 <p className="text-xs text-slate-500">
 
-Timeline
+{t("timeline")}
 
 </p>
 
 
 <p className="mt-1 text-xl font-bold text-blue-600">
 
-{plan.totalWeeks}
-
- Weeks
+{plan.totalWeeks} {t("weeks")}
 
 </p>
 
@@ -309,16 +315,14 @@ text-center
 
 <p className="text-xs text-slate-500">
 
-Tasks
+{t("tasks")}
 
 </p>
 
 
 <p className="mt-1 text-xl font-bold text-emerald-600">
 
-{totalTasks}
-
- Actions
+{totalTasks} {t("actions")}
 
 </p>
 
@@ -423,7 +427,7 @@ font-bold
 
 >
 
-Week {week}
+{t("week")} {week}
 
 </h3>
 
@@ -437,7 +441,7 @@ text-slate-500
 
 >
 
-{tasks.length} strategic actions
+{tasks.length} {t("strategicActions")}
 
 </p>
 
@@ -531,12 +535,12 @@ px-3
 py-1
 text-xs
 font-semibold
-${phaseStyle(task.phase)}
+${phaseStyle(task.phase,t).class}
 `}
 
 >
 
-{task.phase}
+{phaseStyle(task.phase,t).label}
 
 </span>
 
@@ -551,12 +555,12 @@ px-3
 py-1
 text-xs
 font-semibold
-${priorityStyle(task.priority)}
+${priorityStyle(task.priority,t).class}
 `}
 
 >
 
-{task.priority}
+{priorityStyle(task.priority,t).label}
 
 </span>
 
@@ -594,27 +598,18 @@ shadow-sm
 
 </div>
 
-
-
-
-
-
-
 <p
-
 className="
 mt-4
 text-sm
 leading-7
 text-slate-600
 "
-
 >
 
 {task.description}
 
 </p>
-
 
 
 
@@ -667,7 +662,7 @@ gap-1
 
 <Clock size={14}/>
 
-{task.estimatedDays} days
+{task.estimatedDays} {t("days")}
 
 </span>
 
@@ -688,7 +683,7 @@ text-emerald-600
 
 <CheckCircle2 size={14}/>
 
-Recommended
+{t("recommended")}
 
 </span>
 

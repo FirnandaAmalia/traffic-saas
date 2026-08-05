@@ -16,11 +16,24 @@ import SidebarUser from "./sidebar-user";
 import SidebarNavItem from "./sidebar-nav";
 import TourFeatureButton from "@/components/onboarding/tour-feature-button";
 
+import {
+  getLocale,
+  getTranslations,
+} from "next-intl/server";
+
+
+
 export default async function Sidebar() {
 
 
+const locale =
+await getLocale();
+
+const t = await getTranslations("sidebar");
+
 const session =
 await getServerSession(authOptions);
+
 
 
 
@@ -41,10 +54,12 @@ subscriptionUsage?.plan
 "FREE";
 
 
+
 const projectCount =
 subscriptionUsage?.projectCount
 ??
 0;
+
 
 
 const projectLimit =
@@ -69,6 +84,7 @@ Math.min(
 
 
 
+
 return (
 
 <aside
@@ -84,7 +100,6 @@ bg-white
 >
 
 
-{/* BRAND */}
 
 <div
 className="
@@ -170,8 +185,6 @@ SEO Intelligence Platform
 
 
 
-{/* NAVIGATION */}
-
 <div
 className="
 flex
@@ -183,14 +196,22 @@ py-4
 "
 >
 
-<SidebarSection title="Main">
+
+<SidebarSection title={t("sections.main")}>
+
 
 <SidebarNavItem
-href="/dashboard"
-label="Dashboard"
+
+href={`/${locale}/dashboard`}
+
+label={t("menus.dashboard")}
+
 icon="dashboard"
+
 tourClass="tour-dashboard"
+
 />
+
 
 </SidebarSection>
 
@@ -198,56 +219,86 @@ tourClass="tour-dashboard"
 
 
 
-<SidebarSection title="SEO Intelligence">
+
+
+
+<SidebarSection title={t("sections.seo")}>
 
 
 <SidebarNavItem
-href="/analytics"
-label="Traffic Analytics"
+
+href={`/${locale}/analytics`}
+
+label={t("menus.traffic")}
+
 icon="trending"
+
 tourClass="tour-analytics"
+
 />
 
 
 
+
 <SidebarNavItem
-href="/keywords"
-label="Keyword Intelligence"
+
+href={`/${locale}/keywords`}
+
+label={t("menus.keyword")}
+
 icon="target"
+
 tourClass="tour-keywords"
+
 />
 
 
 
+
 <SidebarNavItem
-href="/ai"
-label="AI SEO Consultant"
+
+href={`/${locale}/ai`}
+
+label={t("menus.ai")}
+
 icon="brain"
+
 tourClass="tour-ai"
+
 />
 
 
 </SidebarSection>
 
 
-
-<SidebarSection title="Integrations">
+<SidebarSection title={t("sections.integrations")}>
 
 
 <SidebarNavItem
-href="/setup/gsc"
-label="Search Console"
+
+href={`/${locale}/setup/gsc`}
+
+label={t("menus.searchConsole")}
+
 icon="search"
+
 tourClass="tour-gsc"
+
 />
 
 
 
+
 <SidebarNavItem
-href="/setup/ga4"
-label="Google Analytics"
+
+href={`/${locale}/setup/ga4`}
+
+label={t("menus.googleAnalytics")}
+
 icon="chart"
+
 tourClass="tour-ga4"
+
 />
 
 
@@ -255,26 +306,41 @@ tourClass="tour-ga4"
 
 
 
-<SidebarSection title="Workspace">
+
+
+
+
+
+<SidebarSection title={t("sections.workspace")}>
 
 
 <SidebarNavItem
-href="/projects"
-label="Projects"
+
+href={`/${locale}/projects`}
+
+label={t("menus.projects")}
+
 icon="folder"
+
 tourClass="tour-projects"
+
 />
 
 
 </SidebarSection>
 
-<SidebarSection title="Help">
 
+
+
+
+
+<SidebarSection title={t("sections.help")}>
   <TourFeatureButton />
-
 </SidebarSection>
 
-{/* BOTTOM AREA */}
+
+
+
 
 
 <div
@@ -286,8 +352,6 @@ pt-3
 >
 
 
-
-{/* SUBSCRIPTION */}
 
 
 <div
@@ -308,8 +372,9 @@ font-semibold
 text-slate-700
 "
 >
-Subscription
+{t("subscription.title")}
 </p>
+
 
 
 <p
@@ -319,7 +384,7 @@ text-[11px]
 text-slate-500
 "
 >
-Current plan
+{t("subscription.currentPlan")}
 </p>
 
 
@@ -336,7 +401,6 @@ py-2
 "
 >
 
-
 <div
 className="
 flex
@@ -352,8 +416,9 @@ text-xs
 text-slate-500
 "
 >
-Plan
+{t("subscription.plan")}
 </span>
+
 
 
 <span
@@ -368,7 +433,6 @@ text-blue-600
 
 
 </div>
-
 
 </div>
 
@@ -394,9 +458,8 @@ text-slate-500
 "
 >
 
-
 <span>
-Projects
+{t("subscription.projects")}
 </span>
 
 
@@ -405,7 +468,7 @@ Projects
 {
 projectLimit === null
 ?
-"Unlimited"
+t("subscription.unlimited")
 :
 `${projectCount}/${projectLimit}`
 }
@@ -414,7 +477,6 @@ projectLimit === null
 
 
 </div>
-
 
 
 
@@ -439,7 +501,7 @@ text-blue-700
 "
 >
 
-Unlimited projects
+{t("subscription.unlimitedProjects")}
 
 </div>
 
@@ -475,6 +537,7 @@ width:`${usagePercentage ?? 0}%`
 }
 
 
+
 </div>
 
 
@@ -486,10 +549,13 @@ width:`${usagePercentage ?? 0}%`
 
 {
 plan==="FREE"
+
 &&
 
 <Link
-href="/billing"
+
+href={`/${locale}/billing`}
+
 className="
 mt-3
 flex
@@ -507,9 +573,11 @@ font-medium
 text-blue-600
 hover:bg-blue-50
 "
+
 >
 
-Upgrade
+{t("subscription.upgrade")}
+
 
 <ArrowUpRight
 className="
@@ -534,6 +602,8 @@ w-3.5
 
 
 
+
+
 <SidebarUser
 
 name={
@@ -549,6 +619,7 @@ session?.user?.image
 }
 
 />
+
 
 
 

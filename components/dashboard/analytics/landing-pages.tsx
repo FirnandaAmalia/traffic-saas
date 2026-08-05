@@ -19,24 +19,17 @@ import type {
 interface LandingPagesProps {
 
   data: LandingPageMetric[];
-
+  title:string;
 }
-
-
-
-
-
 
 
 export default function LandingPages({
 
 data,
 
+title,
+
 }:LandingPagesProps){
-
-
-
-
 
 
 const total =
@@ -74,7 +67,7 @@ return (
 
 <Widget
 
-title="Top Landing Pages"
+title={title}
 
 subtitle="Halaman website dengan trafik organik tertinggi"
 

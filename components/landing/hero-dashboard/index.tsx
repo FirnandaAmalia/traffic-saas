@@ -9,9 +9,43 @@ import {
   Globe,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 
 export default function HeroDashboard() {
+
+  const t = useTranslations("heroDashboard");
+
+
+  const metrics = [
+    {
+      label: t("metrics.traffic"),
+      value: "+42%",
+    },
+    {
+      label: t("metrics.clicks"),
+      value: "18.4K",
+    },
+    {
+      label: t("metrics.keywords"),
+      value: "12.4K",
+    },
+  ];
+
+
+  const icons = [
+    BarChart3,
+    Search,
+    Globe,
+    Brain,
+  ];
+
+
+  const chart = [30,50,40,80,65,95,110];
+
+
   return (
+
     <div className="relative h-[520px] w-full">
 
 
@@ -22,15 +56,22 @@ export default function HeroDashboard() {
           absolute
           left-1/2
           top-1/2
+
           h-96
           w-96
+
           -translate-x-1/2
           -translate-y-1/2
+
           rounded-full
+
           bg-violet-500/20
+
           blur-[120px]
         "
       />
+
+
 
 
 
@@ -41,12 +82,18 @@ export default function HeroDashboard() {
           absolute
           inset-x-4
           top-10
+
           overflow-hidden
+
           rounded-[32px]
+
           border
           border-white/70
+
           bg-white/80
+
           shadow-[0_40px_100px_rgba(15,23,42,.15)]
+
           backdrop-blur-xl
         "
       >
@@ -58,10 +105,15 @@ export default function HeroDashboard() {
           className="
             flex
             h-12
+
             items-center
+
             gap-2
+
             border-b
+
             bg-slate-50/80
+
             px-5
           "
         >
@@ -74,15 +126,23 @@ export default function HeroDashboard() {
           <div
             className="
               ml-6
+
               rounded-full
+
               bg-white
+
               px-5
+
               py-1
+
               text-xs
+
               text-slate-400
             "
           >
+
             app.trafficsaas.com/dashboard
+
           </div>
 
 
@@ -91,54 +151,70 @@ export default function HeroDashboard() {
 
 
 
+
         <div className="flex h-[390px]">
+
 
 
           {/* Sidebar */}
 
+
           <div
             className="
               hidden
+
               w-20
+
               border-r
+
               bg-slate-50
+
               p-4
+
               md:block
             "
           >
 
             {
-              [
-                BarChart3,
-                Search,
-                Globe,
-                Brain,
-              ].map((Icon,index)=>(
+              icons.map((Icon,index)=>(
 
                 <div
                   key={index}
                   className="
                     mb-5
+
                     flex
+
                     h-10
                     w-10
+
                     items-center
                     justify-center
+
                     rounded-xl
+
                     bg-white
+
                     shadow-sm
                   "
                 >
 
-                  <Icon className="h-5 w-5 text-violet-600"/>
+                  <Icon
+                    className="
+                      h-5
+                      w-5
+                      text-violet-600
+                    "
+                  />
 
                 </div>
 
               ))
             }
 
-
           </div>
+
+
 
 
 
@@ -149,24 +225,51 @@ export default function HeroDashboard() {
           <div
             className="
               flex-1
+
               p-6
             "
           >
 
 
-            <div className="flex justify-between">
+
+            <div
+              className="
+                flex
+                justify-between
+              "
+            >
 
 
               <div>
 
-                <p className="text-sm text-slate-500">
-                  Ringkasan Website
+                <p
+                  className="
+                    text-sm
+                    text-slate-500
+                  "
+                >
+
+                  {t("overview")}
+
                 </p>
 
 
-                <h3 className="mt-1 text-2xl font-black text-slate-900">
-                  SEO Performance
+                <h3
+                  className="
+                    mt-1
+
+                    text-2xl
+
+                    font-black
+
+                    text-slate-900
+                  "
+                >
+
+                  {t("title")}
+
                 </h3>
+
 
               </div>
 
@@ -175,16 +278,22 @@ export default function HeroDashboard() {
               <div
                 className="
                   rounded-full
+
                   bg-emerald-100
+
                   px-4
+
                   py-2
+
                   text-xs
+
                   font-bold
+
                   text-emerald-700
                 "
               >
 
-                Aktif
+                {t("active")}
 
               </div>
 
@@ -194,40 +303,63 @@ export default function HeroDashboard() {
 
 
 
+
+
             {/* Metrics */}
+
 
             <div
               className="
                 mt-6
+
                 grid
+
                 grid-cols-3
+
                 gap-4
               "
             >
 
               {
-                [
-                  ["Traffic","+42%"],
-                  ["Clicks","18.4K"],
-                  ["Keywords","12.4K"],
-                ].map(item=>(
+                metrics.map(item=>(
 
                   <div
-                    key={item[0]}
+                    key={item.label}
                     className="
                       rounded-2xl
+
                       bg-slate-50
+
                       p-4
                     "
                   >
 
-                    <p className="text-xs text-slate-500">
-                      {item[0]}
+                    <p
+                      className="
+                        text-xs
+                        text-slate-500
+                      "
+                    >
+
+                      {item.label}
+
                     </p>
 
-                    <p className="mt-2 text-xl font-black">
-                      {item[1]}
+
+                    <p
+                      className="
+                        mt-2
+
+                        text-xl
+
+                        font-black
+                      "
+                    >
+
+                      {item.value}
+
                     </p>
+
 
                   </div>
 
@@ -240,50 +372,80 @@ export default function HeroDashboard() {
 
 
 
+
+
+
             {/* Chart */}
+
 
             <div
               className="
                 mt-6
+
                 rounded-3xl
+
                 bg-slate-950
+
                 p-5
               "
             >
 
-              <div className="flex justify-between">
+              <div
+                className="
+                  flex
+                  justify-between
+                "
+              >
 
                 <p className="text-sm text-white">
-                  Pertumbuhan Organik
+
+                  {t("chart.title")}
+
                 </p>
 
-                <TrendingUp className="text-emerald-400"/>
+
+                <TrendingUp
+                  className="
+                    text-emerald-400
+                  "
+                />
 
               </div>
+
 
 
               <div
                 className="
                   mt-6
+
                   flex
+
                   h-24
+
                   items-end
+
                   gap-3
                 "
               >
 
                 {
-                  [30,50,40,80,65,95,110].map((h,i)=>(
+                  chart.map((h,i)=>(
 
                     <div
                       key={i}
+
                       className="
                         flex-1
+
                         rounded-t-lg
+
                         bg-gradient-to-t
+
                         from-violet-500
+
                         to-sky-400
                       "
+
                       style={{
                         height:`${h}px`
                       }}
@@ -299,7 +461,6 @@ export default function HeroDashboard() {
             </div>
 
 
-
           </div>
 
 
@@ -312,18 +473,28 @@ export default function HeroDashboard() {
 
 
 
+
       {/* AI Floating */}
+
 
       <div
         className="
           absolute
+
           -left-2
+
           top-32
+
           animate-float
+
           rounded-2xl
+
           border
+
           bg-white
+
           p-4
+
           shadow-xl
         "
       >
@@ -332,17 +503,25 @@ export default function HeroDashboard() {
 
           <Sparkles className="text-violet-600"/>
 
+
           <div>
 
             <p className="text-xs text-slate-500">
-              AI Insight
+
+              {t("ai.label")}
+
             </p>
+
 
             <p className="font-bold">
-              12 Peluang
+
+              {t("ai.value")}
+
             </p>
 
+
           </div>
+
 
         </div>
 
@@ -353,33 +532,65 @@ export default function HeroDashboard() {
 
 
 
+
+      {/* Growth Floating */}
+
+
       <div
         className="
           absolute
+
           -right-2
+
           bottom-24
+
           animate-float-delay
+
           rounded-2xl
+
           border
+
           bg-white
+
           px-5
+
           py-4
+
           shadow-xl
         "
       >
 
-        <p className="text-xs text-slate-500">
-          Pertumbuhan Organik
+        <p
+          className="
+            text-xs
+            text-slate-500
+          "
+        >
+
+          {t("growth.label")}
+
         </p>
 
-        <p className="text-xl font-black text-emerald-600">
-          +42% Traffic
+
+        <p
+          className="
+            text-xl
+            font-black
+            text-emerald-600
+          "
+        >
+
+          +42% {t("growth.value")}
+
         </p>
 
 
       </div>
 
 
+
     </div>
+
   );
+
 }

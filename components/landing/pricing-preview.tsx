@@ -2,37 +2,50 @@
 
 import Link from "next/link";
 
-import { ArrowRight, Check, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Sparkles,
+} from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
-
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 const freeFeatures = [
-  "1 Project Website",
-  "Integrasi Google Search Console",
-  "Integrasi Google Analytics 4",
-  "Dashboard SEO Dasar",
-  "Ringkasan Traffic",
-  "Monitoring Keyword Dasar",
-  "Overview Performa Traffic",
-  "Export CSV",
-  "Ringkasan SEO Mingguan",
+  "feature1",
+  "feature2",
+  "feature3",
+  "feature4",
+  "feature5",
+  "feature6",
+  "feature7",
+  "feature8",
+  "feature9",
 ];
 
+
 const proFeatures = [
-  "Workspace Tanpa Batas",
-  "Project Tanpa Batas",
-  "Dashboard Eksekutif Berbasis AI",
-  "Insight SEO AI",
-  "Rekomendasi AI",
-  "Analisis Keyword & Halaman",
-  "Export Laporan PDF",
-  "Export Excel",
-  "Dukungan Prioritas",
+  "feature1",
+  "feature2",
+  "feature3",
+  "feature4",
+  "feature5",
+  "feature6",
+  "feature7",
+  "feature8",
+  "feature9",
 ];
+
+
 export default function PricingPreview() {
+
+  const t = useTranslations("pricing");
+  const locale = useLocale();
+
   return (
+
     <section
       id="pricing"
       className="
@@ -41,6 +54,8 @@ export default function PricingPreview() {
         py-32
       "
     >
+
+
       {/* Background */}
 
       <div
@@ -50,6 +65,7 @@ export default function PricingPreview() {
           inset-0
         "
       >
+
         <div
           className="
             absolute
@@ -67,6 +83,7 @@ export default function PricingPreview() {
           "
         />
 
+
         <div
           className="
             absolute
@@ -83,7 +100,12 @@ export default function PricingPreview() {
             blur-[140px]
           "
         />
+
       </div>
+
+
+
+
 
       <div
         className="
@@ -93,9 +115,13 @@ export default function PricingPreview() {
           px-6
         "
       >
+
+
+
         {/* HEADER */}
 
         <FadeUp>
+
           <div
             className="
               mx-auto
@@ -103,6 +129,8 @@ export default function PricingPreview() {
               text-center
             "
           >
+
+
             <div
               className="
                 inline-flex
@@ -125,14 +153,16 @@ export default function PricingPreview() {
                 text-violet-700
               "
             >
-              <Sparkles
-                className="
-                  h-4
-                  w-4
-                "
-              />
-              PILIHAN PAKET
+
+              <Sparkles className="h-4 w-4"/>
+
+              {t("badge")}
+
             </div>
+
+
+
+
 
             <h2
               className="
@@ -149,10 +179,18 @@ export default function PricingPreview() {
                 lg:text-6xl
               "
             >
-              Mulai gratis.
+
+              {t("title.line1")}
+
               <br />
-              Tingkatkan Saat Bisnis Berkembang.
+
+              {t("title.line2")}
+
             </h2>
+
+
+
+
 
             <p
               className="
@@ -165,53 +203,71 @@ export default function PricingPreview() {
                 text-slate-600
               "
             >
-              Gunakan fitur dasar untuk memahami performa website. Tingkatkan ke
-              versi Pro untuk mendapatkan AI insight dan analisis SEO yang lebih
-              mendalam.
+
+              {t("description")}
+
             </p>
+
+
           </div>
+
+
         </FadeUp>
+
+
+
+
+
+
 
         {/* PRICING */}
 
         <div
-          className="
-            mt-20
+  className="
+    mt-20
+    grid
+    items-stretch
+    gap-8
+    lg:grid-cols-2
+  "
+>
 
-            grid
 
-            gap-8
 
-            lg:grid-cols-2
-          "
-        >
           {/* FREE */}
 
+
           <FadeUp>
+
+
             <div
               className="
-    flex
-    min-h-[720px]
-    flex-col
+                flex
+                min-h-[720px]
+                flex-col
 
-    rounded-[36px]
+                rounded-[36px]
 
-    border
-    border-slate-200
+                border
+                border-slate-200
 
-    bg-white
+                bg-white
 
-    p-10
+                p-10
 
-    shadow-sm
+                shadow-sm
 
-    transition-all
-    duration-500
+                transition-all
 
-    hover:-translate-y-2
-    hover:shadow-xl
-  "
+                duration-500
+
+                hover:-translate-y-2
+
+                hover:shadow-xl
+              "
             >
+
+
               <span
                 className="
                   rounded-full
@@ -229,8 +285,13 @@ export default function PricingPreview() {
                   text-slate-700
                 "
               >
-                PAKET GRATIS
+
+                {t("free.badge")}
+
               </span>
+
+
+
 
               <div
                 className="
@@ -240,265 +301,335 @@ export default function PricingPreview() {
                   gap-2
                 "
               >
+
                 <h3
                   className="
-    text-6xl
-    font-black
-    text-slate-900
-  "
+                    text-6xl
+                    font-black
+                    text-slate-900
+                  "
                 >
-                  Rp0
+
+                  {t("free.price")}
+
                 </h3>
+
 
                 <span
                   className="
                     mb-3
-
                     text-slate-500
                   "
                 >
-                  selamanya
+
+                  {t("free.period")}
+
                 </span>
+
+
               </div>
+
+
+
+
 
               <p
                 className="
                   mt-4
-
                   text-slate-600
                 "
               >
-                Cocok untuk memulai analisis SEO dan memahami performa website
-                Anda.
+
+                {t("free.description")}
+
               </p>
 
+
+
+
+
               <div
                 className="
-my-8
-h-px
-bg-slate-200
-"
+                  my-8
+                  h-px
+                  bg-slate-200
+                "
               />
 
-              <div
-                className="
-    flex-1
-    space-y-5
-  "
-              >
-                {freeFeatures.map((item) => (
-                  <Feature key={item} text={item} />
-                ))}
-              </div>
+
+
+
 
               <div
                 className="
-mt-auto
-pt-10
-"
+                  flex-1
+                  space-y-5
+                "
               >
-                <Button
-                  asChild
-                  variant="outline"
-                  className="
-      h-14
-      w-full
-      rounded-2xl
-      font-semibold
-    "
-                >
-                  <Link href="/api/auth/signin">Mulai Gratis</Link>
-                </Button>
+
+                {
+                  freeFeatures.map(item=>(
+
+                    <Feature
+                      key={item}
+                      text={t(`free.features.${item}`)}
+                    />
+
+                  ))
+                }
+
               </div>
+
+
+
+
+
+              <Button
+                asChild
+                variant="outline"
+                className="
+                  mt-10
+                  h-14
+                  w-full
+                  rounded-2xl
+                  font-semibold
+                "
+              >
+
+                <Link href={`/${locale}/login`}>
+
+                  {t("free.cta")}
+
+                </Link>
+
+              </Button>
+
+
             </div>
+
+
           </FadeUp>
+
+
+
+
+
+
+
 
           {/* PRO */}
 
-          <FadeUp delay={0.15}>
-            <div
-              className="
-    relative
-    flex
-    min-h-[720px]
-    flex-col
+<FadeUp delay={0.15}>
 
-    rounded-[36px]
+  <div
+    className="
+      relative
+      h-full
+      rounded-[36px]
 
-    bg-gradient-to-br
+      bg-gradient-to-br
+      from-violet-600
+      via-indigo-600
+      to-sky-500
 
-                from-violet-600
+      p-[1px]
 
-                via-indigo-600
+      shadow-[0_40px_120px_rgba(124,58,237,.35)]
+    "
+  >
 
-                to-sky-500
+    <div
+      className="
+        flex
+        h-full
+        min-h-[720px]
+        flex-col
 
-                p-[1px]
+        rounded-[35px]
 
-                shadow-[0_40px_120px_rgba(124,58,237,.35)]
-              "
-            >
-              <div
-                className="
-   relative
-   flex
-   flex-1
-   flex-col
+        bg-slate-950
 
-   rounded-[35px]
+        p-10
 
-   bg-slate-950
+        text-white
+      "
+    >
 
-   p-10
+      <div
+        className="
+          absolute
+          right-8
+          top-8
 
-   text-white
- "
-              >
-                <div
-                  className="
-                    absolute
+          rounded-full
 
-                    right-8
+          bg-white/10
 
-                    top-8
+          px-4
+          py-2
 
-                    rounded-full
+          text-xs
 
-                    bg-white/10
-
-                    px-4
-
-                    py-2
-
-                    text-xs
-
-                    font-bold
-
-                    backdrop-blur
-                  "
-                >
-                  TERPOPULER
-                </div>
-
-                <span
-                  className="
-                    text-sm
-
-                    font-bold
-
-                    tracking-widest
-
-                    text-violet-300
-                  "
-                >
-                  PAKET PRO
-                </span>
-
-                <div
-                  className="
-                    mt-6
-
-                    flex
-
-                    items-end
-
-                    gap-2
-                  "
-                >
-                  <h3
-                    className="
-    text-6xl
-    font-black
-  "
-                  >
-                    Rp299.000
-                  </h3>
-
-                  <span
-                    className="
-    mb-4
-    text-slate-400
-  "
-                  >
-                    /bulan
-                  </span>
-                </div>
-
-                <p
-                  className="
-    mt-4
-    text-slate-300
-  "
-                >
-                  Untuk freelancer SEO, agency, dan bisnis yang membutuhkan
-                  insight berbasis data untuk berkembang lebih cepat.
-                </p>
-
-                <div
-                  className="
-                    my-8
-
-                    h-px
-
-                    bg-white/10
-                  "
-                />
-
-                <div
-                  className="
-                    space-y-5
-                  "
-                >
-                  {proFeatures.map((item) => (
-                    <Feature key={item} text={item} dark />
-                  ))}
-                </div>
-
-                <div className="mt-auto pt-10">
-                  <Button
-                    asChild
-                    className="
-
-                    h-14
-
-                    w-full
-
-                    rounded-2xl
-
-                    bg-white
-
-                    font-bold
-
-                    text-violet-700
-
-                    hover:bg-slate-100
-                  "
-                  >
-                    <Link href="/billing">
-                      Upgrade ke Pro
-                      <ArrowRight
-                        className="
-                        ml-2
-
-                        h-4
-
-                        w-4
-                      "
-                      />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-        </div>
+          font-bold
+        "
+      >
+        {t("pro.badge")}
       </div>
+
+
+      <span
+        className="
+          text-sm
+          font-bold
+          tracking-widest
+          text-violet-300
+        "
+      >
+        {t("pro.name")}
+      </span>
+
+
+      <div
+        className="
+          mt-6
+          flex
+          items-end
+          gap-2
+        "
+      >
+
+        <h3
+          className="
+            text-6xl
+            font-black
+          "
+        >
+          {t("pro.price")}
+        </h3>
+
+
+        <span
+          className="
+            mb-4
+            text-slate-400
+          "
+        >
+          {t("pro.period")}
+        </span>
+
+      </div>
+
+
+
+      <p
+        className="
+          mt-4
+          text-slate-300
+        "
+      >
+        {t("pro.description")}
+      </p>
+
+
+
+      <div
+        className="
+          my-8
+          h-px
+          bg-white/10
+        "
+      />
+
+
+      <div
+        className="
+          flex-1
+          space-y-5
+        "
+      >
+
+        {proFeatures.map(item => (
+          <Feature
+            key={item}
+            text={t(`pro.features.${item}`)}
+            dark
+          />
+        ))}
+
+      </div>
+
+
+
+      <Button
+        asChild
+        className="
+          mt-auto
+
+          h-14
+
+          w-full
+
+          rounded-2xl
+
+          bg-white
+
+          font-bold
+
+          text-violet-700
+
+          hover:bg-slate-100
+        "
+      >
+
+        <Link href="/billing">
+
+          {t("pro.cta")}
+
+          <ArrowRight
+            className="
+              ml-2
+              h-4
+              w-4
+            "
+          />
+
+        </Link>
+
+      </Button>
+
+
+    </div>
+
+  </div>
+
+
+</FadeUp>
+        </div>
+
+
+      </div>
+
+
     </section>
+
   );
 }
 
-function Feature({ text, dark = false }: { text: string; dark?: boolean }) {
+
+
+
+
+function Feature({
+  text,
+  dark=false,
+}:{
+  text:string;
+  dark?:boolean;
+}) {
+
+
   return (
+
     <div
       className="
         flex
@@ -506,6 +637,7 @@ function Feature({ text, dark = false }: { text: string; dark?: boolean }) {
         gap-4
       "
     >
+
       <div
         className={`
           flex
@@ -515,28 +647,47 @@ function Feature({ text, dark = false }: { text: string; dark?: boolean }) {
           justify-center
           rounded-full
 
-          ${dark ? "bg-white/10" : "bg-emerald-100"}
+          ${dark
+            ? "bg-white/10"
+            : "bg-emerald-100"
+          }
         `}
       >
+
         <Check
           className={`
             h-4
             w-4
 
-            ${dark ? "text-emerald-400" : "text-emerald-600"}
+            ${
+              dark
+              ? "text-emerald-400"
+              : "text-emerald-600"
+            }
           `}
         />
+
       </div>
+
 
       <span
         className={`
           font-medium
 
-          ${dark ? "text-slate-200" : "text-slate-700"}
+          ${
+            dark
+            ? "text-slate-200"
+            : "text-slate-700"
+          }
         `}
       >
+
         {text}
+
       </span>
+
+
     </div>
+
   );
 }

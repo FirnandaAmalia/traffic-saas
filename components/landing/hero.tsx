@@ -19,9 +19,13 @@ import HeroDashboard from "./hero-dashboard";
 
 import AnimatedCounter from "@/components/ui/animated-counter";
 import { Button } from "@/components/ui/button";
-
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 export default function Hero() {
+
+  const t = useTranslations("hero");
+  const locale = useLocale();
   return (
     <section
       className="
@@ -111,7 +115,7 @@ export default function Hero() {
 
                 <Sparkles className="h-4 w-4" />
 
-                AI SEO Intelligence Platform
+{t("badge")}
 
               </div>
 
@@ -131,27 +135,25 @@ export default function Hero() {
                 "
               >
 
-                Ubah Data Website
+                {t("title.line1")}
 
-                <br />
+<br />
 
-                Menjadi
+{t("title.line2")}
 
-                <br />
+<br />
 
-                <span
-                  className="
-                    bg-gradient-to-r
-                    from-violet-600
-                    to-sky-500
-                    bg-clip-text
-                    text-transparent
-                  "
-                >
-
-                  Pertumbuhan SEO
-
-                </span>
+<span
+  className="
+    bg-gradient-to-r
+    from-violet-600
+    to-sky-500
+    bg-clip-text
+    text-transparent
+  "
+>
+  {t("title.highlight")}
+</span>
 
               </h1>
 
@@ -160,25 +162,16 @@ export default function Hero() {
               {/* Description */}
 
               <p
-                className="
-                  mt-7
-                  max-w-xl
-                  text-lg
-                  leading-8
-                  text-slate-600
-                "
-              >
-
-                Hubungkan Google Analytics 4 dan Google Search Console,
-lalu biarkan AI menemukan peluang SEO terbesar Anda.
-
-                TrafficSaaS mengubah data website yang kompleks
-menjadi insight, rekomendasi, dan tindakan yang jelas
-untuk membantu pertumbuhan lebih cepat.
-
-              </p>
-
-
+  className="
+    mt-7
+    max-w-xl
+    text-lg
+    leading-8
+    text-slate-600
+  "
+>
+  {t("description")}
+</p>
 
               {/* CTA */}
 
@@ -206,11 +199,11 @@ untuk membantu pertumbuhan lebih cepat.
                   "
                 >
 
-                  <Link href="/api/auth/signin">
+                  <Link href={`/${locale}/login`}>
 
-                    Mulai Gratis
+  {t("cta.start")}
 
-                    <ArrowRight
+  <ArrowRight
                       className="
                         ml-2
                         h-4
@@ -243,14 +236,14 @@ untuk membantu pertumbuhan lebih cepat.
                   <Link href="#workflow">
 
                     <Play
-                      className="
-                        mr-2
-                        h-4
-                        w-4
-                      "
-                    />
+  className="
+    mr-2
+    h-4
+    w-4
+  "
+/>
 
-                    Lihat Cara Kerja
+{t("cta.workflow")}
 
                   </Link>
 
@@ -274,11 +267,11 @@ untuk membantu pertumbuhan lebih cepat.
                 "
               >
 
-                <Badge text="Google Analytics 4" />
+                <Badge text={t("badges.ga4")} />
 
-                <Badge text="Search Console" />
+<Badge text={t("badges.gsc")} />
 
-                <Badge text="Rekomendasi AI" />
+<Badge text={t("badges.ai")} />
 
               </div>
 
@@ -295,25 +288,25 @@ untuk membantu pertumbuhan lebih cepat.
                 "
               >
 
-                <Stat
-                  value={100}
-                  suffix="+"
-                  label="Website Terhubung"
-                />
+<Stat
+  value={100}
+  suffix="+"
+  label={t("stats.connected")}
+/>
 
 
-                <Stat
-                  value={24}
-                  suffix="/7"
-                  label="Monitoring AI"
-                />
+<Stat
+  value={24}
+  suffix="/7"
+  label={t("stats.monitoring")}
+/>
 
 
-                <Stat
-                  value={99}
-                  suffix="%"
-                  label="Laporan Lebih Cepat"
-                />
+<Stat
+  value={99}
+  suffix="%"
+  label={t("stats.reports")}
+/>
 
               </div>
 

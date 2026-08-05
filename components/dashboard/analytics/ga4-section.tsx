@@ -19,8 +19,6 @@ import LandingPages from "./landing-pages";
 
 import TopEvents from "./top-events";
 
-
-
 import type {
   CountryMetric,
   TrafficSourceMetric,
@@ -30,7 +28,9 @@ import type {
   BrowserMetric,
 } from "@/lib/types/ga4";
 
-
+import {
+  getTranslations,
+} from "next-intl/server";
 
 
 interface GA4SectionProps {
@@ -70,39 +70,27 @@ interface GA4SectionProps {
 }
 
 
-
-
-
-
-export default function GA4Section({
+export default async function GA4Section({
 
   users,
-
   sessions,
-
   pageViews,
-
   engagementRate,
-
   country,
-
   trafficAcquisition,
-
   deviceCategory,
-
   landingPages,
-
   topEvents,
-
   browser,
-
 
 }:GA4SectionProps){
 
 
+const t =
+await getTranslations("analytics");
+
 
 return (
-
 
 
 <section
@@ -131,10 +119,9 @@ xl:grid-cols-4
 "
 
 >
-
 <StatCard
 
-title="Pengguna Aktif"
+title={t("cards.users")}
 
 value={
 users.toLocaleString("id-ID")
@@ -148,7 +135,7 @@ iconColor="text-blue-600"
 
 <StatCard
 
-title="Sesi Kunjungan"
+title={t("cards.sessions")}
 
 value={
 sessions.toLocaleString("id-ID")
@@ -162,7 +149,7 @@ iconColor="text-green-600"
 
 <StatCard
 
-title="Tayangan Halaman"
+title={t("cards.pageViews")}
 
 value={
 pageViews.toLocaleString("id-ID")
@@ -176,7 +163,7 @@ iconColor="text-red-600"
 
 <StatCard
 
-title="Tingkat Keterlibatan"
+title={t("cards.engagement")}
 
 value={
 `${(engagementRate * 100).toFixed(2)}%`
@@ -231,13 +218,34 @@ xl:col-span-4
 
 >
 
+<div
+
+className="
+col-span-12
+xl:col-span-4
+"
+
+>
 
 <CountrySection
 
 country={country}
 
+title={
+  t("sections.country")
+}
+
+description={
+  t("sections.countryDescription")
+}
+
+actionLabel={
+  t("sections.viewAll")
+}
+
 />
 
+</div>
 
 </div>
 
@@ -261,11 +269,40 @@ xl:col-span-4
 
 <TrafficAcquisition
 
+data={trafficAcquisition}
 
-data={
-trafficAcquisition
+title={
+t("sections.acquisition")
 }
 
+subtitle={
+t("traffic.subtitle")
+}
+
+empty={
+t("traffic.empty")
+}
+
+sessionLabel={
+t("traffic.session")
+}
+
+labels={{
+ organicSearch:
+ t("traffic.labels.organicSearch"),
+
+ direct:
+ t("traffic.labels.direct"),
+
+ referral:
+ t("traffic.labels.referral"),
+
+ organicSocial:
+ t("traffic.labels.organicSocial"),
+
+ email:
+ t("traffic.labels.email")
+}}
 
 />
 
@@ -289,14 +326,13 @@ xl:col-span-4
 
 >
 
-
 <DeviceCategory
 
+data={deviceCategory}
 
-data={
-deviceCategory
-}
+title={t("sections.device")}
 
+subtitle={t("device.subtitle")}
 
 />
 
@@ -334,11 +370,13 @@ xl:col-span-4
 
 <BrowserSection
 
-
 data={
 browser
 }
 
+title={
+t("sections.browser")
+}
 
 />
 
@@ -362,14 +400,15 @@ xl:col-span-4
 
 >
 
-
 <LandingPages
-
 
 data={
 landingPages
 }
 
+title={
+t("sections.landingPages")
+}
 
 />
 
@@ -393,14 +432,15 @@ xl:col-span-4
 
 >
 
-
 <TopEvents
-
 
 data={
 topEvents
 }
 
+title={
+t("sections.events")
+}
 
 />
 

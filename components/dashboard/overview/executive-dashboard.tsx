@@ -1,13 +1,7 @@
 import type { ComponentProps } from "react";
 
-import type {
-  ExecutiveSummary,
-} from "@/lib/ai/executive-summary";
-
-import type {
-  SEOHealthScore,
-} from "@/lib/ai/seo-health-score";
-
+import type { ExecutiveSummary } from "@/lib/ai/executive-summary";
+import type { SEOHealthScore } from "@/lib/ai/seo-health-score";
 
 import HealthScore from "./health-score";
 import PerformanceSummary from "./performance-summary";
@@ -17,56 +11,64 @@ import GrowthOpportunities from "./growth-opportunities";
 
 
 type GrowthOpportunityData =
-  ComponentProps<typeof GrowthOpportunities>["data"];
+  ComponentProps<
+    typeof GrowthOpportunities
+  >["data"];
+
+
+
 
 interface ExecutiveDashboardProps {
 
-  clicks:number;
+  clicks: number;
 
-  impressions:number;
+  impressions: number;
 
-  users:number;
+  users: number;
 
-  sessions:number;
+  sessions: number;
 
-  ctr:number;
+  ctr: number;
 
-  engagementRate:number;
+  engagementRate: number;
 
-  summary:ExecutiveSummary;
+  summary: ExecutiveSummary;
 
-  healthScore:SEOHealthScore;
+  healthScore: SEOHealthScore;
 
-  growthOpportunities:GrowthOpportunityData;
+  growthOpportunities: GrowthOpportunityData;
 
 }
 
+
+
+
+
 export default function ExecutiveDashboard({
 
-clicks,
+  clicks,
 
-impressions,
+  impressions,
 
-users,
+  users,
 
-sessions,
+  sessions,
 
-ctr,
+  ctr,
 
-engagementRate,
+  engagementRate,
 
-summary,
+  summary,
 
-healthScore,
+  healthScore,
 
-growthOpportunities,
+  growthOpportunities,
 
-}:ExecutiveDashboardProps){
+}: ExecutiveDashboardProps) {
 
 
 
 return (
-
 
 <section
 
@@ -77,27 +79,20 @@ space-y-6
 >
 
 
+{/* HEALTH + PERFORMANCE */}
 
-
-
-{/* TOP EXECUTIVE SUMMARY */}
 
 <div
 
 className="
 grid
+items-start
 gap-6
 xl:grid-cols-12
-items-start
 "
 
 >
 
-
-
-
-
-{/* HEALTH SCORE */}
 
 <div
 
@@ -108,25 +103,17 @@ tour-health-score
 
 >
 
-
 <HealthScore
 
 data={healthScore}
 
 />
 
-
 </div>
 
 
 
 
-
-
-
-
-
-{/* PERFORMANCE */}
 
 <div
 
@@ -137,33 +124,22 @@ tour-performance
 
 >
 
-
 <PerformanceSummary
-
 
 clicks={clicks}
 
-
 impressions={impressions}
-
 
 users={users}
 
-
 sessions={sessions}
-
 
 />
 
-
 </div>
 
 
-
-
-
 </div>
-
 
 
 
@@ -174,7 +150,14 @@ sessions={sessions}
 
 {/* AI INSIGHT */}
 
-<div className="tour-ai-insight">
+
+<div
+
+className="
+tour-ai-insight
+"
+
+>
 
 <AIInsightCard
 
@@ -192,12 +175,16 @@ healthScore={healthScore}
 
 
 
+{/* GROWTH OPPORTUNITIES */}
 
 
-{/* GROWTH OPPORTUNITY */}
+<div
 
-<div className="tour-growth">
+className="
+tour-growth
+"
 
+>
 
 <GrowthOpportunities
 
@@ -205,7 +192,6 @@ data={growthOpportunities}
 
 />
 
-
 </div>
 
 
@@ -215,25 +201,26 @@ data={growthOpportunities}
 
 
 
+{/* QUICK ACTIONS */}
 
-{/* ACTION */}
 
-<div className="tour-actions">
+<div
 
+className="
+tour-actions
+"
+
+>
 
 <QuickActions />
 
-
 </div>
-
-
 
 
 
 
 
 </section>
-
 
 );
 

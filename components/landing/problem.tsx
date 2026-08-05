@@ -9,39 +9,32 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
 
 
 const problems = [
   {
     icon: Search,
     number: "01",
-    tag: "DATA TERLALU BANYAK",
-    title: "Data SEO Terlalu Banyak",
-    description:
-      "Google Search Console dan Analytics menghasilkan ribuan data setiap hari, tetapi sulit mengetahui mana yang benar-benar memiliki dampak.",
+    key: "data",
   },
 
   {
     icon: BarChart3,
     number: "02",
-    tag: "PELUANG TERSEMBUNYI",
-    title: "Peluang Pertumbuhan Tersembunyi",
-    description:
-      "Keyword potensial, halaman lemah, dan peluang traffic sering terlewat karena analisis masih dilakukan secara manual.",
+    key: "opportunity",
   },
 
   {
     icon: AlertTriangle,
     number: "03",
-    tag: "PROSES MANUAL",
-    title: "Keputusan Masih Berdasarkan Tebakan",
-    description:
-      "Tim SEO menghabiskan waktu membaca laporan daripada mengambil keputusan strategis yang menghasilkan pertumbuhan.",
+    key: "manual",
   },
 ];
 
-
 export default function Problem() {
+
+  const t = useTranslations("problem");
   return (
     <section
       className="
@@ -121,7 +114,7 @@ export default function Problem() {
 
               <Sparkles className="h-4 w-4"/>
 
-              TANTANGAN SEO
+              {t("badge")}
 
             </div>
 
@@ -143,7 +136,7 @@ export default function Problem() {
               "
             >
 
-              SEO Tidak Kekurangan Data.
+              {t("title.line1")}
 
               <br />
 
@@ -156,7 +149,7 @@ export default function Problem() {
                   text-transparent
                 "
               >
-                SEO Membutuhkan Arah yang Tepat.
+                {t("title.line2")}
               </span>
 
             </h2>
@@ -178,9 +171,7 @@ export default function Problem() {
               "
             >
 
-              Setiap website menghasilkan ribuan data setiap hari.
-              Namun tanpa analisis yang tepat, peluang terbesar tetap
-              tersembunyi di balik angka.
+              {t("description")}
 
             </p>
 
@@ -215,9 +206,9 @@ export default function Problem() {
             return (
 
               <FadeUp
-                key={item.title}
-                delay={index * 0.12}
-              >
+  key={item.key}
+  delay={index * 0.12}
+>
 
                 <div
                   className="
@@ -382,7 +373,7 @@ export default function Problem() {
                     "
                   >
 
-                    {item.tag}
+                    {t(`cards.${item.key}.tag`)}
 
                   </p>
 
@@ -403,7 +394,7 @@ export default function Problem() {
                     "
                   >
 
-                    {item.title}
+                    {t(`cards.${item.key}.title`)}
 
                   </h3>
 
@@ -422,7 +413,7 @@ export default function Problem() {
                     "
                   >
 
-                    {item.description}
+                    {t(`cards.${item.key}.description`)}
 
                   </p>
 
@@ -456,7 +447,7 @@ export default function Problem() {
                     "
                   >
 
-                    Pelajari lebih lanjut
+                    {t("learn")}
 
                     <ArrowRight
                       className="

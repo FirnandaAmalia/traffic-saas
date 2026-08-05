@@ -1,7 +1,12 @@
+"use client";
+
 import {
   Sparkles,
-  ArrowRight,
 } from "lucide-react";
+
+import {
+  useTranslations,
+} from "next-intl";
 
 
 interface AIInsightSummary {
@@ -9,6 +14,7 @@ interface AIInsightSummary {
   overview?: string;
 
 }
+
 
 
 interface AIHealthScore {
@@ -24,6 +30,7 @@ interface AIHealthScore {
 }
 
 
+
 interface AIInsightCardProps {
 
   summary?: AIInsightSummary | null;
@@ -31,6 +38,10 @@ interface AIInsightCardProps {
   healthScore?: AIHealthScore | null;
 
 }
+
+
+
+
 
 export default function AIInsightCard({
 
@@ -41,11 +52,16 @@ healthScore,
 }:AIInsightCardProps){
 
 
-const data: AIInsightSummary =
+const t = useTranslations("dashboard.aiInsight");
+
+
+
+const data =
 summary ?? {};
 
 
-const health: AIHealthScore =
+
+const health =
 healthScore ?? {};
 
 
@@ -53,17 +69,20 @@ healthScore ?? {};
 const healthStrengths =
 health.strengths ?? [];
 
+
+
 const healthIssues =
 health.issues ?? [];
-
-const healthRecommendations =
-health.recommendations ?? [];
 
 
 
 const overview =
 data.overview ??
-"Belum ada analisis AI tersedia.";
+t("empty");
+
+
+
+
 
 return (
 
@@ -86,7 +105,6 @@ shadow-md
 >
 
 
-{/* decorative glow */}
 
 <div
 
@@ -105,6 +123,9 @@ blur-3xl
 
 
 
+
+
+
 <div
 
 className="
@@ -115,6 +136,7 @@ gap-4
 "
 
 >
+
 
 
 <div
@@ -133,6 +155,7 @@ shadow-blue-200
 
 >
 
+
 <Sparkles
 
 className="
@@ -150,6 +173,8 @@ text-white
 
 
 
+
+
 <div
 
 className="
@@ -157,6 +182,7 @@ flex-1
 "
 
 >
+
 
 
 <div
@@ -183,9 +209,11 @@ text-blue-700
 
 >
 
-AI SEO Insight
+{t("title")}
 
 </h2>
+
+
 
 
 <p
@@ -198,12 +226,15 @@ text-slate-500
 
 >
 
-Automated SEO performance analysis
+{t("subtitle")}
 
 </p>
 
 
+
 </div>
+
+
 
 
 
@@ -224,13 +255,14 @@ shadow-sm
 
 >
 
-AI Generated
+{t("generated")}
 
 </span>
 
 
 
 </div>
+
 
 
 
@@ -254,18 +286,20 @@ text-slate-700
 
 
 
-</div>
-
-
 
 </div>
 
 
 
+</div>
 
 
 
-{/* AI SIGNAL */}
+
+
+
+
+
 
 <div
 
@@ -280,6 +314,9 @@ gap-3
 >
 
 
+
+
+
 <div
 
 className="
@@ -292,6 +329,7 @@ p-3
 
 >
 
+
 <p
 
 className="
@@ -301,9 +339,10 @@ text-slate-500
 
 >
 
-SEO Status
+{t("status")}
 
 </p>
+
 
 
 <p
@@ -317,12 +356,20 @@ text-blue-700
 
 >
 
-{health.label ?? "Analyzing"}
+{
+health.label ??
+t("analyzing")
+}
 
 </p>
 
 
+
 </div>
+
+
+
+
 
 
 
@@ -340,6 +387,8 @@ p-3
 
 >
 
+
+
 <p
 
 className="
@@ -349,9 +398,10 @@ text-slate-500
 
 >
 
-Strength
+{t("strength")}
 
 </p>
+
 
 
 <p
@@ -370,7 +420,11 @@ text-emerald-600
 </p>
 
 
+
 </div>
+
+
+
 
 
 
@@ -389,6 +443,8 @@ p-3
 
 >
 
+
+
 <p
 
 className="
@@ -398,9 +454,11 @@ text-slate-500
 
 >
 
-Attention
+{t("attention")}
 
 </p>
+
+
 
 
 <p
@@ -419,11 +477,16 @@ text-red-500
 </p>
 
 
-</div>
-
-
 
 </div>
+
+
+
+
+
+
+</div>
+
 
 
 
@@ -431,273 +494,7 @@ text-red-500
 
 </section>
 
-
 );
 
-
-}
-
-function InsightCard({
-
-icon,
-
-title,
-
-items,
-
-}:{
-
-icon:React.ReactNode;
-
-title:string;
-
-items:string[];
-
-}){
-
-
-return (
-
-<div
-
-className="
-rounded-2xl
-border
-border-slate-100
-bg-white
-p-4
-"
-
->
-
-
-<div
-
-className="
-flex
-items-center
-gap-2
-text-sm
-font-bold
-text-slate-800
-"
-
->
-
-
-<span
-
-className="
-text-blue-600
-"
-
->
-
-{icon}
-
-</span>
-
-
-{title}
-
-
-</div>
-
-
-
-
-
-<div
-
-className="
-mt-3
-space-y-2
-"
-
->
-
-
-{
-
-items.map(
-
-(item,index)=>(
-
-
-<p
-
-key={index}
-
-className="
-text-xs
-leading-relaxed
-text-slate-600
-"
-
->
-
-• {item}
-
-</p>
-
-
-)
-
-)
-
-
-}
-
-
-</div>
-
-
-</div>
-
-);
-
-
-}
-
-
-
-
-
-
-
-
-
-function ListCard({
-
-title,
-
-icon,
-
-color,
-
-items,
-
-}:{
-
-title:string;
-
-icon:React.ReactNode;
-
-color:string;
-
-items:string[];
-
-}){
-
-
-return (
-
-<div
-
-className="
-rounded-2xl
-border
-border-slate-100
-bg-white
-p-4
-"
-
->
-
-
-<div
-
-className={`
-flex
-items-center
-gap-2
-text-sm
-font-bold
-${color}
-`}
-
->
-
-
-{icon}
-
-{title}
-
-
-</div>
-
-
-
-
-
-<div
-
-className="
-mt-3
-space-y-3
-"
-
->
-
-
-{
-
-items.map(
-
-(item,index)=>(
-
-
-<div
-
-key={index}
-
-className="
-flex
-gap-2
-text-xs
-leading-relaxed
-text-slate-600
-"
-
->
-
-
-<ArrowRight
-
-className="
-mt-0.5
-h-3
-w-3
-shrink-0
-"
-
-/>
-
-
-<span>
-
-{item}
-
-</span>
-
-
-</div>
-
-
-)
-
-)
-
-
-}
-
-
-</div>
-
-
-</div>
-
-
-);
 
 }

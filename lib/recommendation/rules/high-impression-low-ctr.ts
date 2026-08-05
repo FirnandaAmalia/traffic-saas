@@ -4,6 +4,20 @@ import type {
 } from "../recommendation-engine";
 
 
+function translate(
+  locale:"id"|"en",
+  id:string,
+  en:string
+){
+
+  return locale === "en"
+    ? en
+    : id;
+
+}
+
+
+
 export function highImpressionLowCTRRule(
   data: RecommendationInput
 ): Recommendation[] {
@@ -206,63 +220,75 @@ export function highImpressionLowCTRRule(
 
   return [
 
+{
 
-    {
-
-
-      id:
-      "high-impression-low-ctr",
+id:
+"high-impression-low-ctr",
 
 
-      priority:
-      "high",
+priority:
+"high",
 
 
-      score,
+score,
 
 
-
-      title:
-      "Peluang CTR Optimization",
+titleKey:
+"ctrOptimization",
 
 
 
-      description:
+description:
 
-      `Ditemukan ${candidates.length} halaman dengan impression tinggi namun CTR rendah. Halaman ini sudah mendapatkan visibilitas di Google tetapi belum maksimal menghasilkan klik.`,
+translate(
+data.locale,
 
+`Ditemukan ${candidates.length} halaman dengan impression tinggi namun CTR rendah. Halaman ini sudah mendapatkan visibilitas di Google tetapi belum maksimal menghasilkan klik.`,
 
-
-
-      recommendation:
-
-      "Prioritaskan optimasi halaman dengan impression terbesar. Perbaiki title tag, meta description, gunakan emotional trigger, tambahkan keyword modifier, serta sesuaikan konten dengan search intent pengguna.",
+`${candidates.length} pages have high impressions but low CTR. These pages already have Google visibility but are not generating clicks efficiently.`
+),
 
 
 
 
+recommendation:
 
-      impact:
+translate(
+data.locale,
 
-      `Estimasi tambahan hingga ${estimatedClicks.toLocaleString("id-ID")} klik organik tanpa membuat halaman baru.`,
+"Optimalkan halaman dengan impression terbesar melalui perbaikan title tag, meta description, keyword modifier, emotional trigger, dan penyesuaian search intent pengguna.",
 
-
-
-
-
-      category:
-      "SEO",
+"Optimize high-impression pages by improving title tags, meta descriptions, keyword modifiers, emotional triggers, and aligning content with user search intent."
+),
 
 
 
-      icon:
-      "target",
+
+impact:
+
+translate(
+data.locale,
+
+`Estimasi tambahan hingga ${estimatedClicks.toLocaleString("id-ID")} klik organik tanpa membuat halaman baru.`,
+
+`Estimated additional ${estimatedClicks.toLocaleString("en-US")} organic clicks without creating new pages.`
+),
 
 
-    },
 
 
-  ];
+category:
+"SEO",
+
+
+
+icon:
+"target",
+
+
+},
+
+];
 
 
 }

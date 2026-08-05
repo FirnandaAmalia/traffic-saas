@@ -48,7 +48,9 @@ import type {
 import ConsultantChat
 from "./consultant-chat";
 
-
+import {
+  useTranslations,
+} from "next-intl";
 
 interface Props {
 
@@ -81,11 +83,6 @@ plan?:Plan;
 
 }
 
-
-
-
-
-
 export default function RecommendationCenter({
 
 health,
@@ -104,10 +101,6 @@ plan = PLANS.FREE,
 
 }:Props){
 
-
-
-
-
 const canUseRecommendation =
 
 hasFeature(
@@ -118,9 +111,8 @@ FEATURES.AI_RECOMMENDATION
 
 );
 
-
-
-
+const t =
+useTranslations("aiConsultant");
 
 const critical =
 recommendations.filter(
@@ -437,19 +429,26 @@ p-5
 
 >
 
-
-
 <div className="flex justify-between">
 
 
 <h4 className="font-bold">
 
-{item.title}
+{
+item.titleKey
+?
+t(
+`opportunity.titles.${item.titleKey}`
+)
+:
+item.type
+}
 
 </h4>
 
 
-<span className="
+<span
+className="
 rounded-full
 bg-blue-100
 px-3
@@ -457,7 +456,8 @@ py-1
 text-xs
 font-semibold
 text-blue-700
-">
+"
+>
 
 {item.priority}
 
@@ -465,10 +465,6 @@ text-blue-700
 
 
 </div>
-
-
-
-
 
 <p className="mt-2 text-sm text-slate-600">
 

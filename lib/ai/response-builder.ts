@@ -2,17 +2,60 @@ import type { AIContext } from "./context-builder";
 import type { AIIntent } from "./intent-detector";
 
 
+function opportunityTitle(
+  key:string,
+  t:(key:string)=>string
+){
+
+switch(key){
+
+case "quickWin":
+return t("growthOpportunity.quickWin");
+
+
+case "ctrOpportunity":
+return t("growthOpportunity.ctrOpportunity");
+
+
+case "contentGrowth":
+return t("growthOpportunity.contentGrowth");
+
+
+case "recovery":
+return t("growthOpportunity.recovery");
+
+
+case "maintain":
+return t("growthOpportunity.maintain");
+
+
+default:
+return t("growthOpportunity.default");
+
+}
+
+}
+
+
+
 export function buildAIResponse({
 
 context,
 
 intent,
 
+t,
+
 }:{
 
 context:AIContext;
 
 intent:AIIntent;
+
+t:(
+  key:string,
+  values?:Record<string,string | number>
+)=>string;
 
 }){
 
@@ -24,21 +67,30 @@ context.growthOpportunities.slice(0,3);
 
 return `
 
-## TrafficSaaS AI Consultant
+## ${t("title")}
 
 
-### Executive Summary
-
-Website memiliki SEO Health Score **${context.websiteHealth.score}/100** dengan grade **${context.websiteHealth.grade}**.
-
-AI menemukan bahwa fokus utama saat ini berada pada optimasi **${intent}**, peningkatan visibilitas organik, dan peluang pertumbuhan traffic.
+### ${t("executiveSummary")}
 
 
-### Growth Opportunity
+${t("websiteHealth", {
+score: context.websiteHealth.score,
+grade: context.websiteHealth.grade
+})}
+
+
+
+${t("focus", {
+intent
+})}
+
+
+
+### ${t("growthOpportunity.title")}
+
 
 
 ${
-
 opportunities.length
 
 ?
@@ -47,23 +99,37 @@ opportunities.map(
 
 (item,index)=>`
 
-#### ${index+1}. ${item.title}
+
+#### ${index + 1}. ${opportunityTitle(
+item.titleKey,
+t
+)}
 
 
-**Impact**
+
+**${t("impact")}**
+
 ${item.impact}
 
 
-**Kenapa ini penting**
+
+**${t("reason")}**
+
 ${item.reason}
 
 
-**Action Plan**
+
+**${t("action")}**
+
 ${item.action}
 
 
-**Expected Result**
+
+**${t("result")}**
+
 ${item.estimatedImpact}
+
+
 
 `
 
@@ -72,46 +138,56 @@ ${item.estimatedImpact}
 
 :
 
-"Tidak ditemukan peluang optimasi."
+t("noOpportunity")
 
 }
 
 
 
-### Business Impact Forecast
+
+### ${t("businessImpact")}
 
 
-Potential Additional Clicks:
+
+
+${t("potentialClicks")}
 
 **+${context.business.clicks}**
 
 
-Potential User Growth:
+
+${t("potentialUsers")}
 
 **+${context.business.users}**
 
 
-Estimated Conversion Opportunity:
+
+${t("conversionOpportunity")}
 
 **${context.business.conversion}%**
 
 
 
-### AI Confidence
 
 
-Score:
+### ${t("confidence")}
+
+
+
+${t("score")}
 
 **${context.confidence.score}%**
 
 
-Level:
+
+${t("level")}
 
 ${context.confidence.level}
 
 
 
-${context.confidence.explanation
+${
+context.confidence.explanation
 .slice(0,3)
 .map(
 (x)=>"- "+x
@@ -121,10 +197,13 @@ ${context.confidence.explanation
 
 
 
-### Consultant Recommendation
+
+### ${t("recommendation")}
 
 
-Berdasarkan data Google Search Console dan Google Analytics 4, prioritas berikutnya adalah meningkatkan keyword opportunity, CTR, dan halaman yang memiliki potensi ranking.
+
+${t("recommendationText")}
+
 
 
 `;

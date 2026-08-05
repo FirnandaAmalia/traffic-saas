@@ -3,21 +3,29 @@ import type { PrioritizedRecommendation } from "./prioritizer";
 import type { RecommendationPriority } from "./recommendation-engine";
 
 export interface ActionTask {
-  week: number;
 
-  phase: "Quick Wins" | "Optimization" | "Growth Strategy";
+  week:number;
 
-  title: string;
+  phase:
+  | "Quick Wins"
+  | "Optimization"
+  | "Growth Strategy";
 
-  description: string;
+  title:string;
 
-  difficulty: "Easy" | "Medium" | "Hard";
+  description:string;
 
-  estimatedDays: number;
+  difficulty:
+  | "Easy"
+  | "Medium"
+  | "Hard";
 
-  roi: number;
+  estimatedDays:number;
 
-  priority: RecommendationPriority;
+  roi:number;
+
+  priority:RecommendationPriority;
+
 }
 
 export interface ActionPlan {
@@ -107,23 +115,39 @@ export function generateActionPlan(
     }
 
     tasks.push({
-      week,
 
-      phase,
+  week,
 
-      title: item.title,
+  phase,
 
-      description: item.recommendation,
+  title:
+    item.title ??
+    (
+      phase === "Quick Wins"
+        ? "Quick Win SEO Optimization"
+        : phase === "Growth Strategy"
+        ? "SEO Growth Strategy"
+        : "SEO Performance Optimization"
+    ),
 
-      difficulty: item.difficulty ?? "Medium",
+  description:
+    item.recommendation ??
+    "Lakukan optimasi SEO berdasarkan rekomendasi AI.",
 
-      estimatedDays: days,
+  difficulty:
+    item.difficulty ??
+    "Medium",
 
-      roi: item.roi ?? 0,
+  estimatedDays:
+    days,
 
-      priority: item.priority,
-    });
+  roi:
+    item.roi ?? 0,
 
+  priority:
+    item.priority,
+
+});
     usedDays += days;
   }
 

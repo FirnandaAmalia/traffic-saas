@@ -1,18 +1,17 @@
-// lib/ai/growth-opportunity.ts
-
-
 export interface GrowthOpportunity {
 
-
-title:string;
-
+titleKey:
+| "ctrOpportunity"
+| "quickWin"
+| "contentGrowth"
+| "recovery"
+| "maintain";
 
 type:
 | "Quick Win"
 | "CTR Opportunity"
 | "Content Growth"
 | "Recovery";
-
 
 impact:
 | "High"
@@ -22,12 +21,9 @@ impact:
 
 estimatedImpact:string;
 
-
 reason:string;
 
-
 action:string;
-
 
 metric:string;
 
@@ -39,39 +35,29 @@ source:
 
 
 priority:
-"High"
+| "High"
 | "Medium"
 | "Low";
 
-
 confidence:number;
 
-
 score:number;
-
 
 }
 
 
 
-
 interface QueryData {
-
 
 query?:string;
 
-
 clicks?:number;
-
 
 impressions?:number;
 
-
 ctr?:number;
 
-
 position?:number;
-
 
 }
 
@@ -79,56 +65,70 @@ position?:number;
 
 interface LandingPageData {
 
-
 page?:string;
-
 
 path?:string;
 
-
 users?:number;
-
 
 sessions?:number;
 
-
 }
+
+
 
 
 
 interface Input {
 
 
-clicks:number;
+locale:
+"id"
+|
+"en";
 
+
+clicks:number;
 
 previousClicks:number;
 
-
 impressions:number;
-
 
 previousImpressions:number;
 
-
 ctr:number;
-
 
 previousCTR:number;
 
-
 users?:number;
-
 
 previousUsers?:number;
 
-
 queries?:QueryData[];
-
 
 landingPages?:LandingPageData[];
 
 }
+
+
+
+
+
+function translate(
+locale:"id"|"en",
+id:string,
+en:string
+){
+
+return locale==="en"
+?
+en
+:
+id;
+
+}
+
+
 
 
 
@@ -139,15 +139,24 @@ previous:number
 ){
 
 if(previous<=0)
+
 return 0;
 
 
 return (
+
 ((current-previous)/previous)
-*100
+
+*
+
+100
+
 );
 
 }
+
+
+
 
 
 
@@ -156,7 +165,6 @@ function confidence(
 signal:number,
 quality:number
 ){
-
 
 return Math.min(
 
@@ -181,14 +189,29 @@ Math.round(
 
 
 
+
+
 function number(
+locale:"id"|"en",
 value:number
 ){
 
 return new Intl.NumberFormat(
+
+locale==="en"
+
+?
+
 "en-US"
+
+:
+
+"id-ID"
+
 ).format(
+
 Math.round(value)
+
 );
 
 }
@@ -198,7 +221,11 @@ Math.round(value)
 
 
 
+
+
 export function generateGrowthOpportunity({
+
+locale,
 
 clicks,
 
@@ -224,7 +251,11 @@ landingPages=[],
 
 
 
+
+
 const result:GrowthOpportunity[]=[];
+
+
 
 
 
@@ -236,39 +267,28 @@ previousClicks
 
 
 
-const impressionGrowth =
-growth(
-impressions,
-previousImpressions
-);
-
-
-
-const userGrowth =
-growth(
-users,
-previousUsers
-);
-
-
 
 
 
 /*
-|--------------------------------------------------------------------------
-| CTR OPPORTUNITY
-|--------------------------------------------------------------------------
+ CTR OPPORTUNITY
 */
 
 
-const ctrKeywords = queries.filter(q=>{
+const ctrKeywords =
+queries.filter(q=>{
 
 
-const position=q.position ?? 999;
+const position =
+q.position ?? 999;
 
-const impression=q.impressions ?? 0;
 
-const keywordCTR=q.ctr ?? 0;
+const impression =
+q.impressions ?? 0;
+
+
+const keywordCTR =
+q.ctr ?? 0;
 
 
 
@@ -294,8 +314,10 @@ keywordCTR<0.05
 if(ctrKeywords.length){
 
 
+
 const potentialClicks =
 ctrKeywords.reduce(
+
 (total,item)=>{
 
 
@@ -325,43 +347,56 @@ const targetCTR =
 return total +
 
 (
+
 impression *
+
 Math.max(
 0,
 targetCTR-currentCTR
 )
+
 );
 
 
 },
 
 0
+
 );
+
+
 
 
 
 
 const keyword =
 ctrKeywords.sort(
+
 (a,b)=>
+
 (b.impressions??0)
+
 -
+
 (a.impressions??0)
+
 )[0];
+
+
+
 
 
 
 result.push({
 
 
-title:
 
-"Optimasi CTR keyword dengan peluang ranking tinggi",
-
+titleKey:"ctrOpportunity",
 
 type:
 
 "CTR Opportunity",
+
 
 
 impact:
@@ -369,27 +404,55 @@ impact:
 "High",
 
 
+
 estimatedImpact:
 
-`Potensi tambahan ${number(potentialClicks)} klik organik`,
+translate(
+
+locale,
+
+`Potensi tambahan ${number(locale,potentialClicks)} klik organik`,
+
+`Potential additional ${number(locale,potentialClicks)} organic clicks`
+
+),
+
 
 
 
 reason:
 
+translate(
+
+locale,
+
 `${ctrKeywords.length} keyword memiliki impression tinggi tetapi CTR belum maksimal dibanding peluang ranking.`,
+
+`${ctrKeywords.length} keywords have high impressions but CTR is still below their ranking potential.`
+
+),
+
 
 
 
 action:
 
+translate(
+
+locale,
+
 "Tingkatkan CTR melalui optimasi title, meta description, schema markup, dan rich result.",
+
+"Improve CTR through title optimization, meta description, schema markup, and rich results."
+
+),
+
 
 
 
 metric:
 
-`${keyword.query ?? "keyword"} | Posisi ${keyword.position ?? "-"}`,
+`${keyword.query ?? "keyword"} | Position ${keyword.position ?? "-"}`,
 
 
 
@@ -413,31 +476,39 @@ ctrKeywords.length*10,
 ),
 
 
+
 score:
 
 95
 
+
+
 });
+
 
 }
 
 
- 
+
+
+
+
 
 
 
 /*
-|--------------------------------------------------------------------------
-| QUICK WIN POSITION
-|--------------------------------------------------------------------------
+ QUICK WIN
 */
+
 
 
 const quickKeywords =
 queries.filter(q=>{
 
 
-const pos=q.position ?? 999;
+const pos =
+q.position ?? 999;
+
 
 
 return (
@@ -455,15 +526,19 @@ pos<=10 &&
 
 
 
+
+
 if(quickKeywords.length){
+
 
 
 result.push({
 
 
-title:
 
-"Naikkan keyword existing menuju posisi teratas",
+titleKey:"quickWin",
+
+
 
 
 
@@ -481,25 +556,60 @@ impact:
 
 estimatedImpact:
 
-`${quickKeywords.length} keyword berada di posisi potensial page one`,
+translate(
+
+locale,
+
+`${quickKeywords.length} keyword memiliki potensi masuk halaman pertama`,
+
+`${quickKeywords.length} keywords have page-one potential`
+
+),
+
 
 
 
 reason:
 
+translate(
+
+locale,
+
 "Keyword sudah memiliki validasi ranking Google sehingga membutuhkan optimasi lanjutan.",
+
+"Keywords already have Google ranking validation and need further optimization."
+
+),
+
 
 
 
 action:
 
+translate(
+
+locale,
+
 "Update konten, tambah semantic keyword, optimasi heading, dan internal linking.",
+
+"Update content, add semantic keywords, optimize headings, and improve internal linking."
+
+),
+
 
 
 
 metric:
 
+translate(
+
+locale,
+
 `${quickKeywords.length} keyword posisi 4-10`,
+
+`${quickKeywords.length} keywords position 4-10`
+
+),
 
 
 
@@ -532,6 +642,7 @@ score:
 90
 
 
+
 });
 
 
@@ -543,22 +654,24 @@ score:
 
 
 
+
+
 /*
-|--------------------------------------------------------------------------
-| CONTENT GROWTH
-|--------------------------------------------------------------------------
+ CONTENT GROWTH
 */
+
 
 
 if(landingPages.length){
 
 
+
 result.push({
 
+titleKey:"contentGrowth",
 
-title:
 
-"Kembangkan halaman organik terbaik",
+
 
 
 type:
@@ -566,33 +679,61 @@ type:
 "Content Growth",
 
 
+
 impact:
 
 "Medium",
 
 
+
 estimatedImpact:
 
+translate(
+
+locale,
+
 "Meningkatkan authority dan trafik jangka panjang",
+
+"Increase authority and long-term organic traffic"
+
+),
 
 
 
 reason:
 
+translate(
+
+locale,
+
 `${landingPages.length} landing page aktif memiliki peluang dikembangkan menjadi content cluster.`,
+
+`${landingPages.length} active landing pages have opportunities to be expanded into content clusters.`
+
+),
 
 
 
 action:
 
+translate(
+
+locale,
+
 "Tambahkan konten pendukung, FAQ, internal linking, dan update informasi.",
+
+"Add supporting content, FAQs, internal linking, and refresh information."
+
+),
 
 
 
 metric:
 
 landingPages[0].page ??
+
 landingPages[0].path ??
+
 "Landing Page",
 
 
@@ -620,9 +761,11 @@ landingPages.length*10,
 ),
 
 
+
 score:
 
 75
+
 
 
 });
@@ -634,27 +777,30 @@ score:
 
 
 
+
+
+
+
 /*
-|--------------------------------------------------------------------------
-| RECOVERY
-|--------------------------------------------------------------------------
+ RECOVERY
 */
 
 
-if(clickGrowth<-15){
+
+if(clickGrowth < -15){
+
 
 
 result.push({
 
+titleKey:"recovery",
 
-title:
-
-"Recovery penurunan trafik organik",
 
 
 type:
 
 "Recovery",
+
 
 
 impact:
@@ -665,25 +811,57 @@ impact:
 
 estimatedImpact:
 
+translate(
+
+locale,
+
 `Traffic turun ${Math.abs(clickGrowth).toFixed(1)}%`,
+
+`Traffic decreased ${Math.abs(clickGrowth).toFixed(1)}%`
+
+),
 
 
 
 reason:
 
+translate(
+
+locale,
+
 "Terjadi penurunan organic click dibanding periode sebelumnya.",
+
+"Organic clicks decreased compared to the previous period."
+
+),
 
 
 
 action:
 
+translate(
+
+locale,
+
 "Audit keyword turun, update konten lama, dan evaluasi perubahan ranking.",
+
+"Audit declining keywords, refresh old content, and evaluate ranking changes."
+
+),
 
 
 
 metric:
 
-`Clicks ${clickGrowth.toFixed(1)}%`,
+translate(
+
+locale,
+
+`Klik ${clickGrowth.toFixed(1)}%`,
+
+`Clicks ${clickGrowth.toFixed(1)}%`
+
+),
 
 
 
@@ -704,9 +882,11 @@ confidence:
 90,
 
 
+
 score:
 
 92
+
 
 
 });
@@ -718,22 +898,25 @@ score:
 
 
 
+
+
+
+
 /*
-|--------------------------------------------------------------------------
-| DEFAULT
-|--------------------------------------------------------------------------
+ DEFAULT
 */
+
 
 
 if(!result.length){
 
 
+
 result.push({
 
+titleKey:"maintain",
 
-title:
 
-"Pertahankan performa SEO",
 
 
 
@@ -751,19 +934,43 @@ impact:
 
 estimatedImpact:
 
+translate(
+
+locale,
+
 "Website tidak menunjukkan masalah kritis",
+
+"Website shows no critical issues"
+
+),
 
 
 
 reason:
 
+translate(
+
+locale,
+
 "Belum ditemukan sinyal negatif berdasarkan data yang tersedia.",
+
+"No negative signals were found based on available data."
+
+),
 
 
 
 action:
 
+translate(
+
+locale,
+
 "Lanjutkan monitoring keyword, konten, dan traffic.",
+
+"Continue monitoring keywords, content, and traffic."
+
+),
 
 
 
@@ -790,9 +997,11 @@ confidence:
 65,
 
 
+
 score:
 
 50
+
 
 
 });
@@ -804,10 +1013,10 @@ score:
 
 
 
-
 return result
 
 .sort(
+
 (a,b)=>
 
 b.score-a.score
@@ -815,6 +1024,7 @@ b.score-a.score
 )
 
 .slice(0,5);
+
 
 
 }

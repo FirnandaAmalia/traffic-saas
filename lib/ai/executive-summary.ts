@@ -6,218 +6,188 @@ import {
 
 export interface ExecutiveSummary {
 
-overview:string;
+  overview:string;
 
-seoHealth:
-"Sangat Baik"
-|
-"Baik"
-|
-"Perlu Perhatian";
-
-
-confidence:number;
+  seoHealth:
+  | "Sangat Baik"
+  | "Baik"
+  | "Perlu Perhatian"
+  | "Excellent"
+  | "Good"
+  | "Needs Attention";
 
 
-trend:
-"Growing"
-|
-"Stable"
-|
-"Declining";
+  confidence:number;
+
+  trend:
+  | "Growing"
+  | "Stable"
+  | "Declining";
 
 
-keyWins:string[];
+  keyWins:string[];
 
-risks:string[];
+  risks:string[];
 
-opportunities:string[];
+  opportunities:string[];
 
-nextPriority:string;
+  nextPriority:string;
 
+  keywordInsights:string[];
 
-keywordInsights:string[];
+  contentInsights:string[];
 
-contentInsights:string[];
+  technicalInsights:string[];
 
-technicalInsights:string[];
+  actionPlan:string[];
 
-actionPlan:string[];
-
-
-growthOpportunities:GrowthOpportunity[];
+  growthOpportunities:GrowthOpportunity[];
 
 
-trafficAnalysis:string;
+  trafficAnalysis:string;
 
-keywordAnalysis:string;
+  keywordAnalysis:string;
 
-contentAnalysis:string;
+  contentAnalysis:string;
 
-technicalAnalysis:string;
+  technicalAnalysis:string;
 
 }
+
+
 
 interface QueryData {
-  query?: string;
-  keyword?: string;
-  clicks?: number;
-  impressions?: number;
-  ctr?: number;
-  position?: number;
+
+query?:string;
+
+keyword?:string;
+
+clicks?:number;
+
+impressions?:number;
+
+ctr?:number;
+
+position?:number;
+
 }
+
+
 
 interface PageData {
-  page?: string;
-  path?: string;
-  clicks?: number;
-  impressions?: number;
-  ctr?: number;
-  position?: number;
-  sessions?: number;
-  users?: number;
+
+page?:string;
+
+path?:string;
+
+clicks?:number;
+
+impressions?:number;
+
+sessions?:number;
+
+users?:number;
+
 }
 
-interface LandingPageData {
-  page?: string;
-  path?: string;
-  clicks?: number;
-  impressions?: number;
-  ctr?: number;
-  position?: number;
-  sessions?: number;
-  users?: number;
-  conversions?: number;
+
+
+interface LandingPageData extends PageData {
+
+conversions?:number;
+
 }
 
-interface TrafficData {
-  source?: string;
-  users?: number;
-  sessions?: number;
-}
+
 
 interface DeviceData {
-  device?: string;
-  users?: number;
+
+device?:string;
+
+users?:number;
+
 }
 
-interface CountryData {
-  country?: string;
-  users?: number;
-}
 
-interface BrowserData {
-  browser?: string;
-  users?: number;
-}
 
 interface ExecutiveSummaryInput {
+
+locale:"id"|"en";
 
 clicks:number;
 
 previousClicks:number;
 
-
 impressions:number;
 
 previousImpressions:number;
-
 
 ctr:number;
 
 previousCTR:number;
 
-
 users:number;
 
 previousUsers:number;
-
 
 sessions:number;
 
 previousSessions:number;
 
+queries?:QueryData[];
 
-queries?: QueryData[];
+pages?:PageData[];
 
-pages?: PageData[];
+landingPages?:LandingPageData[];
 
-landingPages?: LandingPageData[];
-
-trafficAcquisition?: TrafficData[];
-
-deviceCategory?: DeviceData[];
-
-country?: CountryData[];
-
-browser?: BrowserData[];
+deviceCategory?:DeviceData[];
 
 }
 
+
+
+
+
 function growth(
-
 current:number,
-
 previous:number
-
 ){
 
-
-if(previous === 0)
+if(previous===0)
 return 0;
 
 
-
 return (
-
-(
-current -
-previous
-)
-
+(current-previous)
 /
-
 previous
-
 )
-
 *100;
 
-
 }
 
-function formatNumber(
-value:number
-){
 
-return value.toLocaleString(
-"id-ID"
-);
 
-}
 
 export function generateExecutiveSummary({
 
+locale,
 
 clicks,
 
 previousClicks,
 
-
 impressions,
 
 previousImpressions,
-
 
 ctr,
 
 previousCTR,
 
-
 users,
 
 previousUsers,
-
 
 sessions,
 
@@ -231,43 +201,27 @@ landingPages,
 
 deviceCategory,
 
-trafficAcquisition,
-
 }:ExecutiveSummaryInput):ExecutiveSummary {
 
 
 
-
-
 const clicksGrowth =
-growth(
-clicks,
-previousClicks
-);
-
+growth(clicks,previousClicks);
 
 
 const impressionGrowth =
-growth(
-impressions,
-previousImpressions
-);
-
+growth(impressions,previousImpressions);
 
 
 const usersGrowth =
-growth(
-users,
-previousUsers
-);
-
+growth(users,previousUsers);
 
 
 const sessionGrowth =
-growth(
-sessions,
-previousSessions
-);
+growth(sessions,previousSessions);
+
+
+
 
 const growingSignals = [
 
@@ -277,15 +231,13 @@ impressionGrowth > 0,
 
 ctr > previousCTR,
 
-usersGrowth >0,
+usersGrowth > 0,
 
-sessionGrowth >0,
+sessionGrowth > 0,
 
-].filter(Boolean).length;
-
-
-
-
+]
+.filter(Boolean)
+.length;
 
 
 
@@ -293,17 +245,13 @@ let trend:
 ExecutiveSummary["trend"];
 
 
-
-
-if(growingSignals >=4)
+if(growingSignals>=4)
 
 trend="Growing";
 
-
-else if(growingSignals <=1)
+else if(growingSignals<=1)
 
 trend="Declining";
-
 
 else
 
@@ -312,44 +260,34 @@ trend="Stable";
 
 
 
+let score=100;
 
 
+if(clicksGrowth<0)
+score-=20;
 
 
-let score = 100;
+if(impressionGrowth<0)
+score-=15;
 
 
-
-if(clicksGrowth <0)
-score -=20;
-
-
-if(impressionGrowth <0)
-score -=15;
+if(ctr<previousCTR)
+score-=15;
 
 
-if(ctr < previousCTR)
-score -=15;
+if(usersGrowth<0)
+score-=25;
 
 
-if(usersGrowth <0)
-score -=25;
-
-
-if(sessionGrowth <0)
-score -=15;
+if(sessionGrowth<0)
+score-=15;
 
 
 
 score=Math.max(
 40,
-Math.min(
-100,
-score
-)
+Math.min(100,score)
 );
-
-
 
 
 
@@ -360,29 +298,65 @@ ExecutiveSummary["seoHealth"];
 
 
 
-if(score >=85)
+if(locale==="en"){
+
+
+if(score>=85)
+
+seoHealth="Excellent";
+
+else if(score>=65)
+
+seoHealth="Good";
+
+else
+
+seoHealth="Needs Attention";
+
+
+}else{
+
+
+if(score>=85)
 
 seoHealth="Sangat Baik";
 
-
-else if(score >=65)
+else if(score>=65)
 
 seoHealth="Baik";
-
 
 else
 
 seoHealth="Perlu Perhatian";
 
 
+}
 
 
 
 
 
 
+const overview =
+locale==="en"
 
-let overview =
+?
+
+`Website performance during this period shows ${
+trend==="Growing"
+?
+"positive improvement in organic traffic and visibility"
+:
+trend==="Declining"
+?
+"a performance decline requiring optimization actions"
+:
+"a stable condition with further improvement opportunities"
+}.
+
+Organic traffic changed by ${clicksGrowth.toFixed(1)}%, impressions ${impressionGrowth.toFixed(1)}%, users ${usersGrowth.toFixed(1)}%, and sessions ${sessionGrowth.toFixed(1)}%.`
+
+:
 
 `Performa website pada periode ini menunjukkan kondisi ${
 trend==="Growing"
@@ -395,23 +369,12 @@ trend==="Declining"
 :
 "stabil dengan peluang peningkatan lebih lanjut"
 }.
-`;
+
+Organic traffic berubah sebesar ${clicksGrowth.toFixed(1)}%, impression ${impressionGrowth.toFixed(1)}%, pengguna ${usersGrowth.toFixed(1)}%, dan sesi ${sessionGrowth.toFixed(1)}%.`;
 
 
 
 
-
-overview +=
-
-`Organic traffic berubah sebesar ${
-clicksGrowth.toFixed(1)
-}%, impression ${
-impressionGrowth.toFixed(1)
-}%, pengguna ${
-usersGrowth.toFixed(1)
-}%, dan sesi ${
-sessionGrowth.toFixed(1)
-}%.`;
 
 const keyWins:string[]=[];
 
@@ -423,20 +386,38 @@ const technicalInsights:string[]=[];
 
 const actionPlan:string[]=[];
 
-if(
-impressions > previousImpressions
-&&
-ctr < previousCTR
-){
+
+
+
+
+if(impressions>previousImpressions && ctr<previousCTR){
+
 
 technicalInsights.push(
+
+locale==="en"
+
+?
+
+"Website visibility increased, but click-through rate decreased. Optimize title tags and meta descriptions."
+
+:
 
 "Website mendapatkan peningkatan visibilitas, tetapi rasio klik menurun. Fokus optimasi title tag dan meta description."
 
 );
 
 
+
 actionPlan.push(
+
+locale==="en"
+
+?
+
+"Optimize pages with high impressions but low CTR to gain additional traffic without creating new content."
+
+:
 
 "Optimalkan halaman dengan impression tinggi namun CTR rendah untuk mendapatkan tambahan trafik tanpa membuat konten baru."
 
@@ -445,31 +426,74 @@ actionPlan.push(
 
 }
 
-if(clicksGrowth >0){
+
+
+
+
+if(clicksGrowth>0){
+
 
 keyWins.push(
+
+locale==="en"
+
+?
+
+`Organic clicks increased ${clicksGrowth.toFixed(1)}% compared to the previous period.`
+
+:
+
 `Organic clicks meningkat ${clicksGrowth.toFixed(1)}% dibanding periode sebelumnya.`
+
 );
+
 
 }
 
 
 
-if(impressionGrowth >0){
+
+
+if(impressionGrowth>0){
+
 
 keyWins.push(
+
+locale==="en"
+
+?
+
+`Search visibility increased with impressions growing ${impressionGrowth.toFixed(1)}%.`
+
+:
+
 `Visibilitas pencarian meningkat dengan impression bertambah ${impressionGrowth.toFixed(1)}%.`
+
 );
+
 
 }
 
 
 
-if(ctr > previousCTR){
+
+if(ctr>previousCTR){
+
 
 keyWins.push(
+
+locale==="en"
+
+?
+
+"CTR improved, indicating stronger search result attractiveness."
+
+:
+
 "CTR meningkat yang menunjukkan peningkatan daya tarik hasil pencarian."
+
 );
+
 
 }
 
@@ -477,63 +501,37 @@ keyWins.push(
 
 
 
-
-
-
-if(impressions > previousImpressions && ctr < previousCTR){
+if(clicks<previousClicks){
 
 
 risks.push(
-"Website mendapatkan banyak impression tetapi belum maksimal mengubahnya menjadi klik."
-);
 
+locale==="en"
 
+?
 
-opportunities.push(
-"Optimalkan title tag, meta description, dan rich snippet pada halaman dengan impression tinggi."
-);
+"Organic traffic shows a declining trend."
 
+:
 
-}
-
-if(
-clicksGrowth > 0
-){
-
-actionPlan.push(
-
-`Pertahankan halaman yang menghasilkan trafik organik dan lakukan internal linking menuju halaman prioritas.`
-
-);
-
-
-}
-
-
-
-if(
-usersGrowth < 0
-){
-
-actionPlan.push(
-
-"Evaluasi landing page utama karena penurunan pengguna dapat mengindikasikan masalah relevansi konten atau pengalaman pengguna."
-
-);
-
-
-}
-
-if(clicks < previousClicks){
-
-
-risks.push(
 "Terdapat indikasi penurunan trafik organik."
+
 );
 
 
+
 opportunities.push(
+
+locale==="en"
+
+?
+
+"Refresh content on pages with declining performance."
+
+:
+
 "Lakukan content refresh pada halaman dengan performa menurun."
+
 );
 
 
@@ -543,19 +541,37 @@ opportunities.push(
 
 
 
-
-
-
-if(users < previousUsers){
+if(users<previousUsers){
 
 
 risks.push(
+
+locale==="en"
+
+?
+
+"User volume decreased compared to the previous period."
+
+:
+
 "Jumlah pengguna mengalami penurunan dibanding periode sebelumnya."
+
 );
 
 
+
 opportunities.push(
+
+locale==="en"
+
+?
+
+"Evaluate landing pages and user experience."
+
+:
+
 "Evaluasi landing page dan pengalaman pengguna."
+
 );
 
 
@@ -565,15 +581,18 @@ opportunities.push(
 
 
 
-
-
-
-if(
-opportunities.length===0
-){
+if(opportunities.length===0){
 
 
 opportunities.push(
+
+locale==="en"
+
+?
+
+"Maintain the current SEO strategy and improve conversion performance."
+
+:
 
 "Pertahankan strategi SEO saat ini dan fokus meningkatkan conversion."
 
@@ -586,323 +605,126 @@ opportunities.push(
 
 
 
-
-
-const confidence =
-
-Math.min(
-
-98,
-
-Math.max(
-
-75,
-
-80 +
-
-(
-impressions >0 ? 10 : 0
-
-)
-
-+
-
-(
-users >0 ? 5 : 0
-
-)
-
-)
-
-);
-
-
-
-
-
-
-
-
-
-let nextPriority =
-"Pertahankan performa SEO dan lakukan optimasi berkelanjutan.";
-
-
-
-
-
-if(risks.length >0){
-
-nextPriority =
-opportunities[0];
-
-}
-
-const performanceAnalysis:string[]=[];
-
-
-const keywordInsights:string[]=[];
-
-
-const contentInsights:string[]=[];
-
-
-const recommendations:string[]=[];
-
-
-
-/*
- PERFORMANCE ANALYSIS
-*/
-
-
-if(clicksGrowth > 0){
-
-performanceAnalysis.push(
-
-`Traffic organik meningkat ${clicksGrowth.toFixed(1)}% dibanding periode sebelumnya.`
-
-);
-
-}
-
-
-if(impressionGrowth > 0){
-
-performanceAnalysis.push(
-
-`Visibilitas Google meningkat dengan impression bertambah ${impressionGrowth.toFixed(1)}%.`
-
-);
-
-}
-
-
-if(usersGrowth > 0){
-
-performanceAnalysis.push(
-
-`Jumlah pengguna meningkat ${usersGrowth.toFixed(1)}% yang menunjukkan peningkatan jangkauan website.`
-
-);
-
-}
-
-
-
-
-
-/*
- KEYWORD ANALYSIS
-*/
-
-
-const topQueries =
-queries
-?.slice(0,5)
-?? [];
-
-
-
-topQueries.forEach((item: QueryData)=>{
-
-
-keywordInsights.push(
-
-`${item.query ?? item.keyword} menghasilkan ${(
-item.clicks ?? 0
-).toLocaleString("id-ID")} klik dengan CTR ${
-item.ctr ?? 0
-}%.`
-
-);
-
-
-});
-
-
-
-
-
-
-if(keywordInsights.length===0){
-
-keywordInsights.push(
-
-"Belum tersedia data keyword utama."
-
-);
-
-}
-
-
-
-
-
-
-
-/*
- CONTENT ANALYSIS
-*/
-
-
-const topPages =
-landingPages
-?.slice(0,5)
-||
-pages
-?.slice(0,5)
-||
-[];
-
-topPages.forEach((item: LandingPageData | PageData)=>{
-
-
-contentInsights.push(
-
-`${item.page ?? item.path ?? "Halaman"} memberikan kontribusi trafik terbesar dengan ${
-(
-item.clicks ??
-item.sessions ??
-0
-).toLocaleString("id-ID")
-} kunjungan.`
-
-);
-
-
-});
-
-
-
-
-
-if(contentInsights.length===0){
-
-contentInsights.push(
-
-"Belum tersedia analisis halaman terbaik."
-
-);
-
-}
-
-
-
-
-
-
-/*
- RECOMMENDATION ENGINE
-*/
-
-
-if(
-impressions > previousImpressions &&
-ctr < previousCTR
-){
-
-recommendations.push(
-
-"Optimalkan judul halaman dan meta description untuk meningkatkan CTR dari impression tinggi."
-
-);
-
-}
-
-
-
-if(clicksGrowth > 0){
-
-recommendations.push(
-
-"Pertahankan halaman dengan trafik tinggi dan tambahkan internal linking menuju halaman strategis."
-
-);
-
-}
-
-
-
-if(usersGrowth < 0){
-
-recommendations.push(
-
-"Evaluasi pengalaman pengguna pada landing page dengan trafik terbesar."
-
-);
-
-}
-
 if(actionPlan.length===0){
 
+
 actionPlan.push(
+
+locale==="en"
+
+?
+
+"Continue SEO monitoring and maintain optimization activities."
+
+:
 
 "Lanjutkan strategi SEO saat ini dan lakukan monitoring performa secara berkala."
 
 );
 
+
 }
+
+
+
+
+
+const keywordInsights =
+queries?.length
+
+?
+
+queries.slice(0,5)
+.map(
+item =>
+
+locale==="en"
+
+?
+
+`${item.query ?? item.keyword} generated ${(item.clicks??0).toLocaleString("en-US")} clicks with CTR ${item.ctr??0}%.`
+
+:
+
+`${item.query ?? item.keyword} menghasilkan ${(item.clicks??0).toLocaleString("id-ID")} klik dengan CTR ${item.ctr??0}%.`
+
+)
+
+:
+
+[
+
+locale==="en"
+
+?
+
+"No keyword data available."
+
+:
+
+"Belum tersedia data keyword utama."
+
+];
+
+
+
+
+
+const contentInsights =
+(landingPages ?? pages ?? [])
+.slice(0,5)
+.map(
+
+item =>
+
+locale==="en"
+
+?
+
+`${item.page ?? item.path ?? "Page"} contributed ${(item.clicks??item.sessions??0).toLocaleString("en-US")} visits.`
+
+:
+
+`${item.page ?? item.path ?? "Halaman"} memberikan kontribusi trafik terbesar dengan ${(item.clicks??item.sessions??0).toLocaleString("id-ID")} kunjungan.`
+
+);
+
+
+
+
 
 const trafficAnalysis =
 
-clicksGrowth > 0
+locale==="en"
 
 ?
 
-`Traffic organik mengalami peningkatan ${clicksGrowth.toFixed(1)}%. 
-Kenaikan ini menunjukkan visibilitas website di mesin pencari mulai membaik.`
-
-:
-
-`Traffic organik mengalami penurunan ${Math.abs(clicksGrowth).toFixed(1)}%. 
-Perlu dilakukan evaluasi terhadap keyword dan halaman yang kehilangan performa.`;
-
-const keywordAnalysis =
-
-queries &&
-queries.length > 0
+clicksGrowth>0
 
 ?
 
-`Website memiliki ${queries.length} keyword yang menghasilkan impression.
-Prioritaskan keyword dengan impression tinggi namun CTR rendah untuk meningkatkan klik.`
+`Organic traffic increased ${clicksGrowth.toFixed(1)}%. Website visibility is improving.`
 
 :
 
-"Data keyword belum tersedia.";
+`Organic traffic decreased ${Math.abs(clicksGrowth).toFixed(1)}%. Review keywords and declining pages.`
 
-const contentAnalysis =
 
-landingPages &&
-landingPages.length > 0
+:
+
+clicksGrowth>0
 
 ?
 
-`Terdapat ${landingPages.length} landing page utama yang berkontribusi terhadap trafik.
-Lakukan optimasi internal linking dan content refresh secara berkala.`
+`Traffic organik mengalami peningkatan ${clicksGrowth.toFixed(1)}%. Kinerja website mulai membaik.`
 
 :
 
-"Tidak ditemukan data landing page.";
+`Traffic organik mengalami penurunan ${Math.abs(clicksGrowth).toFixed(1)}%. Evaluasi keyword dan halaman yang kehilangan performa.`;
 
-const technicalAnalysis =
+const growthOpportunities = generateGrowthOpportunity({
 
-deviceCategory &&
-deviceCategory.length > 0
-
-?
-
-`Performa pengguna berasal dari beberapa perangkat.
-Pastikan pengalaman mobile tetap optimal karena mayoritas trafik modern berasal dari mobile.`
-
-:
-
-"Belum tersedia analisis perangkat.";
-
-const growthOpportunities =
-
-generateGrowthOpportunity({
+locale,
 
 clicks,
 
@@ -931,39 +753,28 @@ return {
 
 overview,
 
-
 seoHealth,
 
-
-confidence,
-
+confidence:85,
 
 trend,
 
-
 keyWins,
-
 
 risks,
 
-
 opportunities,
 
-
-nextPriority,
-
+nextPriority:
+opportunities[0] ?? "",
 
 keywordInsights,
 
-
 contentInsights,
-
 
 technicalInsights,
 
-
 actionPlan,
-
 
 growthOpportunities,
 
@@ -971,15 +782,65 @@ growthOpportunities,
 trafficAnalysis,
 
 
-keywordAnalysis,
+keywordAnalysis:
+
+locale==="en"
+
+?
+
+"Prioritize keywords with high impressions and low CTR to increase clicks."
+
+:
+
+"Prioritaskan keyword dengan impression tinggi namun CTR rendah untuk meningkatkan klik.",
 
 
-contentAnalysis,
+
+contentAnalysis:
+
+locale==="en"
+
+?
+
+"Optimize landing pages and refresh content regularly."
+
+:
+
+"Lakukan optimasi landing page dan content refresh secara berkala.",
 
 
-technicalAnalysis,
+
+technicalAnalysis:
+
+locale==="en"
+
+?
+
+deviceCategory?.length
+
+?
+
+"User performance comes from multiple devices. Ensure mobile experience remains optimized."
+
+:
+
+"No device analysis available."
+
+:
+
+deviceCategory?.length
+
+?
+
+"Performa pengguna berasal dari beberapa perangkat. Pastikan pengalaman mobile tetap optimal."
+
+:
+
+"Belum tersedia analisis perangkat."
 
 
 };
+
+
 
 }

@@ -17,6 +17,9 @@ import type {
   AIContext,
 } from "@/lib/ai/context-builder";
 
+import {
+  useTranslations,
+} from "next-intl";
 
 interface Props {
   context: AIContext;
@@ -28,6 +31,8 @@ export default function ConsultantChat({
   context,
 }: Props) {
 
+const t =
+useTranslations("consultantChat");
 
 const [question,setQuestion] =
 useState("");
@@ -106,7 +111,7 @@ setMessages(prev=>[
 role:"assistant",
 content:
 data.answer ??
-"AI tidak memberikan jawaban."
+t("defaultAnswer")
 }
 ]);
 
@@ -119,7 +124,7 @@ setMessages(prev=>[
 {
 role:"assistant",
 content:
-"Gagal menghubungkan AI Consultant."
+t("error")
 }
 ]);
 
@@ -193,7 +198,7 @@ text-xl
 font-bold
 "
 >
-TrafficSaaS AI Consultant
+{t("title")}
 </h2>
 
 
@@ -203,7 +208,7 @@ text-sm
 text-blue-100
 "
 >
-SEO intelligence assistant berbasis data website
+{t("subtitle")}
 </p>
 
 
@@ -259,7 +264,7 @@ font-bold
 size={18}
 />
 
-AI Consultant
+{t("assistantTitle")}
 
 </div>
 
@@ -273,8 +278,7 @@ text-slate-500
 "
 >
 
-Tanyakan analisis SEO berdasarkan data
-Google Search Console dan Google Analytics.
+{t("description")}
 
 </p>
 
@@ -291,10 +295,10 @@ md:grid-cols-2
 {
 
 [
-"Kenapa traffic website turun?",
-"Apa keyword terbaik untuk naik ranking?",
-"Apa prioritas SEO berikutnya?",
-"Bagaimana meningkatkan conversion?"
+t("suggestions.trafficDrop"),
+t("suggestions.keywordRanking"),
+t("suggestions.seoPriority"),
+t("suggestions.conversion")
 ].map((item)=>(
 
 <div
@@ -407,9 +411,9 @@ msg.role==="user"
 
 msg.role==="user"
 ?
-"Anda"
+t("user")
 :
-"TrafficSaaS AI"
+t("assistant")
 
 }
 
@@ -716,7 +720,7 @@ text-slate-500
 "
 >
 
-✨ AI sedang menganalisis data website...
+{t("loading")}
 
 </div>
 
@@ -741,7 +745,6 @@ p-4
 "
 >
 
-
 <input
 
 className="
@@ -754,29 +757,21 @@ outline-none
 focus:border-blue-500
 "
 
-placeholder="
-Contoh: Kenapa traffic website turun?
-"
+placeholder={t("placeholder")}
 
 value={question}
 
-onChange={
-e=>setQuestion(e.target.value)
+onChange={(e)=>setQuestion(e.target.value)}
+
+onKeyDown={(e)=>{
+
+if(e.key==="Enter"){
+  askAI();
 }
 
-onKeyDown={
-e=>{
-
-if(e.key==="Enter")
-askAI();
-
-}
-
-}
+}}
 
 />
-
-
 
 <button
 

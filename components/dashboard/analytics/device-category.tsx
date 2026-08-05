@@ -17,11 +17,14 @@ import type {
 
 
 interface Props {
-  data: DeviceCategoryMetric[];
+
+data: DeviceCategoryMetric[];
+
+title:string;
+
+subtitle:string;
+
 }
-
-
-
 
 const ICONS: Record<
   string,
@@ -81,6 +84,8 @@ const COLORS = [
 export default function DeviceCategory({
 
 data,
+title,
+subtitle,
 
 }:Props){
 
@@ -173,10 +178,10 @@ h-[420px]
 "
 
 
-title="Kategori Perangkat"
+title={title}
 
 
-subtitle="Pengguna aktif berdasarkan perangkat"
+subtitle={subtitle}
 
 
 badge={

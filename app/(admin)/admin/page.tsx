@@ -25,13 +25,13 @@ import {
   Clock,
 } from "lucide-react";
 
-
+import { getLocale } from "next-intl/server";
 
 
 
 export default async function AdminPage(){
 
-
+const locale = await getLocale();
 const session =
 await getServerSession(
   authOptions
@@ -49,7 +49,7 @@ redirect("/login");
 
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

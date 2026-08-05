@@ -1,3 +1,5 @@
+"use client";
+
 import {
   TrendingUp,
   TrendingDown,
@@ -10,6 +12,9 @@ import {
 
 import type React from "react";
 
+import { useTranslations } from "next-intl";
+
+
 interface PerformanceSummaryProps {
 
   clicks:number;
@@ -21,6 +26,7 @@ interface PerformanceSummaryProps {
   sessions:number;
 
 }
+
 
 
 
@@ -45,12 +51,11 @@ value:string;
 
 description:string;
 
-icon: React.ElementType;
+icon:React.ElementType;
 
 trend:"up"|"down"|"stable";
 
 }){
-
 
 
 const TrendIcon =
@@ -153,7 +158,6 @@ shadow-sm
 
 >
 
-
 <Icon
 
 className="
@@ -164,8 +168,8 @@ text-blue-600
 
 />
 
-
 </div>
+
 
 
 
@@ -189,6 +193,7 @@ text-slate-500
 
 
 
+
 <p
 
 className="
@@ -208,9 +213,7 @@ text-slate-900
 </div>
 
 
-
 </div>
-
 
 
 
@@ -225,7 +228,6 @@ ${trendColor}
 `}
 
 />
-
 
 
 </div>
@@ -253,10 +255,10 @@ text-slate-500
 
 </div>
 
+
 );
 
 }
-
 
 
 
@@ -279,9 +281,14 @@ sessions,
 
 
 
+const t = useTranslations("dashboard.performance");
+
+
+
 return (
 
 <section
+
 className="
 rounded-3xl
 border
@@ -291,7 +298,9 @@ p-6
 shadow-sm
 min-h-[605px]
 "
+
 >
+
 
 
 <div
@@ -303,6 +312,7 @@ justify-between
 "
 
 >
+
 
 
 <div>
@@ -341,7 +351,7 @@ text-slate-900
 
 >
 
-Performance Overview
+{t("title")}
 
 </h2>
 
@@ -361,12 +371,13 @@ text-slate-500
 
 >
 
-Ringkasan kondisi trafik dan visibilitas website
+{t("subtitle")}
 
 </p>
 
 
 </div>
+
 
 
 
@@ -386,7 +397,7 @@ text-blue-600
 
 >
 
-SEO Metrics
+{t("badge")}
 
 </span>
 
@@ -394,6 +405,7 @@ SEO Metrics
 
 
 </div>
+
 
 
 
@@ -417,17 +429,16 @@ sm:grid-cols-2
 <MetricItem
 
 
-title="Organic Clicks"
-
+title={t("metrics.clicks.title")}
 
 value={
-
-clicks.toLocaleString("id-ID")
-
+clicks.toLocaleString()
 }
 
 
-description="Jumlah kunjungan dari hasil pencarian Google"
+description={
+t("metrics.clicks.description")
+}
 
 
 icon={MousePointerClick}
@@ -438,20 +449,25 @@ trend="up"
 
 />
 
+
+
+
+
+
+
 <MetricItem
 
 
-title="Search Visibility"
-
+title={t("metrics.visibility.title")}
 
 value={
-
-impressions.toLocaleString("id-ID")
-
+impressions.toLocaleString()
 }
 
 
-description="Seberapa sering website muncul di Google Search"
+description={
+t("metrics.visibility.description")
+}
 
 
 icon={Search}
@@ -462,20 +478,26 @@ trend="up"
 
 />
 
+
+
+
+
+
+
+
 <MetricItem
 
 
-title="Active Users"
-
+title={t("metrics.users.title")}
 
 value={
-
-users.toLocaleString("id-ID")
-
+users.toLocaleString()
 }
 
 
-description="Jumlah pengguna unik yang mengunjungi website"
+description={
+t("metrics.users.description")
+}
 
 
 icon={Users}
@@ -486,20 +508,26 @@ trend="stable"
 
 />
 
+
+
+
+
+
+
+
 <MetricItem
 
 
-title="Sessions"
-
+title={t("metrics.sessions.title")}
 
 value={
-
-sessions.toLocaleString("id-ID")
-
+sessions.toLocaleString()
 }
 
 
-description="Total sesi interaksi pengguna dengan website"
+description={
+t("metrics.sessions.description")
+}
 
 
 icon={Activity}
@@ -510,47 +538,78 @@ trend="stable"
 
 />
 
+
 </div>
 
+
+
+
+
+
+
+
 <div
+
 className="
 mt-6
 rounded-2xl
 bg-blue-50
 p-4
 "
+
 >
 
+
 <p
+
 className="
 text-xs
 font-semibold
 text-blue-600
 "
+
 >
-Performance Summary
+
+{t("summary.title")}
+
 </p>
 
 
+
+
 <p
+
 className="
 mt-2
 text-sm
 leading-relaxed
 text-slate-600
 "
+
 >
-Website memiliki 
-{clicks.toLocaleString("id-ID")} organic clicks
-dengan visibilitas pencarian sebesar 
-{impressions.toLocaleString("id-ID")} impressions.
-Evaluasi tren trafik secara berkala untuk menentukan strategi SEO berikutnya.
+
+{t("summary.description",{
+clicks:
+clicks.toLocaleString(),
+
+impressions:
+impressions.toLocaleString()
+
+})}
+
 </p>
 
+
+
 </div>
+
+
+
+
 
 </section>
 
 );
+
 
 }

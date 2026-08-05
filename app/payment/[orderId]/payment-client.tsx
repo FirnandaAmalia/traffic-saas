@@ -17,6 +17,8 @@ import {
   useRouter,
 } from "next/navigation";
 
+import { useLocale } from "next-intl";
+
 interface PaymentData {
 
   id: string;
@@ -47,7 +49,7 @@ export default function PaymentClient({
 }) {
 
 
-
+const locale = useLocale();
 const [loading,setLoading] =
 useState(false);
 
@@ -123,7 +125,7 @@ setStatus("SUCCESS");
 setTimeout(()=>{
 
 window.location.href =
-"/dashboard";
+`/${locale}/dashboard`;
 
 
 },2000);

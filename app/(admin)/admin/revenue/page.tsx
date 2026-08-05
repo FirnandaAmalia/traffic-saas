@@ -25,14 +25,14 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-
+import { getLocale } from "next-intl/server";
 
 
 
 export default async function AdminRevenuePage(){
 
 
-
+const locale = await getLocale();
 const session =
 await getServerSession(
   authOptions
@@ -50,7 +50,7 @@ redirect("/login");
 
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

@@ -8,38 +8,42 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
+
 const logos = [
   {
-    name: "Google Analytics 4",
+    key: "ga4",
     icon: BarChart3,
-    gradient:
-      "from-orange-400 to-yellow-400",
+    gradient: "from-orange-400 to-yellow-400",
   },
+
   {
-    name: "Google Search Console",
+    key: "gsc",
     icon: Globe,
-    gradient:
-      "from-blue-500 to-cyan-400",
+    gradient: "from-blue-500 to-cyan-400",
   },
+
   {
-    name: "AI Intelligence",
+    key: "ai",
     icon: Brain,
-    gradient:
-      "from-violet-600 to-fuchsia-500",
+    gradient: "from-violet-600 to-fuchsia-500",
   },
+
   {
-    name: "PostgreSQL",
+    key: "postgres",
     icon: Database,
-    gradient:
-      "from-sky-500 to-indigo-500",
+    gradient: "from-sky-500 to-indigo-500",
   },
+
   {
-    name: "OpenAI",
+    key: "openai",
     icon: Sparkles,
-    gradient:
-      "from-emerald-500 to-teal-400",
+    gradient: "from-emerald-500 to-teal-400",
   },
 ];
+
+
 const items = [
   ...logos,
   ...logos,
@@ -47,8 +51,10 @@ const items = [
 ];
 
 
-
 export default function LogoMarquee() {
+
+
+  const t = useTranslations("logoMarquee");
 
 
   return (
@@ -68,8 +74,7 @@ export default function LogoMarquee() {
     >
 
 
-
-      {/* Header */}
+      {/* HEADER */}
 
 
       <div
@@ -98,11 +103,13 @@ export default function LogoMarquee() {
           className="
             h-4
             w-4
+
             text-violet-500
           "
         />
 
-        Trusted Technologies & Integrations
+
+        {t("badge")}
 
 
       </div>
@@ -111,9 +118,8 @@ export default function LogoMarquee() {
 
 
 
-      {/* Fade edges */}
 
-
+      {/* FADE LEFT */}
 
       <div
         className="
@@ -138,6 +144,8 @@ export default function LogoMarquee() {
       />
 
 
+
+      {/* FADE RIGHT */}
 
       <div
         className="
@@ -165,8 +173,8 @@ export default function LogoMarquee() {
 
 
 
-      {/* Marquee */}
 
+      {/* MARQUEE */}
 
 
       <div
@@ -178,165 +186,158 @@ export default function LogoMarquee() {
           animate-marquee
 
           gap-6
-
         "
       >
 
 
-        {items.map((item,index)=>{
+        {
+          items.map((item,index)=>{
 
 
-          const Icon = item.icon;
+            const Icon = item.icon;
 
 
-          return (
-
-            <div
-              key={`${item.name}-${index}`}
-              className="
-                group
-
-                flex
-
-                h-[74px]
-
-                w-[260px]
-
-                shrink-0
-
-                items-center
-
-                gap-4
-
-                rounded-3xl
-
-                border
-
-                border-slate-200
-
-                bg-white
-
-                px-6
-
-                shadow-sm
-
-                transition-all
-
-                duration-500
-
-                hover:-translate-y-1
-
-                hover:border-violet-200
-
-                hover:shadow-xl
-              "
-            >
-
-
-
-
+            return (
 
               <div
-                className={`
+                key={`${item.key}-${index}`}
+
+                className="
+                  group
+
                   flex
 
-                  h-12
+                  h-[74px]
 
-                  w-12
+                  w-[260px]
+
+                  shrink-0
 
                   items-center
 
-                  justify-center
+                  gap-4
 
-                  rounded-2xl
+                  rounded-3xl
 
-                  bg-gradient-to-br
+                  border
 
-                  ${item.gradient}
+                  border-slate-200
 
-                  shadow-lg
+                  bg-white
 
-                  transition-transform
+                  px-6
 
-                  duration-300
+                  shadow-sm
 
-                  group-hover:scale-110
-                `}
+                  transition-all
+
+                  duration-500
+
+                  hover:-translate-y-1
+
+                  hover:border-violet-200
+
+                  hover:shadow-xl
+                "
               >
 
 
-                <Icon
-                  className="
-                    h-6
 
-                    w-6
+                <div
+                  className={`
+                    flex
 
-                    text-white
-                  "
-                />
+                    h-12
+
+                    w-12
+
+                    items-center
+
+                    justify-center
+
+                    rounded-2xl
+
+                    bg-gradient-to-br
+
+                    ${item.gradient}
+
+                    shadow-lg
+
+                    transition-transform
+
+                    duration-300
+
+                    group-hover:scale-110
+                  `}
+                >
+
+                  <Icon
+                    className="
+                      h-6
+
+                      w-6
+
+                      text-white
+                    "
+                  />
+
+                </div>
+
+
+
+
+
+                <div>
+
+
+                  <p
+                    className="
+                      text-sm
+
+                      font-bold
+
+                      text-slate-800
+                    "
+                  >
+
+                    {t(`companies.${item.key}`)}
+
+                  </p>
+
+
+
+                  <p
+                    className="
+                      mt-1
+
+                      text-xs
+
+                      text-slate-400
+                    "
+                  >
+
+                    {t("connected")}
+
+                  </p>
+
+
+                </div>
+
 
 
               </div>
 
+            );
 
 
-
-
-
-              <div>
-
-                <p
-                  className="
-                    text-sm
-
-                    font-bold
-
-                    text-slate-800
-                  "
-                >
-
-                  {item.name}
-
-
-                </p>
-
-
-                <p
-                  className="
-                    mt-1
-
-                    text-xs
-
-                    text-slate-400
-                  "
-                >
-
-                  Connected Platform
-
-
-                </p>
-
-
-              </div>
-
-
-
-            </div>
-
-
-          );
-
-
-        })}
-
+          })
+        }
 
 
       </div>
 
 
-
     </section>
-
 
   );
 

@@ -1,6 +1,14 @@
+"use client";
+
 import {
   ShieldCheck,
 } from "lucide-react";
+
+import {
+  useTranslations,
+} from "next-intl";
+
+
 
 interface HealthScoreData {
 
@@ -26,17 +34,27 @@ issues?: string[];
 
 
 
+
+
 interface HealthScoreProps {
 
 data:HealthScoreData | null;
 
 }
 
+
+
+
+
 export default function HealthScore({
 
 data,
 
 }:HealthScoreProps){
+
+
+const t =
+useTranslations("dashboard.healthScore");
 
 
 
@@ -47,7 +65,7 @@ data?.score ?? 0;
 
 const label =
 data?.label ??
-"Belum Dianalisa";
+t("notAnalyzed");
 
 
 
@@ -71,7 +89,7 @@ data?.issues ?? [];
 const statusColor =
 
 
-score >=85
+score >= 85
 
 ?
 
@@ -81,7 +99,7 @@ score >=85
 :
 
 
-score >=65
+score >= 65
 
 ?
 
@@ -91,6 +109,8 @@ score >=65
 :
 
 "text-red-600";
+
+
 
 
 
@@ -110,6 +130,8 @@ shadow-sm
 "
 
 >
+
+
 
 
 
@@ -136,6 +158,7 @@ text-blue-600
 
 
 
+
 <h2
 
 className="
@@ -146,12 +169,15 @@ text-slate-900
 
 >
 
-SEO Health Score
+{t("title")}
 
 </h2>
 
 
+
 </div>
+
+
 
 
 
@@ -167,9 +193,12 @@ text-slate-500
 
 >
 
-Kesehatan website berdasarkan performa SEO terbaru
+{t("subtitle")}
 
 </p>
+
+
+
 
 
 
@@ -234,6 +263,8 @@ text-slate-900
 </span>
 
 
+
+
 <span
 
 className="
@@ -246,6 +277,7 @@ text-slate-400
 /100
 
 </span>
+
 
 
 </div>
@@ -266,7 +298,7 @@ text-slate-400
 <div
 
 className="
-mt-5
+mt-6
 text-center
 "
 
@@ -293,6 +325,7 @@ ${statusColor}
 
 
 
+
 <p
 
 className="
@@ -303,13 +336,14 @@ text-slate-500
 
 >
 
-AI SEO evaluation
+{t("evaluation")}
 
 </p>
 
 
 
 </div>
+
 
 
 
@@ -332,7 +366,7 @@ gap-3
 
 <MiniMetric
 
-title="Traffic"
+title={t("metrics.traffic")}
 
 value={
 Math.round(
@@ -344,9 +378,11 @@ signals.traffic ?? 0
 
 
 
+
+
 <MiniMetric
 
-title="Visibility"
+title={t("metrics.visibility")}
 
 value={
 Math.round(
@@ -358,9 +394,11 @@ signals.visibility ?? 0
 
 
 
+
+
 <MiniMetric
 
-title="Engagement"
+title={t("metrics.engagement")}
 
 value={
 Math.round(
@@ -380,7 +418,11 @@ signals.engagement ?? 0
 
 
 
+
+
+
 {
+
 strengths.length > 0 &&
 
 <div
@@ -405,9 +447,12 @@ text-emerald-700
 
 >
 
-Strength
+{t("strength")}
 
 </p>
+
+
+
 
 
 <p
@@ -425,7 +470,10 @@ text-slate-600
 </p>
 
 
+
+
 </div>
+
 
 }
 
@@ -435,7 +483,10 @@ text-slate-600
 
 
 
+
+
 {
+
 issues.length > 0 &&
 
 <div
@@ -460,9 +511,11 @@ text-red-700
 
 >
 
-Attention
+{t("attention")}
 
 </p>
+
+
 
 
 <p
@@ -480,9 +533,14 @@ text-slate-600
 </p>
 
 
+
+
 </div>
 
+
 }
+
+
 
 
 
@@ -490,7 +548,10 @@ text-slate-600
 
 );
 
+
 }
+
+
 
 
 
@@ -541,6 +602,7 @@ text-slate-500
 
 
 
+
 <p
 
 className="
@@ -558,7 +620,9 @@ text-slate-800
 
 
 
+
 </div>
+
 
 );
 

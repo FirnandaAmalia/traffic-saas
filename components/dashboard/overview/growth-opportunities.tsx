@@ -1,9 +1,17 @@
+"use client";
+
 import {
   Rocket,
   FileSearch,
   Target,
   ArrowRight,
 } from "lucide-react";
+
+import {
+  useTranslations,
+} from "next-intl";
+
+
 
 interface GrowthOpportunity {
 
@@ -67,17 +75,42 @@ confidence:number;
 
 }
 
+
+
 interface GrowthOpportunitiesProps {
 
 data:GrowthOpportunity[];
 
 }
 
+
+
+
+
+
+
 export default function GrowthOpportunities({
 
 data,
 
 }:GrowthOpportunitiesProps){
+
+
+const t =
+useTranslations("dashboard.growthOpportunities");
+
+const translateType = (
+  type: GrowthOpportunity["type"]
+) => {
+  return t(`types.${type}`);
+};
+
+
+const translateLevel = (
+  level: "High" | "Medium" | "Low"
+) => {
+  return t(`levels.${level}`);
+};
 
 const opportunities:GrowthOpportunity[] =
 
@@ -91,18 +124,21 @@ data
 
 [
 {
-title:"Belum ada peluang optimasi",
+title:t("empty.title"),
 type:"Quick Win",
 impact:"Low",
-estimatedImpact:"Monitoring SEO",
-reason:"Belum ditemukan peluang signifikan.",
-action:"Lanjutkan monitoring performa website.",
+estimatedImpact:t("empty.impact"),
+reason:t("empty.reason"),
+action:t("empty.action"),
 metric:"Stable",
 source:"Combined",
 priority:"Low",
 confidence:60
 }
 ];
+
+
+
 
 
 return (
@@ -120,7 +156,6 @@ shadow-sm
 "
 
 >
-
 
 
 
@@ -161,7 +196,7 @@ text-slate-900
 
 >
 
-Growth Opportunities
+{t("title")}
 
 </h2>
 
@@ -183,14 +218,14 @@ text-slate-500
 
 >
 
-Peluang terbesar untuk meningkatkan performa SEO website
+{t("subtitle")}
 
 </p>
 
 
 
-</div>
 
+</div>
 
 
 
@@ -211,9 +246,13 @@ md:grid-cols-3
 >
 
 
+
+
 {
 
-opportunities.slice(0,3).map(
+opportunities
+.slice(0,3)
+.map(
 
 (item,index)=>(
 
@@ -237,6 +276,8 @@ p-4
 
 
 
+
+
 <div
 
 className="
@@ -246,6 +287,7 @@ justify-between
 "
 
 >
+
 
 
 <div
@@ -262,6 +304,7 @@ shadow-sm
 "
 
 >
+
 
 
 {
@@ -281,6 +324,7 @@ text-blue-600
 />
 
 
+
 :
 
 index===1
@@ -298,7 +342,9 @@ text-emerald-600
 />
 
 
+
 :
+
 
 <Target
 
@@ -311,10 +357,14 @@ text-purple-600
 />
 
 
+
 }
 
 
+
+
 </div>
+
 
 
 
@@ -332,7 +382,16 @@ text-slate-300
 
 
 
+
 </div>
+
+
+
+
+
+
+
+
 
 <div
 
@@ -342,6 +401,7 @@ space-y-2
 "
 
 >
+
 
 
 <p
@@ -357,6 +417,8 @@ text-slate-800
 {item.title}
 
 </p>
+
+
 
 
 
@@ -377,6 +439,9 @@ text-slate-600
 
 
 
+
+
+
 <div
 
 className="
@@ -390,6 +455,7 @@ py-2
 >
 
 
+
 <p
 
 className="
@@ -400,9 +466,11 @@ text-blue-600
 
 >
 
-Action:
+{t("action")}
 
 </p>
+
+
 
 
 <p
@@ -419,7 +487,13 @@ text-slate-600
 </p>
 
 
+
 </div>
+
+
+
+
+
 
 
 
@@ -433,6 +507,8 @@ gap-2
 "
 
 >
+
+
 
 
 <span
@@ -449,9 +525,12 @@ text-blue-700
 
 >
 
-{item.type}
+{translateType(item.type)}
 
 </span>
+
+
+
 
 
 
@@ -469,9 +548,15 @@ text-emerald-700
 
 >
 
-Impact {item.impact}
+{t("impact")} {translateLevel(item.impact)}
 
 </span>
+
+
+
+
+
+
 
 <span
 
@@ -487,15 +572,23 @@ text-purple-700
 
 >
 
-AI {item.confidence}%
+{t("ai")} {item.confidence}%
 
 </span>
 
 
-</div>
 
 
 </div>
+
+
+
+
+
+</div>
+
+
+
 
 
 </div>
@@ -503,16 +596,17 @@ AI {item.confidence}%
 
 )
 
+
 )
+
 
 
 }
 
 
 
+
 </div>
-
-
 
 
 

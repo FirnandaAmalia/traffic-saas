@@ -7,6 +7,8 @@ import type {
   GA4Property,
 } from "@/lib/types/ga4";
 
+import { useLocale } from "next-intl";
+
 interface GA4SelectorProps {
   projectId: string;
   accounts: GA4Account[];
@@ -16,6 +18,7 @@ export default function GA4Selector({
   projectId,
   accounts,
 }: GA4SelectorProps) {
+  const locale = useLocale();
   const router = useRouter();
 
   async function connectProperty(
@@ -46,7 +49,7 @@ export default function GA4Selector({
     }
 
     router.push(
-      `/dashboard?projectId=${projectId}`
+      `/${locale}/dashboard?projectId=${projectId}`
     );
   }
 

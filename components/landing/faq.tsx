@@ -7,66 +7,30 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 import FadeUp from "@/components/motion/fade-up";
 
 
-const faqs = [
 
-  {
-    question:
-      "Apakah TrafficSaaS bisa digunakan secara gratis?",
-    answer:
-      "Bisa. TrafficSaaS menyediakan paket Free untuk mencoba dashboard SEO, menghubungkan Google Search Console dan Google Analytics 4, serta melihat insight dasar performa website.",
-  },
-
-
-  {
-    question:
-      "Apa perbedaan paket Free dan Pro?",
-    answer:
-      "Paket Pro memberikan akses ke fitur lanjutan seperti AI Executive Summary, rekomendasi SEO berbasis AI, analisis yang lebih mendalam, export laporan PDF dan Excel, serta kemampuan mengelola lebih banyak project.",
-  },
-
-
-  {
-    question:
-      "Bagaimana TrafficSaaS mendapatkan data website?",
-    answer:
-      "TrafficSaaS menggunakan koneksi resmi Google API melalui autentikasi OAuth. Dengan begitu, Anda dapat menghubungkan Google Search Console dan Google Analytics 4 secara aman.",
-  },
-
-
-  {
-    question:
-      "Apakah saya bisa mengelola beberapa website?",
-    answer:
-      "Bisa. Paket Pro dibuat untuk freelancer SEO, agency, dan bisnis yang mengelola beberapa website atau project SEO dalam satu akun.",
-  },
-
-
-  {
-    question:
-      "Apakah data Google saya aman?",
-    answer:
-      "Aman. TrafficSaaS tidak menyimpan password Google Anda. Akses hanya digunakan untuk membaca data SEO dan analytics sesuai izin yang diberikan.",
-  },
-
-
-  {
-    question:
-      "Apakah bisa upgrade dari Free ke Pro?",
-    answer:
-      "Bisa. Anda dapat mulai menggunakan paket Free terlebih dahulu dan melakukan upgrade kapan saja ketika membutuhkan fitur AI serta analisis SEO yang lebih lengkap.",
-  },
-
+const faqKeys = [
+  "free",
+  "difference",
+  "data",
+  "multiple",
+  "security",
+  "upgrade",
 ];
+
+
 
 export default function FAQ() {
 
 
+  const t = useTranslations("faq");
+
   const [openIndex,setOpenIndex] =
     useState<number | null>(0);
-
 
 
 
@@ -91,16 +55,11 @@ export default function FAQ() {
           absolute
           left-1/2
           top-20
-
           h-[500px]
           w-[900px]
-
           -translate-x-1/2
-
           rounded-full
-
           bg-violet-500/10
-
           blur-[160px]
         "
       />
@@ -120,13 +79,9 @@ export default function FAQ() {
 
 
 
-
-
-
         {/* HEADER */}
 
         <FadeUp>
-
 
           <div
             className="
@@ -140,21 +95,14 @@ export default function FAQ() {
                 inline-flex
                 items-center
                 gap-2
-
                 rounded-full
-
                 border
                 border-violet-200
-
                 bg-violet-50
-
                 px-4
                 py-2
-
                 text-sm
-
                 font-bold
-
                 text-violet-700
               "
             >
@@ -166,11 +114,9 @@ export default function FAQ() {
                 "
               />
 
-              FAQ
-
+              {t("badge")}
 
             </div>
-
 
 
 
@@ -178,25 +124,19 @@ export default function FAQ() {
             <h2
               className="
                 mt-7
-
                 text-4xl
-
                 font-black
-
                 tracking-tight
-
                 text-slate-900
-
                 lg:text-6xl
               "
             >
 
-              Pertanyaan yang sering
+              {t("title.line1")}
 
               <br />
 
-              ditanyakan
-
+              {t("title.line2")}
 
             </h2>
 
@@ -207,26 +147,17 @@ export default function FAQ() {
             <p
               className="
                 mx-auto
-
                 mt-6
-
                 max-w-2xl
-
                 text-lg
-
                 leading-8
-
                 text-slate-600
               "
             >
 
-              Semua informasi yang perlu diketahui
-              sebelum menghubungkan website Anda
-              dengan TrafficSaaS.
-
+              {t("description")}
 
             </p>
-
 
 
           </div>
@@ -242,104 +173,130 @@ export default function FAQ() {
 
         {/* FAQ LIST */}
 
+
         <div
           className="
             mt-16
-
             space-y-5
           "
         >
 
 
 
-          {faqs.map((faq,index)=>{
+          {
+            faqKeys.map((key,index)=>{
 
 
-            const open =
-              openIndex === index;
+              const open =
+                openIndex === index;
 
 
 
-            return (
-
-              <FadeUp
-                key={faq.question}
-                delay={index * 0.05}
-              >
+              return (
 
 
-                <div
-                  className={`
-                    overflow-hidden
-
-                    rounded-3xl
-
-                    border
-
-                    bg-white
-
-                    transition-all
-
-                    duration-500
-
-                    ${
-                      open
-                      ? "border-violet-200 shadow-xl"
-                      : "border-slate-200 shadow-sm"
-                    }
-                  `}
+                <FadeUp
+                  key={key}
+                  delay={index * 0.05}
                 >
 
 
+                  <div
+                    className={`
+                      overflow-hidden
+                      rounded-3xl
+                      border
+                      bg-white
+                      transition-all
+                      duration-500
 
-
-
-                  {/* QUESTION */}
-
-                  <button
-                    onClick={() =>
-                      setOpenIndex(
+                      ${
                         open
-                        ? null
-                        : index
-                      )
-                    }
-
-                    className="
-                      flex
-
-                      w-full
-
-                      items-center
-
-                      justify-between
-
-                      gap-6
-
-                      px-8
-
-                      py-7
-
-                      text-left
-                    "
+                        ? "border-violet-200 shadow-xl"
+                        : "border-slate-200 shadow-sm"
+                      }
+                    `}
                   >
 
 
 
-                    <span
+
+                    <button
+                      onClick={() =>
+                        setOpenIndex(
+                          open
+                          ? null
+                          : index
+                        )
+                      }
+
                       className="
-                        text-lg
-
-                        font-bold
-
-                        text-slate-900
+                        flex
+                        w-full
+                        items-center
+                        justify-between
+                        gap-6
+                        px-8
+                        py-7
+                        text-left
                       "
                     >
 
-                      {faq.question}
+
+                      <span
+                        className="
+                          text-lg
+                          font-bold
+                          text-slate-900
+                        "
+                      >
+
+                        {t(`items.${key}.question`)}
+
+                      </span>
 
 
-                    </span>
+
+
+                      <div
+                        className={`
+                          flex
+                          h-10
+                          w-10
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          transition-all
+
+                          ${
+                            open
+                            ? "bg-violet-100"
+                            : "bg-slate-100"
+                          }
+                        `}
+                      >
+
+                        <ChevronDown
+                          className={`
+                            h-5
+                            w-5
+                            text-slate-600
+                            transition-transform
+
+                            ${
+                              open
+                              ? "rotate-180 text-violet-600"
+                              : ""
+                            }
+                          `}
+                        />
+
+                      </div>
+
+
+
+                    </button>
 
 
 
@@ -347,129 +304,58 @@ export default function FAQ() {
 
                     <div
                       className={`
-                        flex
-
-                        h-10
-
-                        w-10
-
-                        shrink-0
-
-                        items-center
-
-                        justify-center
-
-                        rounded-full
-
+                        grid
                         transition-all
-
-                        duration-300
+                        duration-500
 
                         ${
                           open
-                          ? "bg-violet-100"
-                          : "bg-slate-100"
+                          ? "grid-rows-[1fr]"
+                          : "grid-rows-[0fr]"
                         }
                       `}
                     >
 
-                      <ChevronDown
-                        className={`
-                          h-5
-
-                          w-5
-
-                          text-slate-600
-
-                          transition-transform
-
-                          duration-300
-
-                          ${
-                            open
-                            ? "rotate-180 text-violet-600"
-                            : ""
-                          }
-                        `}
-                      />
-
-
-                    </div>
-
-
-
-
-                  </button>
-
-
-
-
-
-
-
-
-
-                  {/* ANSWER */}
-
-                  <div
-                    className={`
-                      grid
-
-                      transition-all
-
-                      duration-500
-
-                      ${
-                        open
-                        ? "grid-rows-[1fr]"
-                        : "grid-rows-[0fr]"
-                      }
-                    `}
-                  >
-
-                    <div
-                      className="
-                        overflow-hidden
-                      "
-                    >
-
-                      <p
+                      <div
                         className="
-                          px-8
-
-                          pb-7
-
-                          leading-8
-
-                          text-slate-600
+                          overflow-hidden
                         "
                       >
 
-                        {faq.answer}
+                        <p
+                          className="
+                            px-8
+                            pb-7
+                            leading-8
+                            text-slate-600
+                          "
+                        >
+
+                          {t(`items.${key}.answer`)}
+
+                        </p>
 
 
-                      </p>
+                      </div>
 
 
                     </div>
+
+
 
 
                   </div>
 
 
 
-
-                </div>
-
+                </FadeUp>
 
 
-              </FadeUp>
+              );
 
 
-            );
-
-
-          })}
+            })
+          }
 
 
 
@@ -484,4 +370,5 @@ export default function FAQ() {
     </section>
 
   );
+
 }

@@ -1,9 +1,13 @@
+"use client";
+
 import {
   TrendingUp,
   Search,
   Users,
   MousePointerClick,
 } from "lucide-react";
+
+import { useTranslations } from "next-intl";
 
 
 interface Props {
@@ -27,6 +31,9 @@ impressions,
 users,
 
 }:Props){
+
+
+const t = useTranslations("dashboard");
 
 
 
@@ -57,18 +64,32 @@ users / 100
 
 const scoreLabel =
 score >= 80
+
 ?
-"Sangat Baik"
+
+t("score.excellent")
+
 :
+
 score >= 60
+
 ?
-"Baik"
+
+t("score.good")
+
 :
+
 score >= 40
+
 ?
-"Perlu Optimasi"
+
+t("score.optimize")
+
 :
-"Rendah";
+
+t("score.low");
+
+
 
 
 
@@ -87,8 +108,6 @@ shadow-sm
 
 >
 
-
-{/* HEADER */}
 
 <div
 
@@ -115,7 +134,7 @@ text-slate-900
 
 >
 
-Ringkasan Pertumbuhan
+t("aiConsultant.growth.title")
 
 </h2>
 
@@ -130,12 +149,13 @@ text-slate-500
 
 >
 
-Ringkasan performa website berdasarkan data Google
+{t("growth.subtitle")}
 
 </p>
 
 
 </div>
+
 
 
 
@@ -153,13 +173,15 @@ text-blue-600
 
 >
 
-28 Hari Terakhir
+{t("range.28d")}
 
 </div>
 
 
 
 </div>
+
+
 
 
 
@@ -178,21 +200,21 @@ lg:grid-cols-4
 
 
 
-
-
-{/* SCORE */}
-
 <Card
 
 icon={
 <TrendingUp
-className="h-5 w-5 text-blue-600"
+className="
+h-5
+w-5
+text-blue-600
+"
 />
 }
 
 color="blue"
 
-title="Skor Pertumbuhan"
+title={t("metrics.growthScore")}
 
 value={score.toString()}
 
@@ -204,26 +226,31 @@ description={scoreLabel}
 
 
 
-{/* CLICKS */}
 
 
 <Card
 
 icon={
 <MousePointerClick
-className="h-5 w-5 text-emerald-600"
+className="
+h-5
+w-5
+text-emerald-600
+"
 />
 }
 
 color="emerald"
 
-title="Klik Organik"
+title={t("metrics.clicks")}
 
 value={
-clicks.toLocaleString("id-ID")
+clicks.toLocaleString()
 }
 
-description="Klik dari Google Search Console"
+description={
+t("metrics.clicksDescription")
+}
 
 />
 
@@ -232,27 +259,33 @@ description="Klik dari Google Search Console"
 
 
 
-
-{/* IMPRESSIONS */}
 
 
 <Card
 
 icon={
 <Search
-className="h-5 w-5 text-violet-600"
+className="
+h-5
+w-5
+text-violet-600
+"
 />
 }
 
 color="violet"
 
-title="Tayangan Pencarian"
-
-value={
-impressions.toLocaleString("id-ID")
+title={
+t("metrics.impressions")
 }
 
-description="Kemunculan website di Google"
+value={
+impressions.toLocaleString()
+}
+
+description={
+t("metrics.impressionsDescription")
+}
 
 />
 
@@ -261,28 +294,33 @@ description="Kemunculan website di Google"
 
 
 
-
-
-{/* USERS */}
 
 
 <Card
 
 icon={
 <Users
-className="h-5 w-5 text-orange-600"
+className="
+h-5
+w-5
+text-orange-600
+"
 />
 }
 
 color="orange"
 
-title="Pengguna Aktif"
-
-value={
-users.toLocaleString("id-ID")
+title={
+t("metrics.users")
 }
 
-description="Pengunjung website"
+value={
+users.toLocaleString()
+}
+
+description={
+t("metrics.usersDescription")
+}
 
 />
 
@@ -298,6 +336,10 @@ description="Pengunjung website"
 );
 
 }
+
+
+
+
 
 
 
@@ -356,6 +398,7 @@ orange:
 
 
 
+
 return (
 
 <div
@@ -369,6 +412,7 @@ p-5
 "
 
 >
+
 
 
 <div
@@ -398,6 +442,8 @@ ${colors[color]}
 
 
 
+
+
 <div>
 
 
@@ -413,6 +459,7 @@ text-slate-500
 {title}
 
 </p>
+
 
 
 
@@ -442,6 +489,8 @@ text-slate-900
 
 
 
+
+
 <p
 
 className="
@@ -459,6 +508,7 @@ text-slate-500
 
 
 </div>
+
 
 );
 

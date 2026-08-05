@@ -39,93 +39,129 @@ export async function getGA4SummaryWithClient(
   propertyId: string,
   range: DateRange = "28d"
 ) {
-  const {
-    currentStart,
-    currentEnd,
-    previousStart,
-    previousEnd,
-  } = getCompareDateRange(range);
 
-  const [
-    [current],
-    [previous],
-  ] = await Promise.all([
-    analytics.runReport({
-      property: `properties/${propertyId}`,
+const {
+ currentStart,
+ currentEnd,
+ previousStart,
+ previousEnd,
+} = getCompareDateRange(range);
 
-      dateRanges: [
-        {
-          startDate: currentStart,
-          endDate: currentEnd,
-        },
-      ],
 
-      metrics: [
-        { name: "activeUsers" },
-        { name: "sessions" },
-        { name: "screenPageViews" },
-        { name: "engagementRate" },
-      ],
-    }),
+const [
+ currentResponse,
+ previousResponse,
+] = await Promise.all([
 
-    analytics.runReport({
-      property: `properties/${propertyId}`,
+ analytics.runReport({
+   property:
+   `properties/${propertyId}`,
 
-      dateRanges: [
-        {
-          startDate: previousStart,
-          endDate: previousEnd,
-        },
-      ],
+   dateRanges:[
+    {
+      startDate:currentStart,
+      endDate:currentEnd,
+    }
+   ],
 
-      metrics: [
-        { name: "activeUsers" },
-        { name: "sessions" },
-        { name: "screenPageViews" },
-        { name: "engagementRate" },
-      ],
-    }),
-  ]);
+   metrics:[
+    {name:"activeUsers"},
+    {name:"sessions"},
+    {name:"screenPageViews"},
+    {name:"engagementRate"},
+   ],
+ }),
 
-  const currentRow =
-    current.rows?.[0];
 
-  const previousRow =
-    previous.rows?.[0];
+ analytics.runReport({
+   property:
+   `properties/${propertyId}`,
 
-  return {
-    users: Number(
-      currentRow?.metricValues?.[0]?.value ?? 0
-    ),
+   dateRanges:[
+    {
+      startDate:previousStart,
+      endDate:previousEnd,
+    }
+   ],
 
-    sessions: Number(
-      currentRow?.metricValues?.[1]?.value ?? 0
-    ),
+   metrics:[
+    {name:"activeUsers"},
+    {name:"sessions"},
+    {name:"screenPageViews"},
+    {name:"engagementRate"},
+   ],
+ }),
 
-    pageViews: Number(
-      currentRow?.metricValues?.[2]?.value ?? 0
-    ),
+]);
 
-    engagementRate: Number(
-      currentRow?.metricValues?.[3]?.value ?? 0
-    ),
 
-    previousUsers: Number(
-      previousRow?.metricValues?.[0]?.value ?? 0
-    ),
+console.log(
+"===== GA4 CURRENT ====="
+);
 
-    previousSessions: Number(
-      previousRow?.metricValues?.[1]?.value ?? 0
-    ),
+console.log(
+JSON.stringify(
+ currentResponse[0],
+ null,
+ 2
+)
+);
 
-    previousPageViews: Number(
-      previousRow?.metricValues?.[2]?.value ?? 0
-    ),
 
-    previousEngagementRate: Number(
-      previousRow?.metricValues?.[3]?.value ?? 0
-    ),
-  };
+console.log(
+"===== GA4 PREVIOUS ====="
+);
+
+console.log(
+JSON.stringify(
+ previousResponse[0],
+ null,
+ 2
+)
+);
+
+
+const current =
+currentResponse[0];
+
+
+const previous =
+previousResponse[0];
+
+return {
+  users: Number(
+    current.rows?.[0]?.metricValues?.[0]?.value ?? 0
+  ),
+
+  sessions: Number(
+    current.rows?.[0]?.metricValues?.[1]?.value ?? 0
+  ),
+
+  pageViews: Number(
+    current.rows?.[0]?.metricValues?.[2]?.value ?? 0
+  ),
+
+  engagementRate: Number(
+    current.rows?.[0]?.metricValues?.[3]?.value ?? 0
+  ),
+
+  previousUsers: Number(
+    previous.rows?.[0]?.metricValues?.[0]?.value ?? 0
+  ),
+
+  previousSessions: Number(
+    previous.rows?.[0]?.metricValues?.[1]?.value ?? 0
+  ),
+
+  previousPageViews: Number(
+    previous.rows?.[0]?.metricValues?.[2]?.value ?? 0
+  ),
+
+  previousEngagementRate: Number(
+    previous.rows?.[0]?.metricValues?.[3]?.value ?? 0
+  ),
+};
+
 }
 
 export async function getGA4Summary(

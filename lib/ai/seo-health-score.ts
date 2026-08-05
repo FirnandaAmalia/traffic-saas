@@ -5,7 +5,10 @@ export interface SEOHealthScore {
   label:
   | "Sangat Baik"
   | "Baik"
-  | "Perlu Perhatian";
+  | "Perlu Perhatian"
+  | "Excellent"
+  | "Good"
+  | "Needs Attention";
 
 
   signals:{
@@ -25,7 +28,11 @@ export interface SEOHealthScore {
 
 
 
+
+
 interface SEOHealthInput {
+
+  locale:"id" | "en";
 
   clicks:number;
 
@@ -55,6 +62,8 @@ interface SEOHealthInput {
 
 
 
+
+
 function growth(
 current:number,
 previous:number
@@ -67,8 +76,11 @@ return 0;
 
 return (
 (current - previous)
-/previous
-)*100;
+/
+previous
+)
+*
+100;
 
 }
 
@@ -76,7 +88,13 @@ return (
 
 
 
+
+
 export function calculateSEOHealthScore({
+
+
+locale,
+
 
 clicks,
 
@@ -105,6 +123,16 @@ previousCTR,
 
 
 
+
+
+const isEnglish =
+locale === "en";
+
+
+
+
+
+
 const clicksGrowth =
 growth(
 clicks,
@@ -129,6 +157,10 @@ previousUsers
 
 
 
+
+
+
+
 /*
  SCORE
 */
@@ -145,6 +177,7 @@ Math.min(
 
 
 
+
 const visibilityScore =
 Math.max(
 0,
@@ -153,6 +186,9 @@ Math.min(
 50 + impressionGrowth
 )
 );
+
+
+
 
 
 
@@ -171,12 +207,18 @@ Math.min(
 100,
 50 +
 (
-((ctr-previousCTR)
-/previousCTR)
-*100
+((ctr - previousCTR)
+/
+previousCTR)
+*
+100
 )
 )
 );
+
+
+
+
 
 
 
@@ -185,9 +227,12 @@ Math.max(
 0,
 Math.min(
 100,
-engagementRate*100
+engagementRate * 100
 )
 );
+
+
+
 
 
 
@@ -210,23 +255,59 @@ engagementScore * 0.20
 
 
 
+
+
+
 let label:
 SEOHealthScore["label"];
 
 
-if(score >=85)
-
-label="Sangat Baik";
 
 
-else if(score >=65)
 
-label="Baik";
+if(score >= 85){
+
+label =
+isEnglish
+?
+"Excellent"
+:
+"Sangat Baik";
+
+}
 
 
-else
 
-label="Perlu Perhatian";
+else if(score >=65){
+
+
+label =
+isEnglish
+?
+"Good"
+:
+"Baik";
+
+
+}
+
+
+
+else {
+
+
+label =
+isEnglish
+?
+"Needs Attention"
+:
+"Perlu Perhatian";
+
+
+}
+
+
+
 
 
 
@@ -244,43 +325,26 @@ const recommendations:string[]=[];
 
 
 
-if(clicks>0){
+
+
+
+if(clicks > 0){
+
 
 strengths.push(
 
-`Website menghasilkan ${clicks.toLocaleString(
-"id-ID"
-)} organic clicks.`
+isEnglish
+
+?
+
+`Website generated ${clicks.toLocaleString("en-US")} organic clicks.`
+
+:
+
+`Website menghasilkan ${clicks.toLocaleString("id-ID")} organic clicks.`
 
 );
 
-}
-
-
-
-if(impressions>0){
-
-strengths.push(
-
-`Website mendapatkan ${impressions.toLocaleString(
-"id-ID"
-)} impression.`
-
-);
-
-}
-
-
-
-if(users>0){
-
-strengths.push(
-
-`${users.toLocaleString(
-"id-ID"
-)} pengguna aktif.`
-
-);
 
 }
 
@@ -289,22 +353,108 @@ strengths.push(
 
 
 
-if(clicksGrowth<0){
+
+
+
+if(impressions > 0){
+
+
+strengths.push(
+
+isEnglish
+
+?
+
+`Website received ${impressions.toLocaleString("en-US")} search impressions.`
+
+:
+
+`Website mendapatkan ${impressions.toLocaleString("id-ID")} impression.`
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+if(users > 0){
+
+
+strengths.push(
+
+isEnglish
+
+?
+
+`${users.toLocaleString("en-US")} active users visited the website.`
+
+:
+
+`${users.toLocaleString("id-ID")} pengguna aktif mengunjungi website.`
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(clicksGrowth < 0){
+
 
 issues.push(
+
+isEnglish
+
+?
+
+"Organic traffic is showing a declining trend."
+
+:
 
 "Traffic organik mengalami penurunan."
 
 );
 
 
+
 recommendations.push(
+
+isEnglish
+
+?
+
+"Audit keywords and pages that lost ranking positions."
+
+:
 
 "Audit keyword dan halaman yang kehilangan ranking."
 
 );
 
+
 }
+
+
+
+
 
 
 
@@ -316,18 +466,37 @@ impressions > previousImpressions
 ctr < previousCTR
 ){
 
+
 issues.push(
+
+isEnglish
+
+?
+
+"High impressions but CTR performance is still low."
+
+:
 
 "Impression tinggi tetapi CTR belum optimal."
 
 );
 
 
+
 recommendations.push(
+
+isEnglish
+
+?
+
+"Optimize title tags, meta descriptions, and schema markup."
+
+:
 
 "Optimalkan title tag, meta description, dan schema."
 
 );
+
 
 }
 
@@ -335,22 +504,45 @@ recommendations.push(
 
 
 
+
+
+
+
 if(
-engagementRate <0.3
+engagementRate < 0.3
 ){
 
+
 issues.push(
+
+isEnglish
+
+?
+
+"User engagement is still low."
+
+:
 
 "Engagement pengguna masih rendah."
 
 );
 
 
+
 recommendations.push(
+
+isEnglish
+
+?
+
+"Improve landing pages and user experience."
+
+:
 
 "Perbaiki landing page dan pengalaman pengguna."
 
 );
+
 
 }
 
@@ -358,38 +550,77 @@ recommendations.push(
 
 
 
-if(
-usersGrowth<0
-){
+
+
+
+
+if(usersGrowth < 0){
+
 
 issues.push(
+
+isEnglish
+
+?
+
+"User numbers are decreasing."
+
+:
 
 "Jumlah pengguna mengalami penurunan."
 
 );
 
 
+
 recommendations.push(
+
+isEnglish
+
+?
+
+"Evaluate the main traffic sources."
+
+:
 
 "Evaluasi sumber trafik utama."
 
 );
 
+
 }
 
 
 
 
 
-if(recommendations.length===0){
+
+
+
+
+if(recommendations.length === 0){
+
 
 recommendations.push(
+
+isEnglish
+
+?
+
+"Maintain SEO strategy and continue monitoring performance."
+
+:
 
 "Pertahankan strategi SEO dan lakukan monitoring."
 
 );
 
+
 }
+
+
+
+
 
 
 
@@ -404,6 +635,7 @@ score,
 label,
 
 
+
 signals:{
 
 
@@ -413,10 +645,12 @@ trafficScore
 ),
 
 
+
 visibility:
 Math.round(
 visibilityScore
 ),
+
 
 
 engagement:
@@ -426,6 +660,7 @@ engagementScore
 
 
 },
+
 
 
 strengths,
@@ -438,7 +673,6 @@ recommendations,
 
 
 };
-
 
 
 }

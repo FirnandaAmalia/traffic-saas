@@ -9,20 +9,24 @@ import {
   TriangleAlert,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
+
 export default function AiCard() {
+
+  const t = useTranslations("aiCard");
+
+
   return (
     <div
       className="
         relative
         overflow-hidden
-
         rounded-3xl
-
         border
         border-violet-200
 
         bg-gradient-to-br
-
         from-violet-600
         via-fuchsia-600
         to-sky-500
@@ -35,7 +39,8 @@ export default function AiCard() {
       "
     >
 
-      {/* AI SCAN EFFECT */}
+
+      {/* Scan Effect */}
 
       <div
         className="
@@ -56,7 +61,8 @@ export default function AiCard() {
       />
 
 
-      {/* Moving Glow */}
+
+      {/* Glow */}
 
       <div
         className="
@@ -79,20 +85,20 @@ export default function AiCard() {
       />
 
 
+
       {/* Header */}
 
       <div className="relative z-10 flex items-center justify-between">
 
         <div className="flex items-center gap-4">
 
+
           <div
             className="
               relative
-
               flex
               h-14
               w-14
-
               items-center
               justify-center
 
@@ -108,7 +114,8 @@ export default function AiCard() {
             "
           >
 
-            <Brain className="h-7 w-7" />
+            <Brain className="h-7 w-7"/>
+
 
             <span
               className="
@@ -127,24 +134,25 @@ export default function AiCard() {
               "
             />
 
+
           </div>
+
 
 
           <div>
 
             <p className="text-sm text-violet-100">
-
-              AI Copilot
-
+              {t("badge")}
             </p>
 
+
             <h3 className="text-2xl font-black">
-
-              Executive Summary
-
+              {t("title")}
             </h3>
 
+
           </div>
+
 
         </div>
 
@@ -168,7 +176,7 @@ export default function AiCard() {
           "
         >
 
-          98% Confidence
+          {t("confidence")}
 
         </div>
 
@@ -177,15 +185,27 @@ export default function AiCard() {
 
 
 
+
+
       {/* Score */}
 
-      <div className="relative z-10 mt-8 flex items-end gap-4">
+
+      <div
+        className="
+          relative
+          z-10
+          mt-8
+          flex
+          items-end
+          gap-4
+        "
+      >
 
         <div>
 
           <p className="text-sm text-violet-100">
 
-            SEO Score
+            {t("score.label")}
 
           </p>
 
@@ -194,7 +214,6 @@ export default function AiCard() {
             className="
               text-6xl
               font-black
-
               drop-shadow-lg
             "
           >
@@ -227,7 +246,7 @@ export default function AiCard() {
             "
           >
 
-            <TrendingUp className="h-4 w-4" />
+            <TrendingUp className="h-4 w-4"/>
 
             +18%
 
@@ -241,33 +260,38 @@ export default function AiCard() {
 
 
 
-      <div className="relative z-10 my-7 h-px bg-white/15" />
+
+
+      <div className="relative z-10 my-7 h-px bg-white/15"/>
+
+
 
 
 
       {/* Insights */}
 
+
       <div className="relative z-10 space-y-4">
 
 
         <Insight
-          icon={<CheckCircle2 />}
-          title="CTR meningkat 18%"
-desc="Perbaikan meta title menunjukkan hasil positif."
+          icon={<CheckCircle2/>}
+          title={t("insights.ctr.title")}
+          desc={t("insights.ctr.description")}
         />
 
 
         <Insight
-          icon={<Sparkles />}
-          title="12 kata kunci masuk Top 10"
-desc="Pertumbuhan kuat pada halaman informasional."
+          icon={<Sparkles/>}
+          title={t("insights.keyword.title")}
+          desc={t("insights.keyword.description")}
         />
 
 
         <Insight
-          icon={<TriangleAlert />}
-         title="3 halaman landing kehilangan klik"
-desc="Perbarui konten lama untuk memulihkan peringkat."
+          icon={<TriangleAlert/>}
+          title={t("insights.warning.title")}
+          desc={t("insights.warning.description")}
         />
 
 
@@ -275,15 +299,28 @@ desc="Perbarui konten lama untuk memulihkan peringkat."
 
 
 
+
+
       {/* Footer */}
 
-      <div className="relative z-10 mt-8 flex items-center justify-between">
+
+      <div
+        className="
+          relative
+          z-10
+          mt-8
+          flex
+          items-center
+          justify-between
+        "
+      >
 
         <div className="text-sm text-violet-100">
 
-          Dibuat baru saja
+          {t("updated")}
 
         </div>
+
 
 
         <button
@@ -309,9 +346,10 @@ desc="Perbarui konten lama untuk memulihkan peringkat."
           "
         >
 
-          <FileText className="h-4 w-4" />
+          <FileText className="h-4 w-4"/>
 
-          Buat Laporan
+          {t("button")}
+
 
         </button>
 
@@ -325,6 +363,8 @@ desc="Perbarui konten lama untuk memulihkan peringkat."
 
 
 
+
+
 function Insight({
   icon,
   title,
@@ -335,43 +375,42 @@ function Insight({
   desc:string;
 }){
 
-  return (
 
-    <div className="flex items-start gap-3">
+return (
 
-      <div
-        className="
-          mt-0.5
-          text-emerald-300
-        "
-      >
-
-        {icon}
-
-      </div>
+<div className="flex items-start gap-3">
 
 
-      <div>
+<div
+className="
+mt-0.5
+text-emerald-300
+"
+>
 
-        <p className="font-semibold">
+{icon}
 
-          {title}
-
-        </p>
-
-
-        <p className="text-sm text-violet-100">
-
-          {desc}
-
-        </p>
+</div>
 
 
-      </div>
+<div>
+
+<p className="font-semibold">
+{title}
+</p>
 
 
-    </div>
+<p className="text-sm text-violet-100">
+{desc}
+</p>
 
-  );
+
+</div>
+
+
+</div>
+
+);
+
 
 }

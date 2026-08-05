@@ -18,9 +18,11 @@ import {
 
 import Link from "next/link";
 
+import { useLocale } from "next-intl";
+
 export default function Topbar(){
 
-
+const locale = useLocale();
 const {
  data:session,
  status,
@@ -278,10 +280,8 @@ shadow-xl
 
 >
 
-
 <Link
-
-href="/settings"
+href={`/${locale}/settings`}
 
 className="
 flex
@@ -302,14 +302,8 @@ Profile Settings
 
 </Link>
 
-
-
-
-
-
 <Link
-
-href="/billing"
+href={`/${locale}/billing`}
 
 className="
 flex
@@ -340,7 +334,7 @@ Subscription
 <button
 
 onClick={()=>signOut({
-callbackUrl:"/"
+callbackUrl:`/${locale}`
 })}
 
 className="

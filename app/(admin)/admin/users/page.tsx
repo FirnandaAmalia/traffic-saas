@@ -26,13 +26,13 @@ import {
 
 import UserPlanSelector from "@/components/admin/user-plan-selector";
 
-
+import { getLocale } from "next-intl/server";
 
 
 export default async function AdminUsersPage(){
 
 
-
+const locale = await getLocale();
 const session =
 await getServerSession(
   authOptions
@@ -50,7 +50,7 @@ redirect("/login");
 
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

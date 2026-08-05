@@ -10,50 +10,47 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
+
 
 const metrics = [
   {
     icon: MousePointerClick,
+    key: "clicks",
     value: "+42%",
-    title: "Pertumbuhan Klik Organik",
-    description:
-      "Membantu menemukan peluang SEO untuk meningkatkan performa pencarian organik.",
     gradient:
       "from-violet-600 to-fuchsia-500",
   },
 
   {
     icon: Users,
+    key: "traffic",
     value: "2.4M",
-    title: "Data Traffic Dianalisis",
-    description:
-      "Memproses data website dari Google Analytics untuk menghasilkan insight yang lebih jelas.",
     gradient:
       "from-sky-500 to-cyan-500",
   },
 
   {
     icon: Globe,
+    key: "region",
     value: "180+",
-    title: "Wilayah Pengunjung",
-    description:
-      "Memahami distribusi pengguna berdasarkan lokasi untuk strategi SEO yang lebih tepat.",
     gradient:
       "from-emerald-500 to-teal-500",
   },
 
   {
     icon: Activity,
+    key: "sync",
     value: "99.9%",
-    title: "Sinkronisasi Stabil",
-    description:
-      "Menjaga koneksi data dengan layanan Google agar laporan selalu tersedia.",
     gradient:
       "from-orange-500 to-amber-500",
   },
 ];
 
+
 export default function Metrics() {
+
+  const t = useTranslations("metrics");
 
 
   return (
@@ -86,6 +83,7 @@ export default function Metrics() {
 
 
 
+
       <div
         className="
           relative
@@ -98,6 +96,7 @@ export default function Metrics() {
 
 
         {/* HEADER */}
+
 
         <FadeUp>
 
@@ -129,9 +128,10 @@ export default function Metrics() {
 
               <Sparkles className="h-4 w-4"/>
 
-              DAMPAK PLATFORM
+              {t("badge")}
 
             </div>
+
 
 
 
@@ -146,13 +146,15 @@ export default function Metrics() {
               "
             >
 
-              Data yang membantu
+              {t("title.line1")}
 
               <br />
 
-              keputusan SEO lebih cepat
+              {t("title.line2")}
 
             </h2>
+
+
 
 
 
@@ -165,11 +167,10 @@ export default function Metrics() {
               "
             >
 
-              TrafficSaaS mengubah data website menjadi
-              insight yang mudah dipahami sehingga tim dapat
-              fokus pada strategi pertumbuhan.
+              {t("description")}
 
             </p>
+
 
 
           </div>
@@ -181,7 +182,11 @@ export default function Metrics() {
 
 
 
+
+
+
         {/* CARDS */}
+
 
         <div
           className="
@@ -205,7 +210,7 @@ export default function Metrics() {
               return (
 
                 <FadeUp
-                  key={metric.title}
+                  key={metric.key}
                   delay={index * 0.1}
                 >
 
@@ -235,7 +240,9 @@ export default function Metrics() {
 
 
 
+
                     {/* Glow */}
+
 
                     <div
                       className={`
@@ -260,6 +267,7 @@ export default function Metrics() {
 
 
                     {/* ICON */}
+
 
                     <div
                       className={`
@@ -295,7 +303,9 @@ export default function Metrics() {
 
 
 
+
                     {/* VALUE */}
+
 
                     <div
                       className="
@@ -339,6 +349,7 @@ export default function Metrics() {
 
                     {/* TITLE */}
 
+
                     <h4
                       className="
                         mt-4
@@ -348,7 +359,7 @@ export default function Metrics() {
                       "
                     >
 
-                      {metric.title}
+                      {t(`cards.${metric.key}.title`)}
 
                     </h4>
 
@@ -357,7 +368,10 @@ export default function Metrics() {
 
 
 
+
+
                     {/* DESCRIPTION */}
+
 
                     <p
                       className="
@@ -369,7 +383,7 @@ export default function Metrics() {
                       "
                     >
 
-                      {metric.description}
+                      {t(`cards.${metric.key}.description`)}
 
                     </p>
 

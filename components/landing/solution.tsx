@@ -10,43 +10,34 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
 
 const solutions = [
   {
     number: "01",
     icon: Brain,
-    tag: "KECERDASAN AI",
-    title: "Analisis SEO Berbasis AI",
-    description:
-      "TrafficSaaS membaca data website, keyword, dan performa halaman untuk menemukan peluang SEO yang paling berdampak.",
+    key: "ai",
   },
   {
     number: "02",
     icon: Lightbulb,
-    tag: "REKOMENDASI CERDAS",
-    title: "Rekomendasi yang Bisa Diterapkan",
-    description:
-      "Dapatkan rekomendasi jelas mengenai halaman, keyword, dan strategi yang perlu dilakukan berikutnya.",
+    key: "recommendation",
   },
   {
     number: "03",
     icon: TrendingUp,
-    tag: "MONITORING PERTUMBUHAN",
-    title: "Pelacakan Perkembangan",
-    description:
-      "Pantau perubahan traffic, ranking keyword, dan peluang pertumbuhan melalui satu sistem terpadu.",
+    key: "monitoring",
   },
   {
     number: "04",
     icon: Zap,
-    tag: "KEPUTUSAN OTOMATIS",
-    title: "Keputusan Lebih Cepat",
-    description:
-      "Kurangi proses analisis manual dan ubah data kompleks menjadi keputusan SEO yang cepat dan akurat.",
+    key: "decision",
   },
 ];
 
 export default function Solution() {
+
+  const t = useTranslations("solution");
   return (
     <section
       className="
@@ -130,7 +121,7 @@ export default function Solution() {
 
               <Sparkles className="h-4 w-4"/>
 
-              SOLUSI SEO BERBASIS AI
+              {t("badge")}
 
             </div>
 
@@ -153,27 +144,25 @@ export default function Solution() {
               "
             >
 
-              Dari Data Mentah
+              {t("title.line1")}
 
-              <br />
+<br />
 
-              Menjadi Strategi SEO
+{t("title.line2")}
 
-              <br />
+<br />
 
-              <span
-                className="
-                  bg-gradient-to-r
-                  from-violet-600
-                  to-sky-500
-
-                  bg-clip-text
-
-                  text-transparent
-                "
-              >
-                Yang Lebih Cerdas.
-              </span>
+<span
+  className="
+    bg-gradient-to-r
+    from-violet-600
+    to-sky-500
+    bg-clip-text
+    text-transparent
+  "
+>
+  {t("title.highlight")}
+</span>
 
 
             </h2>
@@ -197,12 +186,7 @@ export default function Solution() {
               "
             >
 
-              TrafficSaaS menggabungkan analytics,
-              SEO intelligence, dan artificial intelligence
-              untuk membantu Anda menemukan peluang,
-              memahami masalah, dan mengambil tindakan.
-
-
+              {t("description")}
             </p>
 
 
@@ -238,7 +222,7 @@ export default function Solution() {
             return (
 
               <FadeUp
-                key={item.title}
+                key={item.key}
                 delay={index * 0.12}
               >
 
@@ -418,7 +402,7 @@ export default function Solution() {
                     "
                   >
 
-                    {item.tag}
+                    {t(`cards.${item.key}.tag`)}
 
                   </p>
 
@@ -438,7 +422,7 @@ export default function Solution() {
                     "
                   >
 
-                    {item.title}
+                    {t(`cards.${item.key}.title`)}
 
                   </h3>
 
@@ -456,7 +440,7 @@ export default function Solution() {
                     "
                   >
 
-                    {item.description}
+                    {t(`cards.${item.key}.description`)}
 
                   </p>
 
@@ -491,7 +475,7 @@ export default function Solution() {
                     "
                   >
 
-                    Explore capability
+                    {t("learn")}
 
                     <ArrowRight
                       className="

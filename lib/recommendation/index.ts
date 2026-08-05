@@ -39,13 +39,33 @@ export interface AIInsight {
 }
 
 export function generateAIInsight(data: RecommendationInput): AIInsight {
-  /*
-|--------------------------------------------------------------------------
-| AI RECOMMENDATION ENGINE
-|--------------------------------------------------------------------------
-*/
 
-  const recommendations = generateRecommendations(data);
+
+  const {
+    locale,
+    clicks,
+    previousClicks,
+    impressions,
+    previousImpressions,
+    ctr,
+    previousCTR,
+    users,
+    previousUsers,
+    queries,
+    landingPages,
+  } = data;
+
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | AI RECOMMENDATION ENGINE
+  |--------------------------------------------------------------------------
+  */
+
+
+  const recommendations =
+    generateRecommendations(data);
 
   const prioritized = prioritizeRecommendations(recommendations);
 
@@ -84,28 +104,32 @@ export function generateAIInsight(data: RecommendationInput): AIInsight {
 | GROWTH OPPORTUNITY
 |--------------------------------------------------------------------------
 */
+const growthOpportunities =
+generateGrowthOpportunity({
 
-  const growthOpportunities = generateGrowthOpportunity({
-    clicks: data.clicks,
+  locale,
 
-    previousClicks: data.previousClicks ?? 0,
+  clicks,
 
-    impressions: data.impressions,
+  previousClicks,
 
-    previousImpressions: data.previousImpressions ?? 0,
+  impressions,
 
-    ctr: data.ctr,
+  previousImpressions,
 
-    previousCTR: data.previousCTR ?? 0,
+  ctr,
 
-    users: data.users,
+  previousCTR,
 
-    previousUsers: data.previousUsers ?? 0,
+  users,
 
-    queries: data.queries,
+  previousUsers,
 
-    landingPages: data.landingPages,
-  });
+  queries,
+
+  landingPages,
+
+});
 
   /*
 |--------------------------------------------------------------------------

@@ -19,7 +19,7 @@ import type {
 interface TopEventsProps {
 
   data: EventMetric[];
-
+  title:string;
 }
 
 

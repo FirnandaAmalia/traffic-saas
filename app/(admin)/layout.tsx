@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+import { getLocale } from "next-intl/server";
 
 export default async function AdminLayout({
 
@@ -15,7 +16,7 @@ export default async function AdminLayout({
 
 }) {
 
-
+const locale = await getLocale();
   const session =
     await getServerSession(
       authOptions
@@ -47,7 +48,7 @@ export default async function AdminLayout({
 
   if(session.user.role !== "ADMIN"){
 
-    redirect("/dashboard");
+    redirect(`/${locale}/dashboard`);
 
   }
 

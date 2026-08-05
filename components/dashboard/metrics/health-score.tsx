@@ -18,12 +18,18 @@ import type {
 } from "@/lib/recommendation/health-score";
 
 
+import {
+  useTranslations
+} from "next-intl";
+
+
 
 interface Props {
 
   health: HealthScore;
 
 }
+
 
 
 
@@ -52,54 +58,14 @@ return "text-red-600";
 
 
 
-function getStatus(
-score:number
-){
-
-if(score >=90)
-
-return {
-label:"Excellent",
-color:"bg-emerald-100 text-emerald-700"
-};
-
-
-if(score >=80)
-
-return {
-label:"Good",
-color:"bg-sky-100 text-sky-700"
-};
-
-
-if(score >=70)
-
-return {
-label:"Needs Optimization",
-color:"bg-yellow-100 text-yellow-700"
-};
-
-
-return {
-label:"Critical",
-color:"bg-red-100 text-red-700"
-};
-
-}
-
-
-
-
-
-
-
-
 function Progress({
 
 value,
+label,
 
 }:{
 value:number;
+label:string;
 }){
 
 
@@ -121,7 +87,7 @@ text-slate-500
 
 <span>
 
-Health Score
+{label}
 
 </span>
 
@@ -194,10 +160,40 @@ health,
 
 
 
+const t =
+useTranslations("healthScore");
+
+
+
 const status =
-getStatus(
-health.score
-);
+health.score >= 90
+?
+{
+label:t("status.excellent"),
+color:"bg-emerald-100 text-emerald-700"
+}
+
+:
+health.score >= 80
+?
+{
+label:t("status.good"),
+color:"bg-sky-100 text-sky-700"
+}
+
+:
+health.score >= 70
+?
+{
+label:t("status.optimization"),
+color:"bg-yellow-100 text-yellow-700"
+}
+
+:
+{
+label:t("status.critical"),
+color:"bg-red-100 text-red-700"
+};
 
 
 
@@ -205,41 +201,48 @@ health.score
 
 const categories = [
 
+
 {
-label:"SEO",
+label:t("categories.seo"),
 value:health.breakdown.seo,
 icon:Search,
 },
 
+
 {
-label:"Content",
+label:t("categories.content"),
 value:health.breakdown.content,
 icon:FileText,
 },
 
+
 {
-label:"UX",
+label:t("categories.ux"),
 value:health.breakdown.ux,
 icon:Smartphone,
 },
 
+
 {
-label:"Performance",
+label:t("categories.performance"),
 value:health.breakdown.performance,
 icon:Gauge,
 },
 
+
 {
-label:"Analytics",
+label:t("categories.analytics"),
 value:health.breakdown.analytics,
 icon:BarChart3,
 },
 
+
 {
-label:"Marketing",
+label:t("categories.marketing"),
 value:health.breakdown.marketing,
 icon:Megaphone,
 },
+
 
 ];
 
@@ -248,9 +251,8 @@ icon:Megaphone,
 
 
 
+
 return (
-
-
 
 <section
 
@@ -266,8 +268,6 @@ shadow-sm
 >
 
 
-
-{/* HEADER */}
 
 
 
@@ -331,9 +331,10 @@ font-bold
 
 >
 
-AI Website Health
+{t("title")}
 
 </h2>
+
 
 
 <p
@@ -346,17 +347,16 @@ text-slate-500
 
 >
 
-AI evaluation from SEO,
-traffic, UX, and analytics signals.
+{t("description")}
 
 </p>
 
 
-</div>
-
 
 </div>
 
+
+</div>
 
 
 
@@ -365,6 +365,7 @@ traffic, UX, and analytics signals.
 <div
 
 className={`
+
 rounded-full
 px-4
 py-2
@@ -372,19 +373,18 @@ text-sm
 font-bold
 
 ${status.color}
+
 `}
 
 >
 
-{status.label}
+{t(`status.${health.status}`)}
 
 </div>
 
 
 
 </div>
-
-
 
 
 
@@ -404,8 +404,6 @@ lg:grid-cols-[300px_1fr]
 >
 
 
-
-{/* SCORE */}
 
 
 
@@ -430,15 +428,17 @@ text-slate-500
 
 >
 
-Overall Website Score
+{t("overall")}
 
 </p>
+
 
 
 
 <div
 
 className={`
+
 mt-4
 text-7xl
 font-black
@@ -446,6 +446,7 @@ font-black
 ${getScoreColor(
 health.score
 )}
+
 `}
 
 >
@@ -483,13 +484,14 @@ text-slate-400
 
 </span>
 
-
 </div>
 
 
 
 
+
 <div className="mt-6">
+
 
 <Progress
 
@@ -497,11 +499,14 @@ value={
 health.score
 }
 
+label={
+t("healthScore")
+}
+
 />
 
+
 </div>
-
-
 
 
 
@@ -521,23 +526,17 @@ text-slate-600
 
 >
 
-{health.summary}
+{t(`summary.${health.summary}`)}
+
+</div>
+
 
 </div>
 
 
 
-</div>
 
 
-
-
-
-
-
-
-
-{/* BREAKDOWN */}
 
 
 
@@ -571,14 +570,12 @@ font-bold
 
 >
 
-Category Breakdown
+{t("categoryBreakdown")}
 
 </h3>
 
 
 </div>
-
-
 
 
 
@@ -678,8 +675,8 @@ font-bold
 </span>
 
 
-
 </div>
+
 
 
 
@@ -690,11 +687,15 @@ value={
 item.value
 }
 
+label={
+t("healthScore")
+}
+
 />
 
 
-</div>
 
+</div>
 
 
 )
@@ -718,8 +719,8 @@ item.value
 
 
 
-</section>
 
+</section>
 
 
 );

@@ -22,6 +22,7 @@ import type {
 interface BrowserSectionProps {
 
   data: BrowserMetric[];
+  title:string;
 
 }
 
@@ -49,6 +50,8 @@ const BROWSER_ICONS = {
 export default function BrowserSection({
 
 data,
+
+title,
 
 }:BrowserSectionProps){
 
@@ -103,7 +106,7 @@ return (
 <Widget
 
 
-title="Browser"
+title={title}
 
 
 subtitle="Most used browsers from Google Analytics 4"

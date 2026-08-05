@@ -28,11 +28,12 @@ import {
 
 import PaymentConfirmButton
 from "@/components/admin/payment-confirm-button";
+import { getLocale } from "next-intl/server";
 
 export default async function AdminPaymentsPage(){
 
 
-
+const locale = await getLocale();
 const session =
 await getServerSession(
   authOptions
@@ -50,7 +51,7 @@ redirect("/login");
 
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

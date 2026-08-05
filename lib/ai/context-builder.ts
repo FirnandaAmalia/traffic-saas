@@ -34,18 +34,40 @@ export interface AIContext {
     explanation: string[];
   };
 
+recommendations: {
 
-  recommendations: {
-    title: string;
+    title?: string;
+
+    titleKey?:
+    | "landingPageGrowth"
+    | "ctrOptimization"
+    | "conversionTracking"
+    | "quickWin"
+    | "contentDecay"
+    | "mobileOptimization"
+    | "browserCompatibility"
+    | "countryOpportunity"
+    | "eventInsight"
+    | "seoMonitoring";
+
     priority: string;
+
     recommendation: string;
+
     impact?: string;
+
     reason?: string;
-  }[];
 
+}[];
 
-  growthOpportunities: {
-    title: string;
+ growthOpportunities: {
+    titleKey:
+    | "ctrOpportunity"
+    | "quickWin"
+    | "contentGrowth"
+    | "recovery"
+    | "maintain";
+
     type: string;
     impact: string;
     estimatedImpact: string;
@@ -54,7 +76,7 @@ export interface AIContext {
     source: string;
     priority: string;
     confidence: number;
-  }[];
+}[];
 
 
   queries: string[];
@@ -117,31 +139,39 @@ export function buildAIContext(
 
 
     recommendations:
-      ai.recommendations
-        .slice(0, 10)
-        .map((item) => ({
-          title: item.title,
-          priority: item.priority,
-          recommendation: item.recommendation,
-          impact: item.impact,
-          reason: item.reason,
-        })),
+ai.recommendations
+.slice(0, 10)
+.map((item) => ({
+
+  title:
+    item.title,
+
+  titleKey:
+    item.titleKey,
+
+  priority:
+    item.priority,
+
+  recommendation:
+    item.title ?? "",
+
+})),
 
 
     growthOpportunities:
-      ai.growthOpportunities
-        .slice(0, 5)
-        .map((item) => ({
-          title: item.title,
-          type: item.type,
-          impact: item.impact,
-          estimatedImpact: item.estimatedImpact,
-          reason: item.reason,
-          action: item.action,
-          source: item.source,
-          priority: item.priority,
-          confidence: item.confidence,
-        })),
+  ai.growthOpportunities
+    .slice(0, 5)
+    .map((item) => ({
+      titleKey: item.titleKey,
+      type: item.type,
+      impact: item.impact,
+      estimatedImpact: item.estimatedImpact,
+      reason: item.reason,
+      action: item.action,
+      source: item.source,
+      priority: item.priority,
+      confidence: item.confidence,
+    })),
 
 
     queries:

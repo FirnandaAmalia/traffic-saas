@@ -356,23 +356,27 @@ if (
       );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Revalidate Routes
-    |--------------------------------------------------------------------------
-    */
+   /*
+|--------------------------------------------------------------------------
+| Revalidate Routes
+|--------------------------------------------------------------------------
+*/
 
-    revalidatePath(
-      "/projects"
-    );
+revalidatePath(
+  "/projects"
+);
 
-    revalidatePath(
-      "/dashboard"
-    );
+revalidatePath(
+  "/id/dashboard"
+);
 
-    revalidatePath(
-      "/setup/ga4"
-    );
+revalidatePath(
+  "/en/dashboard"
+);
+
+revalidatePath(
+  "/setup/ga4"
+);
 
     return Response.json({
       success: true,

@@ -11,31 +11,39 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "@/components/language-switcher";
+import { useLocale } from "next-intl";
 
 const links = [
   {
-    label: "Fitur",
-    href:"#features",
+    key: "features",
+    href: "#features",
   },
   {
-    label:"AI",
-    href:"#ai",
+    key: "ai",
+    href: "#ai",
   },
   {
-    label:"Alur Kerja",
-    href:"#workflow",
+    key: "workflow",
+    href: "#workflow",
   },
   {
-    label:"Harga",
-    href:"#pricing",
+    key: "pricing",
+    href: "#pricing",
   },
   {
-    label:"FAQ",
-    href:"#faq",
+    key: "faq",
+    href: "#faq",
   },
 ];
-export default function Navbar(){
 
+
+export default function Navbar() {
+
+
+  const t = useTranslations("navbar");
+  const locale = useLocale();
 
   const [scrolled,setScrolled] =
     useState(false);
@@ -49,7 +57,7 @@ export default function Navbar(){
   useEffect(()=>{
 
 
-    const handleScroll=()=>{
+    const handleScroll = ()=>{
 
       setScrolled(
         window.scrollY > 20
@@ -79,22 +87,18 @@ export default function Navbar(){
 
 
 
+
   return (
 
     <header
       className={`
         fixed
-
         inset-x-0
-
         top-0
-
         z-50
 
         transition-all
-
         duration-500
-
 
         ${
           scrolled
@@ -103,7 +107,7 @@ export default function Navbar(){
           border-b
           border-slate-200/70
 
-          bg-white/75
+          bg-white/80
 
           shadow-lg
 
@@ -114,84 +118,54 @@ export default function Navbar(){
           bg-transparent
           `
         }
-
       `}
     >
 
 
       <div
-        className="
-          mx-auto
-
-          flex
-
-          h-20
-
-          max-w-7xl
-
-          items-center
-
-          justify-between
-
-          px-6
-        "
-      >
-
-
-
+className="
+mx-auto
+flex
+h-20
+max-w-[1280px]
+items-center
+px-6
+"
+>
 
 
         {/* LOGO */}
-
 
         <Link
           href="/"
           className="
             flex
-
             items-center
-
             gap-3
           "
         >
 
-
           <div
             className="
               flex
-
-              h-11
-
-              w-11
-
+              h-12
+              w-12
               items-center
-
               justify-center
-
               rounded-2xl
 
               bg-gradient-to-br
-
               from-violet-600
-
               to-sky-500
 
               shadow-lg
-
-              shadow-violet-500/30
-
-              transition
-
-              hover:scale-110
             "
           >
 
             <Sparkles
               className="
                 h-6
-
                 w-6
-
                 text-white
               "
             />
@@ -199,49 +173,34 @@ export default function Navbar(){
           </div>
 
 
-
           <div>
 
             <h1
               className="
                 text-xl
-
                 font-black
-
                 tracking-tight
-
                 text-slate-900
               "
             >
-
               TrafficSaaS
-
-
             </h1>
 
 
             <p
               className="
                 hidden
-
                 text-[11px]
-
                 font-medium
-
                 text-slate-500
-
                 sm:block
               "
             >
-
               AI SEO Intelligence
-
-
             </p>
 
 
           </div>
-
 
 
         </Link>
@@ -251,170 +210,143 @@ export default function Navbar(){
 
 
 
+        {/* DESKTOP NAV */}
 
-        {/* DESKTOP MENU */}
-
-
-
-        <nav
-          className="
-            hidden
-
-            items-center
-
-            gap-9
-
-            lg:flex
-          "
-        >
-
+       <nav
+className="
+hidden
+flex-1
+justify-center
+items-center
+gap-10
+lg:flex
+"
+>
 
           {
             links.map((item)=>(
 
-
               <Link
-
                 key={item.href}
-
                 href={item.href}
 
                 className="
-                  relative
-
                   text-sm
-
                   font-semibold
-
                   text-slate-600
 
                   transition
 
                   hover:text-violet-600
-
-
-                  after:absolute
-
-                  after:-bottom-2
-
-                  after:left-0
-
-                  after:h-[2px]
-
-                  after:w-0
-
-                  after:bg-gradient-to-r
-
-                  after:from-violet-600
-
-                  after:to-sky-500
-
-                  after:transition-all
-
-                  hover:after:w-full
                 "
-
               >
 
-                {item.label}
-
+                {t(`links.${item.key}`)}
 
               </Link>
-
 
             ))
           }
 
-
         </nav>
 
 
-{/* DESKTOP ACTION */}
 
-<div
-  className="
-    hidden
-    items-center
-    gap-3
-    lg:flex
-  "
+
+
+
+
+
+        {/* DESKTOP ACTION */}
+
+        <div
+className="
+hidden
+items-center
+gap-4
+lg:flex
+"
 >
 
+<LanguageSwitcher />
 
-  <Button
-    asChild
-    className="
-      rounded-full
+<Button
+asChild
+className="
+rounded-full
+bg-gradient-to-r
+from-violet-600
+to-sky-500
+px-7
+shadow-lg
+shadow-violet-500/30
+"
+>
 
-      bg-gradient-to-r
+<Link href={`/${locale}/login`}>
 
-      from-violet-600
+{t("cta")}
 
-      to-sky-500
+<ArrowRight
+className="
+ml-2
+h-4
+w-4
+"
+/>
 
-      px-7
+</Link>
 
-      shadow-lg
-
-      shadow-violet-500/30
-
-      transition
-
-      hover:scale-105
-    "
-  >
-
-    <Link href="/api/auth/signin">
-
-      Mulai Gratis
-
-
-      <ArrowRight
-        className="
-          ml-2
-          h-4
-          w-4
-        "
-      />
-
-    </Link>
-
-  </Button>
+</Button>
 
 
 </div>
 
-        {/* MOBILE BUTTON */}
 
 
 
-        <button
-          onClick={()=>setOpen(!open)}
+
+
+
+
+        {/* MOBILE */}
+
+        <div
           className="
-            rounded-xl
-
-            border
-
-            border-slate-200
-
-            p-2
-
+            flex
+            items-center
+            gap-3
             lg:hidden
           "
         >
 
-          {
-            open
-            ?
-            <X className="h-6 w-6"/>
-            :
-            <Menu className="h-6 w-6"/>
-          }
+          <LanguageSwitcher />
 
 
-        </button>
+          <button
+            onClick={()=>setOpen(!open)}
+
+            className="
+              rounded-xl
+              border
+              border-slate-200
+              p-2
+            "
+          >
+
+            {
+              open
+              ?
+              <X className="h-6 w-6"/>
+              :
+              <Menu className="h-6 w-6"/>
+            }
 
 
+          </button>
+
+
+        </div>
 
 
       </div>
@@ -426,9 +358,7 @@ export default function Navbar(){
 
 
 
-
       {/* MOBILE MENU */}
-
 
 
       {
@@ -437,11 +367,9 @@ export default function Navbar(){
           <div
             className="
               mx-4
-
               rounded-3xl
 
               border
-
               border-slate-200
 
               bg-white/90
@@ -460,40 +388,29 @@ export default function Navbar(){
             <div
               className="
                 flex
-
                 flex-col
-
                 gap-5
               "
             >
-
 
               {
                 links.map((item)=>(
 
                   <Link
-
                     key={item.href}
-
                     href={item.href}
 
                     onClick={()=>setOpen(false)}
 
                     className="
                       font-semibold
-
                       text-slate-700
-
-                      hover:text-violet-600
                     "
-
                   >
 
-                    {item.label}
-
+                    {t(`links.${item.key}`)}
 
                   </Link>
-
 
                 ))
               }
@@ -503,8 +420,6 @@ export default function Navbar(){
               <Button
                 asChild
                 className="
-                  mt-3
-
                   rounded-full
 
                   bg-gradient-to-r
@@ -515,14 +430,19 @@ export default function Navbar(){
                 "
               >
 
-                <Link href="/api/auth/signin">
+                <Link href={`/${locale}/login`}>
 
-                  Mulai Gratis
+                  {t("cta")}
 
-                  <ArrowRight className="ml-2 h-4 w-4"/>
+                  <ArrowRight
+                    className="
+                      ml-2
+                      h-4
+                      w-4
+                    "
+                  />
 
                 </Link>
-
 
               </Button>
 
@@ -531,7 +451,6 @@ export default function Navbar(){
 
 
           </div>
-
 
         )
       }

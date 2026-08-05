@@ -1,0 +1,1566 @@
+{
+  "hero": {
+    "badge": "Analitik SEO Berbasis AI",
+    "title": {
+      "line1": "Tingkatkan",
+      "line2": "SEO Dengan",
+      "highlight": "AI"
+    },
+    "description": "Hubungkan Google Search Console dan Google Analytics 4 dalam satu dashboard modern berbasis AI.",
+    "startFree": "Mulai Gratis",
+    "cta": {
+      "start": "Mulai Gratis",
+      "workflow": "Lihat Cara Kerja",
+      "demo": "Lihat Demo"
+    },
+    "badges": {
+      "ga4": "Google Analytics 4",
+      "gsc": "Search Console",
+      "ai": "Rekomendasi AI"
+    },
+    "stats": {
+      "connected": "Website Terhubung",
+      "monitoring": "Monitoring Real-time",
+      "reports": "Akurasi Laporan"
+    }
+  },
+  "navbar": {
+    "links": {
+      "features": "Fitur",
+      "ai": "AI",
+      "workflow": "Alur Kerja",
+      "pricing": "Harga",
+      "faq": "FAQ"
+    },
+    "cta": "Mulai Gratis",
+    "language": {
+      "id": "ID",
+      "en": "EN",
+      "switch": "Bahasa"
+    }
+  },
+  "problem": {
+    "badge": "TANTANGAN SEO",
+    "title": {
+      "line1": "SEO Tidak Kekurangan Data.",
+      "line2": "SEO Membutuhkan Arah yang Tepat."
+    },
+    "description": "Setiap website menghasilkan ribuan data setiap hari. Namun tanpa analisis yang tepat, peluang terbesar tetap tersembunyi di balik angka.",
+    "cards": {
+      "data": {
+        "tag": "DATA TERLALU BANYAK",
+        "title": "Data SEO Terlalu Banyak",
+        "description": "Google Search Console dan Analytics menghasilkan ribuan data setiap hari, tetapi sulit mengetahui mana yang benar-benar memiliki dampak."
+      },
+      "opportunity": {
+        "tag": "PELUANG TERSEMBUNYI",
+        "title": "Peluang Pertumbuhan Tersembunyi",
+        "description": "Keyword potensial, halaman lemah, dan peluang traffic sering terlewat karena analisis masih dilakukan secara manual."
+      },
+      "manual": {
+        "tag": "PROSES MANUAL",
+        "title": "Keputusan Masih Berdasarkan Tebakan",
+        "description": "Tim SEO menghabiskan waktu membaca laporan daripada mengambil keputusan strategis yang menghasilkan pertumbuhan."
+      }
+    },
+    "learn": "Pelajari lebih lanjut"
+  },
+  "solution": {
+    "badge": "SOLUSI SEO BERBASIS AI",
+    "title": {
+      "line1": "Dari Data Mentah",
+      "line2": "Menjadi Strategi SEO",
+      "highlight": "Yang Lebih Cerdas."
+    },
+    "description": "TrafficSaaS menggabungkan analytics, SEO intelligence, dan artificial intelligence untuk membantu Anda menemukan peluang, memahami masalah, dan mengambil tindakan.",
+    "cards": {
+      "ai": {
+        "tag": "KECERDASAN AI",
+        "title": "Analisis SEO Berbasis AI",
+        "description": "TrafficSaaS membaca data website, keyword, dan performa halaman untuk menemukan peluang SEO yang paling berdampak."
+      },
+      "recommendation": {
+        "tag": "REKOMENDASI CERDAS",
+        "title": "Rekomendasi yang Bisa Diterapkan",
+        "description": "Dapatkan rekomendasi jelas mengenai halaman, keyword, dan strategi yang perlu dilakukan berikutnya."
+      },
+      "monitoring": {
+        "tag": "MONITORING PERTUMBUHAN",
+        "title": "Pelacakan Perkembangan",
+        "description": "Pantau perubahan traffic, ranking keyword, dan peluang pertumbuhan melalui satu sistem terpadu."
+      },
+      "decision": {
+        "tag": "KEPUTUSAN OTOMATIS",
+        "title": "Keputusan Lebih Cepat",
+        "description": "Kurangi proses analisis manual dan ubah data kompleks menjadi keputusan SEO yang cepat dan akurat."
+      }
+    },
+    "learn": "Pelajari kemampuan"
+  },
+  "integration": {
+    "badge": "CARA KERJA TRAFFICSAAS",
+    "title": {
+      "line1": "Dari Data Mentah Menjadi",
+      "line2": "Strategi SEO yang Jelas"
+    },
+    "description": "TrafficSaaS menghubungkan seluruh data penting website dan mengubahnya menjadi insight serta tindakan nyata.",
+    "steps": {
+      "connect": {
+        "title": "Hubungkan Data",
+        "description": "Hubungkan Google Search Console dan Google Analytics 4 untuk mengambil data performa website."
+      },
+      "analysis": {
+        "title": "Analisis AI",
+        "description": "TrafficSaaS menganalisis traffic, keyword, dan halaman untuk menemukan peluang pertumbuhan."
+      },
+      "recommendation": {
+        "title": "Rekomendasi Cerdas",
+        "description": "Dapatkan insight SEO yang mudah dipahami dan rekomendasi yang langsung dapat diterapkan."
+      },
+      "growth": {
+        "title": "Tingkatkan Traffic",
+        "description": "Ambil keputusan berdasarkan data dan tingkatkan performa website secara konsisten."
+      }
+    }
+  },
+  "dashboardShowcase": {
+    "badge": "TAMPILAN DASHBOARD",
+    "title": {
+      "line1": "Semua kebutuhan SEO Anda",
+      "line2": "Dalam satu dashboard",
+      "highlight": "Lebih pintar dengan AI"
+    },
+    "description": "Tidak perlu lagi berpindah antara Google Search Console, Google Analytics 4, spreadsheet, dan berbagai laporan. Semua data tersedia dalam satu workspace yang didukung AI.",
+    "features": {
+      "ga4": "Integrasi Google Analytics 4",
+      "gsc": "Insight Google Search Console",
+      "ai": "Rekomendasi SEO berbasis AI",
+      "reports": "Laporan performa otomatis"
+    },
+    "cta": "Lihat Dashboard",
+    "aiCard": {
+      "label": "Rekomendasi AI",
+      "value": "Tingkatkan CTR hingga 18%"
+    },
+    "growthCard": {
+      "label": "Traffic Organik",
+      "value": "+42%"
+    },
+    "countryCard": {
+      "label": "Negara Aktif",
+      "value": "128 Wilayah"
+    }
+  },
+  "featureGrid": {
+    "badge": "FITUR PLATFORM",
+    "title": {
+      "line1": "Semua kebutuhan SEO",
+      "line2": "dalam satu platform"
+    },
+    "description": "TrafficSaaS membantu tim SEO memahami data, menemukan peluang, dan mengambil keputusan lebih cepat dengan bantuan AI.",
+    "pro": "PRO",
+    "cards": {
+      "dashboard": {
+        "title": "Dashboard SEO Terpadu",
+        "description": "Pantau Google Search Console dan Google Analytics 4 dalam satu dashboard tanpa perlu berpindah platform.",
+        "benefit1": "Ringkasan Performa SEO",
+        "benefit2": "Realtime Metrics"
+      },
+      "ai": {
+        "title": "Insight AI untuk Bisnis",
+        "description": "AI menghasilkan ringkasan performa, analisis masalah, dan rekomendasi SEO yang dapat langsung diterapkan.",
+        "benefit1": "AI Summary",
+        "benefit2": "SEO Recommendation"
+      },
+      "traffic": {
+        "title": "Traffic Intelligence",
+        "description": "Analisis sumber traffic, negara, device, landing page, dan perilaku pengguna dalam satu tempat.",
+        "benefit1": "Country Analytics",
+        "benefit2": "Device Analysis"
+      },
+      "workspace": {
+        "title": "Manajemen Workspace",
+        "description": "Kelola banyak website, client, dan project dalam satu akun dengan sistem workspace yang terorganisir.",
+        "benefit1": "Multiple Projects",
+        "benefit2": "Centralized Data"
+      },
+      "reports": {
+        "title": "Laporan Profesional",
+        "description": "Buat laporan profesional dalam format PDF, Excel, dan CSV untuk client maupun stakeholder.",
+        "benefit1": "PDF Export",
+        "benefit2": "Excel Export"
+      },
+      "recommendation": {
+        "title": "Rekomendasi Cerdas",
+        "description": "Temukan peluang SEO berdasarkan dampak traffic, keyword, dan nilai bisnis.",
+        "benefit1": "Priority Score",
+        "benefit2": "Growth Opportunity"
+      }
+    }
+  },
+  "workflow": {
+    "badge": "CARA KERJA",
+    "title": {
+      "line1": "Dari data mentah",
+      "line2": "menjadi strategi SEO",
+      "highlight": "yang lebih cerdas"
+    },
+    "description": "TrafficSaaS mengubah data website yang kompleks menjadi insight dan rekomendasi yang bisa langsung digunakan untuk meningkatkan performa SEO.",
+    "step": "Step",
+    "steps": {
+      "connect": {
+        "title": "Hubungkan Data",
+        "description": "Hubungkan Google Search Console dan Google Analytics 4 secara aman untuk mengambil data performa website."
+      },
+      "sync": {
+        "title": "Sinkronisasi Otomatis",
+        "description": "TrafficSaaS menggabungkan data SEO dan analytics menjadi satu workspace yang mudah dipahami."
+      },
+      "ai": {
+        "title": "Insight AI",
+        "description": "AI membaca data traffic, keyword, dan halaman untuk menemukan peluang SEO yang paling berdampak."
+      },
+      "growth": {
+        "title": "Tingkatkan Pertumbuhan",
+        "description": "Terapkan rekomendasi, pantau perubahan, dan tingkatkan traffic organik secara berkelanjutan."
+      }
+    }
+  },
+  "metrics": {
+    "badge": "DAMPAK PLATFORM",
+    "title": {
+      "line1": "Data yang membantu",
+      "line2": "keputusan SEO lebih cepat"
+    },
+    "description": "TrafficSaaS mengubah data website menjadi insight yang mudah dipahami sehingga tim dapat fokus pada strategi pertumbuhan.",
+    "cards": {
+      "clicks": {
+        "title": "Pertumbuhan Klik Organik",
+        "description": "Membantu menemukan peluang SEO untuk meningkatkan performa pencarian organik."
+      },
+      "traffic": {
+        "title": "Data Traffic Dianalisis",
+        "description": "Memproses data website dari Google Analytics untuk menghasilkan insight yang lebih jelas."
+      },
+      "region": {
+        "title": "Wilayah Pengunjung",
+        "description": "Memahami distribusi pengguna berdasarkan lokasi untuk strategi SEO yang lebih tepat."
+      },
+      "sync": {
+        "title": "Sinkronisasi Stabil",
+        "description": "Menjaga koneksi data dengan layanan Google agar laporan selalu tersedia."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "PENGALAMAN PENGGUNA",
+    "title": {
+      "line1": "Dirancang untuk tim",
+      "line2": "yang ingin berkembang lebih cepat"
+    },
+    "description": "Mulai dari SEO specialist hingga digital agency, TrafficSaaS membantu memahami data website, menemukan peluang optimasi, dan mengambil keputusan berdasarkan insight yang lebih jelas.",
+    "cards": {
+      "daniel": {
+        "name": "Daniel Kim",
+        "role": "Spesialis SEO",
+        "company": "Agensi Digital",
+        "quote": "TrafficSaaS membantu kami memahami data Google Search Console dan Google Analytics 4 tanpa harus membuat laporan manual setiap minggu. Insight dari AI membuat proses analisis menjadi jauh lebih cepat."
+      },
+      "sarah": {
+        "name": "Sarah Johnson",
+        "role": "Konsultan Marketing",
+        "company": "Growth Studio",
+        "quote": "Sebelumnya kami harus membuka banyak tools untuk melihat performa website. TrafficSaaS membuat semua data lebih mudah dipahami dalam satu dashboard."
+      },
+      "michael": {
+        "name": "Michael Chen",
+        "role": "Konsultan SEO",
+        "company": "Konsultan Independen",
+        "quote": "Fitur AI Recommendation membantu menemukan peluang SEO yang sebelumnya sulit terlihat. Laporan menjadi lebih mudah dipahami dan dipresentasikan kepada klien."
+      }
+    }
+  },
+  "pricing": {
+    "badge": "PILIHAN PAKET",
+    "title": {
+      "line1": "Mulai gratis.",
+      "line2": "Tingkatkan Saat Bisnis Berkembang."
+    },
+    "description": "Gunakan fitur dasar untuk memahami performa website. Tingkatkan ke versi Pro untuk mendapatkan AI insight dan analisis SEO yang lebih mendalam.",
+    "free": {
+      "badge": "PAKET GRATIS",
+      "price": "Rp0",
+      "period": "selamanya",
+      "description": "Cocok untuk memulai analisis SEO dan memahami performa website Anda.",
+      "cta": "Mulai Gratis",
+      "features": {
+        "feature1": "1 Project Website",
+        "feature2": "Integrasi Google Search Console",
+        "feature3": "Integrasi Google Analytics 4",
+        "feature4": "Dashboard SEO Dasar",
+        "feature5": "Ringkasan Traffic",
+        "feature6": "Monitoring Keyword Dasar",
+        "feature7": "Overview Performa Traffic",
+        "feature8": "Export CSV",
+        "feature9": "Ringkasan SEO Mingguan"
+      }
+    },
+    "pro": {
+      "badge": "TERPOPULER",
+      "name": "PAKET PRO",
+      "price": "Rp299.000",
+      "period": "/bulan",
+      "description": "Untuk freelancer SEO, agency, dan bisnis yang membutuhkan insight berbasis data untuk berkembang lebih cepat.",
+      "cta": "Upgrade ke Pro",
+      "features": {
+        "feature1": "Workspace Tanpa Batas",
+        "feature2": "Project Tanpa Batas",
+        "feature3": "Dashboard Eksekutif Berbasis AI",
+        "feature4": "Insight SEO AI",
+        "feature5": "Rekomendasi AI",
+        "feature6": "Analisis Keyword & Halaman",
+        "feature7": "Export Laporan PDF",
+        "feature8": "Export Excel",
+        "feature9": "Dukungan Prioritas"
+      }
+    }
+  },
+  "socialProof": {
+    "badge": "DIBANGUN DENGAN TEKNOLOGI MODERN",
+    "title": "Menggunakan teknologi terbaik",
+    "description": "TrafficSaaS terhubung dengan teknologi Google dan AI modern untuk membantu menghasilkan analisis SEO yang lebih akurat.",
+    "integrated": "Terintegrasi langsung",
+    "companies": {
+      "ga4": {
+        "name": "Google Analytics 4"
+      },
+      "gsc": {
+        "name": "Google Search Console"
+      },
+      "openai": {
+        "name": "OpenAI"
+      },
+      "nextjs": {
+        "name": "Next.js"
+      }
+    }
+  },
+  "aiPreview": {
+    "badge": "AI POWERED",
+    "title": {
+      "line1": "Konsultan SEO Anda",
+      "line2": "Tersedia 24/7"
+    },
+    "description": "TrafficSaaS tidak hanya menampilkan data website. AI menganalisis tren, menemukan peluang, menentukan prioritas, dan menjelaskan langkah yang perlu dilakukan.",
+    "features": {
+      "summary": "Ringkasan eksekutif dibuat otomatis",
+      "recommendation": "Rekomendasi AI berdasarkan data website",
+      "impact": "Estimasi dampak bisnis",
+      "priority": "Skor prioritas untuk setiap masalah"
+    },
+    "cta": "Aktifkan AI",
+    "card": {
+      "label": "AI Executive Summary",
+      "title": "Weekly SEO Report",
+      "summary": "Traffic organik meningkat {growth}18%{growth} bulan ini. Namun CTR menurun pada halaman dengan lebih dari 10.000 impression. Optimasi judul halaman dapat menghasilkan sekitar {clicks}9.400 klik tambahan.{clicks}",
+      "impact": {
+        "title": "Dampak Bisnis",
+        "description": "Estimasi peningkatan traffic: +18%"
+      },
+      "recommendation": {
+        "title": "Rekomendasi",
+        "description": "Perbarui meta title pada halaman dengan impression tertinggi sebelum membuat konten baru."
+      }
+    }
+  },
+  "logoMarquee": {
+    "badge": "DIBANGUN DENGAN TEKNOLOGI MODERN",
+    "connected": "Platform Terhubung",
+    "companies": {
+      "ga4": "Google Analytics 4",
+      "gsc": "Google Search Console",
+      "ai": "AI Intelligence",
+      "postgres": "PostgreSQL",
+      "openai": "OpenAI"
+    }
+  },
+  "aiShowcase": {
+    "badge": "AI SEO INTELLIGENCE",
+    "title": {
+      "line1": "Konsultan SEO AI",
+      "line2": "Yang Menemukan",
+      "highlight": "Peluang Pertumbuhan"
+    },
+    "description": "TrafficSaaS menganalisis data website, menemukan peluang SEO, menentukan prioritas masalah, dan memberikan rekomendasi yang dapat langsung diterapkan.",
+    "features": {
+      "summary": "Ringkasan Eksekutif Otomatis",
+      "ctr": "Peluang Peningkatan CTR",
+      "content": "Rekomendasi Optimasi Konten",
+      "business": "Analisis Dampak Bisnis",
+      "priority": "Skor Prioritas AI"
+    },
+    "insights": {
+      "traffic": {
+        "title": "Traffic Organik",
+        "description": "Analisis performa traffic website",
+        "value": "+18%"
+      },
+      "ctr": {
+        "title": "Peluang CTR",
+        "description": "Halaman dengan impression tinggi namun klik rendah",
+        "value": "12 Halaman"
+      },
+      "recommendation": {
+        "title": "Rekomendasi AI",
+        "description": "Saran tindakan optimasi",
+        "value": "Optimalkan Meta Title"
+      }
+    },
+    "score": {
+      "label": "Skor Performa SEO",
+      "value": "92"
+    },
+    "recommendation": {
+      "label": "Rekomendasi AI",
+      "text": "Optimalkan 12 meta titles"
+    }
+  },
+  "footer": {
+    "brand": {
+      "tagline": "Platform Intelligence SEO Berbasis AI",
+      "description": "Platform AI untuk membantu bisnis memahami performa website, menemukan peluang SEO, dan membuat keputusan berdasarkan data."
+    },
+    "trust": {
+      "secure": "Secure OAuth",
+      "ai": "AI Powered",
+      "global": "Global Analytics"
+    },
+    "columns": {
+      "product": "Produk",
+      "resources": "Sumber Daya",
+      "company": "Perusahaan"
+    },
+    "links": {
+      "features": "Fitur",
+      "pricing": "Harga",
+      "ai": "Insight AI",
+      "faq": "FAQ",
+      "about": "Tentang Kami",
+      "contact": "Kontak",
+      "privacy": "Kebijakan Privasi",
+      "terms": "Syarat & Ketentuan"
+    },
+    "copyright": "Dilindungi berdasarkan UU No.27 Tahun 2022 tentang Pelindungan Data Pribadi.",
+    "bottom": "Gaivo Solusi Manajemen"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": {
+      "line1": "Pertanyaan yang sering",
+      "line2": "ditanyakan"
+    },
+    "description": "Semua informasi yang perlu diketahui sebelum menghubungkan website Anda dengan TrafficSaaS.",
+    "items": {
+      "free": {
+        "question": "Apakah TrafficSaaS bisa digunakan secara gratis?",
+        "answer": "Bisa. TrafficSaaS menyediakan paket Free untuk mencoba dashboard SEO, menghubungkan Google Search Console dan Google Analytics 4, serta melihat insight dasar performa website."
+      },
+      "difference": {
+        "question": "Apa perbedaan paket Free dan Pro?",
+        "answer": "Paket Pro memberikan akses ke fitur lanjutan seperti AI Executive Summary, rekomendasi SEO berbasis AI, analisis lebih mendalam, export laporan PDF dan Excel, serta kemampuan mengelola lebih banyak project."
+      },
+      "data": {
+        "question": "Bagaimana TrafficSaaS mendapatkan data website?",
+        "answer": "TrafficSaaS menggunakan koneksi resmi Google API melalui autentikasi OAuth. Anda dapat menghubungkan Google Search Console dan Google Analytics 4 secara aman."
+      },
+      "multiple": {
+        "question": "Apakah saya bisa mengelola beberapa website?",
+        "answer": "Bisa. Paket Pro dibuat untuk freelancer SEO, agency, dan bisnis yang mengelola beberapa website atau project SEO dalam satu akun."
+      },
+      "security": {
+        "question": "Apakah data Google saya aman?",
+        "answer": "Aman. TrafficSaaS tidak menyimpan password Google Anda. Akses hanya digunakan untuk membaca data SEO dan analytics sesuai izin yang diberikan."
+      },
+      "upgrade": {
+        "question": "Apakah bisa upgrade dari Free ke Pro?",
+        "answer": "Bisa. Anda dapat mulai menggunakan paket Free terlebih dahulu dan melakukan upgrade kapan saja ketika membutuhkan fitur AI serta analisis SEO yang lebih lengkap."
+      }
+    }
+  },
+  "dashboardMockup": {
+    "live": "LIVE",
+    "title": "Dashboard Eksekutif",
+    "updated": "Diperbarui 3 detik lalu",
+    "aiReady": "AI Ready",
+    "thisMonth": "bulan ini",
+    "kpi": {
+      "clicks": "Klik Organik",
+      "users": "Pengguna",
+      "sessions": "Sessions",
+      "ctr": "CTR"
+    },
+    "chart": {
+      "title": "Performa Organik"
+    },
+    "ai": {
+      "title": "AI Insight",
+      "problem": "CTR Anda turun sebesar 12% pada halaman dengan impression tinggi.",
+      "recommendation": "Rekomendasi",
+      "action": "Perbarui title tag pada landing page dengan performa terbaik."
+    },
+    "countries": {
+      "title": "Top Countries"
+    },
+    "keywords": {
+      "title": "Top Keywords",
+      "seoDashboard": "seo dashboard",
+      "ga4Analytics": "ga4 analytics",
+      "searchConsole": "search console",
+      "trafficReport": "traffic report"
+    }
+  },
+  "cta": {
+    "badge": "Mulai optimasi SEO dengan AI",
+    "title": {
+      "line1": "Jangan hanya melihat data.",
+      "line2": "Ubah menjadi strategi pertumbuhan."
+    },
+    "description": "Hubungkan Google Search Console dan Google Analytics 4, biarkan TrafficSaaS membantu menemukan peluang SEO, memberikan rekomendasi, dan membuat keputusan lebih cepat.",
+    "buttons": {
+      "start": "Coba Gratis Sekarang",
+      "workflow": "Lihat Cara Kerja"
+    },
+    "trust": {
+      "security": {
+        "title": "Data Aman",
+        "text": "Google OAuth Security"
+      },
+      "ai": {
+        "title": "AI Powered",
+        "text": "Insight Otomatis"
+      },
+      "speed": {
+        "title": "Lebih Cepat",
+        "text": "Kurangi Analisis Manual"
+      }
+    }
+  },
+  "buttons": {
+    "startFree": "Mulai Gratis",
+    "seeWorkflow": "Lihat Cara Kerja",
+    "tryTrafficSaaS": "Coba TrafficSaaS",
+    "activateAI": "Aktifkan AI",
+    "viewDashboard": "Lihat Dashboard",
+    "upgradePro": "Upgrade ke Pro",
+    "learnMore": "Pelajari Lebih Lanjut",
+    "exploreCapability": "Pelajari Kemampuan",
+    "login": "Masuk",
+    "signup": "Daftar Sekarang",
+    "getStarted": "Mulai Sekarang",
+    "contact": "Hubungi Kami",
+    "documentation": "Dokumentasi"
+  },
+  "aiCard": {
+    "badge": "AI Copilot",
+    "title": "Executive Summary",
+    "confidence": "98% Confidence",
+    "score": {
+      "label": "SEO Score"
+    },
+    "insights": {
+      "ctr": {
+        "title": "CTR meningkat 18%",
+        "description": "Perbaikan meta title menunjukkan hasil positif."
+      },
+      "keyword": {
+        "title": "12 kata kunci masuk Top 10",
+        "description": "Pertumbuhan kuat pada halaman informasional."
+      },
+      "warning": {
+        "title": "3 halaman landing kehilangan klik",
+        "description": "Perbarui konten lama untuk memulihkan peringkat."
+      }
+    },
+    "updated": "Dibuat baru saja",
+    "button": "Buat Laporan"
+  },
+  "countries": {
+    "title": "Negara Teratas",
+    "subtitle": "Pengunjung berdasarkan wilayah",
+    "visitors": "pengunjung",
+    "countries": {
+      "indonesia": "Indonesia",
+      "unitedStates": "Amerika Serikat",
+      "unitedKingdom": "Inggris",
+      "singapore": "Singapura"
+    }
+  },
+  "heroGrowth": {
+    "label": "Pertumbuhan Organik",
+    "title": "Performa",
+    "comparison": "dibandingkan bulan sebelumnya"
+  },
+  "heroDashboard": {
+    "overview": "Website Overview",
+    "title": "SEO Performance",
+    "active": "Active",
+    "metrics": {
+      "traffic": "Traffic",
+      "clicks": "Clicks",
+      "keywords": "Keywords"
+    },
+    "chart": {
+      "title": "Organic Growth"
+    },
+    "ai": {
+      "label": "AI Insight",
+      "value": "12 Opportunities"
+    },
+    "growth": {
+      "label": "Organic Growth",
+      "value": "Traffic"
+    }
+  },
+  "floatingGrowth": {
+    "label": "Pertumbuhan Organik",
+    "comparison": "Dibandingkan bulan sebelumnya",
+    "goal": "Target Progress"
+  },
+  "sidebar": {
+    "sections": {
+      "main": "Utama",
+      "seo": "Kecerdasan SEO",
+      "integrations": "Integrasi",
+      "workspace": "Ruang Kerja",
+      "help": "Bantuan"
+    },
+    "menus": {
+      "dashboard": "Dashboard",
+      "traffic": "Analisis Traffic",
+      "keyword": "Kecerdasan Keyword",
+      "ai": "Konsultan SEO AI",
+      "searchConsole": "Search Console",
+      "googleAnalytics": "Google Analytics",
+      "projects": "Proyek"
+    },
+    "subscription": {
+      "title": "Langganan",
+      "currentPlan": "Paket Saat Ini",
+      "plan": "Paket",
+      "projects": "Proyek",
+      "unlimited": "Tidak Terbatas",
+      "unlimitedProjects": "Proyek Tidak Terbatas",
+      "upgrade": "Upgrade"
+    }
+  },
+  "topbar": {
+    "title": "Dashboard SEO",
+    "sync": "Sinkronisasi aktif",
+    "searchPlaceholder": "Cari halaman...",
+    "period": "28 Hari Terakhir",
+    "profile": {
+      "name": "Pemilik Workspace",
+      "role": "SEO Specialist"
+    }
+  },
+  "trafficChart": {
+    "title": "Traffic Organik",
+    "period": "28 Hari Terakhir",
+    "stats": {
+      "users": "Pengguna",
+      "clicks": "Klik",
+      "ctr": "CTR"
+    }
+  },
+  "trafficSource": {
+    "title": "Sumber Traffic",
+    "description": "Ringkasan akuisisi pengunjung",
+    "sources": {
+      "google": "Google Search",
+      "direct": "Langsung",
+      "referral": "Referral"
+    }
+  },
+  "heroKpi": {
+    "cards": {
+      "users": "Pengguna",
+      "clicks": "Klik",
+      "ctr": "CTR"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "badge": "Security & Privacy Center",
+      "title": "Data Anda Aman.",
+      "highlight": "Kontrol Tetap Di Tangan Anda.",
+      "description": "TrafficSaaS tidak menjual data pengguna, tidak mengubah website tanpa izin, dan hanya menggunakan data untuk memberikan insight SEO berbasis AI."
+    },
+    "trust": {
+      "framework": "Security Framework",
+      "title": "Enterprise Security",
+      "status": "Operational",
+      "badges": {
+        "encrypted": "Encrypted Data",
+        "privacy": "Privacy First",
+        "controlled": "User Controlled"
+      },
+      "cloud": {
+        "title": "Cloud",
+        "desc": "Secure Infrastructure"
+      },
+      "encryption": {
+        "title": "Encryption",
+        "desc": "HTTPS / TLS"
+      },
+      "authentication": {
+        "title": "Authentication",
+        "desc": "OAuth Permission"
+      },
+      "compliance": {
+        "title": "Compliance",
+        "desc": "UU PDP"
+      }
+    },
+    "dataFlow": {
+      "title": "Bagaimana Data Anda Diproses?",
+      "permission": {
+        "title": "Permission",
+        "desc": "Anda memberikan izin OAuth Google"
+      },
+      "transfer": {
+        "title": "Secure Transfer",
+        "desc": "Data dikirim melalui koneksi terenkripsi"
+      },
+      "analysis": {
+        "title": "AI Analysis",
+        "desc": "AI menganalisis performa SEO"
+      },
+      "control": {
+        "title": "Your Control",
+        "desc": "Anda dapat mencabut akses kapan saja"
+      }
+    },
+    "sections": {
+      "data": {
+        "title": "Data Yang Kami Kumpulkan",
+        "content": "TrafficSaaS menerapkan prinsip data minimization. Kami hanya memproses data yang diperlukan seperti informasi akun, Google Search Console, dan Google Analytics 4 melalui OAuth. Kami tidak meminta password Google dan tidak menyimpan kredensial pengguna."
+      },
+      "cloud": {
+        "title": "Penyimpanan Cloud",
+        "content": "Data sistem menggunakan infrastruktur cloud untuk menjaga availability, reliability, dan scalability. Cloud membantu mengurangi risiko kehilangan data akibat kegagalan perangkat lokal."
+      },
+      "pdp": {
+        "title": "Implementasi UU PDP No.27 Tahun 2022",
+        "content": "TrafficSaaS menerapkan prinsip Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi melalui transparansi pemrosesan data, persetujuan pengguna, pembatasan tujuan penggunaan data, serta perlindungan terhadap penyalahgunaan informasi.",
+        "transparency": "Pengguna mengetahui data apa yang digunakan dan tujuan penggunaannya.",
+        "consent": "Pemrosesan data dilakukan berdasarkan izin OAuth pengguna.",
+        "limitation": "Data hanya digunakan untuk analisis SEO dan peningkatan layanan."
+      },
+      "security": {
+        "title": "Perlindungan Teknis",
+        "items": [
+          "HTTPS/TLS Encryption",
+          "OAuth Google API",
+          "Access Control",
+          "Secure Database",
+          "Monitoring Sistem"
+        ]
+      },
+      "rights": {
+        "title": "Hak Pengguna",
+        "items": [
+          "Melihat penggunaan data",
+          "Mencabut akses Google",
+          "Menghapus akun",
+          "Meminta penghapusan data"
+        ]
+      },
+      "regulation": {
+        "title": "Regulasi Pendukung",
+        "items": [
+          "UU No.27 Tahun 2022 tentang Pelindungan Data Pribadi",
+          "UU No.11 Tahun 2008 tentang Informasi dan Transaksi Elektronik",
+          "PP No.71 Tahun 2019 tentang Sistem Elektronik"
+        ]
+      }
+    },
+    "footer": {
+      "title": "Your Data. Your Trust.",
+      "description": "Kami membangun TrafficSaaS dengan prinsip security by design agar pengguna dapat fokus mengembangkan bisnis tanpa khawatir terhadap keamanan data."
+    }
+  },
+  "about": {
+    "badge": "Tentang TrafficSaaS",
+    "active": "Aktif",
+    "hero": {
+      "title": "Memahami Performa Website",
+      "highlight": "Dengan Data dan AI",
+      "description": "TrafficSaaS adalah platform Dashboard Web Analytics berbasis SaaS yang membantu bisnis menganalisis performa website, memahami perilaku pengguna, dan mengambil keputusan digital berdasarkan data aktual.",
+      "button": "Mulai Analisis"
+    },
+    "trust": {
+      "label": "TrafficSaaS Intelligence Platform",
+      "title": "Satu Platform Untuk Analisis Website",
+      "items": {
+        "ai": "AI Insight & Recommendation",
+        "data": "Google Analytics Integration",
+        "cloud": "Google Cloud Infrastructure",
+        "security": "Secure OAuth Access"
+      }
+    },
+    "story": {
+      "title": "Apa Itu TrafficSaaS?",
+      "description": "TrafficSaaS merupakan dashboard analytics berbasis Software as a Service (SaaS) yang dirancang untuk mengintegrasikan data Google Search Console dan Google Analytics 4 ke dalam satu platform terpadu. Sistem ini membantu pengguna memahami bagaimana website ditemukan melalui mesin pencari dan bagaimana pengunjung berinteraksi setelah mengakses website.",
+      "impact": "Dengan TrafficSaaS, pengguna tidak perlu melakukan analisis manual dari berbagai platform. Seluruh data performa website disajikan dalam bentuk dashboard yang lebih mudah dipahami sehingga mendukung pengambilan keputusan berbasis data."
+    },
+    "features": {
+      "ai": {
+        "title": "AI SEO Intelligence",
+        "description": "Menggunakan Artificial Intelligence untuk menganalisis pola data website dan menghasilkan insight serta rekomendasi optimasi SEO berdasarkan performa aktual."
+      },
+      "data": {
+        "title": "Data Terintegrasi",
+        "description": "Menggabungkan data Google Search Console dan Google Analytics 4 untuk memberikan gambaran lengkap mengenai performa pencarian dan perilaku pengguna."
+      },
+      "growth": {
+        "title": "Optimasi Pertumbuhan Digital",
+        "description": "Membantu bisnis menemukan peluang peningkatan trafik organik, mengevaluasi performa halaman, dan menyusun strategi digital yang lebih efektif."
+      }
+    },
+    "security": {
+      "title": "Keamanan Data Pengguna",
+      "description": "TrafficSaaS menerapkan mekanisme keamanan untuk memastikan akses data pengguna dilakukan secara aman dan terkendali.",
+      "items": [
+        "Login menggunakan autentikasi Google OAuth 2.0",
+        "Tidak meminta atau menyimpan password pengguna",
+        "Akses data Google dilakukan melalui izin resmi pengguna",
+        "Menggunakan koneksi HTTPS/TLS terenkripsi",
+        "Hak akses fitur dikontrol berdasarkan akun dan subscription"
+      ]
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Contact TrafficSaaS",
+      "title": "Mari berdiskusi tentang",
+      "highlight": "pertumbuhan digital bisnis Anda",
+      "description": "Hubungi tim TrafficSaaS untuk pertanyaan, kerja sama, dukungan teknis, atau informasi mengenai platform AI SEO Intelligence."
+    },
+    "info": {
+      "title": "Hubungi Kami",
+      "description": "Kami siap membantu Anda memahami bagaimana TrafficSaaS dapat membantu meningkatkan performa website, menemukan peluang SEO, dan mengambil keputusan berbasis data.",
+      "email": {
+        "title": "Email"
+      },
+      "support": {
+        "title": "Support",
+        "value": "Technical & Product Support"
+      },
+      "security": {
+        "title": "Security",
+        "value": "Privacy-first infrastructure"
+      }
+    },
+    "trust": {
+      "response": "Fast Response",
+      "global": "Global Service"
+    },
+    "form": {
+      "title": "Kirim Pesan",
+      "name": "Nama Anda",
+      "email": "Email Anda",
+      "message": "Bagaimana kami dapat membantu?",
+      "button": "Kirim Pesan"
+    }
+  },
+  "terms": {
+    "hero": {
+      "badge": "Terms of Service",
+      "title": "Syarat & Ketentuan",
+      "highlight": "TrafficSaaS",
+      "description": "Dengan menggunakan layanan TrafficSaaS, Anda menyetujui ketentuan penggunaan layanan, keamanan data, dan tanggung jawab pengguna."
+    },
+    "sections": {
+      "service": {
+        "title": "Penggunaan Layanan",
+        "content": "TrafficSaaS menyediakan platform AI SEO Intelligence untuk membantu pengguna memahami performa website, menemukan peluang optimasi, dan membuat keputusan berbasis data. Pengguna wajib menggunakan layanan sesuai hukum yang berlaku."
+      },
+      "billing": {
+        "title": "Paket & Pembayaran",
+        "content": "TrafficSaaS menyediakan layanan dengan paket tertentu. Fitur premium dapat memiliki batas penggunaan atau biaya berlangganan. Harga, fitur, dan ketersediaan layanan dapat berubah untuk meningkatkan kualitas produk."
+      },
+      "data": {
+        "title": "Penggunaan Data",
+        "content": "Pengguna memberikan izin kepada TrafficSaaS untuk memproses data yang diperlukan melalui integrasi resmi seperti Google OAuth. Data hanya digunakan untuk analisis SEO, dashboard, dan peningkatan layanan."
+      },
+      "usage": {
+        "title": "Pembatasan Penggunaan",
+        "content": "Pengguna tidak diperbolehkan menggunakan layanan untuk aktivitas ilegal, mencoba mengakses sistem secara tidak sah, mengganggu keamanan platform, atau mengambil data pengguna lain."
+      },
+      "security": {
+        "title": "Keamanan & Privasi",
+        "content": "TrafficSaaS menerapkan prinsip keamanan informasi melalui kontrol akses, koneksi terenkripsi, dan perlindungan data pengguna sesuai kebijakan privasi yang berlaku."
+      },
+      "liability": {
+        "title": "Tanggung Jawab Pengguna",
+        "content": "Pengguna bertanggung jawab atas informasi akun, aktivitas penggunaan layanan, dan memastikan penggunaan TrafficSaaS tidak melanggar hukum atau hak pihak lain."
+      },
+      "update": {
+        "title": "Perubahan Ketentuan",
+        "content": "TrafficSaaS dapat memperbarui syarat dan ketentuan sewaktu-waktu untuk menyesuaikan perkembangan layanan, keamanan, dan kebutuhan pengguna."
+      }
+    }
+  },
+  "login": {
+    "subtitle": "Masuk ke workspace Anda",
+    "button": "Lanjutkan dengan Google",
+    "loading": "Memproses...",
+    "agreement": "Dengan melanjutkan, Anda menyetujui Syarat & Ketentuan dan Kebijakan Privasi TrafficSaaS."
+  },
+  "dashboard": {
+    "title": "Dashboard SEO Intelligence",
+    "description": "Pantau trafik organik, visibilitas pencarian, dan performa Google Analytics dalam satu workspace.",
+    "workspace": {
+      "ready": "Workspace Siap Digunakan",
+      "configuration": "Perlu Konfigurasi",
+      "connected": "Terhubung & Siap",
+      "setup": "Perlu Setup"
+    },
+    "sync": {
+      "last": "Sinkronisasi terakhir",
+      "never": "Belum pernah sinkronisasi"
+    },
+    "actions": {
+      "export": "Export",
+      "sync": "Sinkronisasi",
+      "settings": "Pengaturan"
+    },
+    "integration": {
+      "gsc": "Google Search Console",
+      "ga4": "Google Analytics 4",
+      "status": "Status Workspace",
+      "notConnected": "Belum Terhubung"
+    },
+    "status": {
+      "connectedDescription": "Google Search Console dan Google Analytics sudah terhubung dan siap digunakan untuk analisis data.",
+      "setupDescription": "Hubungkan Google Search Console dan Google Analytics untuk membuka seluruh fitur analitik SEO."
+    },
+    "google": {
+      "required": "Koneksi Google Dibutuhkan",
+      "description": "Hubungkan kembali akun Google untuk mengakses data Analytics dan Search Console."
+    },
+    "header": {
+      "lastSync": "Sinkronisasi Terakhir",
+      "export": "Export",
+      "sync": "Sinkronisasi",
+      "settings": "Pengaturan"
+    },
+    "range": {
+      "7d": "7 Hari Terakhir",
+      "28d": "28 Hari Terakhir",
+      "90d": "90 Hari Terakhir"
+    },
+    "growth": {
+      "title": "Ringkasan Pertumbuhan",
+      "subtitle": "Ringkasan performa website berdasarkan data Google"
+    },
+    "metrics": {
+      "growthScore": "Skor Pertumbuhan",
+      "clicks": "Klik Organik",
+      "clicksDescription": "Klik dari Google Search Console",
+      "impressions": "Tayangan Pencarian",
+      "impressionsDescription": "Kemunculan website di Google",
+      "users": "Pengguna Aktif",
+      "usersDescription": "Pengunjung website",
+      "sessions": "Sesi"
+    },
+    "score": {
+      "excellent": "Sangat Baik",
+      "good": "Baik",
+      "optimize": "Perlu Optimasi",
+      "low": "Rendah"
+    },
+    "ai": {
+      "title": "AI SEO Intelligence",
+      "health": "Skor Kesehatan SEO",
+      "opportunity": "Peluang Pertumbuhan"
+    },
+    "performance": {
+      "title": "Ringkasan Performa",
+      "subtitle": "Ringkasan kondisi trafik dan visibilitas website",
+      "badge": "Metrik SEO",
+      "metrics": {
+        "clicks": {
+          "title": "Klik Organik",
+          "description": "Jumlah kunjungan dari hasil pencarian Google"
+        },
+        "visibility": {
+          "title": "Visibilitas Pencarian",
+          "description": "Seberapa sering website muncul di Google Search"
+        },
+        "users": {
+          "title": "Pengguna Aktif",
+          "description": "Jumlah pengguna unik yang mengunjungi website"
+        },
+        "sessions": {
+          "title": "Sesi",
+          "description": "Total sesi interaksi pengguna dengan website"
+        }
+      },
+      "summary": {
+        "title": "Ringkasan Performa",
+        "description": "Website memiliki {clicks} klik organik dengan visibilitas pencarian sebesar {impressions} tayangan. Evaluasi tren trafik secara berkala untuk menentukan strategi SEO berikutnya."
+      }
+    },
+    "aiInsight": {
+      "title": "Insight SEO AI",
+      "subtitle": "Analisis otomatis performa SEO website",
+      "generated": "Dibuat AI",
+      "empty": "Belum ada analisis AI tersedia.",
+      "status": "Status SEO",
+      "analyzing": "Menganalisis",
+      "strength": "Kekuatan",
+      "attention": "Perhatian"
+    },
+    "quickActions": {
+      "title": "Rekomendasi Tindakan",
+      "badge": "Saran AI",
+      "subtitle": "Prioritas optimasi berdasarkan performa website dan peluang pertumbuhan SEO.",
+      "view": "Lihat Rekomendasi",
+      "items": {
+        "keyword": {
+          "title": "Optimasi Keyword",
+          "description": "Temukan keyword dengan impression tinggi tetapi CTR rendah. Tingkatkan peluang klik melalui optimasi konten dan semantic keyword.",
+          "impact": "Peluang SEO"
+        },
+        "landing": {
+          "title": "Optimasi Landing Page",
+          "description": "Analisis halaman dengan trafik tinggi namun performa konversi belum optimal. Tingkatkan struktur halaman, heading, internal link, dan elemen konversi.",
+          "impact": "Area Pertumbuhan"
+        },
+        "ai": {
+          "title": "AI SEO Consultant",
+          "description": "Dapatkan rekomendasi strategi SEO berdasarkan analisis data Google Search Console dan Google Analytics.",
+          "impact": "Analisis AI"
+        }
+      }
+    },
+    "growthOpportunities": {
+      "title": "Peluang Pertumbuhan",
+      "subtitle": "Peluang terbesar untuk meningkatkan performa SEO website",
+      "action": "Tindakan:",
+      "impact": "Dampak",
+      "ai": "AI",
+      "types": {
+        "Quick Win": "Peluang Cepat",
+        "CTR Opportunity": "Peluang CTR",
+        "Content Growth": "Pertumbuhan Konten",
+        "Recovery": "Pemulihan"
+      },
+      "levels": {
+        "High": "Tinggi",
+        "Medium": "Sedang",
+        "Low": "Rendah",
+        "Critical": "Kritis"
+      },
+      "empty": {
+        "title": "Belum ada peluang optimasi",
+        "impact": "Monitoring SEO",
+        "reason": "Belum ditemukan peluang signifikan.",
+        "action": "Lanjutkan monitoring performa website."
+      }
+    },
+    "healthScore": {
+      "title": "Skor Kesehatan SEO",
+      "subtitle": "Kesehatan website berdasarkan performa SEO terbaru",
+      "evaluation": "Evaluasi SEO AI",
+      "notAnalyzed": "Belum Dianalisa",
+      "strength": "Kekuatan",
+      "attention": "Perhatian",
+      "metrics": {
+        "traffic": "Traffic",
+        "visibility": "Visibilitas",
+        "engagement": "Interaksi"
+      }
+    },
+    "sidebarUser": {
+      "administrator": "Administrator",
+      "profileSettings": "Pengaturan Profil",
+      "manageAccount": "Kelola akun",
+      "subscription": "Langganan",
+      "manageBilling": "Kelola paket & pembayaran",
+      "signOut": "Keluar"
+    }
+  },
+  "settings": {
+    "title": "Pengaturan Profil",
+    "description": "Kelola akun TrafficSaaS dan preferensi Anda.",
+    "administrator": "Administrator",
+    "accountInformation": "Informasi Akun",
+    "fullName": "Nama Lengkap",
+    "emailAddress": "Alamat Email",
+    "loginProvider": "Penyedia Login",
+    "accountRole": "Peran Akun",
+    "googleOAuth": "Google OAuth",
+    "security": "Keamanan",
+    "securityDescription": "Akun Anda dilindungi menggunakan autentikasi Google. Pengelolaan kata sandi ditangani oleh Google.",
+    "googleConnected": "Akun Google berhasil terhubung."
+  },
+  "billing": {
+    "title": "Langganan & Pembayaran",
+    "description": "Kelola paket TrafficSaaS, penggunaan fitur, dan informasi pembayaran Anda.",
+    "currentPlan": "Paket Saat Ini",
+    "active": "Aktif",
+    "freePlan": "Free Plan",
+    "usage": {
+      "workspace": "Workspace",
+      "project": "Project",
+      "aiFeature": "Fitur AI"
+    },
+    "unlimited": "Tidak Terbatas",
+    "workspaceCount": "1 Workspace",
+    "projectCount": "1 Project",
+    "aiActive": "Aktif",
+    "locked": "Terkunci",
+    "plans": {
+      "free": {
+        "title": "PAKET GRATIS",
+        "price": "Rp0",
+        "period": "selamanya",
+        "description": "Cocok untuk mencoba analisis SEO dan memahami performa website.",
+        "features": [
+          "Satu Website Project",
+          "Integrasi Google Search Console",
+          "Integrasi Google Analytics 4",
+          "Dashboard SEO Dasar",
+          "Ringkasan Traffic Website",
+          "Monitoring Keyword Dasar",
+          "Analisis Performa Traffic",
+          "Export CSV",
+          "Ringkasan SEO Mingguan"
+        ]
+      },
+      "pro": {
+        "title": "PAKET PRO",
+        "price": "Rp299.000",
+        "period": "/bulan",
+        "description": "Untuk freelancer SEO, agency, dan bisnis yang membutuhkan insight berbasis data.",
+        "features": [
+          "Workspace Tidak Terbatas",
+          "Project Tidak Terbatas",
+          "AI Executive Dashboard",
+          "AI SEO Insights",
+          "AI Recommendation",
+          "Analisis Keyword & Halaman",
+          "Export Laporan PDF",
+          "Export Excel",
+          "Prioritas Support"
+        ]
+      }
+    },
+    "payment": {
+      "title": "Metode Pembayaran",
+      "description": "Kelola pembayaran, invoice, dan informasi langganan TrafficSaaS Anda.",
+      "manage": "Kelola Langganan"
+    }
+  },
+  "subscriptionPage": {
+    "title": "Kelola Langganan",
+    "description": "Kelola paket TrafficSaaS, pembayaran, dan invoice Anda.",
+    "currentPlan": "Paket Saat Ini",
+    "active": "Aktif",
+    "paymentHistory": "Riwayat Pembayaran",
+    "noPayment": "Belum ada transaksi pembayaran.",
+    "invoice": "Invoice",
+    "invoiceDescription": "Invoice pembayaran TrafficSaaS tersedia setelah pembayaran berhasil dikonfirmasi.",
+    "downloadInvoice": "Download Invoice",
+    "invoiceUnavailable": "Invoice Belum Tersedia"
+  },
+  "analytics": {
+    "title": "Analitik Trafik",
+    "description": "Analisis trafik website, perilaku pengguna, dan sumber kunjungan.",
+    "trend": {
+      "title": "Tren Trafik",
+      "period": "28 Hari Terakhir"
+    },
+    "cards": {
+      "users": "Pengguna Aktif",
+      "sessions": "Sesi",
+      "pageViews": "Tampilan Halaman",
+      "engagement": "Tingkat Interaksi"
+    },
+    "sections": {
+      "country": "Pengguna Berdasarkan Negara",
+      "countryDescription": "Distribusi lokasi pengguna berdasarkan data Google Analytics",
+      "viewAll": "Lihat Semua →",
+      "acquisition": "Akuisisi Trafik",
+      "device": "Kategori Perangkat",
+      "browser": "Browser",
+      "landingPages": "Halaman Landing Teratas",
+      "events": "Event Teratas"
+    },
+    "traffic": {
+      "subtitle": "Sumber utama trafik website",
+      "empty": "Tidak ada data trafik tersedia.",
+      "session": "Sesi",
+      "labels": {
+        "organicSearch": "Pencarian Organik",
+        "direct": "Langsung",
+        "referral": "Referensi",
+        "organicSocial": "Media Sosial Organik",
+        "email": "Email"
+      }
+    },
+    "deviceSubtitle": "Pengguna aktif berdasarkan perangkat"
+  },
+  "keywords": {
+    "title": "Kecerdasan Keyword",
+    "description": "Temukan peluang pencarian dan performa keyword.",
+    "cards": {
+      "total": "Total Keyword",
+      "ranking": "Ranking Top 10",
+      "visibility": "Visibilitas SEO",
+      "ctr": "CTR Rata-rata"
+    },
+    "table": {
+      "title": "Peluang Keyword",
+      "description": "Keyword dengan potensi pertumbuhan berdasarkan performa pencarian.",
+      "columns": {
+        "keyword": "Keyword",
+        "clicks": "Klik",
+        "impressions": "Tayangan",
+        "ctr": "CTR",
+        "position": "Posisi"
+      }
+    },
+    "analyticsPage": {
+      "title": "Analisis Traffic",
+      "description": "Pantau performa website berdasarkan data Google Analytics 4.",
+      "period": "28 hari terakhir",
+      "emptyProject": "Belum ada project yang terhubung.",
+      "trend": {
+        "title": "Trend Traffic"
+      }
+    }
+  },
+  "healthScore": {
+    "title": "Kesehatan Website AI",
+    "description": "Evaluasi AI berdasarkan sinyal SEO, trafik, UX, dan analitik.",
+    "overall": "Skor Website Keseluruhan",
+    "healthScore": "Skor Kesehatan",
+    "categoryBreakdown": "Rincian Kategori",
+    "status": {
+      "excellent": "Sangat Baik",
+      "good": "Baik",
+      "optimization": "Perlu Optimasi",
+      "critical": "Kritis"
+    },
+    "summary": {
+      "excellent": "Website memiliki kesehatan digital yang sangat baik. Fokus utama adalah mempertahankan performa dan melakukan optimasi lanjutan untuk meningkatkan pertumbuhan.",
+      "good": "Website berada dalam kondisi baik, namun terdapat beberapa peluang optimasi yang dapat meningkatkan trafik, engagement, dan konversi.",
+      "optimization": "Website memiliki fondasi yang cukup baik tetapi membutuhkan perbaikan pada beberapa area penting agar pertumbuhan SEO lebih maksimal.",
+      "critical": "Website memerlukan optimasi menyeluruh karena terdapat banyak faktor yang berpotensi menghambat performa organik dan bisnis."
+    },
+    "categories": {
+      "seo": "SEO",
+      "content": "Konten",
+      "ux": "Pengalaman Pengguna",
+      "performance": "Performa",
+      "analytics": "Analitik",
+      "marketing": "Marketing"
+    }
+  },
+  "businessImpact": {
+    "title": "Prediksi Pertumbuhan Bisnis",
+    "description": "Estimasi dampak bisnis berdasarkan peluang optimasi SEO dan data analytics.",
+    "priority": "Prioritas",
+    "levels": {
+      "High": "Tinggi",
+      "Medium": "Sedang",
+      "Low": "Rendah"
+    },
+    "disclaimer": "Angka berikut adalah estimasi peluang berdasarkan data website saat ini, bukan hasil pasti.",
+    "weeks": "Minggu",
+    "metrics": {
+      "traffic": {
+        "title": "Potensi Trafik",
+        "description": "Estimasi tambahan klik organik jika rekomendasi SEO diterapkan."
+      },
+      "users": {
+        "title": "Pertumbuhan Pengguna",
+        "description": "Estimasi tambahan pengguna dari peningkatan visibilitas website."
+      },
+      "conversion": {
+        "title": "Dampak Konversi",
+        "description": "Estimasi peluang peningkatan conversion melalui optimasi."
+      },
+      "implementation": {
+        "title": "Implementasi",
+        "description": "Perkiraan waktu implementasi seluruh action plan."
+      },
+      "roi": {
+        "title": "Skor ROI",
+        "description": "Prioritas return berdasarkan impact dan effort."
+      }
+    },
+    "traffic": {
+      "title": "Peluang Trafik",
+      "description": "Website memiliki peluang peningkatan trafik organik berdasarkan sinyal keyword, impression, dan peluang optimasi yang ditemukan AI.",
+      "levels": {
+        "Very High": "Sangat Tinggi",
+        "High": "Tinggi",
+        "Moderate": "Sedang",
+        "Low": "Rendah"
+      }
+    },
+    "revenue": {
+      "title": "Peluang Revenue",
+      "description": "Prioritaskan rekomendasi dengan impact bisnis terbesar untuk meningkatkan peluang pertumbuhan.",
+      "levels": {
+        "High Revenue Potential": "Potensi Revenue Tinggi",
+        "Moderate Growth Opportunity": "Peluang Pertumbuhan Sedang",
+        "Incremental Improvement": "Peningkatan Bertahap"
+      }
+    }
+  },
+  "aiConsultant": {
+    "title": "Konsultan SEO AI",
+    "description": "Analisis SEO, peluang pertumbuhan, dan dampak bisnis berbasis data.",
+    "cards": {
+      "seo": {
+        "title": "SEO Intelligence",
+        "value": "Health Score {score}/100 ({grade})"
+      },
+      "growth": {
+        "title": "Prediksi Pertumbuhan",
+        "value": "+{clicks} klik potensial dan +{users} pengguna"
+      },
+      "analysis": {
+        "title": "Analisis AI",
+        "value": "{count} prioritas ditemukan berdasarkan data"
+      }
+    },
+    "growth": {
+      "title": "Peluang Pertumbuhan Terbesar"
+    },
+    "opportunity": {
+      "titles": {
+        "ctrOpportunity": "Optimasi CTR keyword dengan peluang ranking tinggi",
+        "quickWin": "Naikkan keyword existing menuju posisi teratas",
+        "contentGrowth": "Kembangkan halaman organik terbaik",
+        "recovery": "Pemulihan penurunan trafik organik",
+        "maintain": "Pertahankan performa SEO"
+      },
+      "types": {
+        "Quick Win": "Peluang Cepat",
+        "CTR Opportunity": "Peluang CTR",
+        "Content Growth": "Pertumbuhan Konten",
+        "Recovery": "Pemulihan"
+      },
+      "impacts": {
+        "High": "Dampak Tinggi",
+        "Medium": "Dampak Sedang",
+        "Low": "Dampak Rendah"
+      },
+      "confidence": "Keyakinan {value}%"
+    },
+    "badge": {
+      "impact": "Dampak {value}",
+      "confidence": "Keyakinan {value}%"
+    },
+    "priority": {
+      "title": "Prioritas AI",
+      "level": "Prioritas: {value}",
+      "empty": "Belum ditemukan prioritas berdasarkan data terbaru."
+    },
+    "levels": {
+      "High": "Tinggi",
+      "Medium": "Sedang",
+      "Low": "Rendah"
+    },
+    "confidence": {
+      "title": "Kepercayaan AI",
+      "default": "Analisis berdasarkan data tersedia",
+      "description": "AI menggunakan kombinasi data SEO dan analytics website."
+    },
+    "recommendations": {
+      "titles": {
+        "landingPageGrowth": "Peluang Pertumbuhan Landing Page",
+        "ctrOptimization": "Peluang Optimasi CTR",
+        "conversionTracking": "Peluang Tracking Konversi",
+        "quickWin": "Quick Win SEO",
+        "contentDecay": "Penurunan Performa Konten",
+        "mobileOptimization": "Optimasi Mobile",
+        "browserCompatibility": "Kompatibilitas Browser",
+        "countryOpportunity": "Peluang Negara",
+        "eventInsight": "Insight Event",
+        "seoMonitoring": "Monitoring SEO"
+      }
+    }
+  },
+
+  "landingPage": {
+
+  "description": "{pages} landing page utama menjadi pintu masuk terbesar website. Halaman \"{page}\" menyumbang {percentage}% dari total landing session.",
+
+  "recommendation": "Optimalkan halaman masuk utama dengan CTA yang jelas, struktur konten yang lebih meyakinkan, internal link strategis, FAQ schema, peningkatan kecepatan, dan elemen conversion seperti form atau tombol kontak.",
+
+  "impact": "Halaman prioritas: {pages}. Perbaikan pada halaman ini dapat memberikan dampak langsung terhadap engagement dan peluang konversi karena menerima traffic terbesar."
+
+},
+
+  "aiResponse": {
+  "title": "TrafficSaaS AI Consultant",
+
+  "executiveSummary": "Ringkasan Eksekutif",
+
+  "websiteHealth": "Website memiliki SEO Health Score {score}/100 dengan grade {grade}.",
+
+  "focus": "AI menemukan bahwa fokus utama saat ini berada pada {intent}, peningkatan visibilitas organik, dan peluang pertumbuhan traffic.",
+
+
+  "growthOpportunity": {
+    "title": "Peluang Pertumbuhan"
+  },
+
+  "quickWin": "Optimasi Cepat",
+  "ctrOpportunity": "Peluang Optimasi CTR",
+  "contentGrowth": "Peluang Pertumbuhan Konten",
+  "recovery": "Peluang Pemulihan Traffic",
+  "maintain": "Pertahankan Performa SEO",
+
+  "impact": "Dampak",
+
+  "reason": "Kenapa Ini Penting",
+
+  "action": "Rencana Aksi",
+
+  "result": "Hasil yang Diperkirakan",
+
+  "noOpportunity": "Tidak ditemukan peluang optimasi.",
+
+
+  "businessImpact": "Prediksi Dampak Bisnis",
+
+  "potentialClicks": "Potensi Tambahan Klik",
+
+  "potentialUsers": "Potensi Pertumbuhan Pengguna",
+
+  "conversionOpportunity": "Peluang Konversi",
+
+
+  "confidence": "Kepercayaan AI",
+
+  "score": "Skor",
+
+  "level": "Level",
+
+
+  "recommendation": "Rekomendasi Konsultan",
+
+  "recommendationText": "Berdasarkan data Google Search Console dan Google Analytics 4, prioritas berikutnya adalah meningkatkan keyword opportunity, CTR, dan halaman yang memiliki potensi ranking."
+},
+   "growthOpportunity": {
+    "quickWin": "Optimasi Cepat",
+    "ctrOpportunity": "Peluang Optimasi CTR",
+    "contentGrowth": "Peluang Pertumbuhan Konten",
+    "recovery": "Peluang Pemulihan Traffic",
+    "maintain": "Pertahankan Performa SEO",
+
+    "impact": "Dampak",
+    "reason": "Kenapa ini penting",
+    "action": "Rencana Aksi",
+    "result": "Hasil yang Diperkirakan"
+  },
+
+  "actionPlan": {
+  "title": "AI Growth Roadmap",
+  "subtitle": "Rencana eksekusi strategis berdasarkan peluang SEO dan dampak bisnis.",
+
+  "timeline": "Timeline",
+  "tasks": "Tugas",
+  "weeks": "Minggu",
+  "actions": "Aksi",
+
+  "week": "Minggu",
+  "strategicActions": "Aksi Strategis",
+
+  "recommended": "Direkomendasikan",
+  "days": "hari",
+
+  "priority": {
+    "critical": "Kritis",
+    "high": "Prioritas Tinggi",
+    "medium": "Prioritas Sedang",
+    "low": "Prioritas Rendah"
+  },
+
+  "phases": {
+    "quickWins": "Optimasi Cepat",
+    "optimization": "Optimasi SEO",
+    "growthStrategy": "Strategi Pertumbuhan",
+    "monitoring": "Monitoring Performa"
+  }
+},
+"consultantChat": {
+  "title": "Konsultan AI TrafficSaaS",
+  "subtitle": "Asisten kecerdasan SEO berbasis data website",
+
+  "assistantTitle": "TrafficSaaS AI",
+  "description": "Tanyakan tentang performa SEO, perubahan traffic, peluang keyword, dan strategi pertumbuhan website.",
+
+  "suggestions": {
+    "trafficDrop": "Mengapa traffic website turun?",
+    "keywordRanking": "Bagaimana meningkatkan ranking keyword?",
+    "seoPriority": "Apa prioritas SEO yang harus dilakukan?",
+    "conversion": "Bagaimana meningkatkan konversi website?"
+  },
+
+  "placeholder": "Contoh: Mengapa traffic website turun?",
+
+  "user": "Anda",
+  "assistant": "Konsultan AI",
+
+  "loading": "AI sedang menganalisis data website...",
+
+  "defaultAnswer": "AI tidak memberikan jawaban.",
+  "error": "Terjadi kesalahan saat menghubungi konsultan AI."
+},
+  "growth": {
+    "ctr": {
+      "title": "Optimize high-ranking keyword CTR opportunities",
+      "impact": "Potential additional {0} organic clicks",
+      "reason": "{0} keywords have high impressions but CTR is below ranking potential.",
+      "action": "Improve CTR through title optimization, meta description, schema markup, and rich results.",
+      "metric": "CTR keyword opportunity"
+    },
+    "quickWin": {
+      "title": "Improve existing keywords toward top positions",
+      "impact": "{0} keywords have first-page potential",
+      "reason": "Keywords already have Google ranking validation and need further optimization.",
+      "action": "Update content, add semantic keywords, optimize headings, and improve internal linking.",
+      "metric": "{0} keywords position 4-10"
+    },
+    "content": {
+      "title": "Expand top organic performing pages",
+      "impact": "Increase authority and long-term organic traffic",
+      "reason": "{0} active landing pages can be expanded into content clusters.",
+      "action": "Add supporting content, FAQs, internal linking, and refresh information.",
+      "metric": "Landing Page"
+    },
+    "recovery": {
+      "title": "Recover organic traffic decline",
+      "impact": "Traffic decreased {0}%",
+      "reason": "Organic clicks decreased compared to the previous period.",
+      "action": "Audit declining keywords, refresh old content, and evaluate ranking changes.",
+      "metric": "Clicks {0}%"
+    },
+    "default": {
+      "title": "Maintain SEO performance",
+      "impact": "Website shows no critical issues",
+      "reason": "No negative signals were found based on available data.",
+      "action": "Continue monitoring keywords, content, and traffic.",
+      "metric": "CTR"
+    }
+  }
+}

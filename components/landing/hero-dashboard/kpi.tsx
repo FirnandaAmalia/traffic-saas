@@ -6,12 +6,14 @@ import {
   Users,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 import AnimatedCounter from "@/components/ui/animated-counter";
 
 
 const cards = [
   {
-    title: "Users",
+    key: "users",
     value: 18.3,
     suffix: "K",
     growth: "+18%",
@@ -20,7 +22,7 @@ const cards = [
     iconColor: "text-violet-600",
   },
   {
-    title: "Clicks",
+    key: "clicks",
     value: 42.1,
     suffix: "K",
     growth: "+27%",
@@ -29,7 +31,7 @@ const cards = [
     iconColor: "text-sky-600",
   },
   {
-    title: "CTR",
+    key: "ctr",
     value: 6.18,
     suffix: "%",
     growth: "+0.9%",
@@ -42,141 +44,189 @@ const cards = [
 
 export default function HeroKPI() {
 
+  const t = useTranslations("heroKpi");
+
+
   return (
 
     <div
       className="
         grid
+
         grid-cols-3
+
         gap-3
       "
     >
 
-      {cards.map((card)=>{
 
-        const Icon = card.icon;
+      {
+        cards.map((card)=>{
 
-
-        return (
-
-          <div
-            key={card.title}
-            className="
-              rounded-2xl
-              border
-              border-slate-200
-              bg-white/90
-              p-3
-              shadow-sm
-            "
-          >
+          const Icon = card.icon;
 
 
-            {/* top */}
+          return (
 
             <div
+              key={card.key}
               className="
-                flex
-                items-center
-                justify-between
+                rounded-2xl
+
+                border
+
+                border-slate-200
+
+                bg-white/90
+
+                p-3
+
+                shadow-sm
               "
             >
 
+
+
+              {/* TOP */}
+
+
               <div
-                className={`
+                className="
                   flex
-                  h-8
-                  w-8
+
                   items-center
-                  justify-center
-                  rounded-xl
-                  ${card.iconBg}
-                `}
+
+                  justify-between
+                "
               >
 
-                <Icon
+
+                <div
                   className={`
-                    h-4
-                    w-4
-                    ${card.iconColor}
+                    flex
+
+                    h-8
+
+                    w-8
+
+                    items-center
+
+                    justify-center
+
+                    rounded-xl
+
+                    ${card.iconBg}
                   `}
-                />
+                >
+
+                  <Icon
+                    className={`
+                      h-4
+
+                      w-4
+
+                      ${card.iconColor}
+                    `}
+                  />
+
+                </div>
+
+
+
+
+                <span
+                  className="
+                    rounded-full
+
+                    bg-emerald-100
+
+                    px-2
+
+                    py-0.5
+
+                    text-[10px]
+
+                    font-bold
+
+                    text-emerald-700
+                  "
+                >
+
+                  {card.growth}
+
+                </span>
+
 
               </div>
 
 
-              <span
+
+
+
+              {/* VALUE */}
+
+
+              <div
                 className="
-                  rounded-full
-                  bg-emerald-100
-                  px-2
-                  py-0.5
-                  text-[10px]
-                  font-bold
-                  text-emerald-700
+                  mt-3
                 "
               >
 
-                {card.growth}
+                <h3
+                  className="
+                    text-xl
 
-              </span>
+                    font-black
+
+                    leading-none
+
+                    text-slate-900
+                  "
+                >
+
+                  <AnimatedCounter
+                    value={card.value}
+                    suffix={card.suffix}
+                    decimals={
+                      card.suffix === "%"
+                      ? 2
+                      : 1
+                    }
+                  />
+
+                </h3>
+
+
+
+                <p
+                  className="
+                    mt-1
+
+                    text-xs
+
+                    text-slate-500
+                  "
+                >
+
+                  {t(`cards.${card.key}`)}
+
+                </p>
+
+
+              </div>
+
 
 
             </div>
 
+          );
 
+        })
+      }
 
-            {/* value */}
-
-            <div className="mt-3">
-
-              <h3
-                className="
-                  text-xl
-                  font-black
-                  leading-none
-                  text-slate-900
-                "
-              >
-
-                <AnimatedCounter
-                  value={card.value}
-                  suffix={card.suffix}
-                  decimals={
-                    card.suffix === "%"
-                    ? 2
-                    : 1
-                  }
-                />
-
-
-              </h3>
-
-
-              <p
-                className="
-                  mt-1
-                  text-xs
-                  text-slate-500
-                "
-              >
-
-                {card.title}
-
-              </p>
-
-
-            </div>
-
-
-          </div>
-
-        );
-
-
-      })}
 
     </div>
 
   );
+
 }

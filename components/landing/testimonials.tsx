@@ -7,37 +7,29 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
+
 
 const testimonials = [
   {
-    name: "Daniel Kim",
-    role: "Spesialis SEO",
-    company: "Agensi Digital",
+    key: "daniel",
     initials: "DK",
-    quote:
-      "TrafficSaaS membantu kami memahami data Google Search Console dan Google Analytics 4 tanpa harus membuat laporan manual setiap minggu. Insight dari AI membuat proses analisis menjadi jauh lebih cepat."
   },
-
   {
-    name: "Sarah Johnson",
-    role: "Konsultan Marketing",
-    company: "Growth Studio",
+    key: "sarah",
     initials: "SJ",
-    quote:
-      "Sebelumnya kami harus membuka banyak tools untuk melihat performa website. TrafficSaaS membuat semua data lebih mudah dipahami dalam satu dashboard."
   },
-
   {
-    name: "Michael Chen",
-    role: "Konsultan SEO",
-    company: "Konsultan Independen",
+    key: "michael",
     initials: "MC",
-    quote:
-      "Fitur AI Recommendation membantu menemukan peluang SEO yang sebelumnya sulit terlihat. Laporan menjadi lebih mudah dipahami dan dipresentasikan kepada klien."
   },
 ];
 
+
 export default function Testimonials() {
+
+  const t = useTranslations("testimonials");
+
 
   return (
 
@@ -51,7 +43,7 @@ export default function Testimonials() {
     >
 
 
-      {/* Background Glow */}
+      {/* Background */}
 
       <div
         className="
@@ -72,7 +64,6 @@ export default function Testimonials() {
           blur-[160px]
         "
       />
-
 
 
 
@@ -126,17 +117,12 @@ export default function Testimonials() {
               "
             >
 
-              <Sparkles
-                className="
-                  h-4
-                  w-4
-                "
-              />
+              <Sparkles className="h-4 w-4"/>
 
-              PENGALAMAN PENGGUNA
-
+              {t("badge")}
 
             </div>
+
 
 
 
@@ -157,14 +143,14 @@ export default function Testimonials() {
               "
             >
 
-              Dirancang untuk tim
+              {t("title.line1")}
 
               <br />
 
-              yang ingin berkembang lebih cepat
-
+              {t("title.line2")}
 
             </h2>
+
 
 
 
@@ -180,11 +166,8 @@ export default function Testimonials() {
                 text-slate-600
               "
             >
-Mulai dari SEO specialist hingga digital agency,
-TrafficSaaS membantu memahami data website,
-menemukan peluang optimasi, dan mengambil
-keputusan berdasarkan insight yang lebih jelas.
 
+              {t("description")}
 
             </p>
 
@@ -202,6 +185,7 @@ keputusan berdasarkan insight yang lebih jelas.
 
         {/* CARDS */}
 
+
         <div
           className="
             mt-20
@@ -215,202 +199,94 @@ keputusan berdasarkan insight yang lebih jelas.
         >
 
 
-
-          {testimonials.map((item,index)=>(
-
-
-            <FadeUp
-              key={item.name}
-              delay={index * 0.12}
-            >
+          {
+            testimonials.map((item,index)=>(
 
 
-              <div
-                className="
-                  group
-
-                  relative
-
-                  overflow-hidden
-
-                  rounded-[32px]
-
-                  border
-
-                  border-slate-200
-
-                  bg-white
-
-                  p-8
-
-                  shadow-sm
-
-                  transition-all
-
-                  duration-500
-
-                  hover:-translate-y-3
-
-                  hover:border-violet-200
-
-                  hover:shadow-2xl
-                "
+              <FadeUp
+                key={item.key}
+                delay={index * 0.12}
               >
 
 
-
-
-
-                {/* Glow */}
-
                 <div
                   className="
-                    absolute
+                    group
 
-                    -right-16
+                    relative
 
-                    -top-16
+                    overflow-hidden
 
-                    h-48
+                    rounded-[32px]
 
-                    w-48
+                    border
 
-                    rounded-full
+                    border-slate-200
 
-                    bg-violet-500/10
+                    bg-white
 
-                    blur-3xl
+                    p-8
 
-                    opacity-0
+                    shadow-sm
 
-                    transition
+                    transition-all
 
                     duration-500
 
-                    group-hover:opacity-100
-                  "
-                />
+                    hover:-translate-y-3
 
+                    hover:border-violet-200
 
-
-
-
-
-                {/* Quote Icon */}
-
-                <div
-                  className="
-                    flex
-
-                    h-12
-
-                    w-12
-
-                    items-center
-
-                    justify-center
-
-                    rounded-2xl
-
-                    bg-violet-100
+                    hover:shadow-2xl
                   "
                 >
 
-                  <Quote
+
+
+
+                  {/* Glow */}
+
+                  <div
                     className="
-                      h-6
+                      absolute
 
-                      w-6
+                      -right-16
 
-                      text-violet-600
+                      -top-16
+
+                      h-48
+
+                      w-48
+
+                      rounded-full
+
+                      bg-violet-500/10
+
+                      blur-3xl
+
+                      opacity-0
+
+                      transition
+
+                      duration-500
+
+                      group-hover:opacity-100
                     "
                   />
 
 
-                </div>
 
 
 
-
-
-
-
-                {/* Stars */}
-
-                <div
-                  className="
-                    mt-6
-
-                    flex
-
-                    gap-1
-                  "
-                >
-
-                  {Array.from({
-                    length:5
-                  }).map((_,i)=>(
-
-
-                    <Star
-                      key={i}
-                      className="
-                        h-4
-
-                        w-4
-
-                        fill-yellow-400
-
-                        text-yellow-400
-                      "
-                    />
-
-
-                  ))}
-
-
-                </div>
-
-
-
-
-
-
-
-                {/* Text */}
-<p
-  className="
-    mt-6
-    leading-8
-    text-slate-600
-  "
->
-  “{item.quote}”
-</p>
-
-                {/* User */}
-
-                <div
-                  className="
-                    mt-8
-
-                    flex
-
-                    items-center
-
-                    gap-4
-                  "
-                >
-
-
+                  {/* Quote */}
 
                   <div
                     className="
                       flex
 
-                      h-14
+                      h-12
 
-                      w-14
+                      w-12
 
                       items-center
 
@@ -418,70 +294,177 @@ keputusan berdasarkan insight yang lebih jelas.
 
                       rounded-2xl
 
-                      bg-gradient-to-br
-
-                      from-violet-600
-
-                      to-sky-500
-
-                      text-lg
-
-                      font-black
-
-                      text-white
-
-                      shadow-lg
+                      bg-violet-100
                     "
                   >
 
-                    {item.initials}
-
+                    <Quote
+                      className="
+                        h-6
+                        w-6
+                        text-violet-600
+                      "
+                    />
 
                   </div>
 
 
 
 
-                  <div>
 
-                    <h4
+
+                  {/* Stars */}
+
+                  <div
+                    className="
+                      mt-6
+                      flex
+                      gap-1
+                    "
+                  >
+
+                    {
+                      Array.from({
+                        length:5
+                      }).map((_,i)=>(
+
+                        <Star
+                          key={i}
+                          className="
+                            h-4
+                            w-4
+                            fill-yellow-400
+                            text-yellow-400
+                          "
+                        />
+
+                      ))
+                    }
+
+                  </div>
+
+
+
+
+
+
+                  {/* Quote Text */}
+
+                  <p
+                    className="
+                      mt-6
+
+                      leading-8
+
+                      text-slate-600
+                    "
+                  >
+
+                    “{t(`cards.${item.key}.quote`)}”
+
+                  </p>
+
+
+
+
+
+
+
+                  {/* User */}
+
+
+                  <div
+                    className="
+                      mt-8
+
+                      flex
+
+                      items-center
+
+                      gap-4
+                    "
+                  >
+
+
+                    <div
                       className="
-                        font-bold
+                        flex
 
-                        text-slate-900
+                        h-14
+
+                        w-14
+
+                        items-center
+
+                        justify-center
+
+                        rounded-2xl
+
+                        bg-gradient-to-br
+
+                        from-violet-600
+
+                        to-sky-500
+
+                        text-lg
+
+                        font-black
+
+                        text-white
+
+                        shadow-lg
                       "
                     >
 
-                      {item.name}
+                      {item.initials}
 
-                    </h4>
-
-
-
-                    <p
-                      className="
-                        text-sm
-
-                        text-slate-500
-                      "
-                    >
-
-                      {item.role}
-
-                    </p>
+                    </div>
 
 
-                    <p
-                      className="
-                        text-xs
 
-                        text-slate-400
-                      "
-                    >
 
-                      {item.company}
 
-                    </p>
+                    <div>
+
+                      <h4
+                        className="
+                          font-bold
+                          text-slate-900
+                        "
+                      >
+
+                        {t(`cards.${item.key}.name`)}
+
+                      </h4>
+
+
+
+                      <p
+                        className="
+                          text-sm
+                          text-slate-500
+                        "
+                      >
+
+                        {t(`cards.${item.key}.role`)}
+
+                      </p>
+
+
+
+                      <p
+                        className="
+                          text-xs
+                          text-slate-400
+                        "
+                      >
+
+                        {t(`cards.${item.key}.company`)}
+
+                      </p>
+
+
+                    </div>
 
 
                   </div>
@@ -492,15 +475,12 @@ keputusan berdasarkan insight yang lebih jelas.
 
 
 
-
-              </div>
-
+              </FadeUp>
 
 
-            </FadeUp>
+            ))
+          }
 
-
-          ))}
 
 
         </div>

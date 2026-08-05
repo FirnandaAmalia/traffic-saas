@@ -1,0 +1,1566 @@
+{
+  "hero": {
+    "badge": "AI-Powered SEO Analytics",
+    "title": {
+      "line1": "Boost Your",
+      "line2": "SEO With",
+      "highlight": "AI"
+    },
+    "description": "Connect Google Search Console and Google Analytics 4 in one modern AI-powered dashboard.",
+    "startFree": "Start Free",
+    "cta": {
+      "start": "Start Free",
+      "workflow": "See How It Works",
+      "demo": "Watch Demo"
+    },
+    "badges": {
+      "ga4": "Google Analytics 4",
+      "gsc": "Search Console",
+      "ai": "AI Recommendations"
+    },
+    "stats": {
+      "connected": "Connected Websites",
+      "monitoring": "Real-time Monitoring",
+      "reports": "Report Accuracy"
+    }
+  },
+  "navbar": {
+    "links": {
+      "features": "Features",
+      "ai": "AI",
+      "workflow": "Workflow",
+      "pricing": "Pricing",
+      "faq": "FAQ"
+    },
+    "cta": "Start Free",
+    "language": {
+      "id": "ID",
+      "en": "EN",
+      "switch": "Language"
+    }
+  },
+  "problem": {
+    "badge": "SEO CHALLENGES",
+    "title": {
+      "line1": "SEO Isn't Short on Data.",
+      "line2": "SEO Needs the Right Direction."
+    },
+    "description": "Every website generates thousands of data points every day. But without the right analysis, the biggest opportunities stay hidden behind the numbers.",
+    "cards": {
+      "data": {
+        "tag": "TOO MUCH DATA",
+        "title": "Too Much SEO Data",
+        "description": "Google Search Console and Analytics generate thousands of data points daily, but it's hard to know which ones actually matter."
+      },
+      "opportunity": {
+        "tag": "HIDDEN OPPORTUNITIES",
+        "title": "Hidden Growth Opportunities",
+        "description": "Potential keywords, weak pages, and traffic opportunities are often missed because analysis is still done manually."
+      },
+      "manual": {
+        "tag": "MANUAL PROCESS",
+        "title": "Decisions Still Based on Guesswork",
+        "description": "SEO teams spend more time reading reports than making the strategic decisions that drive growth."
+      }
+    },
+    "learn": "Learn more"
+  },
+  "solution": {
+    "badge": "AI-POWERED SEO SOLUTION",
+    "title": {
+      "line1": "From Raw Data",
+      "line2": "To Smarter",
+      "highlight": "SEO Strategy."
+    },
+    "description": "TrafficSaaS combines analytics, SEO intelligence, and artificial intelligence to help you discover opportunities, understand problems, and take action.",
+    "cards": {
+      "ai": {
+        "tag": "AI INTELLIGENCE",
+        "title": "AI-Powered SEO Analysis",
+        "description": "TrafficSaaS reads your website, keyword, and page performance data to uncover the highest-impact SEO opportunities."
+      },
+      "recommendation": {
+        "tag": "SMART RECOMMENDATIONS",
+        "title": "Actionable Recommendations",
+        "description": "Get clear recommendations on which pages, keywords, and strategies to focus on next."
+      },
+      "monitoring": {
+        "tag": "GROWTH MONITORING",
+        "title": "Progress Tracking",
+        "description": "Track changes in traffic, keyword rankings, and growth opportunities through one unified system."
+      },
+      "decision": {
+        "tag": "AUTOMATED DECISIONS",
+        "title": "Faster Decisions",
+        "description": "Reduce manual analysis and turn complex data into fast, accurate SEO decisions."
+      }
+    },
+    "learn": "Explore capabilities"
+  },
+  "integration": {
+    "badge": "HOW TRAFFICSAAS WORKS",
+    "title": {
+      "line1": "From Raw Data to",
+      "line2": "Clear SEO Strategy"
+    },
+    "description": "TrafficSaaS connects all your important website data and turns it into insights and real action.",
+    "steps": {
+      "connect": {
+        "title": "Connect Your Data",
+        "description": "Connect Google Search Console and Google Analytics 4 to pull in your website performance data."
+      },
+      "analysis": {
+        "title": "AI Analysis",
+        "description": "TrafficSaaS analyzes traffic, keywords, and pages to uncover growth opportunities."
+      },
+      "recommendation": {
+        "title": "Smart Recommendations",
+        "description": "Get easy-to-understand SEO insights and recommendations you can act on right away."
+      },
+      "growth": {
+        "title": "Grow Your Traffic",
+        "description": "Make data-driven decisions and consistently improve your website's performance."
+      }
+    }
+  },
+  "dashboardShowcase": {
+    "badge": "DASHBOARD PREVIEW",
+    "title": {
+      "line1": "All your SEO needs",
+      "line2": "in one dashboard",
+      "highlight": "Smarter with AI"
+    },
+    "description": "No more switching between Google Search Console, Google Analytics 4, spreadsheets, and countless reports. All your data lives in one AI-powered workspace.",
+    "features": {
+      "ga4": "Google Analytics 4 integration",
+      "gsc": "Google Search Console insights",
+      "ai": "AI-powered SEO recommendations",
+      "reports": "Automated performance reports"
+    },
+    "cta": "View Dashboard",
+    "aiCard": {
+      "label": "AI Recommendation",
+      "value": "Boost CTR by up to 18%"
+    },
+    "growthCard": {
+      "label": "Organic Traffic",
+      "value": "+42%"
+    },
+    "countryCard": {
+      "label": "Active Countries",
+      "value": "128 Regions"
+    }
+  },
+  "featureGrid": {
+    "badge": "PLATFORM FEATURES",
+    "title": {
+      "line1": "Everything your SEO needs",
+      "line2": "in one platform"
+    },
+    "description": "TrafficSaaS helps SEO teams understand data, find opportunities, and make faster decisions with the help of AI.",
+    "pro": "PRO",
+    "cards": {
+      "dashboard": {
+        "title": "Unified SEO Dashboard",
+        "description": "Monitor Google Search Console and Google Analytics 4 in one dashboard without switching platforms.",
+        "benefit1": "SEO Performance Overview",
+        "benefit2": "Realtime Metrics"
+      },
+      "ai": {
+        "title": "AI Insights for Business",
+        "description": "AI generates performance summaries, problem analysis, and SEO recommendations you can act on immediately.",
+        "benefit1": "AI Summary",
+        "benefit2": "SEO Recommendation"
+      },
+      "traffic": {
+        "title": "Traffic Intelligence",
+        "description": "Analyze traffic sources, countries, devices, landing pages, and user behavior all in one place.",
+        "benefit1": "Country Analytics",
+        "benefit2": "Device Analysis"
+      },
+      "workspace": {
+        "title": "Workspace Management",
+        "description": "Manage multiple websites, clients, and projects in one account with an organized workspace system.",
+        "benefit1": "Multiple Projects",
+        "benefit2": "Centralized Data"
+      },
+      "reports": {
+        "title": "Professional Reports",
+        "description": "Generate professional reports in PDF, Excel, and CSV formats for clients and stakeholders.",
+        "benefit1": "PDF Export",
+        "benefit2": "Excel Export"
+      },
+      "recommendation": {
+        "title": "Smart Recommendations",
+        "description": "Discover SEO opportunities based on traffic impact, keywords, and business value.",
+        "benefit1": "Priority Score",
+        "benefit2": "Growth Opportunity"
+      }
+    }
+  },
+  "workflow": {
+    "badge": "HOW IT WORKS",
+    "title": {
+      "line1": "From raw data",
+      "line2": "to smarter",
+      "highlight": "SEO strategy"
+    },
+    "description": "TrafficSaaS turns complex website data into insights and recommendations you can put to work right away to improve SEO performance.",
+    "step": "Step",
+    "steps": {
+      "connect": {
+        "title": "Connect Your Data",
+        "description": "Securely connect Google Search Console and Google Analytics 4 to pull in your website performance data."
+      },
+      "sync": {
+        "title": "Automatic Sync",
+        "description": "TrafficSaaS combines your SEO and analytics data into one easy-to-understand workspace."
+      },
+      "ai": {
+        "title": "AI Insights",
+        "description": "AI reads traffic, keyword, and page data to uncover the highest-impact SEO opportunities."
+      },
+      "growth": {
+        "title": "Accelerate Growth",
+        "description": "Apply recommendations, track changes, and grow your organic traffic consistently."
+      }
+    }
+  },
+  "metrics": {
+    "badge": "PLATFORM IMPACT",
+    "title": {
+      "line1": "Data that helps you",
+      "line2": "make faster SEO decisions"
+    },
+    "description": "TrafficSaaS turns website data into insights that are easy to understand, so your team can focus on growth strategy.",
+    "cards": {
+      "clicks": {
+        "title": "Organic Click Growth",
+        "description": "Helps uncover SEO opportunities to improve organic search performance."
+      },
+      "traffic": {
+        "title": "Traffic Data Analyzed",
+        "description": "Processes website data from Google Analytics to deliver clearer insights."
+      },
+      "region": {
+        "title": "Visitor Regions",
+        "description": "Understand user distribution by location for a more precise SEO strategy."
+      },
+      "sync": {
+        "title": "Stable Sync",
+        "description": "Keeps your data connection with Google services so reports are always available."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "USER EXPERIENCE",
+    "title": {
+      "line1": "Built for teams",
+      "line2": "who want to grow faster"
+    },
+    "description": "From SEO specialists to digital agencies, TrafficSaaS helps you understand website data, find optimization opportunities, and make decisions based on clearer insights.",
+    "cards": {
+      "daniel": {
+        "name": "Daniel Kim",
+        "role": "SEO Specialist",
+        "company": "Digital Agency",
+        "quote": "TrafficSaaS helps us understand Google Search Console and Google Analytics 4 data without building manual reports every week. AI insights make the analysis process much faster."
+      },
+      "sarah": {
+        "name": "Sarah Johnson",
+        "role": "Marketing Consultant",
+        "company": "Growth Studio",
+        "quote": "We used to have to open so many tools just to see how our website was performing. TrafficSaaS makes all that data easier to understand in one dashboard."
+      },
+      "michael": {
+        "name": "Michael Chen",
+        "role": "SEO Consultant",
+        "company": "Independent Consultant",
+        "quote": "The AI Recommendation feature helps surface SEO opportunities that were hard to spot before. Reports are now easier to understand and present to clients."
+      }
+    }
+  },
+  "pricing": {
+    "badge": "CHOOSE YOUR PLAN",
+    "title": {
+      "line1": "Start for free.",
+      "line2": "Upgrade as your business grows."
+    },
+    "description": "Use the core features to understand your website performance. Upgrade to Pro to unlock AI insights and deeper SEO analysis.",
+    "free": {
+      "badge": "FREE PLAN",
+      "price": "$0",
+      "period": "forever",
+      "description": "Great for getting started with SEO analysis and understanding your website's performance.",
+      "cta": "Start Free",
+      "features": {
+        "feature1": "1 Website Project",
+        "feature2": "Google Search Console Integration",
+        "feature3": "Google Analytics 4 Integration",
+        "feature4": "Basic SEO Dashboard",
+        "feature5": "Traffic Overview",
+        "feature6": "Basic Keyword Monitoring",
+        "feature7": "Traffic Performance Overview",
+        "feature8": "CSV Export",
+        "feature9": "Weekly SEO Summary"
+      }
+    },
+    "pro": {
+      "badge": "MOST POPULAR",
+      "name": "PRO PLAN",
+      "price": "$19",
+      "period": "/month",
+      "description": "For SEO freelancers, agencies, and businesses that need data-driven insights to grow faster.",
+      "cta": "Upgrade to Pro",
+      "features": {
+        "feature1": "Unlimited Workspaces",
+        "feature2": "Unlimited Projects",
+        "feature3": "AI-Powered Executive Dashboard",
+        "feature4": "AI SEO Insights",
+        "feature5": "AI Recommendations",
+        "feature6": "Keyword & Page Analysis",
+        "feature7": "PDF Report Export",
+        "feature8": "Excel Export",
+        "feature9": "Priority Support"
+      }
+    }
+  },
+  "socialProof": {
+    "badge": "BUILT WITH MODERN TECHNOLOGY",
+    "title": "Powered by the best technology",
+    "description": "TrafficSaaS connects with Google and modern AI technology to deliver more accurate SEO analysis.",
+    "integrated": "Directly integrated",
+    "companies": {
+      "ga4": {
+        "name": "Google Analytics 4"
+      },
+      "gsc": {
+        "name": "Google Search Console"
+      },
+      "openai": {
+        "name": "OpenAI"
+      },
+      "nextjs": {
+        "name": "Next.js"
+      }
+    }
+  },
+  "aiPreview": {
+    "badge": "AI POWERED",
+    "title": {
+      "line1": "Your SEO Consultant",
+      "line2": "Available 24/7"
+    },
+    "description": "TrafficSaaS doesn't just show your website data. AI analyzes trends, finds opportunities, sets priorities, and explains what to do next.",
+    "features": {
+      "summary": "Automatically generated executive summaries",
+      "recommendation": "AI recommendations based on your website data",
+      "impact": "Business impact estimates",
+      "priority": "Priority score for every issue"
+    },
+    "cta": "Activate AI",
+    "card": {
+      "label": "AI Executive Summary",
+      "title": "Weekly SEO Report",
+      "summary": "Organic traffic grew {growth}18%{growth} this month. However, CTR dropped on pages with over 10,000 impressions. Optimizing page titles could generate around {clicks}9,400 additional clicks.{clicks}",
+      "impact": {
+        "title": "Business Impact",
+        "description": "Estimated traffic increase: +18%"
+      },
+      "recommendation": {
+        "title": "Recommendation",
+        "description": "Update the meta title on the highest-impression page before creating new content."
+      }
+    }
+  },
+  "logoMarquee": {
+    "badge": "BUILT WITH MODERN TECHNOLOGY",
+    "connected": "Connected Platforms",
+    "companies": {
+      "ga4": "Google Analytics 4",
+      "gsc": "Google Search Console",
+      "ai": "AI Intelligence",
+      "postgres": "PostgreSQL",
+      "openai": "OpenAI"
+    }
+  },
+  "aiShowcase": {
+    "badge": "AI SEO INTELLIGENCE",
+    "title": {
+      "line1": "AI SEO Consultant",
+      "line2": "That Finds",
+      "highlight": "Growth Opportunities"
+    },
+    "description": "TrafficSaaS analyzes your website data, uncovers SEO opportunities, prioritizes issues, and delivers recommendations you can act on right away.",
+    "features": {
+      "summary": "Automated Executive Summary",
+      "ctr": "CTR Improvement Opportunities",
+      "content": "Content Optimization Recommendations",
+      "business": "Business Impact Analysis",
+      "priority": "AI Priority Score"
+    },
+    "insights": {
+      "traffic": {
+        "title": "Organic Traffic",
+        "description": "Website traffic performance analysis",
+        "value": "+18%"
+      },
+      "ctr": {
+        "title": "CTR Opportunity",
+        "description": "Pages with high impressions but low clicks",
+        "value": "12 Pages"
+      },
+      "recommendation": {
+        "title": "AI Recommendation",
+        "description": "Suggested optimization action",
+        "value": "Optimize Meta Title"
+      }
+    },
+    "score": {
+      "label": "SEO Performance Score",
+      "value": "92"
+    },
+    "recommendation": {
+      "label": "AI Recommendation",
+      "text": "Optimize 12 meta titles"
+    }
+  },
+  "footer": {
+    "brand": {
+      "tagline": "AI-Powered SEO Intelligence Platform",
+      "description": "An AI platform that helps businesses understand website performance, discover SEO opportunities, and make data-driven decisions."
+    },
+    "trust": {
+      "secure": "Secure OAuth",
+      "ai": "AI Powered",
+      "global": "Global Analytics"
+    },
+    "columns": {
+      "product": "Product",
+      "resources": "Resources",
+      "company": "Company"
+    },
+    "links": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "ai": "AI Insights",
+      "faq": "FAQ",
+      "about": "About Us",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions"
+    },
+    "copyright": "Protected under Law No. 27 of 2022 on Personal Data Protection.",
+    "bottom": "Gaivo Solusi Manajemen"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": {
+      "line1": "Frequently asked",
+      "line2": "questions"
+    },
+    "description": "Everything you need to know before connecting your website to TrafficSaaS.",
+    "items": {
+      "free": {
+        "question": "Can TrafficSaaS be used for free?",
+        "answer": "Yes. TrafficSaaS offers a Free plan so you can try the SEO dashboard, connect Google Search Console and Google Analytics 4, and see basic website performance insights."
+      },
+      "difference": {
+        "question": "What's the difference between the Free and Pro plans?",
+        "answer": "The Pro plan gives you access to advanced features like the AI Executive Summary, AI-powered SEO recommendations, deeper analysis, PDF and Excel report exports, and the ability to manage more projects."
+      },
+      "data": {
+        "question": "How does TrafficSaaS get website data?",
+        "answer": "TrafficSaaS uses official Google API connections through OAuth authentication. You can securely connect Google Search Console and Google Analytics 4."
+      },
+      "multiple": {
+        "question": "Can I manage multiple websites?",
+        "answer": "Yes. The Pro plan is built for SEO freelancers, agencies, and businesses managing multiple websites or SEO projects in one account."
+      },
+      "security": {
+        "question": "Is my Google data safe?",
+        "answer": "Yes. TrafficSaaS never stores your Google password. Access is only used to read SEO and analytics data based on the permissions you grant."
+      },
+      "upgrade": {
+        "question": "Can I upgrade from Free to Pro?",
+        "answer": "Yes. You can start with the Free plan and upgrade anytime you need AI features and more comprehensive SEO analysis."
+      }
+    }
+  },
+  "dashboardMockup": {
+    "live": "LIVE",
+    "title": "Executive Dashboard",
+    "updated": "Updated 3 seconds ago",
+    "aiReady": "AI Ready",
+    "thisMonth": "this month",
+    "kpi": {
+      "clicks": "Organic Clicks",
+      "users": "Users",
+      "sessions": "Sessions",
+      "ctr": "CTR"
+    },
+    "chart": {
+      "title": "Organic Performance"
+    },
+    "ai": {
+      "title": "AI Insight",
+      "problem": "Your CTR dropped by 12% on pages with high impressions.",
+      "recommendation": "Recommendation",
+      "action": "Update the title tag on your best-performing landing page."
+    },
+    "countries": {
+      "title": "Top Countries"
+    },
+    "keywords": {
+      "title": "Top Keywords",
+      "seoDashboard": "seo dashboard",
+      "ga4Analytics": "ga4 analytics",
+      "searchConsole": "search console",
+      "trafficReport": "traffic report"
+    }
+  },
+  "cta": {
+    "badge": "Start optimizing your SEO with AI",
+    "title": {
+      "line1": "Don't just look at data.",
+      "line2": "Turn it into a growth strategy."
+    },
+    "description": "Connect Google Search Console and Google Analytics 4, and let TrafficSaaS help you find SEO opportunities, get recommendations, and make faster decisions.",
+    "buttons": {
+      "start": "Try It Free Now",
+      "workflow": "See How It Works"
+    },
+    "trust": {
+      "security": {
+        "title": "Secure Data",
+        "text": "Google OAuth Security"
+      },
+      "ai": {
+        "title": "AI Powered",
+        "text": "Automated Insights"
+      },
+      "speed": {
+        "title": "Faster",
+        "text": "Less Manual Analysis"
+      }
+    }
+  },
+  "buttons": {
+    "startFree": "Start Free",
+    "seeWorkflow": "See How It Works",
+    "tryTrafficSaaS": "Try TrafficSaaS",
+    "activateAI": "Activate AI",
+    "viewDashboard": "View Dashboard",
+    "upgradePro": "Upgrade to Pro",
+    "learnMore": "Learn More",
+    "exploreCapability": "Explore Capabilities",
+    "login": "Log In",
+    "signup": "Sign Up Now",
+    "getStarted": "Get Started",
+    "contact": "Contact Us",
+    "documentation": "Documentation"
+  },
+  "aiCard": {
+    "badge": "AI Copilot",
+    "title": "Executive Summary",
+    "confidence": "98% Confidence",
+    "score": {
+      "label": "SEO Score"
+    },
+    "insights": {
+      "ctr": {
+        "title": "CTR up 18%",
+        "description": "Meta title improvements are showing positive results."
+      },
+      "keyword": {
+        "title": "12 keywords entered the Top 10",
+        "description": "Strong growth on informational pages."
+      },
+      "warning": {
+        "title": "3 landing pages losing clicks",
+        "description": "Refresh older content to recover rankings."
+      }
+    },
+    "updated": "Just generated",
+    "button": "Generate Report"
+  },
+  "countries": {
+    "title": "Top Countries",
+    "subtitle": "Visitors by region",
+    "visitors": "visitors",
+    "countries": {
+      "indonesia": "Indonesia",
+      "unitedStates": "United States",
+      "unitedKingdom": "United Kingdom",
+      "singapore": "Singapore"
+    }
+  },
+  "heroGrowth": {
+    "label": "Organic Growth",
+    "title": "Performance",
+    "comparison": "compared to last month"
+  },
+  "heroDashboard": {
+    "overview": "Website Overview",
+    "title": "SEO Performance",
+    "active": "Active",
+    "metrics": {
+      "traffic": "Traffic",
+      "clicks": "Clicks",
+      "keywords": "Keywords"
+    },
+    "chart": {
+      "title": "Organic Growth"
+    },
+    "ai": {
+      "label": "AI Insight",
+      "value": "12 Opportunities"
+    },
+    "growth": {
+      "label": "Organic Growth",
+      "value": "Traffic"
+    }
+  },
+  "floatingGrowth": {
+    "label": "Organic Growth",
+    "comparison": "Compared to last month",
+    "goal": "Target Progress"
+  },
+  "sidebar": {
+    "sections": {
+      "main": "Main",
+      "seo": "SEO Intelligence",
+      "integrations": "Integrations",
+      "workspace": "Workspace",
+      "help": "Help"
+    },
+    "menus": {
+      "dashboard": "Dashboard",
+      "traffic": "Traffic Analysis",
+      "keyword": "Keyword Intelligence",
+      "ai": "AI SEO Consultant",
+      "searchConsole": "Search Console",
+      "googleAnalytics": "Google Analytics",
+      "projects": "Projects"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "currentPlan": "Current Plan",
+      "plan": "Plan",
+      "projects": "Projects",
+      "unlimited": "Unlimited",
+      "unlimitedProjects": "Unlimited Projects",
+      "upgrade": "Upgrade"
+    }
+  },
+  "topbar": {
+    "title": "SEO Dashboard",
+    "sync": "Sync active",
+    "searchPlaceholder": "Search pages...",
+    "period": "Last 28 Days",
+    "profile": {
+      "name": "Workspace Owner",
+      "role": "SEO Specialist"
+    }
+  },
+  "trafficChart": {
+    "title": "Organic Traffic",
+    "period": "Last 28 Days",
+    "stats": {
+      "users": "Users",
+      "clicks": "Clicks",
+      "ctr": "CTR"
+    }
+  },
+  "trafficSource": {
+    "title": "Traffic Sources",
+    "description": "Visitor acquisition overview",
+    "sources": {
+      "google": "Google Search",
+      "direct": "Direct",
+      "referral": "Referral"
+    }
+  },
+  "heroKpi": {
+    "cards": {
+      "users": "Users",
+      "clicks": "Clicks",
+      "ctr": "CTR"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "badge": "Security & Privacy Center",
+      "title": "Your Data Is Safe.",
+      "highlight": "You Stay In Control.",
+      "description": "TrafficSaaS never sells user data, never modifies your website without permission, and only uses data to deliver AI-powered SEO insights."
+    },
+    "trust": {
+      "framework": "Security Framework",
+      "title": "Enterprise Security",
+      "status": "Operational",
+      "badges": {
+        "encrypted": "Encrypted Data",
+        "privacy": "Privacy First",
+        "controlled": "User Controlled"
+      },
+      "cloud": {
+        "title": "Cloud",
+        "desc": "Secure Infrastructure"
+      },
+      "encryption": {
+        "title": "Encryption",
+        "desc": "HTTPS / TLS"
+      },
+      "authentication": {
+        "title": "Authentication",
+        "desc": "OAuth Permission"
+      },
+      "compliance": {
+        "title": "Compliance",
+        "desc": "PDP Law"
+      }
+    },
+    "dataFlow": {
+      "title": "How Is Your Data Processed?",
+      "permission": {
+        "title": "Permission",
+        "desc": "You grant OAuth permission through Google"
+      },
+      "transfer": {
+        "title": "Secure Transfer",
+        "desc": "Data is sent over an encrypted connection"
+      },
+      "analysis": {
+        "title": "AI Analysis",
+        "desc": "AI analyzes your SEO performance"
+      },
+      "control": {
+        "title": "Your Control",
+        "desc": "You can revoke access at any time"
+      }
+    },
+    "sections": {
+      "data": {
+        "title": "Data We Collect",
+        "content": "TrafficSaaS follows the principle of data minimization. We only process the data necessary, such as account information, Google Search Console, and Google Analytics 4 data via OAuth. We never ask for your Google password and never store user credentials."
+      },
+      "cloud": {
+        "title": "Cloud Storage",
+        "content": "Our system uses cloud infrastructure to ensure availability, reliability, and scalability. The cloud helps reduce the risk of data loss from local device failures."
+      },
+      "pdp": {
+        "title": "Compliance with PDP Law No. 27 of 2022",
+        "content": "TrafficSaaS applies the principles of Indonesia's Law No. 27 of 2022 on Personal Data Protection through transparent data processing, user consent, purpose limitation, and protection against misuse of information.",
+        "transparency": "Users know what data is used and for what purpose.",
+        "consent": "Data processing is based on the user's OAuth consent.",
+        "limitation": "Data is only used for SEO analysis and service improvement."
+      },
+      "security": {
+        "title": "Technical Safeguards",
+        "items": [
+          "HTTPS/TLS Encryption",
+          "OAuth Google API",
+          "Access Control",
+          "Secure Database",
+          "System Monitoring"
+        ]
+      },
+      "rights": {
+        "title": "User Rights",
+        "items": [
+          "View how your data is used",
+          "Revoke Google access",
+          "Delete your account",
+          "Request data deletion"
+        ]
+      },
+      "regulation": {
+        "title": "Supporting Regulations",
+        "items": [
+          "Law No. 27 of 2022 on Personal Data Protection",
+          "Law No. 11 of 2008 on Electronic Information and Transactions",
+          "Government Regulation No. 71 of 2019 on Electronic Systems"
+        ]
+      }
+    },
+    "footer": {
+      "title": "Your Data. Your Trust.",
+      "description": "We built TrafficSaaS with security by design, so you can focus on growing your business without worrying about data security."
+    }
+  },
+  "about": {
+    "badge": "About TrafficSaaS",
+    "active": "Active",
+    "hero": {
+      "title": "Understanding Website Performance",
+      "highlight": "With Data and AI",
+      "description": "TrafficSaaS is a SaaS-based Web Analytics Dashboard platform that helps businesses analyze website performance, understand user behavior, and make digital decisions based on real data.",
+      "button": "Start Analyzing"
+    },
+    "trust": {
+      "label": "TrafficSaaS Intelligence Platform",
+      "title": "One Platform for Website Analysis",
+      "items": {
+        "ai": "AI Insight & Recommendation",
+        "data": "Google Analytics Integration",
+        "cloud": "Google Cloud Infrastructure",
+        "security": "Secure OAuth Access"
+      }
+    },
+    "story": {
+      "title": "What Is TrafficSaaS?",
+      "description": "TrafficSaaS is a Software as a Service (SaaS) analytics dashboard designed to integrate Google Search Console and Google Analytics 4 data into one unified platform. It helps users understand how their website is found through search engines and how visitors interact with it once they arrive.",
+      "impact": "With TrafficSaaS, users no longer need to perform manual analysis across multiple platforms. All website performance data is presented in an easy-to-understand dashboard that supports data-driven decision-making."
+    },
+    "features": {
+      "ai": {
+        "title": "AI SEO Intelligence",
+        "description": "Uses artificial intelligence to analyze website data patterns and generate insights and SEO optimization recommendations based on actual performance."
+      },
+      "data": {
+        "title": "Integrated Data",
+        "description": "Combines Google Search Console and Google Analytics 4 data to give you the full picture of your search performance and user behavior."
+      },
+      "growth": {
+        "title": "Digital Growth Optimization",
+        "description": "Helps businesses discover opportunities to grow organic traffic, evaluate page performance, and build more effective digital strategies."
+      }
+    },
+    "security": {
+      "title": "User Data Security",
+      "description": "TrafficSaaS implements security mechanisms to ensure user data access is safe and controlled.",
+      "items": [
+        "Login via Google OAuth 2.0 authentication",
+        "Never requests or stores user passwords",
+        "Google data access is granted through official user permission",
+        "Uses encrypted HTTPS/TLS connections",
+        "Feature access is controlled based on account and subscription"
+      ]
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Contact TrafficSaaS",
+      "title": "Let's talk about",
+      "highlight": "your business's digital growth",
+      "description": "Reach out to the TrafficSaaS team for questions, partnerships, technical support, or information about our AI SEO Intelligence platform."
+    },
+    "info": {
+      "title": "Contact Us",
+      "description": "We're here to help you understand how TrafficSaaS can improve your website performance, uncover SEO opportunities, and make data-driven decisions.",
+      "email": {
+        "title": "Email"
+      },
+      "support": {
+        "title": "Support",
+        "value": "Technical & Product Support"
+      },
+      "security": {
+        "title": "Security",
+        "value": "Privacy-first infrastructure"
+      }
+    },
+    "trust": {
+      "response": "Fast Response",
+      "global": "Global Service"
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "How can we help?",
+      "button": "Send Message"
+    }
+  },
+  "terms": {
+    "hero": {
+      "badge": "Terms of Service",
+      "title": "Terms &",
+      "highlight": "Conditions of TrafficSaaS",
+      "description": "By using TrafficSaaS, you agree to the terms of service, data security, and user responsibilities outlined below."
+    },
+    "sections": {
+      "service": {
+        "title": "Use of Service",
+        "content": "TrafficSaaS provides an AI SEO Intelligence platform to help users understand website performance, discover optimization opportunities, and make data-driven decisions. Users must use the service in accordance with applicable law."
+      },
+      "billing": {
+        "title": "Plans & Payment",
+        "content": "TrafficSaaS offers service plans at different tiers. Premium features may have usage limits or subscription fees. Pricing, features, and availability may change to improve the product."
+      },
+      "data": {
+        "title": "Use of Data",
+        "content": "Users grant TrafficSaaS permission to process the data required through official integrations such as Google OAuth. Data is used only for SEO analysis, the dashboard, and service improvement."
+      },
+      "usage": {
+        "title": "Usage Restrictions",
+        "content": "Users may not use the service for illegal activity, attempt unauthorized system access, disrupt platform security, or access other users' data."
+      },
+      "security": {
+        "title": "Security & Privacy",
+        "content": "TrafficSaaS applies information security principles through access control, encrypted connections, and user data protection in accordance with its privacy policy."
+      },
+      "liability": {
+        "title": "User Responsibility",
+        "content": "Users are responsible for their account information, activity within the service, and ensuring their use of TrafficSaaS does not violate the law or the rights of others."
+      },
+      "update": {
+        "title": "Changes to Terms",
+        "content": "TrafficSaaS may update these terms and conditions at any time to reflect service developments, security needs, and user requirements."
+      }
+    }
+  },
+  "login": {
+    "subtitle": "Sign in to your workspace",
+    "button": "Continue with Google",
+    "loading": "Processing...",
+    "agreement": "By continuing, you agree to TrafficSaaS's Terms & Conditions and Privacy Policy."
+  },
+  "dashboard": {
+    "title": "SEO Intelligence Dashboard",
+    "description": "Track organic traffic, search visibility, and Google Analytics performance in one workspace.",
+    "workspace": {
+      "ready": "Workspace Ready",
+      "configuration": "Setup Required",
+      "connected": "Connected & Ready",
+      "setup": "Setup Required"
+    },
+    "sync": {
+      "last": "Last synced",
+      "never": "Never synced"
+    },
+    "actions": {
+      "export": "Export",
+      "sync": "Sync",
+      "settings": "Settings"
+    },
+    "integration": {
+      "gsc": "Google Search Console",
+      "ga4": "Google Analytics 4",
+      "status": "Workspace Status",
+      "notConnected": "Not Connected"
+    },
+    "status": {
+      "connectedDescription": "Google Search Console and Google Analytics are connected and ready for data analysis.",
+      "setupDescription": "Connect Google Search Console and Google Analytics to unlock all SEO analytics features."
+    },
+    "google": {
+      "required": "Google Connection Required",
+      "description": "Reconnect your Google account to access Analytics and Search Console data."
+    },
+    "header": {
+      "lastSync": "Last Sync",
+      "export": "Export",
+      "sync": "Sync",
+      "settings": "Settings"
+    },
+    "range": {
+      "7d": "Last 7 Days",
+      "28d": "Last 28 Days",
+      "90d": "Last 90 Days"
+    },
+    "growth": {
+      "title": "Growth Overview",
+      "subtitle": "Website performance overview based on Google data"
+    },
+    "metrics": {
+      "growthScore": "Growth Score",
+      "clicks": "Organic Clicks",
+      "clicksDescription": "Clicks from Google Search Console",
+      "impressions": "Search Impressions",
+      "impressionsDescription": "How often your site appears on Google",
+      "users": "Active Users",
+      "usersDescription": "Website visitors",
+      "sessions": "Sessions"
+    },
+    "score": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "optimize": "Needs Optimization",
+      "low": "Low"
+    },
+    "ai": {
+      "title": "AI SEO Intelligence",
+      "health": "SEO Health Score",
+      "opportunity": "Growth Opportunity"
+    },
+    "performance": {
+      "title": "Performance Overview",
+      "subtitle": "Overview of traffic and visibility conditions",
+      "badge": "SEO Metrics",
+      "metrics": {
+        "clicks": {
+          "title": "Organic Clicks",
+          "description": "Number of visits from Google search results"
+        },
+        "visibility": {
+          "title": "Search Visibility",
+          "description": "How often your website appears in Google Search"
+        },
+        "users": {
+          "title": "Active Users",
+          "description": "Number of unique users visiting your website"
+        },
+        "sessions": {
+          "title": "Sessions",
+          "description": "Total user interaction sessions on your website"
+        }
+      },
+      "summary": {
+        "title": "Performance Summary",
+        "description": "Your website has {clicks} organic clicks with a search visibility of {impressions} impressions. Review traffic trends regularly to shape your next SEO strategy."
+      }
+    },
+    "aiInsight": {
+      "title": "AI SEO Insight",
+      "subtitle": "Automated analysis of your website's SEO performance",
+      "generated": "AI Generated",
+      "empty": "No AI analysis available yet.",
+      "status": "SEO Status",
+      "analyzing": "Analyzing",
+      "strength": "Strength",
+      "attention": "Needs Attention"
+    },
+    "quickActions": {
+      "title": "Recommended Actions",
+      "badge": "AI Suggestions",
+      "subtitle": "Optimization priorities based on website performance and SEO growth opportunities.",
+      "view": "View Recommendations",
+      "items": {
+        "keyword": {
+          "title": "Keyword Optimization",
+          "description": "Find keywords with high impressions but low CTR. Increase click opportunities through content and semantic keyword optimization.",
+          "impact": "SEO Opportunity"
+        },
+        "landing": {
+          "title": "Landing Page Optimization",
+          "description": "Analyze high-traffic pages with underperforming conversions. Improve page structure, headings, internal links, and conversion elements.",
+          "impact": "Growth Area"
+        },
+        "ai": {
+          "title": "AI SEO Consultant",
+          "description": "Get SEO strategy recommendations based on Google Search Console and Google Analytics data analysis.",
+          "impact": "AI Analysis"
+        }
+      }
+    },
+    "growthOpportunities": {
+      "title": "Growth Opportunities",
+      "subtitle": "The biggest opportunities to improve your website's SEO performance",
+      "action": "Action:",
+      "impact": "Impact",
+      "ai": "AI",
+      "types": {
+        "Quick Win": "Quick Win",
+        "CTR Opportunity": "CTR Opportunity",
+        "Content Growth": "Content Growth",
+        "Recovery": "Recovery"
+      },
+      "levels": {
+        "High": "High",
+        "Medium": "Medium",
+        "Low": "Low",
+        "Critical": "Critical"
+      },
+      "empty": {
+        "title": "No optimization opportunities yet",
+        "impact": "SEO Monitoring",
+        "reason": "No significant opportunities found yet.",
+        "action": "Continue monitoring website performance."
+      }
+    },
+    "healthScore": {
+      "title": "SEO Health Score",
+      "subtitle": "Website health based on the latest SEO performance",
+      "evaluation": "AI SEO Evaluation",
+      "notAnalyzed": "Not Yet Analyzed",
+      "strength": "Strength",
+      "attention": "Needs Attention",
+      "metrics": {
+        "traffic": "Traffic",
+        "visibility": "Visibility",
+        "engagement": "Engagement"
+      }
+    },
+    "sidebarUser": {
+      "administrator": "Administrator",
+      "profileSettings": "Profile Settings",
+      "manageAccount": "Manage account",
+      "subscription": "Subscription",
+      "manageBilling": "Manage plan & billing",
+      "signOut": "Sign Out"
+    }
+  },
+  "settings": {
+    "title": "Profile Settings",
+    "description": "Manage your TrafficSaaS account and preferences.",
+    "administrator": "Administrator",
+    "accountInformation": "Account Information",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "loginProvider": "Login Provider",
+    "accountRole": "Account Role",
+    "googleOAuth": "Google OAuth",
+    "security": "Security",
+    "securityDescription": "Your account is protected using Google authentication. Password management is handled by Google.",
+    "googleConnected": "Google account connected successfully."
+  },
+  "billing": {
+    "title": "Subscription & Billing",
+    "description": "Manage your TrafficSaaS plan, feature usage, and payment information.",
+    "currentPlan": "Current Plan",
+    "active": "Active",
+    "freePlan": "Free Plan",
+    "usage": {
+      "workspace": "Workspace",
+      "project": "Project",
+      "aiFeature": "AI Feature"
+    },
+    "unlimited": "Unlimited",
+    "workspaceCount": "1 Workspace",
+    "projectCount": "1 Project",
+    "aiActive": "Active",
+    "locked": "Locked",
+    "plans": {
+      "free": {
+        "title": "FREE PLAN",
+        "price": "$0",
+        "period": "forever",
+        "description": "Great for trying out SEO analysis and understanding website performance.",
+        "features": [
+          "One Website Project",
+          "Google Search Console Integration",
+          "Google Analytics 4 Integration",
+          "Basic SEO Dashboard",
+          "Website Traffic Overview",
+          "Basic Keyword Monitoring",
+          "Traffic Performance Analysis",
+          "CSV Export",
+          "Weekly SEO Summary"
+        ]
+      },
+      "pro": {
+        "title": "PRO PLAN",
+        "price": "$19",
+        "period": "/month",
+        "description": "For SEO freelancers, agencies, and businesses that need data-driven insights.",
+        "features": [
+          "Unlimited Workspaces",
+          "Unlimited Projects",
+          "AI Executive Dashboard",
+          "AI SEO Insights",
+          "AI Recommendation",
+          "Keyword & Page Analysis",
+          "PDF Report Export",
+          "Excel Export",
+          "Priority Support"
+        ]
+      }
+    },
+    "payment": {
+      "title": "Payment Method",
+      "description": "Manage payments, invoices, and your TrafficSaaS subscription information.",
+      "manage": "Manage Subscription"
+    }
+  },
+  "subscriptionPage": {
+    "title": "Manage Subscription",
+    "description": "Manage your TrafficSaaS plan, payments, and invoices.",
+    "currentPlan": "Current Plan",
+    "active": "Active",
+    "paymentHistory": "Payment History",
+    "noPayment": "No payment transactions yet.",
+    "invoice": "Invoice",
+    "invoiceDescription": "Your TrafficSaaS payment invoice is available after payment is confirmed.",
+    "downloadInvoice": "Download Invoice",
+    "invoiceUnavailable": "Invoice Not Yet Available"
+  },
+  "analytics": {
+    "title": "Traffic Analytics",
+    "description": "Analyze website traffic, user behavior, and visit sources.",
+    "trend": {
+      "title": "Traffic Trend",
+      "period": "Last 28 Days"
+    },
+    "cards": {
+      "users": "Active Users",
+      "sessions": "Sessions",
+      "pageViews": "Page Views",
+      "engagement": "Engagement Rate"
+    },
+    "sections": {
+      "country": "Users by Country",
+      "countryDescription": "User location distribution based on Google Analytics data",
+      "viewAll": "View All →",
+      "acquisition": "Traffic Acquisition",
+      "device": "Device Category",
+      "browser": "Browser",
+      "landingPages": "Top Landing Pages",
+      "events": "Top Events"
+    },
+    "traffic": {
+      "subtitle": "Main sources of website traffic",
+      "empty": "No traffic data available.",
+      "session": "Sessions",
+      "labels": {
+        "organicSearch": "Organic Search",
+        "direct": "Direct",
+        "referral": "Referral",
+        "organicSocial": "Organic Social",
+        "email": "Email"
+      }
+    },
+    "deviceSubtitle": "Active users by device"
+  },
+  "keywords": {
+    "title": "Keyword Intelligence",
+    "description": "Discover search opportunities and keyword performance.",
+    "cards": {
+      "total": "Total Keywords",
+      "ranking": "Top 10 Rankings",
+      "visibility": "SEO Visibility",
+      "ctr": "Average CTR"
+    },
+    "table": {
+      "title": "Keyword Opportunities",
+      "description": "Keywords with growth potential based on search performance.",
+      "columns": {
+        "keyword": "Keyword",
+        "clicks": "Clicks",
+        "impressions": "Impressions",
+        "ctr": "CTR",
+        "position": "Position"
+      }
+    },
+    "analyticsPage": {
+      "title": "Traffic Analysis",
+      "description": "Monitor website performance based on Google Analytics 4 data.",
+      "period": "last 28 days",
+      "emptyProject": "No project connected yet.",
+      "trend": {
+        "title": "Traffic Trend"
+      }
+    }
+  },
+  "healthScore": {
+    "title": "AI Website Health",
+    "description": "AI evaluation based on SEO, traffic, UX, and analytics signals.",
+    "overall": "Overall Website Score",
+    "healthScore": "Health Score",
+    "categoryBreakdown": "Category Breakdown",
+    "status": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "optimization": "Needs Optimization",
+      "critical": "Critical"
+    },
+    "summary": {
+      "excellent": "The website has excellent digital health. The main focus is maintaining performance and pursuing further optimization to accelerate growth.",
+      "good": "The website is in good shape, but there are some optimization opportunities that could improve traffic, engagement, and conversions.",
+      "optimization": "The website has a solid foundation but needs improvement in a few key areas to maximize SEO growth.",
+      "critical": "The website needs comprehensive optimization, as several factors are likely holding back organic and business performance."
+    },
+    "categories": {
+      "seo": "SEO",
+      "content": "Content",
+      "ux": "User Experience",
+      "performance": "Performance",
+      "analytics": "Analytics",
+      "marketing": "Marketing"
+    }
+  },
+  "businessImpact": {
+    "title": "Business Growth Forecast",
+    "description": "Estimated business impact based on SEO optimization opportunities and analytics data.",
+    "priority": "Priority",
+    "levels": {
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
+    },
+    "disclaimer": "The figures below are opportunity estimates based on current website data, not guaranteed results.",
+    "weeks": "Weeks",
+    "metrics": {
+      "traffic": {
+        "title": "Traffic Potential",
+        "description": "Estimated additional organic clicks if SEO recommendations are implemented."
+      },
+      "users": {
+        "title": "User Growth",
+        "description": "Estimated additional users from increased website visibility."
+      },
+      "conversion": {
+        "title": "Conversion Impact",
+        "description": "Estimated conversion improvement opportunity through optimization."
+      },
+      "implementation": {
+        "title": "Implementation",
+        "description": "Estimated time to implement the full action plan."
+      },
+      "roi": {
+        "title": "ROI Score",
+        "description": "Return-based priority based on impact and effort."
+      }
+    },
+    "traffic": {
+      "title": "Traffic Opportunity",
+      "description": "Your website has an opportunity to increase organic traffic based on keyword signals, impressions, and optimization opportunities identified by AI.",
+      "levels": {
+        "Very High": "Very High",
+        "High": "High",
+        "Moderate": "Moderate",
+        "Low": "Low"
+      }
+    },
+    "revenue": {
+      "title": "Revenue Opportunity",
+      "description": "Prioritize the recommendations with the biggest business impact to increase your growth potential.",
+      "levels": {
+        "High Revenue Potential": "High Revenue Potential",
+        "Moderate Growth Opportunity": "Moderate Growth Opportunity",
+        "Incremental Improvement": "Incremental Improvement"
+      }
+    }
+  },
+  "aiConsultant": {
+    "title": "AI SEO Consultant",
+    "description": "Data-driven SEO analysis, growth opportunities, and business impact.",
+    "cards": {
+      "seo": {
+        "title": "SEO Intelligence",
+        "value": "Health Score {score}/100 ({grade})"
+      },
+      "growth": {
+        "title": "Growth Forecast",
+        "value": "+{clicks} potential clicks and +{users} users"
+      },
+      "analysis": {
+        "title": "AI Analysis",
+        "value": "{count} priorities identified based on the data"
+      }
+    },
+    "growth": {
+      "title": "Biggest Growth Opportunities"
+    },
+    "opportunity": {
+      "titles": {
+        "ctrOpportunity": "Optimize CTR for keywords with high ranking potential",
+        "quickWin": "Push existing keywords toward top positions",
+        "contentGrowth": "Expand your best-performing organic pages",
+        "recovery": "Recover declining organic traffic",
+        "maintain": "Maintain SEO performance"
+      },
+      "types": {
+        "Quick Win": "Quick Win",
+        "CTR Opportunity": "CTR Opportunity",
+        "Content Growth": "Content Growth",
+        "Recovery": "Recovery"
+      },
+      "impacts": {
+        "High": "High Impact",
+        "Medium": "Medium Impact",
+        "Low": "Low Impact"
+      },
+      "confidence": "Confidence {value}%"
+    },
+    "badge": {
+      "impact": "Impact {value}",
+      "confidence": "Confidence {value}%"
+    },
+    "priority": {
+      "title": "AI Priority",
+      "level": "Priority: {value}",
+      "empty": "No priorities identified yet based on the latest data."
+    },
+    "levels": {
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
+    },
+    "confidence": {
+      "title": "AI Confidence",
+      "default": "Analysis based on available data",
+      "description": "AI uses a combination of SEO and website analytics data."
+    },
+    "recommendations": {
+      "titles": {
+        "landingPageGrowth": "Landing Page Growth Opportunity",
+        "ctrOptimization": "CTR Optimization Opportunity",
+        "conversionTracking": "Conversion Tracking Opportunity",
+        "quickWin": "SEO Quick Win",
+        "contentDecay": "Content Performance Decline",
+        "mobileOptimization": "Mobile Optimization",
+        "browserCompatibility": "Browser Compatibility",
+        "countryOpportunity": "Country Opportunity",
+        "eventInsight": "Event Insight",
+        "seoMonitoring": "SEO Monitoring"
+      }
+    }
+  },
+
+  "landingPage": {
+
+  "description": "{pages} main landing pages are the biggest entry points of the website. The page \"{page}\" contributes {percentage}% of total landing sessions.",
+
+  "recommendation": "Optimize main landing pages with clear CTAs, stronger content structure, strategic internal linking, FAQ schema, improved speed performance, and conversion elements such as forms or contact buttons.",
+
+  "impact": "Priority pages: {pages}. Improvements on these pages can directly impact engagement and conversion opportunities because they receive the highest traffic."
+
+},
+
+  "aiResponse": {
+  "title": "TrafficSaaS AI Consultant",
+
+  "executiveSummary": "Executive Summary",
+
+  "websiteHealth": "Your website has an SEO Health Score of {score}/100 with a grade of {grade}.",
+
+  "focus": "AI has identified that the main focus right now is {intent}, improving organic visibility, and traffic growth opportunities.",
+
+
+  "growthOpportunity": {
+    "title": "Growth Opportunity"
+  },
+
+  "quickWin": "Quick Optimization",
+  "ctrOpportunity": "CTR Optimization Opportunity",
+  "contentGrowth": "Content Growth Opportunity",
+  "recovery": "Traffic Recovery Opportunity",
+  "maintain": "Maintain SEO Performance",
+
+  "impact": "Impact",
+
+  "reason": "Why This Matters",
+
+  "action": "Action Plan",
+
+  "result": "Expected Result",
+
+  "noOpportunity": "No optimization opportunities found.",
+
+
+  "businessImpact": "Predicted Business Impact",
+
+  "potentialClicks": "Potential Additional Clicks",
+
+  "potentialUsers": "Potential User Growth",
+
+  "conversionOpportunity": "Conversion Opportunity",
+
+
+  "confidence": "AI Confidence",
+
+  "score": "Score",
+
+  "level": "Level",
+
+
+  "recommendation": "Consultant Recommendation",
+
+  "recommendationText": "Based on Google Search Console and Google Analytics 4 data, the next priority is improving keyword opportunity, CTR, and pages with the highest ranking potential."
+},
+   "growthOpportunity": {
+    "quickWin": "Quick Optimization",
+    "ctrOpportunity": "CTR Optimization Opportunity",
+    "contentGrowth": "Content Growth Opportunity",
+    "recovery": "Traffic Recovery Opportunity",
+    "maintain": "Maintain SEO Performance",
+
+    "impact": "Impact",
+    "reason": "Why this matters",
+    "action": "Action Plan",
+    "result": "Expected Result"
+  },
+
+  "actionPlan": {
+  "title": "AI Growth Roadmap",
+  "subtitle": "Strategic execution plan based on SEO opportunities and business impact.",
+
+  "timeline": "Timeline",
+  "tasks": "Tasks",
+  "weeks": "Weeks",
+  "actions": "Actions",
+
+  "week": "Week",
+  "strategicActions": "Strategic Actions",
+
+  "recommended": "Recommended",
+  "days": "days",
+
+  "priority": {
+    "critical": "Critical",
+    "high": "High Priority",
+    "medium": "Medium Priority",
+    "low": "Low Priority"
+  },
+
+  "phases": {
+    "quickWins": "Quick Wins",
+    "optimization": "SEO Optimization",
+    "growthStrategy": "Growth Strategy",
+    "monitoring": "Performance Monitoring"
+  }
+},
+"consultantChat": {
+  "title": "TrafficSaaS AI Consultant",
+  "subtitle": "SEO intelligence assistant powered by website data",
+
+  "assistantTitle": "TrafficSaaS AI",
+  "description": "Ask questions about your SEO performance, traffic changes, keyword opportunities, and growth strategies.",
+
+  "suggestions": {
+    "trafficDrop": "Why did website traffic decrease?",
+    "keywordRanking": "How can I improve keyword rankings?",
+    "seoPriority": "What SEO actions should I prioritize?",
+    "conversion": "How can I improve website conversion?"
+  },
+
+  "placeholder": "Example: Why did website traffic decrease?",
+
+  "user": "You",
+  "assistant": "AI Consultant",
+
+  "loading": "AI is analyzing your website data...",
+
+  "defaultAnswer": "AI could not provide an answer.",
+  "error": "Something went wrong while contacting AI consultant."
+},
+  "growth": {
+    "ctr": {
+      "title": "Optimize high-ranking keyword CTR opportunities",
+      "impact": "Potential additional {0} organic clicks",
+      "reason": "{0} keywords have high impressions but CTR is below ranking potential.",
+      "action": "Improve CTR through title optimization, meta description, schema markup, and rich results.",
+      "metric": "CTR keyword opportunity"
+    },
+    "quickWin": {
+      "title": "Improve existing keywords toward top positions",
+      "impact": "{0} keywords have first-page potential",
+      "reason": "Keywords already have Google ranking validation and need further optimization.",
+      "action": "Update content, add semantic keywords, optimize headings, and improve internal linking.",
+      "metric": "{0} keywords position 4-10"
+    },
+    "content": {
+      "title": "Expand top organic performing pages",
+      "impact": "Increase authority and long-term organic traffic",
+      "reason": "{0} active landing pages can be expanded into content clusters.",
+      "action": "Add supporting content, FAQs, internal linking, and refresh information.",
+      "metric": "Landing Page"
+    },
+    "recovery": {
+      "title": "Recover organic traffic decline",
+      "impact": "Traffic decreased {0}%",
+      "reason": "Organic clicks decreased compared to the previous period.",
+      "action": "Audit declining keywords, refresh old content, and evaluate ranking changes.",
+      "metric": "Clicks {0}%"
+    },
+    "default": {
+      "title": "Maintain SEO performance",
+      "impact": "Website shows no critical issues",
+      "reason": "No negative signals were found based on available data.",
+      "action": "Continue monitoring keywords, content, and traffic.",
+      "metric": "CTR"
+    }
+  }
+}

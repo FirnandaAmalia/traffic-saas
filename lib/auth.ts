@@ -1,18 +1,12 @@
-import type {
-  NextAuthOptions,
-} from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 
-import type {
-  JWT,
-} from "next-auth/jwt";
+import type { JWT } from "next-auth/jwt";
 
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { prisma } from "@/lib/prisma";
-import {
-  ensureSubscription,
-} from "@/lib/subscription";
+import { ensureSubscription } from "@/lib/subscription";
 
 /*
 |--------------------------------------------------------------------------
@@ -41,23 +35,14 @@ interface GoogleRefreshResponse {
 |
 */
 
-const refreshPromises =
-  new Map<string, Promise<JWT>>();
+const refreshPromises = new Map<string, Promise<JWT>>();
 
-function getTokenUserId(
-  token: JWT
-): string | null {
-  if (
-    typeof token.userId === "string" &&
-    token.userId.trim()
-  ) {
+function getTokenUserId(token: JWT): string | null {
+  if (typeof token.userId === "string" && token.userId.trim()) {
     return token.userId;
   }
 
-  if (
-    typeof token.sub === "string" &&
-    token.sub.trim()
-  ) {
+  if (typeof token.sub === "string" && token.sub.trim()) {
     return token.sub;
   }
 
@@ -101,16 +86,10 @@ async function synchronizeGoogleAccount({
      * diperbarui oleh Google.
      */
 
-    console.error(
-      "GOOGLE_ACCOUNT_TOKEN_SYNC_FAILED",
-      {
-        userId,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Unknown error",
-      }
-    );
+    console.error("GOOGLE_ACCOUNT_TOKEN_SYNC_FAILED", {
+      userId,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 }
 
@@ -120,13 +99,9 @@ async function synchronizeGoogleAccount({
 |--------------------------------------------------------------------------
 */
 
-async function executeTokenRefresh(
-  token: JWT
-): Promise<JWT> {
+async function executeTokenRefresh(token: JWT): Promise<JWT> {
   const refreshToken =
-    typeof token.refresh_token === "string"
-      ? token.refresh_token
-      : "";
+    typeof token.refresh_token === "string" ? token.refresh_token : "";
 
   if (!refreshToken) {
     return {
@@ -135,16 +110,12 @@ async function executeTokenRefresh(
     };
   }
 
-  const clientId =
-    process.env.GOOGLE_CLIENT_ID;
+  const clientId = process.env.GOOGLE_CLIENT_ID;
 
-  const clientSecret =
-    process.env.GOOGLE_CLIENT_SECRET;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    console.error(
-      "GOOGLE_OAUTH_CONFIGURATION_MISSING"
-    );
+    console.error("GOOGLE_OAUTH_CONFIGURATION_MISSING");
 
     return {
       ...token,
@@ -153,49 +124,32 @@ async function executeTokenRefresh(
   }
 
   try {
-    const response =
-      await fetch(
-        "https://oauth2.googleapis.com/token",
-        {
-          method: "POST",
+    const response = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/x-www-form-urlencoded",
-          },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
 
-          body: new URLSearchParams({
-            client_id: clientId,
-            client_secret: clientSecret,
-            grant_type: "refresh_token",
-            refresh_token: refreshToken,
-          }),
+      body: new URLSearchParams({
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      }),
 
-          cache: "no-store",
-        }
-      );
+      cache: "no-store",
+    });
 
-    const refreshed =
-      await response.json() as
-        GoogleRefreshResponse;
+    const refreshed = (await response.json()) as GoogleRefreshResponse;
 
-    if (
-      !response.ok ||
-      !refreshed.access_token ||
-      !refreshed.expires_in
-    ) {
-      console.error(
-        "GOOGLE_TOKEN_REFRESH_FAILED",
-        {
-          status: response.status,
-          code:
-            refreshed.error ??
-            "unknown_error",
-          description:
-            refreshed.error_description ??
-            "Google did not return a valid token.",
-        }
-      );
+    if (!response.ok || !refreshed.access_token || !refreshed.expires_in) {
+      console.error("GOOGLE_TOKEN_REFRESH_FAILED", {
+        status: response.status,
+        code: refreshed.error ?? "unknown_error",
+        description:
+          refreshed.error_description ?? "Google did not return a valid token.",
+      });
 
       return {
         ...token,
@@ -203,26 +157,17 @@ async function executeTokenRefresh(
       };
     }
 
-    const expiresAt =
-      Math.floor(
-        Date.now() / 1000
-      ) +
-      refreshed.expires_in;
+    const expiresAt = Math.floor(Date.now() / 1000) + refreshed.expires_in;
 
-    const nextRefreshToken =
-      refreshed.refresh_token ??
-      refreshToken;
+    const nextRefreshToken = refreshed.refresh_token ?? refreshToken;
 
-    const userId =
-      getTokenUserId(token);
+    const userId = getTokenUserId(token);
 
     if (userId) {
       await synchronizeGoogleAccount({
         userId,
-        accessToken:
-          refreshed.access_token,
-        refreshToken:
-          nextRefreshToken,
+        accessToken: refreshed.access_token,
+        refreshToken: nextRefreshToken,
         expiresAt,
       });
     }
@@ -230,28 +175,18 @@ async function executeTokenRefresh(
     return {
       ...token,
 
-      access_token:
-        refreshed.access_token,
+      access_token: refreshed.access_token,
 
-      expires_at:
-        expiresAt,
+      expires_at: expiresAt,
 
-      refresh_token:
-        nextRefreshToken,
+      refresh_token: nextRefreshToken,
 
-      error:
-        undefined,
+      error: undefined,
     };
   } catch (error) {
-    console.error(
-      "GOOGLE_TOKEN_REFRESH_REQUEST_FAILED",
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Unknown error",
-      }
-    );
+    console.error("GOOGLE_TOKEN_REFRESH_REQUEST_FAILED", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
 
     return {
       ...token,
@@ -266,11 +201,8 @@ async function executeTokenRefresh(
 |--------------------------------------------------------------------------
 */
 
-async function refreshAccessToken(
-  token: JWT
-): Promise<JWT> {
-  const userId =
-    getTokenUserId(token);
+async function refreshAccessToken(token: JWT): Promise<JWT> {
+  const userId = getTokenUserId(token);
 
   /*
    * Token tanpa user ID tetap dapat di-refresh,
@@ -278,30 +210,20 @@ async function refreshAccessToken(
    */
 
   if (!userId) {
-    return executeTokenRefresh(
-      token
-    );
+    return executeTokenRefresh(token);
   }
 
-  const existingPromise =
-    refreshPromises.get(userId);
+  const existingPromise = refreshPromises.get(userId);
 
   if (existingPromise) {
     return existingPromise;
   }
 
-  const refreshPromise =
-    executeTokenRefresh(token)
-      .finally(() => {
-        refreshPromises.delete(
-          userId
-        );
-      });
+  const refreshPromise = executeTokenRefresh(token).finally(() => {
+    refreshPromises.delete(userId);
+  });
 
-  refreshPromises.set(
-    userId,
-    refreshPromise
-  );
+  refreshPromises.set(userId, refreshPromise);
 
   return refreshPromise;
 }
@@ -312,28 +234,18 @@ async function refreshAccessToken(
 |--------------------------------------------------------------------------
 */
 
-export const authOptions:
-  NextAuthOptions = {
-  adapter:
-    PrismaAdapter(prisma),
-
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   /*
    * Wajib false.
    * Debug NextAuth dapat mencetak detail OAuth
    * yang sensitif ke terminal.
    */
-
   debug: false,
-
   providers: [
     GoogleProvider({
-      clientId:
-        process.env
-          .GOOGLE_CLIENT_ID!,
-
-      clientSecret:
-        process.env
-          .GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 
       authorization: {
         params: {
@@ -341,20 +253,12 @@ export const authOptions:
             "openid",
             "email",
             "profile",
-
             "https://www.googleapis.com/auth/webmasters.readonly",
-
             "https://www.googleapis.com/auth/analytics.readonly",
           ].join(" "),
-
-          access_type:
-            "offline",
-
-          prompt:
-            "consent",
-
-          response_type:
-            "code",
+          access_type: "offline",
+          prompt: "consent",
+          response_type: "code",
         },
       },
     }),
@@ -364,249 +268,235 @@ export const authOptions:
     strategy: "jwt",
   },
 
-  pages: {
-    signIn: "/login",
-  },
+
 
   callbacks: {
-    /*
-    |--------------------------------------------------------------------------
-    | JWT Callback
-    |--------------------------------------------------------------------------
-    */
 
-    async jwt({
-      token,
-      account,
-      user,
-    }) {
-      /*
-       * Login atau authorization Google baru.
-       */
+
+    async jwt({ token, account, user }) {
 
       if (account && user) {
-        token.userId =
-          user.id;
 
-        token.email =
-          user.email ??
-          undefined;
+        token.userId = user.id;
+
+        token.email = user.email ?? undefined;
 
         token.access_token =
-          account.access_token ??
-          token.access_token;
+          account.access_token ?? token.access_token;
 
         token.expires_at =
-          account.expires_at ??
-          token.expires_at;
+          account.expires_at ?? token.expires_at;
 
-        /*
-         * Google tidak selalu mengembalikan refresh
-         * token pada setiap authorization.
-         *
-         * Jika tidak tersedia pada response, gunakan
-         * token yang sudah tersimpan di Account.
-         */
 
         let refreshToken =
           account.refresh_token ??
           (
-            typeof token.refresh_token ===
-            "string"
+            typeof token.refresh_token === "string"
               ? token.refresh_token
               : undefined
           );
 
+
         if (!refreshToken) {
+
           const storedAccount =
             await prisma.account.findUnique({
+
               where: {
+
                 provider_providerAccountId: {
-                  provider:
-                    account.provider,
+
+                  provider: account.provider,
 
                   providerAccountId:
                     account.providerAccountId,
+
                 },
+
               },
 
-              select: {
-                refresh_token: true,
+              select:{
+                refresh_token:true,
               },
+
             });
 
+
           refreshToken =
-            storedAccount
-              ?.refresh_token ??
+            storedAccount?.refresh_token ??
             undefined;
+
         }
 
-        if (refreshToken) {
-          token.refresh_token =
-            refreshToken;
+
+        if(refreshToken){
+          token.refresh_token = refreshToken;
         }
+
+
 
         const dbUser =
           await prisma.user.findUnique({
-            where: {
-              id: user.id,
+
+            where:{
+              id:user.id,
             },
 
-            select: {
-              role: true,
+            select:{
+              role:true,
             },
+
           });
 
-        token.role =
-          dbUser?.role ??
-          "USER";
 
-        if (user.email) {
+
+        token.role =
+          dbUser?.role ?? "USER";
+
+
+
+        if(user.email){
+
           await ensureSubscription(
             user.email,
             user.name
           );
+
         }
 
+
         return token;
+
       }
 
-      /*
-       * JWT lama yang belum mempunyai custom
-       * userId tetap memakai token.sub.
-       */
 
-      if (
-        !token.userId &&
-        token.sub
-      ) {
-        token.userId =
-          token.sub;
+
+      if(!token.userId && token.sub){
+
+        token.userId = token.sub;
+
       }
+
+
 
       const expiresAt =
-        Number(
-          token.expires_at ??
-          0
-        );
+        Number(token.expires_at ?? 0);
 
-      /*
-       * Beri buffer 60 detik agar access token
-       * tidak kedaluwarsa ketika request Google
-       * sedang berjalan.
-       */
 
-      if (
+
+      if(
         expiresAt > 0 &&
         Date.now() <
-          (
-            expiresAt - 60
-          ) *
-          1000
-      ) {
+        (expiresAt - 60) * 1000
+      ){
+
         return token;
+
       }
 
-      if (
-        typeof token.refresh_token ===
-          "string" &&
+
+
+      if(
+        typeof token.refresh_token === "string" &&
         token.refresh_token
-      ) {
-        return refreshAccessToken(
-          token
-        );
+      ){
+
+        return refreshAccessToken(token);
+
       }
+
+
 
       return {
         ...token,
-        error: "NoRefreshToken",
+        error:"NoRefreshToken",
       };
+
+
     },
 
-    /*
-    |--------------------------------------------------------------------------
-    | Session Callback
-    |--------------------------------------------------------------------------
-    */
-
-    async session({
-  session,
-  token,
-}) {
-
-  if(session.user){
-
-    const userId =
-      getTokenUserId(token);
-
-
-    session.user.id =
-      userId ?? "";
-
-
-    session.user.role =
-      token.role === "ADMIN"
-        ? "ADMIN"
-        : "USER";
 
 
 
-    if(userId){
-
-      const subscription =
-        await prisma.subscription.findUnique({
-
-          where:{
-            userId
-          },
-
-          select:{
-            plan:true
-          }
-
-        });
+    async session({session,token}){
 
 
-      session.user.plan =
-        subscription?.plan ?? "FREE";
+      if(session.user){
 
-    }
+        const userId =
+          getTokenUserId(token);
 
 
+
+        session.user.id =
+          userId ?? "";
+
+
+
+        session.user.role =
+          token.role === "ADMIN"
+          ? "ADMIN"
+          : "USER";
+
+
+
+        if(userId){
+
+          const subscription =
+            await prisma.subscription.findUnique({
+
+              where:{
+                userId,
+              },
+
+              select:{
+                plan:true,
+              },
+
+            });
+
+
+          session.user.plan =
+            subscription?.plan ?? "FREE";
+
+        }
+
+      }
+
+
+
+      session.accessToken =
+        token.access_token;
+
+
+      session.refreshToken =
+        token.refresh_token;
+
+
+      session.expiresAt =
+        token.expires_at;
+
+
+      session.error =
+        token.error;
+
+
+      return session;
+
+    },
+
+
+
+async redirect({ url, baseUrl }) {
+
+  if (url.startsWith(baseUrl)) {
+    return url;
   }
 
-
-
-  session.accessToken =
-    token.access_token;
-
-
-  session.refreshToken =
-    token.refresh_token;
-
-
-  session.expiresAt =
-    token.expires_at;
-
-
-  session.error =
-    token.error;
-
-
-  return session;
+  return `${baseUrl}/id/dashboard`;
 
 },
 
-    /*
-    |--------------------------------------------------------------------------
-    | Redirect Callback
-    |--------------------------------------------------------------------------
-    */
 
-    async redirect({
-      baseUrl,
-    }) {
-      return `${baseUrl}/dashboard`;
-    },
   },
 };

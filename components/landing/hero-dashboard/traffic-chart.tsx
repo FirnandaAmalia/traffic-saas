@@ -8,6 +8,8 @@ import {
   XAxis,
 } from "recharts";
 
+import { useTranslations } from "next-intl";
+
 
 const data = [
   { day: "1", users: 1240 },
@@ -24,33 +26,57 @@ const data = [
 
 
 const stats = [
-  ["Users","18.3K"],
-  ["Clicks","42.1K"],
-  ["CTR","6.18%"],
+  {
+    key: "users",
+    value: "18.3K",
+  },
+  {
+    key: "clicks",
+    value: "42.1K",
+  },
+  {
+    key: "ctr",
+    value: "6.18%",
+  },
 ];
 
 
 export default function TrafficChart() {
+
+
+  const t = useTranslations("trafficChart");
+
+
+
   return (
 
     <div
       className="
         rounded-3xl
+
         border
+
         border-slate-200
+
         bg-white/90
+
         p-4
+
         shadow-sm
       "
     >
 
 
-      {/* Header */}
+
+      {/* HEADER */}
+
 
       <div
         className="
           flex
+
           items-center
+
           justify-between
         "
       >
@@ -60,38 +86,55 @@ export default function TrafficChart() {
           <h3
             className="
               text-sm
+
               font-bold
+
               text-slate-900
             "
           >
-            Traffic Organik
+
+            {t("title")}
+
           </h3>
 
 
           <p
             className="
               text-xs
+
               text-slate-500
             "
           >
-            28 Hari Terakhir
+
+            {t("period")}
+
           </p>
 
+
         </div>
+
 
 
         <span
           className="
             rounded-full
+
             bg-emerald-100
+
             px-3
+
             py-1
+
             text-xs
+
             font-bold
+
             text-emerald-700
           "
         >
+
           +18.4%
+
         </span>
 
 
@@ -99,25 +142,36 @@ export default function TrafficChart() {
 
 
 
-      {/* Mini Stats */}
+
+
+
+
+      {/* MINI STATS */}
+
 
       <div
         className="
           mt-4
+
           grid
+
           grid-cols-3
+
           gap-3
         "
       >
 
+
         {
-          stats.map(([label,value])=>(
-            
+          stats.map((item)=>(
+
             <div
-              key={label}
+              key={item.key}
               className="
                 rounded-xl
+
                 bg-slate-50
+
                 p-3
               "
             >
@@ -125,21 +179,28 @@ export default function TrafficChart() {
               <p
                 className="
                   text-[10px]
+
                   text-slate-500
                 "
               >
-                {label}
+
+                {t(`stats.${item.key}`)}
+
               </p>
 
 
               <p
                 className="
                   text-sm
+
                   font-black
+
                   text-slate-900
                 "
               >
-                {value}
+
+                {item.value}
+
               </p>
 
 
@@ -154,11 +215,17 @@ export default function TrafficChart() {
 
 
 
-      {/* Chart */}
+
+
+
+
+      {/* CHART */}
+
 
       <div
         className="
           mt-4
+
           h-36
         "
       >
@@ -171,6 +238,7 @@ export default function TrafficChart() {
           <AreaChart
             data={data}
           >
+
 
             <defs>
 
@@ -196,7 +264,9 @@ export default function TrafficChart() {
 
               </linearGradient>
 
+
             </defs>
+
 
 
             <XAxis
@@ -205,12 +275,14 @@ export default function TrafficChart() {
             />
 
 
+
             <Tooltip
               contentStyle={{
                 borderRadius:12,
-                border:"1px solid #ddd"
+                border:"1px solid #ddd",
               }}
             />
+
 
 
             <Area
@@ -235,4 +307,5 @@ export default function TrafficChart() {
     </div>
 
   );
+
 }

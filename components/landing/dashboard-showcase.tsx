@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -8,24 +7,29 @@ import {
   Brain,
   Sparkles,
   TrendingUp,
-  BarChart3,
   CheckCircle2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-
 import FadeUp from "@/components/motion/fade-up";
-
 import HeroDashboard from "@/components/landing/hero-dashboard";
 
-const features = [
-  "Integrasi Google Analytics 4",
-  "Insight Google Search Console",
-  "Rekomendasi SEO berbasis AI",
-  "Laporan performa otomatis",
-];
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 export default function DashboardShowcase() {
+
+  const t = useTranslations("dashboardShowcase");
+  const locale = useLocale();
+
+  const features = [
+    t("features.ga4"),
+    t("features.gsc"),
+    t("features.ai"),
+    t("features.reports"),
+  ];
+
+
   return (
     <section
       id="dashboard"
@@ -45,16 +49,11 @@ export default function DashboardShowcase() {
           absolute
           left-1/2
           top-0
-
           h-[600px]
           w-[900px]
-
           -translate-x-1/2
-
           rounded-full
-
           bg-violet-500/10
-
           blur-[160px]
         "
       />
@@ -83,7 +82,6 @@ export default function DashboardShowcase() {
 
 
 
-
           {/* LEFT */}
 
           <FadeUp>
@@ -96,30 +94,24 @@ export default function DashboardShowcase() {
                   inline-flex
                   items-center
                   gap-2
-
                   rounded-full
-
                   border
                   border-violet-200
-
                   bg-violet-50
-
                   px-4
                   py-2
-
                   text-sm
-
                   font-bold
-
                   text-violet-700
                 "
               >
 
                 <Sparkles className="h-4 w-4"/>
 
-                PRODUCT DASHBOARD
+                {t("badge")}
 
               </div>
+
 
 
 
@@ -127,24 +119,19 @@ export default function DashboardShowcase() {
               <h2
                 className="
                   mt-8
-
                   text-4xl
-
                   font-black
-
                   tracking-tight
-
                   text-slate-900
-
                   lg:text-6xl
                 "
               >
 
-                Semua data SEO.
+                {t("title.line1")}
 
                 <br />
 
-                Satu workspace.
+                {t("title.line2")}
 
                 <br />
 
@@ -154,13 +141,13 @@ export default function DashboardShowcase() {
                     bg-gradient-to-r
                     from-violet-600
                     to-sky-500
-
                     bg-clip-text
-
                     text-transparent
                   "
                 >
-                  Lebih pintar dengan AI.
+
+                  {t("title.highlight")}
+
                 </span>
 
 
@@ -169,27 +156,21 @@ export default function DashboardShowcase() {
 
 
 
+
               <p
                 className="
                   mt-6
-
                   max-w-xl
-
                   text-lg
-
                   leading-8
-
                   text-slate-600
                 "
               >
 
-                TrafficSaaS menyatukan Google Analytics 4,
-                Google Search Console, dan AI intelligence
-                menjadi satu platform untuk memahami performa
-                website dan menemukan peluang pertumbuhan.
-
+                {t("description")}
 
               </p>
+
 
 
 
@@ -219,9 +200,7 @@ export default function DashboardShowcase() {
                         w-8
                         items-center
                         justify-center
-
                         rounded-full
-
                         bg-emerald-100
                       "
                     >
@@ -259,31 +238,32 @@ export default function DashboardShowcase() {
 
 
 
+
               <Button
                 asChild
                 size="lg"
                 className="
                   mt-10
-
                   rounded-full
-
                   bg-gradient-to-r
-
                   from-violet-600
-
                   to-sky-500
-
                   px-8
-
                   shadow-lg
                 "
               >
 
-                <Link href="/api/auth/signin">
+                <Link href={`/${locale}/login`}>
 
-                  Coba TrafficSaaS
+                  {t("cta")}
 
-                  <ArrowRight className="ml-2 h-4 w-4"/>
+                  <ArrowRight
+                    className="
+                      ml-2
+                      h-4
+                      w-4
+                    "
+                  />
 
                 </Link>
 
@@ -291,10 +271,12 @@ export default function DashboardShowcase() {
               </Button>
 
 
+
             </div>
 
 
           </FadeUp>
+
 
 
 
@@ -319,26 +301,17 @@ export default function DashboardShowcase() {
               <div
                 className="
                   relative
-
                   rounded-[36px]
-
                   border
-
                   border-white/70
-
                   bg-white/80
-
                   p-3
-
                   shadow-[0_40px_120px_rgba(15,23,42,.18)]
-
                   backdrop-blur-xl
                 "
               >
 
 
-
-                {/* Browser */}
 
                 <div
                   className="
@@ -346,13 +319,9 @@ export default function DashboardShowcase() {
                     h-12
                     items-center
                     gap-2
-
                     rounded-t-3xl
-
                     border-b
-
                     bg-slate-50
-
                     px-5
                   "
                 >
@@ -397,25 +366,16 @@ export default function DashboardShowcase() {
                   <HeroDashboard />
 
 
-
-                  {/* AI Scanner */}
-
                   <div
                     className="
                       absolute
                       inset-x-0
                       top-0
-
                       h-1
-
                       bg-gradient-to-r
-
                       from-transparent
-
                       via-violet-500
-
                       to-transparent
-
                       animate-scan
                     "
                   />
@@ -425,11 +385,8 @@ export default function DashboardShowcase() {
                     className="
                       absolute
                       inset-0
-
                       bg-gradient-to-t
-
                       from-violet-500/10
-
                       to-transparent
                     "
                   />
@@ -446,32 +403,22 @@ export default function DashboardShowcase() {
 
 
 
+
               {/* AI Card */}
 
               <div
                 className="
                   absolute
-
                   -left-10
-
                   top-20
-
                   hidden
-
                   rounded-3xl
-
                   border
-
                   bg-white/90
-
                   p-5
-
                   shadow-2xl
-
                   backdrop-blur-xl
-
                   lg:block
-
                   animate-float
                 "
               >
@@ -483,13 +430,9 @@ export default function DashboardShowcase() {
                     className="
                       h-12
                       w-12
-
                       rounded-2xl
-
                       bg-violet-100
-
                       p-3
-
                       text-violet-700
                     "
                   />
@@ -498,12 +441,16 @@ export default function DashboardShowcase() {
                   <div>
 
                     <p className="text-xs text-slate-500">
-                      AI Analysis
+
+                      {t("aiCard.label")}
+
                     </p>
 
 
                     <p className="font-black">
-                      12 Opportunities
+
+                      {t("aiCard.value")}
+
                     </p>
 
 
@@ -520,32 +467,22 @@ export default function DashboardShowcase() {
 
 
 
+
               {/* Growth Card */}
 
               <div
                 className="
                   absolute
-
                   -right-8
-
                   bottom-16
-
                   hidden
-
                   rounded-3xl
-
                   border
-
                   bg-white/90
-
                   p-5
-
                   shadow-2xl
-
                   backdrop-blur-xl
-
                   lg:block
-
                   animate-float
                 "
               >
@@ -558,13 +495,9 @@ export default function DashboardShowcase() {
                     className="
                       h-12
                       w-12
-
                       rounded-2xl
-
                       bg-emerald-100
-
                       p-3
-
                       text-emerald-700
                     "
                   />
@@ -574,12 +507,16 @@ export default function DashboardShowcase() {
                   <div>
 
                     <p className="text-xs text-slate-500">
-                      Pertumbuhan Organik
+
+                      {t("growthCard.label")}
+
                     </p>
 
 
                     <p className="font-black">
-                      +42% Traffic
+
+                      {t("growthCard.value")}
+
                     </p>
 
 

@@ -19,6 +19,7 @@ import {
 
 import DeleteProjectDialog from "./delete-project-dialog";
 
+import { useLocale } from "next-intl";
 
 interface ProjectCardProps {
 
@@ -51,6 +52,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
 
 
+const locale = useLocale();
 
   const gscConnected =
     !!project.gscSiteUrl;
@@ -395,7 +397,7 @@ export default function ProjectCard({
           >
 
             <Link
-              href={`/dashboard?projectId=${project.id}`}
+              href={`/${locale}/dashboard?projectId=${project.id}`}
             >
 
               Workspace

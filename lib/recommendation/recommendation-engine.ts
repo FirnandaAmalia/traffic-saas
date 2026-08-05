@@ -22,8 +22,29 @@ import { countryOpportunityRule } from "./rules/country-opportunity";
 
 
 
+function translate(
+  locale:"id"|"en",
+  id:string,
+  en:string
+){
+
+  return locale === "en"
+    ? en
+    : id;
+
+}
+
+
+
 
 export interface RecommendationInput {
+
+
+locale:
+"id"
+|
+"en";
+
 
 clicks:number;
 
@@ -89,11 +110,6 @@ export type RecommendationPriority =
 |
 "low";
 
-
-
-
-
-
 export interface Recommendation {
 
 
@@ -106,16 +122,45 @@ priority:RecommendationPriority;
 score:number;
 
 
-title:string;
+
+title?:string;
 
 
-description:string;
+titleKey?:
+| "landingPageGrowth"
+| "ctrOptimization"
+| "conversionTracking"
+| "quickWin"
+| "contentDecay"
+| "mobileOptimization"
+| "browserCompatibility"
+| "countryOpportunity"
+| "eventInsight"
+| "seoMonitoring";
 
 
-recommendation:string;
+
+description?:string;
+
+recommendation?:string;
+
+impact?:string;
 
 
-impact:string;
+
+descriptionKey?:string;
+
+recommendationKey?:string;
+
+impactKey?:string;
+
+
+descriptionValues?:Record<string,string|number>;
+
+recommendationValues?:Record<string,string|number>;
+
+impactValues?:Record<string,string|number>;
+
 
 
 category:
@@ -133,29 +178,22 @@ icon:string;
 
 confidence?:number;
 
-
 businessValue?:number;
 
-
 reason?:string;
-
 
 roi?:number;
 
 
 difficulty?:
 "Easy"
-|
-"Medium"
-|
-"Hard";
+|"Medium"
+|"Hard";
 
 
 estimatedDays?:number;
 
-
 }
-
 
 
 export function generateRecommendations(
@@ -229,11 +267,6 @@ error
 
 
 
-
-
-// REMOVE DUPLICATE
-
-
 const unique = Array.from(
 
 new Map(
@@ -253,11 +286,6 @@ item
 
 
 
-
-
-
-
-// ENHANCE SCORE
 
 
 const enhanced = unique.map(item=>{
@@ -298,7 +326,10 @@ businessValue,
 
 
 reason:
-generateReason(item),
+generateReason(
+item,
+data.locale
+),
 
 
 
@@ -338,8 +369,8 @@ businessValue *0.25
 
 
 
-
-let finalRecommendations: Recommendation[] = enhanced.sort(
+let finalRecommendations =
+enhanced.sort(
 (a,b)=>{
 
 
@@ -380,7 +411,8 @@ return (
 
 }
 
-).slice(0,10);
+)
+.slice(0,10);
 
 
 
@@ -388,13 +420,6 @@ return (
 
 
 
-
-
-/*
-|--------------------------------------------------------------------------
-| AI FALLBACK
-|--------------------------------------------------------------------------
-*/
 
 
 if(
@@ -402,24 +427,41 @@ finalRecommendations.length===0
 ){
 
 
-finalRecommendations = [
+finalRecommendations=[
+
 {
+
 id:"seo-monitoring",
 
 priority:"medium",
 
 score:70,
 
-title:"Monitoring performa SEO website",
+titleKey:"seoMonitoring",
 
 description:
+
+translate(
+data.locale,
 "AI belum menemukan masalah kritis.",
+"AI has not detected any critical issues."
+),
 
 recommendation:
+
+translate(
+data.locale,
 "Lanjutkan monitoring keyword, traffic, dan halaman utama secara berkala.",
+"Continue monitoring keywords, traffic, and important pages regularly."
+),
 
 impact:
+
+translate(
+data.locale,
 "Menjaga stabilitas performa organik.",
+"Maintain organic performance stability."
+),
 
 category:"SEO",
 
@@ -430,15 +472,17 @@ confidence:60,
 businessValue:60,
 
 reason:
-"Data website belum menunjukkan peluang optimasi besar."
+
+translate(
+data.locale,
+"Data website belum menunjukkan peluang optimasi besar.",
+"Website data does not show significant optimization opportunities yet."
+)
 
 }
+
 ];
-
 }
-
-
-
 
 
 return finalRecommendations;
@@ -446,37 +490,53 @@ return finalRecommendations;
 
 }
 
+
+
+
+
+
 function normalizePriority(
-  priority: unknown
-): RecommendationPriority {
-
-  const value = String(priority).toLowerCase();
+priority:unknown
+):RecommendationPriority{
 
 
-  switch(value){
-
-    case "critical":
-      return "critical";
+const value =
+String(priority).toLowerCase();
 
 
-    case "high":
-      return "high";
+
+switch(value){
 
 
-    case "medium":
-      return "medium";
+case "critical":
+return "critical";
 
 
-    case "low":
-      return "low";
+case "high":
+return "high";
 
 
-    default:
-      return "medium";
+case "medium":
+return "medium";
 
-  }
+
+case "low":
+return "low";
+
+
+default:
+return "medium";
+
 
 }
+
+
+}
+
+
+
+
+
 
 function calculateConfidence(
 
@@ -491,9 +551,7 @@ let score=50;
 
 
 
-if(
-data.pages.length>0
-){
+if(data.pages.length>0){
 
 score+=10;
 
@@ -501,9 +559,7 @@ score+=10;
 
 
 
-if(
-data.queries.length>0
-){
+if(data.queries.length>0){
 
 score+=10;
 
@@ -511,9 +567,7 @@ score+=10;
 
 
 
-if(
-data.topEvents.length>0
-){
+if(data.topEvents.length>0){
 
 score+=10;
 
@@ -521,9 +575,7 @@ score+=10;
 
 
 
-if(
-item.priority==="high"
-){
+if(item.priority==="high"){
 
 score+=10;
 
@@ -531,9 +583,7 @@ score+=10;
 
 
 
-if(
-item.priority==="critical"
-){
+if(item.priority==="critical"){
 
 score+=15;
 
@@ -562,6 +612,7 @@ function calculateBusinessValue(
 item:Recommendation
 
 ){
+
 
 
 const values={
@@ -598,45 +649,84 @@ return values[item.category] ?? 50;
 
 
 
-
 function generateReason(
 
-item:Recommendation
+item:Recommendation,
+
+locale:"id"|"en"
 
 ){
+
 
 
 switch(item.category){
 
 
+
 case "SEO":
 
-return "AI menemukan peluang peningkatan visibilitas organik berdasarkan data pencarian.";
+
+return translate(
+locale,
+"AI menemukan peluang peningkatan visibilitas organik berdasarkan data pencarian.",
+"AI found opportunities to improve organic visibility based on search data."
+);
+
 
 
 case "Content":
 
-return "AI menemukan peluang pengembangan konten berdasarkan performa halaman.";
+
+return translate(
+locale,
+"AI menemukan peluang pengembangan konten berdasarkan performa halaman.",
+"AI found content growth opportunities based on page performance."
+);
+
 
 
 case "Conversion":
 
-return "AI menemukan peluang peningkatan hasil bisnis melalui optimasi halaman.";
+
+return translate(
+locale,
+"AI menemukan peluang peningkatan hasil bisnis melalui optimasi halaman.",
+"AI found opportunities to improve business results through page optimization."
+);
+
 
 
 case "UX":
 
-return "AI menemukan peluang peningkatan pengalaman pengguna.";
+
+return translate(
+locale,
+"AI menemukan peluang peningkatan pengalaman pengguna.",
+"AI found opportunities to improve user experience."
+);
+
 
 
 case "Analytics":
 
-return "AI menemukan peluang peningkatan kualitas pengukuran data.";
+
+return translate(
+locale,
+"AI menemukan peluang peningkatan kualitas pengukuran data.",
+"AI found opportunities to improve data measurement quality."
+);
+
 
 
 default:
 
-return "AI menemukan peluang optimasi berdasarkan kombinasi data website.";
+
+return translate(
+locale,
+"AI menemukan peluang optimasi berdasarkan kombinasi data website.",
+"AI found optimization opportunities based on combined website data."
+);
+
 
 
 }

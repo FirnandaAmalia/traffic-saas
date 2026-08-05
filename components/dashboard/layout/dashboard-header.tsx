@@ -8,8 +8,13 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-import { formatDistanceToNow } from "date-fns";
-import { id } from "date-fns/locale";
+import {
+  formatDistanceToNow,
+} from "date-fns";
+
+import {
+  id as idLocale,
+} from "date-fns/locale";
 
 import { Button } from "@/components/ui/button";
 
@@ -17,9 +22,13 @@ import DateRangePicker from "../shared/date-range-picker";
 import ExportDialog from "../export/export-dialog";
 import SyncButton from "../shared/sync-button";
 
-import type {
-  DateRange,
-} from "@/lib/date-range";
+import type { DateRange } from "@/lib/date-range";
+
+import {
+  getTranslations,
+  getLocale,
+} from "next-intl/server";
+
 
 
 interface DashboardHeaderProps {
@@ -42,7 +51,9 @@ interface DashboardHeaderProps {
 
 
 
-export default function DashboardHeader({
+
+
+export default async function DashboardHeader({
 
   projectId,
 
@@ -61,6 +72,17 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
 
 
+const locale =
+await getLocale();
+
+
+
+const t =
+await getTranslations(
+"dashboard"
+);
+
+
 
 const lastSyncLabel =
 lastSyncedAt
@@ -71,27 +93,28 @@ formatDistanceToNow(
   lastSyncedAt,
   {
     addSuffix:true,
-    locale:id,
+    locale:
+      locale === "id"
+      ? idLocale
+      : undefined,
   }
 )
 
 :
 
-"Belum pernah";
+t("sync.never");
 
 
 
-const gscConnected =
-Boolean(gscSiteUrl);
-
-
-const ga4Connected =
-Boolean(ga4PropertyId);
 
 
 const workspaceReady =
-gscConnected &&
-ga4Connected;
+Boolean(gscSiteUrl)
+&&
+Boolean(ga4PropertyId);
+
+
+
 
 
 
@@ -124,13 +147,13 @@ xl:justify-between
 
 
 
-{/* HEADER LEFT */}
 
 <div
 className="
 max-w-3xl
 "
 >
+
 
 
 <div
@@ -147,9 +170,11 @@ text-blue-700
 "
 >
 
-Dashboard SEO Intelligence
+{t("title")}
 
 </div>
+
+
 
 
 
@@ -157,7 +182,7 @@ Dashboard SEO Intelligence
 className="
 mt-4
 text-4xl
-font-bold
+font-black
 tracking-tight
 text-slate-900
 "
@@ -166,6 +191,8 @@ text-slate-900
 {projectName}
 
 </h1>
+
+
 
 
 
@@ -178,8 +205,7 @@ text-slate-500
 "
 >
 
-Pantau trafik organik, visibilitas pencarian,
-dan performa Google Analytics dalam satu workspace.
+{t("description")}
 
 </p>
 
@@ -220,8 +246,10 @@ workspaceReady
 "bg-amber-50 text-amber-700"
 
 }
+
 `}
 >
+
 
 
 {
@@ -239,10 +267,9 @@ w-4
 "
 />
 
-Workspace Siap Digunakan
+{t("workspace.ready")}
 
 </>
-
 
 :
 
@@ -256,12 +283,11 @@ w-4
 "
 />
 
-Perlu Konfigurasi
+{t("workspace.configuration")}
 
 </>
 
 }
-
 
 
 </div>
@@ -284,7 +310,7 @@ text-slate-700
 "
 >
 
-Sinkronisasi terakhir • {lastSyncLabel}
+{t("sync.last")} • {lastSyncLabel}
 
 </div>
 
@@ -293,16 +319,12 @@ Sinkronisasi terakhir • {lastSyncLabel}
 </div>
 
 
-
 </div>
 
 
 
 
 
-
-
-{/* ACTION AREA */}
 
 
 <div
@@ -318,7 +340,6 @@ gap-3
 <DateRangePicker />
 
 
-
 <ExportDialog
 
 projectId={projectId}
@@ -330,25 +351,20 @@ range={range}
 />
 
 
-
 <SyncButton />
 
 
 
 
-
 <Button
-
 asChild
-
 variant="outline"
-
 >
 
 
 <Link
 
-href={`/dashboard/settings?projectId=${projectId}&range=${range}`}
+href={`/${locale}/dashboard/settings?projectId=${projectId}&range=${range}`}
 
 >
 
@@ -362,7 +378,7 @@ w-4
 />
 
 
-Pengaturan
+{t("actions.settings")}
 
 
 </Link>
@@ -375,6 +391,7 @@ Pengaturan
 </div>
 
 
+
 </div>
 
 
@@ -383,8 +400,6 @@ Pengaturan
 
 
 
-
-{/* CONNECTION INFO */}
 
 
 <div
@@ -399,9 +414,6 @@ lg:grid-cols-3
 >
 
 
-
-
-{/* GSC */}
 
 
 <div
@@ -454,7 +466,7 @@ text-slate-500
 "
 >
 
-Google Search Console
+{t("integration.gsc")}
 
 </p>
 
@@ -471,31 +483,27 @@ text-slate-900
 >
 
 {
-gscSiteUrl
-??
-
-"Belum Terhubung"
+gscSiteUrl ??
+t("integration.notConnected")
 }
 
 </p>
 
 
-
-</div>
-
-
-
 </div>
 
 
 </div>
 
 
+</div>
 
 
 
 
-{/* GA4 */}
+
+
+
 
 
 <div
@@ -523,7 +531,6 @@ p-3
 "
 >
 
-
 <BarChart3
 className="
 h-5
@@ -532,9 +539,7 @@ text-emerald-600
 "
 />
 
-
 </div>
-
 
 
 
@@ -551,10 +556,9 @@ text-slate-500
 "
 >
 
-Google Analytics 4
+{t("integration.ga4")}
 
 </p>
-
 
 
 
@@ -568,22 +572,15 @@ text-slate-900
 "
 >
 
-
 {
-ga4PropertyName
-??
-
-ga4PropertyId
-??
-
-"Belum Terhubung"
+ga4PropertyName ??
+ga4PropertyId ??
+t("integration.notConnected")
 }
-
 
 </p>
 
 
-
 </div>
 
 
@@ -596,9 +593,6 @@ ga4PropertyId
 
 
 
-
-
-{/* STATUS */}
 
 
 
@@ -608,6 +602,7 @@ bg-white
 p-6
 "
 >
+
 
 
 <p
@@ -620,10 +615,9 @@ text-slate-500
 "
 >
 
-Status Workspace
+{t("integration.status")}
 
 </p>
-
 
 
 
@@ -651,8 +645,10 @@ workspaceReady
 "bg-amber-50 text-amber-700"
 
 }
+
 `}
 >
+
 
 
 {
@@ -670,7 +666,7 @@ w-4
 "
 />
 
-Terhubung & Siap
+{t("workspace.connected")}
 
 </>
 
@@ -686,7 +682,7 @@ w-4
 "
 />
 
-Perlu Setup
+{t("workspace.setup")}
 
 </>
 
@@ -695,6 +691,7 @@ Perlu Setup
 
 
 </div>
+
 
 
 
@@ -708,17 +705,16 @@ text-slate-500
 "
 >
 
-
 {
 workspaceReady
 
 ?
 
-"Google Search Console dan Google Analytics sudah terhubung dan siap digunakan untuk analisis data."
+t("status.connectedDescription")
 
 :
 
-"Hubungkan Google Search Console dan Google Analytics untuk membuka seluruh fitur analitik SEO."
+t("status.setupDescription")
 
 }
 
@@ -731,8 +727,6 @@ workspaceReady
 
 
 
-
-
 </div>
 
 
@@ -741,6 +735,5 @@ workspaceReady
 
 
 );
-
 
 }

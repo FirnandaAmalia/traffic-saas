@@ -19,7 +19,7 @@ import {
 import PaymentConfirmButton
 from "@/components/admin/payment-confirm-button";
 
-
+import { getLocale } from "next-intl/server";
 
 type PaymentWithUser =
 Prisma.PaymentGetPayload<{
@@ -32,6 +32,7 @@ Prisma.PaymentGetPayload<{
 
 
 export default async function PaymentsPage(){
+const locale = await getLocale();
 
 const session =
 await getServerSession(
@@ -54,7 +55,7 @@ redirect("/login");
 }
 if(session.user.role !== "ADMIN"){
 
-redirect("/dashboard");
+redirect(`/${locale}/dashboard`);
 
 }
 

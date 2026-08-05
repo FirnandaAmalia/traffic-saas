@@ -7,36 +7,36 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 import FadeUp from "@/components/motion/fade-up";
+
 
 const steps = [
   {
     icon: Search,
-    title: "Hubungkan Data",
-    description:
-      "Hubungkan Google Search Console dan Google Analytics 4 untuk mengambil data performa website.",
+    key: "connect",
   },
   {
     icon: Brain,
-    title: "Analisis AI",
-    description:
-      "TrafficSaaS menganalisis traffic, keyword, dan halaman untuk menemukan peluang pertumbuhan.",
+    key: "analysis",
   },
   {
     icon: Sparkles,
-    title: "Rekomendasi Cerdas",
-    description:
-      "Dapatkan insight SEO yang mudah dipahami dan rekomendasi yang langsung dapat diterapkan.",
+    key: "recommendation",
   },
   {
     icon: CheckCircle2,
-    title: "Tingkatkan Traffic",
-    description:
-      "Ambil keputusan berdasarkan data dan tingkatkan performa website secara konsisten.",
+    key: "growth",
   },
 ];
 
+
 export default function IntegrationFlow() {
+
+  const t = useTranslations("integration");
+
+
   return (
     <section
       className="
@@ -79,8 +79,13 @@ export default function IntegrationFlow() {
 
         <FadeUp>
 
-          <div className="mx-auto max-w-3xl text-center">
-
+          <div
+            className="
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
 
             <div
               className="
@@ -101,7 +106,7 @@ export default function IntegrationFlow() {
 
               <Sparkles className="h-4 w-4"/>
 
-              Cara Kerja TrafficSaaS
+              {t("badge")}
 
             </div>
 
@@ -118,7 +123,7 @@ export default function IntegrationFlow() {
               "
             >
 
-              Dari data mentah menjadi
+              {t("title.line1")}
 
               <br />
 
@@ -131,10 +136,14 @@ export default function IntegrationFlow() {
                   text-transparent
                 "
               >
-                strategi SEO yang jelas
+
+                {t("title.line2")}
+
               </span>
 
+
             </h2>
+
 
 
             <p
@@ -146,8 +155,7 @@ export default function IntegrationFlow() {
               "
             >
 
-              TrafficSaaS menghubungkan seluruh data penting website
-              dan mengubahnya menjadi insight serta tindakan nyata.
+              {t("description")}
 
             </p>
 
@@ -155,6 +163,7 @@ export default function IntegrationFlow() {
           </div>
 
         </FadeUp>
+
 
 
 
@@ -193,6 +202,7 @@ export default function IntegrationFlow() {
 
 
 
+
           {steps.map((step,index)=>{
 
             const Icon = step.icon;
@@ -201,7 +211,7 @@ export default function IntegrationFlow() {
             return (
 
               <FadeUp
-                key={step.title}
+                key={step.key}
                 delay={index * 0.1}
               >
 
@@ -233,6 +243,7 @@ export default function IntegrationFlow() {
                   >
 
 
+
                     {/* Number */}
 
                     <div
@@ -240,10 +251,8 @@ export default function IntegrationFlow() {
                         absolute
                         right-5
                         top-5
-
                         text-5xl
                         font-black
-
                         text-slate-100
                       "
                     >
@@ -254,12 +263,13 @@ export default function IntegrationFlow() {
 
 
 
+
+
                     {/* Icon */}
 
                     <div
                       className="
                         relative
-
                         flex
                         h-14
                         w-14
@@ -289,6 +299,8 @@ export default function IntegrationFlow() {
 
 
 
+
+
                     <h3
                       className="
                         mt-6
@@ -298,9 +310,11 @@ export default function IntegrationFlow() {
                       "
                     >
 
-                      {step.title}
+                      {t(`steps.${step.key}.title`)}
 
                     </h3>
+
+
 
 
 
@@ -313,7 +327,7 @@ export default function IntegrationFlow() {
                       "
                     >
 
-                      {step.description}
+                      {t(`steps.${step.key}.description`)}
 
                     </p>
 

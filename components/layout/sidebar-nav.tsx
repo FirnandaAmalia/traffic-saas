@@ -16,7 +16,7 @@ import {
   Target,
   Download,
 } from "lucide-react";
-
+import { useLocale } from "next-intl";
 
 const ICONS = {
 
@@ -71,7 +71,7 @@ export default function SidebarNavItem({
 
 }: SidebarNavItemProps){
 
-
+const locale = useLocale();
   const pathname = usePathname();
 
 
@@ -82,7 +82,7 @@ export default function SidebarNavItem({
     pathname === href
     ||
     (
-      href !== "/dashboard"
+      href !== `/${locale}/dashboard`
       &&
       pathname.startsWith(href)
     );

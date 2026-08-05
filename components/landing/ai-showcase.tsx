@@ -11,41 +11,35 @@ import {
 } from "lucide-react";
 
 import FadeUp from "@/components/motion/fade-up";
+import { useTranslations } from "next-intl";
 
 const insights = [
   {
     icon: TrendingUp,
-    title: "Pertumbuhan Organic Traffic",
-    value: "+42%",
-    description:
-      "Traffic organik meningkat dibanding periode sebelumnya.",
+    key: "traffic",
   },
   {
     icon: AlertTriangle,
-    title: "Peluang CTR",
-    value: "12 Pages",
-    description:
-      "Halaman dengan impression tinggi tetapi clicks masih rendah.",
+    key: "ctr",
   },
   {
     icon: Lightbulb,
-    title: "Rekomendasi AI",
-    value: "+18%",
-    description:
-      "Estimasi peningkatan traffic setelah optimasi.",
+    key: "recommendation",
   },
 ];
 
+
 const features = [
-  "Ringkasan SEO Eksekutif",
-  "Deteksi Peluang CTR",
-  "Analisis Penurunan Konten",
-  "Prediksi Dampak Bisnis",
-  "Rekomendasi Prioritas",
+  "summary",
+  "ctr",
+  "content",
+  "business",
+  "priority",
 ];
 
-
 export default function AIShowcase() {
+
+  const t = useTranslations("aiShowcase");
   return (
     <section
       id="ai"
@@ -137,7 +131,7 @@ export default function AIShowcase() {
 
                 <Sparkles className="h-4 w-4"/>
 
-                AI SEO INTELLIGENCE ENGINE
+                {t("badge")}
 
               </div>
 
@@ -160,28 +154,25 @@ export default function AIShowcase() {
                 "
               >
 
-                Bukan Sekadar
+                {t("title.line1")}
 
-                <br />
+<br />
 
-                Dashboard Analytics.
+{t("title.line2")}
 
-                <br />
+<br />
 
-
-                <span
-                  className="
-                    bg-gradient-to-r
-                    from-violet-600
-                    to-sky-500
-
-                    bg-clip-text
-
-                    text-transparent
-                  "
-                >
-                  AI SEO Consultant.
-                </span>
+<span
+className="
+bg-gradient-to-r
+from-violet-600
+to-sky-500
+bg-clip-text
+text-transparent
+"
+>
+{t("title.highlight")}
+</span> 
 
 
               </h2>
@@ -203,9 +194,7 @@ export default function AIShowcase() {
                 "
               >
 
-                TrafficSaaS memahami data Google Search Console
-dan Google Analytics 4 untuk menemukan masalah,
-peluang, dan strategi SEO secara otomatis.
+              {t("description")}
 
 
               </p>
@@ -266,7 +255,7 @@ peluang, dan strategi SEO secara otomatis.
                       "
                     >
 
-                      {item}
+                     {t(`features.${item}`)}
 
                     </span>
 
@@ -541,7 +530,7 @@ peluang, dan strategi SEO secara otomatis.
                   return (
 
                     <div
-                      key={item.title}
+  key={item.key}
                       className="
                         flex
                         items-center
@@ -600,7 +589,7 @@ peluang, dan strategi SEO secara otomatis.
                           "
                         >
 
-                          {item.title}
+                          {t(`insights.${item.key}.title`)}
 
                         </p>
 
@@ -612,7 +601,7 @@ peluang, dan strategi SEO secara otomatis.
                           "
                         >
 
-                          {item.description}
+                          {t(`insights.${item.key}.description`)}
 
                         </p>
 
@@ -627,7 +616,7 @@ peluang, dan strategi SEO secara otomatis.
                         "
                       >
 
-                        {item.value}
+                        {t(`insights.${item.key}.value`)}
 
                       </span>
 
@@ -669,28 +658,23 @@ peluang, dan strategi SEO secara otomatis.
                 <div>
 
                   <p
-                    className="
-                      text-xs
-                      text-slate-400
-                    "
-                  >
-
-                    Rekomendasi AI
-
-                  </p>
+  className="
+    text-xs
+    text-slate-400
+  "
+>
+  {t("recommendation.label")}
+</p>
 
 
-                  <p
-                    className="
-                      mt-1
-                      font-semibold
-                    "
-                  >
-
-                    Optimalkan 12 meta titles
-
-                  </p>
-
+<p
+  className="
+    mt-1
+    font-semibold
+  "
+>
+  {t("recommendation.text")}
+</p>
                 </div>
 
 
