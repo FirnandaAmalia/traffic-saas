@@ -581,7 +581,7 @@ export default function PricingPreview() {
         "
       >
 
-        <Link href="/billing">
+        <Link href={`/${locale}/billing`}>
 
           {t("pro.cta")}
 

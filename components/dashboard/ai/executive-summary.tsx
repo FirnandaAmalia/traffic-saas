@@ -4,6 +4,10 @@
 import Link from "next/link";
 
 import {
+  useLocale,
+} from "next-intl";
+
+import {
   Bot,
   Sparkles,
   ShieldCheck,
@@ -129,7 +133,7 @@ summary,
 }:ExecutiveSummaryProps){
 
 
-
+const locale = useLocale();
 const canUseAI = hasFeature(
 
 plan,
@@ -246,7 +250,7 @@ and growth opportunities.
 
 <Link
 
-href="/billing"
+href={`/${locale}/billing`}
 
 className="
 mt-8

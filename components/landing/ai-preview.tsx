@@ -12,7 +12,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-
+import { useLocale } from "next-intl";
 
 const features = [
   "summary",
@@ -24,7 +24,7 @@ const features = [
 
 export default function AIPreview() {
 
-
+const locale = useLocale();
   const t = useTranslations("aiPreview");
 
 
@@ -313,7 +313,7 @@ export default function AIPreview() {
             "
           >
 
-            <Link href="/billing">
+            <Link href={`/${locale}/billing`}>
 
               {t("cta")}
 
