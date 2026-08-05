@@ -1,161 +1,167 @@
 import { prisma } from "@/lib/prisma";
-
 import PaymentClient from "./payment-client";
 
 
 interface Props {
-
   params: Promise<{
     orderId:string;
   }>;
-
 }
-
-
 
 
 export default async function PaymentPage({
+  params,
+}: Props) {
 
-params
 
-}:Props){
+  try {
 
+    const {
+      orderId
+    } = await params;
 
 
-const {
-orderId
+    console.log(
+      "PAYMENT ORDER ID:",
+      orderId
+    );
 
-} = await params;
 
+    const payment =
+      await prisma.payment.findUnique({
 
+        where:{
+          orderId
+        }
 
+      });
 
 
-const payment =
+    console.log(
+      "PAYMENT DATA:",
+      payment
+    );
 
-await prisma.payment.findUnique({
 
-where:{
-  orderId
-}
 
-});
+    if(!payment){
 
+      return (
 
+        <div className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-50
+        ">
 
+          <div className="
+            rounded-2xl
+            bg-white
+            p-8
+            shadow
+            text-center
+          ">
 
+            <h1 className="
+              text-xl
+              font-bold
+            ">
+              Payment Tidak Ditemukan
+            </h1>
 
 
-if(!payment){
+            <p className="
+              mt-2
+              text-sm
+              text-slate-500
+            ">
+              Order pembayaran tidak tersedia.
+            </p>
 
+          </div>
 
-return (
+        </div>
 
-<div
-className="
-flex
-min-h-screen
-items-center
-justify-center
-bg-slate-50
-"
+      );
 
->
+    }
 
 
-<div
-className="
-rounded-2xl
-bg-white
-p-8
-shadow
-text-center
-"
 
->
+    return (
 
+      <PaymentClient
 
-<h1
-className="
-text-xl
-font-bold
-text-slate-900
-"
+        payment={{
 
->
+          id:
+          payment.id,
 
-Payment Tidak Ditemukan
 
-</h1>
+          orderId:
+          payment.orderId,
 
 
+          status:
+          payment.status,
 
-<p
-className="
-mt-2
-text-sm
-text-slate-500
-"
 
->
+          amount:
+          payment.amount,
 
-Order pembayaran tidak valid atau sudah tidak tersedia.
 
-</p>
+          qrCodeUrl:
+          payment.qrCodeUrl,
 
+        }}
 
-</div>
+      />
 
+    );
 
-</div>
 
-);
 
+  } catch(error){
 
-}
 
+    console.error(
+      "PAYMENT PAGE ERROR:",
+      error
+    );
 
 
+    return (
 
+      <div className="
+        flex
+        min-h-screen
+        items-center
+        justify-center
+      ">
 
+        <div>
 
+          <h1 className="
+            text-xl
+            font-bold
+          ">
+            Payment Error
+          </h1>
 
-return (
+          <p>
+            Terjadi kesalahan server.
+          </p>
 
-<PaymentClient
+        </div>
 
-payment={
 
-{
+      </div>
 
-id:
-payment.id,
+    );
 
 
-orderId:
-payment.orderId,
-
-
-status:
-payment.status,
-
-
-amount:
-payment.amount,
-
-
-qrCodeUrl:
-payment.qrCodeUrl,
-
-
-}
-
-}
-
-
-/>
-
-);
-
+  }
 
 }

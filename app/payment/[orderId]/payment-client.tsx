@@ -17,7 +17,7 @@ import {
   useRouter,
 } from "next/navigation";
 
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 
 interface PaymentData {
 
@@ -48,12 +48,15 @@ export default function PaymentClient({
   payment: PaymentData;
 }) {
 
-
-const locale = useLocale();
 const [loading,setLoading] =
 useState(false);
 
+const pathname = usePathname();
 
+const locale =
+pathname.startsWith("/en")
+? "en"
+: "id";
 
 const [submitted,setSubmitted] =
 useState(
